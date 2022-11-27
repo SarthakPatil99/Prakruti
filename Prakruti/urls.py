@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from Prakruti_App import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('/', index),
-    # changes
-    # nechange
+    path("", views.index, name='landing'),
+    path("about/", views.about, name='about'),
+    path("home/", views.home, name='home'),
 ]
