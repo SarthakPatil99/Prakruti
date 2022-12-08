@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 
+jinja = {}
 
 def index(request):
     return render(request, 'index.html')
