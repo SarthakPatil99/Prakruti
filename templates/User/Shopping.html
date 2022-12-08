@@ -1,12 +1,27 @@
-{%extends 'base.html'%} {% load static %} {% block title%} Shopping
-{%endblock title%} {% block body %}
+{%extends 'base.html'%} 
+{% block background%}
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+{% endblock background%} 
+{% block title%} Shopping {%endblock title%} 
+{% block nav_links%}
+<li class="menu-active nav-item">
+  <a class="nav-link" href="/">Home</a>
+</li>
+<li class="menu-active nav-item">
+  <a class="nav-link" href="/analyze">Analyzer</a>
+</li>
+{% endblock nav_links%} 
+
+{% block body %}
 <div class="mainContainer">
   <!-- <NW_Recomender /> -->
   <center>
     <div class="myContainer">
       <div class="section-header head">
         <h3 class="section-title cta-title">Recommended</h3>
-        <span class="section-dividerR" />
+        <span class="section-dividerR">
       </div>
       <div class="row" data-aos="fade-up">
         <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
