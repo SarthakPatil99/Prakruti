@@ -19,6 +19,5 @@ from Prakruti_App import views
 
 urlpatterns = [
     path("", views.index, name='landing'),
-    path("about/", views.about, name='about'),
-    path("home/", views.home, name='home'),
+    path("signup/", views.signup, name='signup'),
 ]

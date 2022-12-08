@@ -17,6 +17,10 @@
       href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/15a00c5ce9.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- Bootstrap CSS File -->
     <link
@@ -45,42 +49,190 @@
 
     <!-- Main Stylesheet File -->
     <link href="{% static 'css/index.css' %}" rel="stylesheet" />
-    <script
-      src="https://kit.fontawesome.com/15a00c5ce9.js"
-      crossorigin="anonymous"
-    ></script>
   </head>
 
   <body>
+    {% block background%}{% endblock background%}
     <!--==========================
     Header
   ============================-->
     <nav id="header" class="navbar navbar-expand-lg">
       <div id="logo" class="container-fluid">
-        <h1><a href="#intro" style="color: rgb(252, 202, 0)" class="scrollto"
+        <h1>
+          <a href="#intro" style="color: rgb(252, 202, 0)" class="scrollto"
             >Prakruti</a
-          ></h1>
+          >
+        </h1>
         <button
           class="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
+          <!-- mistake -->
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="menu-active nav-item"><a class="nav-link" href="#intro">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
-            <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
-            <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-            <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
+            {% block nav_links%}{% endblock nav_links%}
           </ul>
-          <button class="btn btn-warning" type="submit">Login</button>
+          <!-- <button class="btn btn-warning" type="submit">Login</button> -->
+
+          {% if user.is_authenticated %}
+          <ul
+            class="navbar-nav mb-2 mb-lg-0 ml-auto border border-1 border-warning rounded-3"
+          >
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="/services"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Welcome {{ request.user }}
+              </a>
+              <ul
+                class="dropdown-menu bg-success"
+                aria-labelledby="navbarDropdown"
+              >
+                <a href="/logout" class="dropdown-item" style="color: white"
+                  ><b style="align-items: center">LOGOUT</b></a
+                >
+              </ul>
+            </li>
+          </ul>
+          {% else %}
+          <button
+            type="button"
+            class="btn btn-warning"
+            data-toggle="modal"
+            data-target="#myModal"
+          >
+            LOGIN
+          </button>
+          {% endif %}
+
+          <div class="modal" id="myModal">
+            <div class="modal-dialog">
+              <div
+                class="modal-content"
+                style="
+                  border: none;
+                  background-color: rgb(198, 198, 198);
+                  z-index: 3;
+                "
+              >
+                <div class="modal-header" style="background-color: #e8bb37">
+                  <h4 class="modal-title">LOGIN</h4>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                  ></button>
+                </div>
+                <form action="/login" method="post">
+                  <div class="mb-3 mt-3">
+                    <label for="log_username" class="form-label"
+                      >Username:</label
+                    >
+                    <input
+                      type="username"
+                      class="form-control"
+                      id="log_username"
+                      placeholder="Enter Username (First Name)"
+                      name="log_username"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="log_pwd" class="form-label">Password:</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="log_pwd"
+                      placeholder="Enter password"
+                      name="log_pwd"
+                    />
+                  </div>
+                  <div class="row">
+                    <div class="col-3">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-primary">
+                        Log in
+                      </button>
+                    </div>
+                    <div class="col-3">
+                      <a
+                        href="/signup"
+                        class="btn btn-warning"
+                        style="color: white"
+                        >Sign up</a
+                      >
+                    </div>
+                  </div>
+                  <a
+                    class="btn"
+                    href="#myModal1"
+                    data-bs-toggle="modal"
+                    style="border: none; color: rgb(4, 186, 4)"
+                    >Forget Password ?</a
+                  >
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="myModal1">
+            <div class="modal-dialog">
+              <div
+                class="modal-content"
+                style="border: none; background-color: rgb(198, 198, 198)"
+              >
+                <div class="modal-header" style="background-color: #e8bb37">
+                  <h4 class="modal-title">FORGET PASSWORD</h4>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                  ></button>
+                </div>
+
+                <form action="/" method="POST">
+                  <div id="accordian">
+                    <div class="mb-3 mt-3">
+                      <label for="frgt_mail" class="form-label"
+                        >Enter Email:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="frgt_mail"
+                        placeholder="Enter email"
+                        name="frgt_mail"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <button type="submit" name="otp" class="btn btn-primary">
+                        Send otp
+                      </button>
+                      {% csrf_token %}
+                      <a
+                        class="btn"
+                        href="#myModal"
+                        data-bs-toggle="modal"
+                        style="border: none; color: brown"
+                        >Back</a
+                      >
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
@@ -100,19 +252,12 @@
               &copy; Copyright <strong>Avilon</strong>. All Rights Reserved
             </div>
             <div class="credits">
-              <!--
-              All the links in the footer should remain intact.
-              You can delete the links only if you purchased the pro version.
-              Licensing information: https://bootstrapmade.com/license/
-              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Avilon
-            -->
               Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
             </div>
           </div>
           <div class="col-lg-6">
             <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
-              <a href="#intro" class="scrollto">Home</a>
-              <a href="#about" class="scrollto">About</a>
+              {% block footer_navs%}{% endblock footer_navs%}
               <a href="#">Privacy Policy</a>
               <a href="#">Terms of Use</a>
             </nav>

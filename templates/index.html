@@ -5,6 +5,25 @@
 Landing Page
 {% endblock title%}
 
+{% block nav_links%}
+<li class="menu-active nav-item">
+  <a class="nav-link" href="#intro">Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="#about">About Us</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="#features">Features</a>
+</li>
+<li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+<li class="nav-item">
+  <a class="nav-link" href="#gallery">Gallery</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="#contact">Contact Us</a>
+</li>
+{% endblock nav_links%}
+
 {% block body %}
 <!--==========================
     Intro Section
@@ -492,3 +511,8 @@ Landing Page
 
   </main>
 {% endblock body%}
+
+{% block footer_navs%}
+<a href="#intro" class="scrollto">Home</a>
+<a href="#about" class="scrollto">About</a>
+{% endblock footer_navs%}
