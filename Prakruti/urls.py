@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from Prakruti_App import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("", views.index, name='landing'),
+    path("signup/", views.signup, name='signup'),
+    path("home/", views.home, name='home'),
+    path("analyze/", views.analyze, name='analysis'),
+    path("recommend/", views.recommend, name='recommender'),
+    path("shopping/", views.shopping, name='shopping'),
 ]

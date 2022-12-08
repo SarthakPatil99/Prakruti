@@ -1,0 +1,88 @@
+{%extends 'base.html'%}
+
+{ % load static % }
+{% block title%}
+Sign Up
+{% endblock title%}
+
+{% block nav_links%}
+<li class="menu-active nav-item">
+    <a class="nav-link" href="/">Home</a>
+</li>
+{% endblock nav_links%}
+
+{% block background%}
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+{% endblock background%}
+
+{% block body %}
+<div class="sign_up">
+    <div class="row">
+        <div class="col-12 col-md-8 col-lg-7">
+            <div class="card" style="border-radius: 20px;">
+                <h1>Sign Up</h1>
+                <hr>
+                <form action="/signup" method="post" enctype="multipart/form-data">
+                    <label for="username" class="form-label"><b>Username:</b></label>
+                    <input type="Username" class="form-control mb-3" id="urname" placeholder="Enter username" name="urname" required>
+
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-6">
+                            <div class="mb-3">
+                                <label for="pwd" class="form-label"><b>Password:</b></label>
+                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6">
+                            <div class="mb-3">
+                                <label for="confirm_pwd" class="form-label"><b>Confirm Password:</b></label>
+                                <input type="password" class="form-control" id="confirm_pwd" placeholder="Enter confirm password" name="confirm_pwd" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <label for="name" class="form-label"><b>Full Name:</b></label>
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4 mb-3">
+                            <label for="fname" class="form-label">First:</label>
+                            <input type="first name" class="form-control" id="fname" placeholder="Enter First Name" name="fname" required>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 mb-3">
+                            <label for="mname" class="form-label">Middle:</label>
+                            <input type="middle name" class="form-control" id="mname" placeholder="Enter Middle Name" name="mname" required>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <label for="lname" class="form-label">Last:</label>
+                            <input type="last name" class="form-control" id="lame" placeholder="Enter Last Name" name="lname" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-6">
+                            <div class="mb-3 mt-3">
+                                <label for="email" class="form-label"><b>Email:</b></label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6">
+                            <div class="mb-3 mt-3">
+                                <label for="phone" class="form-label"><b>Phone Number:</b></label>
+                                <input type="phone" class="form-control" id="phone" placeholder="Enter Phone No." name="phone" required>
+                            </div>
+                        </div>
+                    </div>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body%}
+
+{% block footer_navs%}
+<a href="" class="scrollto">Home</a>
+<a href="" class="scrollto">About</a>
+{% endblock footer_navs%}
