@@ -1,0 +1,125 @@
+{%extends 'base.html'%} {% load static %} {% block title%} Analyzer {%endblock title%} {% block body %}
+<div
+  class="modal fade"
+  id="WebcamM"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog"></div>
+  <div
+    class="modal-content"
+    style="width: fit-content !important; height: auto !important"
+  >
+    <div class="modal-header" style="margin-right: 38% !important">
+      <h5 class="modal-title" id="exampleModalLabel">header</h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <p>hello</p>
+    </div>
+    <div class="modal-footer">
+      <!-- {% if variable %} -->
+      <button class="btn btn-primary">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          fill="currentColor"
+          class="bi bi-camera"
+          viewBox="3 0 10 16"
+        >
+          <path
+            d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"
+          />
+          <path
+            d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"
+          />
+        </svg>
+      </button>
+      <button class="btn btn-secondary ml-3">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          fill="currentColor"
+          class="bi bi-arrow-clockwise"
+          viewBox="3 0 10 16"
+        >
+          <path
+            fillRule="evenodd"
+            d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"
+          />
+          <path
+            d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"
+          />
+        </svg>
+      </button>
+      <!-- {% else %}
+      <button class="btn btn-primary">Allow</button>
+      <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
+        Deny
+      </button>
+      {% endif %} -->
+    </div>
+  </div>
+</div>
+<center>
+  <div class="webcam row">
+    <div class="col-9">
+      <h5>Do you want to get details with camera ?</h5>
+    </div>
+    <div class="col-2">
+      <button
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#WebcamM"
+      >
+        Open camera
+      </button>
+    </div>
+  </div>
+
+  <div class="Q_Form">
+    <div class="container">
+      <h5>quetions</h5>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eaque
+      dolores veniam repellat ab architecto, ea necessitatibus vitae laborum
+      deleniti facere quis minus quia! Blanditiis eum quo quos itaque
+      laboriosam?
+    </div>
+  </div>
+
+  <div class="Q_Form row">
+    <div class="col-8">
+      <h5>Are you sure with your answers ?</h5>
+    </div>
+    <div class="col-4">
+      <a class="btn btn-primary" href="/recommend"> Proceed </a>
+    </div>
+  </div>
+</center>
+
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#myModal"
+>
+  Launch demo modal
+</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+</div>
+{% endblock body%}
