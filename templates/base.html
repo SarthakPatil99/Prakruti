@@ -65,13 +65,30 @@
           <ul class="navbar-nav me-auto">
             {%block nav_links%}{% endblock nav_links%}
           </ul>
-          <button
-            type="button"
-            class="btn btn-warning"
-            data-bs-toggle="modal" data-bs-target="#exampleModal"
-          >
-            LOGIN
-          </button>
+
+          {% if user.is_authenticated %}
+
+          <div class="dropdown">
+            <a class="btn btn-warning dropdown-toggle border border-1 rounded-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ request.user }}
+            </a>
+          
+            <ul class="dropdown-menu dropdown-menu-end bg-success">
+              <center>
+                <li><a class="dropdown-item" style="color: black !important; font-size: medium; width: fit-content;" href="/logout">LOGOUT</a>
+                </li>
+              </center>
+            </ul>
+          </div>
+          {% else %}
+            <button
+              type="button"
+              class="btn btn-warning"
+              data-bs-toggle="modal" data-bs-target="#exampleModal"
+            >
+              LOGIN
+            </button>
+          {% endif %}
         </div>
       </div>
     </nav>
@@ -97,6 +114,15 @@
                   ></button>
                 </div>
 
+                {% for message in messages %}
+                  {% if message.tags == "error" %}
+                    <div class="alert alert-danger alert-dismissible fade show msg" role="alert">
+                      <strong>{{ message.tags }}!</strong> {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+
                 <div class="modal-body">
                   <form action="/login" method="post">
                     <div class="mb-3 mt-1">
@@ -110,10 +136,10 @@
                     </div>
                     <div class="row">
                       <div class="col-3">
-                        {% csrf_token %}
                         <button type="submit" class="btn btn-primary">
                           Log in
                         </button>
+                        {% csrf_token %}
                       </div>
                       <div class="col-3">
                         <a href="/signup" class="btn btn-warning" style="color: white">Sign up</a>
@@ -162,16 +188,22 @@
                       </form>
                     </div>
                     {% csrf_token %}
+                    <a href="/signup" class="btn btn-warning" aria-label="Close">
+                      Signup
+                    </a>
+                    <button type="submit" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#getOTP">
+                      Get OTP
+                    </button>
                   </form>
                 </div>
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                   <a href="/signup" class="btn btn-warning" aria-label="Close">
                   Signup
                   </a>
                   <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#getOTP">
                     Get OTP
                   </button>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

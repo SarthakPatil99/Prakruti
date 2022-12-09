@@ -23,8 +23,20 @@ Sign Up
         <div class="col-12 col-md-8 col-lg-7">
             <div class="card" style="border-radius: 20px;">
                 <h1>Sign Up</h1>
-                <hr>
-                <form action="/signup" method="post" enctype="multipart/form-data">
+                <hr style="border: solid rgb(0, 170, 255);">
+                
+                {% for message in messages %}
+                    {% if message.tags == "error" %}
+                        <div class="alert alert-danger alert-dismissible fade show msg" role="alert">
+                    {% else %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show msg" role="alert">
+                    {% endif %}
+                    <strong>{{ message.tags }}!</strong> {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                
+                <form action="/signup/" method="post" enctype="multipart/form-data">
                     <label for="username" class="form-label"><b>Username:</b></label>
                     <input type="Username" class="form-control mb-3" id="urname" placeholder="Enter username" name="urname" required>
 
