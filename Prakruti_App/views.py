@@ -9,13 +9,16 @@ from sqlalchemy import null
 
 jinja = {}
 
+
 def index(request):
     return render(request, 'index.html')
+
 
 def signup(request):
     return render(request, 'signup.html')
 
 # Login Logout Signup Password Handling
+
 
 def password_check(request, passwd):
 
@@ -50,6 +53,7 @@ def password_check(request, passwd):
         val = False
     if val:
         return val
+
 
 def handleSignUp(request):
     print('----------------------1')
@@ -94,12 +98,17 @@ def handleSignUp(request):
     else:
         return render(request, 'signup.html')
 
+
 def handleLogin(request):
+    print("0")
     if request.method == 'POST':
+        print(request.POST)
+        print("0.1")
         log_usr = request.POST['log_username']
         log_pwd = request.POST['log_pwd']
-
+        print("0.2", log_usr)
         user = auth.authenticate(username=log_usr, password=log_pwd)
+        print("0.3", user)
         if user is not None:
             Whos = User.objects.filter(username__contains=user)
             auth.login(request, user)
@@ -143,6 +152,7 @@ def shopping(request):
     return render(request, 'user/Shopping.html')
 
 # -----------------------------ADMIN SIDE---------------------------
+
 
 def dashboard(request):
     return render(request, 'admin/Dashboard.html')
