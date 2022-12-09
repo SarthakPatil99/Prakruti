@@ -24,9 +24,9 @@ function handleSuccess(stream) {
   window.stream = stream;
   video.srcObject = stream;
 }
-// let cm = false;
+let cm = false;
 function cam() {
-  console.log("jdshbfhds");
+  console.log(cm);
   var y = document.getElementById("bef");
   var x = document.getElementById("aft");
   var z = document.getElementById("myCam");
@@ -37,13 +37,14 @@ function cam() {
     x.style.display = "none";
     y.style.display = "block";
   }
-  // cm = !cm;
-  // if (cm) {
-  //   init();
-
-  // } else {
-  //   cm = false;
-  // }
+  cm = !cm;
+  if (cm) {
+    init();
+  } else {
+    cm = false;
+    console.log("offing camera")
+    stream.getTracks().forEach(track=>track.stop())
+  }
 }
 
 var context = canvas.getContext("2d");
