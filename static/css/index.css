@@ -148,7 +148,7 @@ h6 {
     max-height: 40px;
   }
 }
-
+/* 
 #header.header-fixed {
   background: linear-gradient(45deg, #1de099, #1dc8cd);
   padding: 20px 0;
@@ -158,13 +158,19 @@ h6 {
 
 #header #navbarSupportedContent {
   margin-left: 20px;
-}
+} */
 
 #header li a {
   color: white !important;
   font-size: larger;
   font-weight: 500;
   font-stretch: ultra-expanded;
+}
+
+/*msg*/
+
+.msg{
+  display: grid;
 }
 
 /*--------------------------------------------------------------
