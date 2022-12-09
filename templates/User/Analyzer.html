@@ -34,14 +34,20 @@
           <button
             type="button"
             class="btn-close"
-            data-dismiss="modal" aria-label="Close"
+            data-dismiss="modal" 
+            aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body collapse fade" id="myCam">
+          <center>
             <video id="video" playsinline autoplay></video>
+            <span id="ErrorMessage"></span>
+          </center>
+          
         </div>
           <div class="modal-footer">
-            <button class="btn btn-primary" id="snapshot">
+            <div id="aft" style="display:none;">
+              <button class="btn btn-primary" id="snapshot">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="26"
@@ -58,7 +64,7 @@
                 />
               </svg>
             </button>
-            <button class="btn btn-secondary ml-3">
+            <button class="btn btn-secondary ml-3" data-dismiss="modal" aria-label="Close" onclick="document.getElementById('cam-open').click()">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="26"
@@ -76,10 +82,12 @@
                 />
               </svg>
             </button>
-            <button class="btn btn-primary">Allow</button>
-      <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
-        Deny
-      </button>
+            </div>
+            <div id="bef">
+              <button  id="cam-open" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#myCam" onclick="cam()">Allow</button>
+              <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close"> Deny </button>
+            </div>
+       
             </div>
           </div>
         </div>
@@ -102,7 +110,7 @@
       </button>
     </div>
   </div>
-  <canvas id="canvas"></canvas>
+  <canvas id="canvas" class="mb-0" height="360" width="480"></canvas>
   <div class="Q_Form">
     <div class="container">
       <h5>quetions</h5>
@@ -122,5 +130,4 @@
     </div>
   </div>
 </center>
-<script src="{% static '../static/js/cam.js'%}"></script>
 {% endblock body%}

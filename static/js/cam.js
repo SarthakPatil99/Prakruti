@@ -2,7 +2,7 @@
 const snapshot = document.getElementById("snapshot");
 const canvas = document.getElementById("canvas");
 const video = document.getElementById("video");
-const errorMessage = document.getElementById("span#ErrorMessage");
+const errorMessage = document.getElementById("ErrorMessage");
 
 const constraints = {
   audio: false,
@@ -24,10 +24,29 @@ function handleSuccess(stream) {
   window.stream = stream;
   video.srcObject = stream;
 }
+// let cm = false;
+function cam() {
+  console.log("jdshbfhds");
+  var y = document.getElementById("bef");
+  var x = document.getElementById("aft");
+  var z = document.getElementById("myCam");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+  } else {
+    x.style.display = "none";
+    y.style.display = "block";
+  }
+  // cm = !cm;
+  // if (cm) {
+  //   init();
 
-init();
+  // } else {
+  //   cm = false;
+  // }
+}
 
 var context = canvas.getContext("2d");
 snapshot.addEventListener("click", function () {
-  context.drawImage(video, 0, 0, 480, 360);
+  context.drawImage(video, 0, 0);
 });
