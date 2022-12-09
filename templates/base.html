@@ -105,7 +105,7 @@
       </div>
     </div> -->
 
-    <!-- <div class="modal" id="exampleModal">
+<!-- <div class="modal" id="exampleModal">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -131,7 +131,7 @@
       <div class="modal-dialog">
         <div
           class="modal-content"
-          style="border: none; background-color: rgb(198, 198, 198); z-index: 3"
+          style="border: none; background-color: rgb(221, 221, 221); z-index: 3"
         >
           <div class="modal-header" style="background-color: #e8bb37">
             <h4 class="modal-title">LOGIN</h4>
@@ -176,67 +176,45 @@
                   >
                 </div>
               </div>
-              <a
-                class="btn"
-                href="#myModal1"
-                data-bs-toggle="modal"
-                style="border: none; color: rgb(4, 186, 4)"
-                >Forget Password ?</a
+            </div>
+          </div>
+          <div class="modal fade" id="myModal1">
+            <div class="modal-dialog">
+              <div
+                class="modal-content"
+                style="border: none; background-color: rgb(198, 198, 198)"
               >
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="myModal1">
-      <div class="modal-dialog">
-        <div
-          class="modal-content"
-          style="border: none; background-color: rgb(198, 198, 198)"
-        >
-          <div class="modal-header" style="background-color: #e8bb37">
-            <h4 class="modal-title">FORGET PASSWORD</h4>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
+                <div class="modal-header" style="background-color: #e8bb37">
+                  <h4 class="modal-title">FORGET PASSWORD</h4>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
 
-          <div class="modal-body">
-            <form action="/" method="POST">
-              <div id="accordian">
-                <div class="mb-3 mt-3">
-                  <label for="frgt_mail" class="form-label">Enter Email:</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="frgt_mail"
-                    placeholder="Enter email"
-                    name="frgt_mail"
-                    required
-                  />
+                <div class="modal-body">
+                  <form action="/" method="POST">
+                    <div id="accordian">
+                      <div class="mb-3 mt-3">
+                        <label for="frgt_mail" class="form-label">Enter Email:</label>
+                        <input type="text" class="form-control" id="frgt_mail" placeholder="Enter email" name="frgt_mail" required />
+                      </div>
+                      <div>
+                        <button type="submit" name="otp" class="btn btn-primary">
+                          Send otp
+                        </button>
+                        {% csrf_token %}
+                        <a class="btn" href="#myModal" data-bs-toggle="modal" style="border: none; color: brown">Back</a>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-                <div>
-                  <button type="submit" name="otp" class="btn btn-primary">
-                    Send otp
-                  </button>
-                  {% csrf_token %}
-                  <a
-                    class="btn"
-                    href="#myModal"
-                    data-bs-toggle="modal"
-                    style="border: none; color: brown"
-                    >Back</a
-                  >
-                </div>
+
               </div>
-            </form>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
 
     <!-- #header -->
 
