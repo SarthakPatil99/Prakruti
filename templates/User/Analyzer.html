@@ -1,4 +1,5 @@
 {%extends 'base.html'%}
+{% load static %}
 
 {% block background%}
 <div class="bg"></div>
@@ -37,10 +38,10 @@
           ></button>
         </div>
         <div class="modal-body">
-          <h1>hello world</h1>
+            <video id="video" playsinline autoplay></video>
         </div>
           <div class="modal-footer">
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" id="snapshot">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="26"
@@ -101,7 +102,7 @@
       </button>
     </div>
   </div>
-
+  <canvas id="canvas"></canvas>
   <div class="Q_Form">
     <div class="container">
       <h5>quetions</h5>
@@ -121,4 +122,5 @@
     </div>
   </div>
 </center>
+<script src="{% static '../static/js/cam.js'%}"></script>
 {% endblock body%}
