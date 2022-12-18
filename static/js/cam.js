@@ -25,6 +25,7 @@ function handleSuccess(stream) {
   video.srcObject = stream;
 }
 let cm = false;
+let cm = false;
 function cam() {
   console.log(cm);
   var y = document.getElementById("bef");

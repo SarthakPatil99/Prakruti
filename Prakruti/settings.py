@@ -31,14 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'Prakruti_App.apps.PrakrutiAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'Prakruti',
 ]
 
 MIDDLEWARE = [
@@ -76,13 +75,13 @@ WSGI_APPLICATION = 'Prakruti.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Prakruti',
-        'USER': 'postgres',
-        'PASSWORD': 'Sarthak@123',
-        'HOST': 'localhost'
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'Prakruti',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'Sarthak@123',
+    #     'HOST': 'localhost'
+    # }
 }
 
 
