@@ -144,7 +144,8 @@
               <label htmlFor="emailFP" class="col-form-label">
                 Email:
               </label>
-              <input type="email" name="email" class="form-control" id="emailFP" />
+              <input type="email" class="form-control" id="emailFP" onkeyup="onBtn()"/>
+              <span id ="wrMail" style="display:none;">Enter proper email</span>
             </div>
               <center>
                 <button type="submit" onclick="sendEmail()" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#getOTP">
@@ -157,24 +158,29 @@
               <label class="label">Enter OTP:</label>
               <form>
                 <div class="input-group mb-3">
-                  <input type="text" name="otp1" class="form-control" maxLength="1" style="margin-right: 5px;" />
-                  <input type="text" name="otp2" class="form-control" maxLength="1" style="margin-right: 5px;" />
-                  <input type="text" name="otp3" class="form-control" maxLength="1" style="margin-right: 5px;" />
-                  <input type="text" name="otp4" class="form-control" maxLength="1" style="margin-right: 5px;" />
-                  <input type="text" name="otp5" class="form-control" maxLength="1" style="margin-right: 5px;" />
-                  <input type="text" name="otp6" class="form-control" maxLength="1" style="margin-right: 0px;" />
+                  <input type="text" id="otp1" class="form-control" maxLength="1" onkeyup="clickEvent('otp1',this,'otp2')" style="margin-right: 5px; text-align: center;" />
+                  <input type="text" id="otp2" class="form-control" maxLength="1" onkeyup="clickEvent('otp1',this,'otp3')" style="margin-right: 5px; text-align: center;" />
+                  <input type="text" id="otp3" class="form-control" maxLength="1" onkeyup="clickEvent('otp2',this,'otp4')" style="margin-right: 5px; text-align: center;" />
+                  <input type="text" id="otp4" class="form-control" maxLength="1" onkeyup="clickEvent('otp3',this,'otp5')" style="margin-right: 5px; text-align: center;" />
+                  <input type="text" id="otp5" class="form-control" maxLength="1" onkeyup="clickEvent('otp4',this,'otp6')" style="margin-right: 5px; text-align: center;" />
+                  <input type="text" id="otp6" class="form-control" maxLength="1" onkeyup="clickEvent('otp5',this,'otp6')" style="margin-right: 0px; text-align: center;" />
                 </div>
                 <center>
-                  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ChpassModal" onclick="sendEmail()">
-                  Verify
-                </button>
-              </center>
+                  <span id ="wrOTP" style="display:none; margin-bottom:5px;">Enter proper otp</span>
+                  <button type="button" id="verify" class="btn btn-success" onclick="verifyOTP()">
+                    Verify
+                  </button>
+                </center>
                 {% csrf_token %}
               </form>
             </div>
             <a href="/signup" class="btn btn-warning" aria-label="Close">
               Signup
             </a>
+            <button type="submit" id ="OTPbtn" onclick="sendmail()" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#getOTP">
+              Get OTP
+            </button>
+          </form>
         </div>
         <!-- <div class="modal-footer">
                   <a href="/signup" class="btn btn-warning" aria-label="Close">
@@ -242,5 +248,6 @@
     <script src="{% static '../static/js/cam.js' %}"></script>
     <script src="{% static '../static/js/mail.js' %}"></script>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
+    
   </body>
 </html>
