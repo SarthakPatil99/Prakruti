@@ -22,9 +22,14 @@ urlpatterns = [
     path("signup/", views.signup and views.handleSignUp, name='signup'),
     path('login', views.handleLogin, name='handleLogin'),
     path('logout', views.handleLogout, name='handleLogout'),
+    path("chPass", views.chPass, name='chPass'),
     path("home/", views.home, name='home'),
+    
+    # user
     path("analyze/", views.analyze, name='analysis'),
     path("recommend/", views.recommend, name='recommender'),
     path("shopping/", views.shopping, name='shopping'),
+
+    # admin
     path("dashboard/", views.dashboard, name='dashboard'),
 ]

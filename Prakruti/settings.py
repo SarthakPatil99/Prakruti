@@ -75,13 +75,13 @@ WSGI_APPLICATION = 'Prakruti.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'Prakruti',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'Sarthak@123',
-    #     'HOST': 'localhost'
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Prakruti',
+        'USER': 'postgres',
+        'PASSWORD': 'Sarthak@123',
+        'HOST': 'localhost'
+    }
 }
 
 

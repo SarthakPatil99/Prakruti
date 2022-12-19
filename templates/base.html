@@ -68,7 +68,7 @@
           </ul>
         </div>
         {% else %}
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#chPassModal">
           LOGIN
         </button>
         {% endif %}
@@ -194,9 +194,9 @@
           <h4 class="modal-title">CHANGE PASSWORD</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-  
+
         <div class="modal-body">
-          <form action="#" method="post">
+          <form action="/chPass" method="post">
             <div class="mb-3 mt-1">
               <label for="newPass" class="form-label">Password:</label>
               <input type="password" class="form-control" id="newPass" placeholder="Enter New Password"
@@ -207,6 +207,7 @@
               <input type="password" class="form-control" id="confPass" placeholder="Confirm Password" name="confPass" />
             </div>
             <div class="row">
+              <input id="chPassMail" name="chPassMail" style="display: none;" value="patilsarthak999@gmail.com" />
               <div class="col-3">
                 <button id="newPass" type="submit" class="btn btn-primary">
                   Confirm

@@ -129,13 +129,29 @@ def handleLogin(request):
             return redirect('/')
     return HttpResponse('404 - Not Found')
 
-
 def handleLogout(request):
     jinja["Who"] = ""
     auth.logout(request)
     messages.success(request, 'Successfully Logged Out')
     return redirect('/')
 
+def chPass(request):
+    print("0")
+    if request.method == 'POST':
+        print(request.POST)
+        chPassMail = request.POST['chPassMail']
+        conf_pass = request.POST['confPass']
+        
+        try:
+            print("in try")
+            User.objects.filter(email=chPassMail).update(password=conf_pass)
+            return redirect('/')
+        except Exception as e:
+            print('somthing wrong', e)
+
+    return redirect('/')
+
+# -----------------------------USER SIDE---------------------------
 
 def home(request):
     return HttpResponse('this is home')
