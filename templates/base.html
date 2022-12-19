@@ -166,13 +166,18 @@
                 {% csrf_token %}
               </form>
             </div>
-            <!-- <a href="/signup" class="btn btn-warning" aria-label="Close">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a href="/signup" class="btn btn-warning" aria-label="Close">
               Signup
             </a>
             <button id="OTPbtn" type="submit" onclick="sendmail()" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#getOTP">
               Get OTP
-            </button> -->
-          </form>
+            </button>
+            <button id="verify" type="submit" onclick="verifyOTP()" class="btn btn-primary">
+              Verify OTP
+            </button>
         </div>
       </div>
     </div>
@@ -191,7 +196,7 @@
         </div>
   
         <div class="modal-body">
-          <form action="/login" method="post">
+          <form action="#" method="post">
             <div class="mb-3 mt-1">
               <label for="newPass" class="form-label">Password:</label>
               <input type="password" class="form-control" id="newPass" placeholder="Enter New Password"
@@ -203,7 +208,7 @@
             </div>
             <div class="row">
               <div class="col-3">
-                <button type="submit" class="btn btn-primary">
+                <button id="newPass" type="submit" class="btn btn-primary">
                   Confirm
                 </button>
                 {% csrf_token %}
