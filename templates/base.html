@@ -147,11 +147,6 @@
               <input type="email" class="form-control" id="emailFP" onkeyup="onBtn()"/>
               <span id ="wrMail" style="display:none;">Enter proper email</span>
             </div>
-              <center>
-                <button type="submit" onclick="sendEmail()" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#getOTP">
-                  Get OTP
-                </button>
-              </center>
               {% csrf_token %}
           <!-- </form> -->
             <div id="getOTP" class="collapse">
@@ -177,23 +172,51 @@
             <a href="/signup" class="btn btn-warning" aria-label="Close">
               Signup
             </a>
-            <button type="submit" id ="OTPbtn" onclick="sendmail()" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#getOTP">
+            <button id="OTPbtn" type="submit" onclick="sendmail()" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#getOTP">
               Get OTP
             </button>
           </form>
         </div>
-        <!-- <div class="modal-footer">
-                  <a href="/signup" class="btn btn-warning" aria-label="Close">
-                  Signup
-                  </a>
-                  <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#getOTP">
-                    Get OTP
-                  </button>
-                </div> -->
       </div>
     </div>
   </div>
 
+  <div class="modal" id="chPassModal">
+    <div class="modal-dialog">
+      <div class="modal-content" style="
+                    border: none;
+                    background-color: rgb(221, 221, 221);
+                    z-index: 3;
+                  ">
+        <div class="modal-header" style="background-color: #e8bb37">
+          <h4 class="modal-title">CHANGE PASSWORD</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        <div class="modal-body">
+          <form action="/login" method="post">
+            <div class="mb-3 mt-1">
+              <label for="newPass" class="form-label">Password:</label>
+              <input type="password" class="form-control" id="newPass" placeholder="Enter New Password"
+                name="newPass" />
+            </div>
+            <div class="mb-3">
+              <label for="confPass" class="form-label">Confirm Password:</label>
+              <input type="password" class="form-control" id="confPass" placeholder="Confirm Password" name="confPass" />
+            </div>
+            <div class="row">
+              <div class="col-3">
+                <button type="submit" class="btn btn-primary">
+                  Confirm
+                </button>
+                {% csrf_token %}
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
               </div>
             </div>
           </div>
