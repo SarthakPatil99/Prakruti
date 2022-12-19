@@ -19,136 +19,1373 @@
 {% endblock nav_links%}
 
 {% block body %}
-  <div class="modal fade"
-    id="WebcamM"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div
-        class="modal-content"
-        style="border: none; background-color: rgb(198, 198, 198)"
-      >
-        <div class="modal-header" style="background-color: #e8bb37">
-          <h4 class="modal-title">Camera Module</h4>
-          <!-- <button
-            type="button"
-            class="btn-close"
-            data-dismiss="modal" 
-            aria-label="Close"
-          ></button> -->
+<div class="modal fade" id="WebcamM" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="border: none; background-color: rgb(198, 198, 198)">
+      <div class="modal-header" style="background-color: #e8bb37">
+        <h4 class="modal-title">Camera Module</h4>
+      </div>
+      <div class="modal-body collapse fade" id="myCam">
+        <center>
+          <video id="video" style="-webkit-transform:scaleX(-1); transform:scaleX(-1);" playsinline autoplay></video>
+          <span id="ErrorMessage"></span>
+        </center>
+
+      </div>
+      <div class="modal-footer">
+        <div id="aft" style="display:none;">
+          <button class="btn btn-primary" id="snapshot">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-camera"
+              viewBox="3 0 10 16">
+              <path
+                d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+              <path
+                d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+            </svg>
+          </button>
+          <button class="btn btn-secondary ml-3" data-dismiss="modal" aria-label="Close"
+            onclick="document.getElementById('cam-open').click()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+              class="bi bi-arrow-clockwise" viewBox="3 0 10 16">
+              <path fillRule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+              <path
+                d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+            </svg>
+          </button>
         </div>
-        <div class="modal-body collapse fade" id="myCam">
-          <center>
-            <video id="video" style="-webkit-transform:scaleX(-1); transform:scaleX(-1);" playsinline autoplay></video>
-            <span id="ErrorMessage"></span>
-          </center>
-          
+        <div id="bef">
+          <button id="cam-open" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#myCam"
+            onclick="cam()">Allow</button>
+          <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close"> Deny </button>
         </div>
-          <div class="modal-footer">
-            <div id="aft" style="display:none;">
-              <button class="btn btn-primary" id="snapshot">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="26"
-                height="26"
-                fill="currentColor"
-                class="bi bi-camera"
-                viewBox="3 0 10 16"
-              >
-                <path
-                  d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"
-                />
-                <path
-                  d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"
-                />
-              </svg>
-            </button>
-            <button class="btn btn-secondary ml-3" data-dismiss="modal" aria-label="Close" onclick="document.getElementById('cam-open').click()">
-              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-camera-video-off"
-                viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                  d="M10.961 12.365a1.99 1.99 0 0 0 .522-1.103l3.11 1.382A1 1 0 0 0 16 11.731V4.269a1 1 0 0 0-1.406-.913l-3.111 1.382A2 2 0 0 0 9.5 3H4.272l.714 1H9.5a1 1 0 0 1 1 1v6a1 1 0 0 1-.144.518l.605.847zM1.428 4.18A.999.999 0 0 0 1 5v6a1 1 0 0 0 1 1h5.014l.714 1H2a2 2 0 0 1-2-2V5c0-.675.334-1.272.847-1.634l.58.814zM15 11.73l-3.5-1.555v-4.35L15 4.269v7.462zm-4.407 3.56-10-14 .814-.58 10 14-.814.58z" />
-              </svg>
-            </button>
-            </div>
-            <div id="bef">
-              <button  id="cam-open" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#myCam" onclick="cam()">Allow</button>
-              <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close"> Deny </button>
-            </div>
-            </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<center>
+  <div class="webcam row">
+    <div class="col-9">
+      <h5>Do you want to get details with camera ?</h5>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-primary" data-toggle="modal" data-target="#WebcamM">
+        Open camera
+      </button>
+    </div>
+  </div>
+  <canvas id="canvas" class="mb-0" height="360" width="480"
+    style="-webkit-transform:scaleX(-1); transform:scaleX(-1);"></canvas>
+</center>
+
+<!-- repeat START -->
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q. 1)What is your body build type?</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Lean
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Medium
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Stout
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<center>
-  <div class="webcam row">
-    <div class="col-9">
-      <b><h5>Do you want to get details with camera ?</h5></b>
-    </div>
-    <div class="col-2">
-      <button
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#WebcamM"
-      >
-        Open camera
-      </button>
-    </div>
-  </div>
-  <canvas id="canvas" class="mb-0" height="360" width="480" style="-webkit-transform:scaleX(-1); transform:scaleX(-1);"></canvas>
-</center>
-
-<!-- repeat end -->
-  <div class="Q_Form">
-    <div class="container">
-        <div class="question">
-          <div class="h5 mb-4 mt-2"><b>Q. which option best describes your job role?</b></div>
-          <div id="options">
-            <div class="row row-cols-auto">
-              <div class="col">
-                <label class="options">
-                  Small Business Owner or Employee
-                  <input type="radio" name="radio">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-              <div class="col">
-                <label class="options">
-                  Nonprofit Owner or Employee
-                  <input type="radio" name="radio">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-            </div>
-            <div class="row row-cols-auto">
-              <div class="col">
-                <label class="options">
-                  Journalist or Activist
-                  <input type="radio" name="radio">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-              <div class="col">
-                <label class="options">
-                  Other
-                  <input type="radio" name="radio">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-            </div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.2)What is your skin colour</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Dark/Brown
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Pink blushed
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
           </div>
         </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Fair
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.3)What is your skin type</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Dry
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Moist
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Oily
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.4)What is your Body Temperature</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Warm
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Hot
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Cold
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.5)What is your hair type</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Curly
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Staright
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Wavy
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.6)What is your Hair Density</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Less
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Moderate
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Dense
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.7)What is your Scalp type</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Dry
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Oily
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="col">
+          <label class="options">
+            Other
+            <input type="radio" name="radio">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.8)What is your Forehead type</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Narrow
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Medium
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Broad
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.9)What is your Size of Eyes</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Small
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Medium
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Wide
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.10)What is your Vision of Eyes</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Dull
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Penctrating look
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Clear/Gentle Look
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.11)What is your Colour of Eyes</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Off white
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Red tingned
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Whiter
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.12)What is your Nose and side of nose type</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Slim
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Medium
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Broad
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.13)What is your nose dry,moist,oily</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Dry
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Moist
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Oily
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.14)What is your Colour of lips</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Dark
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Red
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Pink
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.15)What is your Size of Lips</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Narrow
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Moderate
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Broad
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.16)What is your Colour of teeth</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Pale
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Yellowish
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              White
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.17)What is your type of Teeth </b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Protuberance
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Medium with gap
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Straight
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.18)What is your colour of tongue</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Furrowed
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Red
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Pink
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.19)What is your type tongue</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Rough
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Glossy
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Smooth
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.20)What is your Shoulder of chest size</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Narrow
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Medium
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Broad
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.21)Any noise coming from joints</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Noise of Movement
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Nothing Specific
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Strong
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.22)What is your skin type of palm</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Dry
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Moist
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Oily
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.23)What is your Colour of Nails</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Blackish
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Reddish
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              White
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.24)What is your shape of Nails</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Cracking
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Flat
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Convex
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.25)What is your type of nails</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Thin
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Soft
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Thick
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.26)What is your type of palms</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Rough/Cracked
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Reddish
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Firm and big
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.27)Physical activity</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Very active
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Moderate
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Slow
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.28)What is your type of Muscles</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Prominent calf
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Loose/Flaccid
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Well built
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.3)What is your type of memory</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Observant but forgot sharp and clear
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Good
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="col">
+          <label class="options">
+            Other
+            <input type="radio" name="radio">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.30)What is your Voice type</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Normal
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Louder
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Musical
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.31)What is your Speed of voice</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Fast
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Moderate
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Slow
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Q_Form">
+  <div class="container">
+    <div class="question">
+      <div class="h5 mb-4 mt-2"><b>Q.32)What is your Speech type</b></div>
+      <div id="options">
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Irrelevant
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              clear
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <label class="options">
+              Gentle
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="col">
+            <label class="options">
+              Other
+              <input type="radio" name="radio">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- repeat end -->
 
 <center>
-  <div class="Q_Form row" style="width: fit-content !important;">
+  <div class="Q_Form row">
     <div class="col-8">
-      <b><h5>Are you sure with your answers ?</h5></b>
+      <h5>Are you sure with your answers ?</h5>
     </div>
     <div class="col-4">
       <a class="btn btn-primary" href="/recommend"> Proceed </a>
