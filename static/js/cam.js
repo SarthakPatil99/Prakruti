@@ -16,7 +16,7 @@ async function init() {
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     handleSuccess(stream);
   } catch (e) {
-    errorMessage.innerHTML = `navigator.getUserMedia.errror:${e.toString()}`;
+    errorMessage.innerHTML = `navigator.getUserMedia.error:${e.toString()}`;
   }
 }
 
@@ -25,14 +25,13 @@ function handleSuccess(stream) {
   video.srcObject = stream;
 }
 let cm = false;
-let cm = false;
 function cam() {
   console.log(cm);
   var y = document.getElementById("bef");
   var x = document.getElementById("aft");
   var z = document.getElementById("myCam");
   if (x.style.display === "none") {
-    x.style.display = "block";
+    x.style.display = "block"; console.log
     y.style.display = "none";
   } else {
     x.style.display = "none";
@@ -43,8 +42,8 @@ function cam() {
     init();
   } else {
     cm = false;
-    console.log("offing camera")
-    stream.getTracks().forEach(track=>track.stop())
+    console.log("offing camera");
+    stream.getTracks().forEach((track) => track.stop());
   }
 }
 

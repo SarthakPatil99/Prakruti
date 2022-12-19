@@ -1,7 +1,7 @@
 var getotp = document.getElementById("OTPbtn");
 var verify = document.getElementById("verify");
 var otp;
-verify.disabled = true;
+verify.style.display = "none";
 getotp.disabled = true;
 function onBtn() {
   var email = document.getElementById("emailFP").value;
@@ -36,7 +36,8 @@ function sendmail() {
     Body: ebody,
   }).then((message) => {
     alert("Email has been sent successfully!!!");
-    verify.disabled = false;
+    verify.style.display = "block";
+    getotp.style.display = "none";
   });
 }
 function verifyOTP() {
@@ -50,6 +51,7 @@ function verifyOTP() {
   var Ch_OTP = Ch_otp1 + Ch_otp2 + Ch_otp3 + Ch_otp4 + Ch_otp5 + Ch_otp6;
   if (Ch_OTP === otp) {
     $("#myModal1").modal("hide");
+    $("#chPassModal").modal("show");
     spn.style.display = "none";
   } else {
     // alert("wrong");
