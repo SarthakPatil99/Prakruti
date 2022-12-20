@@ -68,7 +68,7 @@
           </ul>
         </div>
         {% else %}
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#chPassModal">
           LOGIN
         </button>
         {% endif %}
@@ -194,22 +194,29 @@
           <h4 class="modal-title">CHANGE PASSWORD</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-
+        <div id="Pass_rules" style="display:none" class="alert alert-danger fade show msg" role="alert">
+          password should be 8 -16 characters wide<br>
+          should contain at least one uppercase letter, <br>
+          one lowercase letter, one number and one special character
+        </div>
         <div class="modal-body">
           <form action="/chPass" method="post">
             <div class="mb-3 mt-1">
-              <label for="newPass" class="form-label">Password:</label>
-              <input type="password" class="form-control" id="newPass" placeholder="Enter New Password"
-                name="newPass" />
+              <label for="newPass" class="form-label">New Password:</label>
+              <input type="password" class="form-control" id="npass" placeholder="Enter New Password"
+                name="newPass" onkeyup="nPass()" />
             </div>
             <div class="mb-3">
               <label for="confPass" class="form-label">Confirm Password:</label>
-              <input type="password" class="form-control" id="confPass" placeholder="Confirm Password" name="confPass" />
+              <input type="password" class="form-control" id="nconpass" placeholder="Confirm Password" name="confPass" onkeyup="nConPass()" />
             </div>
             <div class="row">
               <input id="chPassMail" name="chPassMail" style="display: none;" value="patilsarthak999@gmail.com" />
+              <div id="passmtch" class="alert alert-danger fade show msg" role="alert">
+                <strong>PASSWORDS DONT MATCH</strong>
+              </div>
               <div class="col-3">
-                <button id="newPass" type="submit" class="btn btn-primary">
+                <button id="newPassBtn" type="submit" class="btn btn-primary">
                   Confirm
                 </button>
                 {% csrf_token %}
