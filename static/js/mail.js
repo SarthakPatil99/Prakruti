@@ -58,10 +58,44 @@ function verifyOTP() {
     spn.style.display = "block";
   }
 }
+
 function clickEvent(prev, first, last) {
   if (first.value.length) {
     document.getElementById(last).focus();
   } else if (first.value.length == 0) {
     document.getElementById(prev).focus();
+  }
+}
+var btn = document.getElementById("newPassBtn");
+var passmtch = document.getElementById("passmtch");
+var passrules = document.getElementById("Pass_rules");
+var npass, nconpass;
+passrules.style.display = "none";
+passmtch.style.display = "none";
+function nPass() {
+  npass = document.getElementById("npass").value;
+  var validRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+  if (validRegex.test(npass)) {
+    passrules.style.display = "none";
+  } else {
+    passrules.style.display = "block";
+  }
+}
+function nConPass() {
+  nconpass = document.getElementById("nconpass").value;
+  validRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+  if (validRegex.test(nconpass)) {
+    passrules.style.display = "none";
+    // alert(nconpass + " " + npass);
+    if (nconpass === npass) {
+      passmtch.style.display = "none";
+      // btn.submit();
+    } else {
+      passmtch.style.display = "block";
+    }
+  } else {
+    passrules.style.display = "block";
   }
 }
