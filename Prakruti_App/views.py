@@ -129,11 +129,13 @@ def handleLogin(request):
             return redirect('/')
     return HttpResponse('404 - Not Found')
 
+
 def handleLogout(request):
     jinja["Who"] = ""
     auth.logout(request)
     messages.success(request, 'Successfully Logged Out')
     return redirect('/')
+
 
 def chPass(request):
     print("0")
@@ -141,10 +143,10 @@ def chPass(request):
         print(request.POST)
         chPassMail = request.POST['chPassMail']
         conf_pass = request.POST['confPass']
-        
+
         try:
             print("in try")
-            User.objects.filter(email=chPassMail).update(password=conf_pass)
+            # User.objects.filter(email=chPassMail).update(password=conf_pass)
             return redirect('/')
         except Exception as e:
             print('somthing wrong', e)
@@ -152,6 +154,7 @@ def chPass(request):
     return redirect('/')
 
 # -----------------------------USER SIDE---------------------------
+
 
 def home(request):
     return HttpResponse('this is home')
@@ -173,3 +176,27 @@ def shopping(request):
 
 def dashboard(request):
     return render(request, 'admin/Dashboard.html')
+
+
+def patients(request):
+    return render(request, 'admin/patients.html')
+
+
+def appointments(request):
+    return render(request, 'admin/appointments.html')
+
+
+def M_remedies(request):
+    return render(request, 'admin/M_remedies.html')
+
+
+def H_remedies(request):
+    return render(request, 'admin/H_remedies.html')
+
+
+def blogs(request):
+    return render(request, 'admin/blogs.html')
+
+
+def orders(request):
+    return render(request, 'admin/Orders.html')

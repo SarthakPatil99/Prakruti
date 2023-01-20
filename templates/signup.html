@@ -35,7 +35,7 @@ Sign Up
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 {% endfor %}
-                
+
                 <form action="/signup/" method="post" enctype="multipart/form-data">
                     <label for="username" class="form-label"><b>Username:</b></label>
                     <input type="Username" class="form-control mb-3" id="urname" placeholder="Enter username" name="urname" required>
@@ -44,15 +44,23 @@ Sign Up
                         <div class="col-12 col-md-6 col-lg-6">
                             <div class="mb-3">
                                 <label for="pwd" class="form-label"><b>Password:</b></label>
-                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
+                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" onkeyup="validate_pass()" required>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-6">
                             <div class="mb-3">
                                 <label for="confirm_pwd" class="form-label"><b>Confirm Password:</b></label>
-                                <input type="password" class="form-control" id="confirm_pwd" placeholder="Enter confirm password" name="confirm_pwd" required>
+                                <input type="password" class="form-control" id="confirm_pwd" placeholder="Enter confirm password" name="confirm_pwd" onkeyup="validate_cpass()" required>
                             </div>
                         </div>
+                    </div>
+                    <div id="signupup_Pass_rules" style="display:none" class="alert alert-danger fade show msg" role="alert">
+                        password should be 8 -16 characters wide<br>
+                        should contain at least one uppercase letter, <br>
+                        one lowercase letter, one number and one special character
+                    </div>
+                    <div id="signup_passmtch" class="alert alert-danger fade show msg" role="alert">
+                        <strong>PASSWORDS DONT MATCH</strong>
                     </div>
 
                     <label for="name" class="form-label"><b>Full Name:</b></label>
@@ -75,15 +83,21 @@ Sign Up
                         <div class="col-12 col-md-6 col-lg-6">
                             <div class="mb-3 mt-3">
                                 <label for="email" class="form-label"><b>Email:</b></label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" onkeyup="validate_email()" required>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-6">
                             <div class="mb-3 mt-3">
                                 <label for="phone" class="form-label"><b>Phone Number:</b></label>
-                                <input type="phone" class="form-control" id="phone" placeholder="Enter Phone No." name="phone" required>
+                                <input type="phone" class="form-control" id="phone" placeholder="Enter Phone No." name="phone" onkeyup="validate_phone()" required>
                             </div>
                         </div>
+                    </div>
+                    <div id="signup_email_error" class="alert alert-danger fade show msg" role="alert">
+                        <strong>INVALID EMAIL</strong>
+                    </div>
+                    <div id="signup_phone_error" class="alert alert-danger fade show msg" role="alert">
+                        <strong>INVALID PHONE</strong>
                     </div>
                     {% csrf_token %}
                     <button type="submit" class="btn btn-primary">Sign Up</button>

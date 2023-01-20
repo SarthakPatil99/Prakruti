@@ -32,4 +32,10 @@ urlpatterns = [
 
     # admin
     path("dashboard/", views.dashboard, name='dashboard'),
+    path("patients/", views.patients, name='patients'),
+    path("appointments/", views.appointments, name='appointments'),
+    path("medicine_remedies/", views.M_remedies, name='M_remedies'),
+    path("home_remedies/", views.H_remedies, name='H_remedies'),
+    path("blogs/", views.blogs, name='blogs'),
+    path("orders/", views.orders, name='orders'),
 ]

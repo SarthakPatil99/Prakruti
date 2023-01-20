@@ -1,0 +1,161 @@
+{%extends 'Admin/admin_base.html'%}
+{% load static %}
+
+{% block admin_title%}
+Medicines
+{%endblock admin_title%}
+
+{% block admin_title2%}
+/Medicines remedies
+{%endblock admin_title2%}
+
+{% block admin_body %}
+<div class="d-flex justify-content-between">
+    <button type="button" class="btn btn-warning mx-3 mb-3 " data-toggle="modal" data-target="#add_MModal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" fill="currentColor" class="bi bi-plus-circle"
+            viewBox="0.5 2 15 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path
+                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+        </svg> New
+    </button>
+
+    <div class="modal" id="add_MModal">
+        <div class="modal-dialog">
+            <div class="modal-content" style="border: none; background-color: rgb(221, 221, 221);
+                        z-index: 3;
+                        ">
+                <div class="modal-header bg-secondary">
+                    <h4 class="modal-title text-warning">New Medicine</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                {% for message in messages %}
+                {% if message.tags == "error" %}
+                <div class="alert alert-danger alert-dismissible fade show msg" role="alert">
+                    <strong>{{ message.tags }}!</strong> {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <div class="modal-body">
+                    <form action="/login" method="post">
+                        <div class="row mb-2">
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <label for="name" class="form-label"><b>Medicine Name:</b></label>
+                                <input type="first name" class="form-control" id="fname" placeholder="Medicine Name"
+                                    name="fname" required>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <label for="formFile" class="form-label"><b>Choose Image:</b></label>
+                                <input class="form-control" type="file" id="formFile" accept="image/*">
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <label for="Description" class="form-label"><b>Descripion:</b></label>
+                                <textarea class="form-control" id="Description" placeholder="Medicine Description"
+                                    name="Description" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <label for="Contents" class="form-label"><b>Medicine Contents:</b></label>
+                                <textarea class="form-control" id="Contents" placeholder="Medicine Contents"
+                                    name="Contents" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <label for="Quantity" class="form-label"><b>Quantity:</b></label>
+                                <input type="number" class="form-control" id="Quantity" placeholder="Quantity"
+                                    name="Quantity" required>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <label for="price" class="form-label"><b>Price:</b></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input type="number" class="form-control" id="price" placeholder="Unit price"
+                                        name="price">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div id="signup_email_error" class="alert alert-danger fade show msg" role="alert">
+                                <strong>INVALID EMAIL</strong>
+                            </div>
+                            <div id="signup_phone_error" class="alert alert-danger fade show msg" role="alert">
+                                <strong>INVALID PHONE</strong>
+                            </div> -->
+                        <button type="submit" class="btn btn-warning text-gray-800 mt-2 float-right">
+                            Insert
+                        </button>
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form style="width: 400px;">
+        <div class="input-group">
+            <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search"
+                aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="dropdown float-right mx-3 mb-3">
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown"
+            aria-expanded="false">
+            Sort via
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Name</a></li>
+            <li><a class="dropdown-item" href="#">Quantity</a></li>
+            <li><a class="dropdown-item" href="#">Price</a></li>
+        </ul>
+    </div>
+</div>
+
+<table class="table table-hover table-bordered">
+    <thead class="table-primary">
+        <tr class="table_tr">
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Contents</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <td>asas</td>
+        <td>asasa</td>
+        <td>dfdfd</td>
+        <td>dfsdfs</td>
+        <td>gygyg</td>
+        <td>gygyg</td>
+        <td width="10%">
+            <Button type="submit" class="btn bg-success text-white" name="update" value="chval">
+                <i class="far fa-edit"></i>
+            </Button>
+            <Button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
+                <i class="far fa-trash-alt"></i>
+            </Button>
+        </td>
+    </tbody>
+    <tfoot>
+
+    </tfoot>
+</table>
+{% endblock admin_body%}

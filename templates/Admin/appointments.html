@@ -1,0 +1,72 @@
+{%extends 'Admin/admin_base.html'%}
+{% load static %}
+
+{% block admin_title%}
+Appointments
+{%endblock admin_title%}
+
+{% block admin_title2%}
+/Appointments
+{%endblock admin_title2%}
+
+{% block admin_body %}
+<div class="d-flex justify-content-between">
+    <form class="mx-3" style="width: 400px;">
+        <div class="input-group">
+            <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search"
+                aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="dropdown float-right mx-3 mb-3">
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown"
+            aria-expanded="false">
+            Sort via
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Day</a></li>
+            <li><a class="dropdown-item" href="#">Status</a></li>
+        </ul>
+    </div>
+</div>
+
+<table class="table table-hover table-bordered">
+    <thead class="table-primary">
+        <tr class="table_tr">
+            <th>Name</th>
+            <th>More info</th> <!-- mail, Phone, age, gender -->
+            <th>Day</th>
+            <th>Time Slot</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <td>asas</td>
+        <td>asasa</td>
+        <td>dfdfd</td>
+        <td>dfsdfs</td>
+        <td width="16%">
+            <span class="badge bg-success" style="font-size: 85%;">Attended</span>
+            <span class="badge bg-info" style="font-size: 85%;">Not Attended</span>
+            <span class="badge bg-warning" style="font-size: 85%;">Rescheduled</span>
+        </td>
+        <td width="10%">
+            <Button type="submit" class="btn bg-info text-white" name="reschedule" value="chval">
+                <i class="far fa-clock"></i>
+            </Button>
+            <Button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
+                <i class="far fa-trash-alt"></i>
+            </Button>
+        </td>
+    </tbody>
+    <tfoot>
+
+    </tfoot>
+</table>
+{% endblock admin_body%}

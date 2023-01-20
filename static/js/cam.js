@@ -26,12 +26,11 @@ function handleSuccess(stream) {
 }
 let cm = false;
 function cam() {
-  console.log(cm);
+  // console.log(cm);
   var y = document.getElementById("bef");
   var x = document.getElementById("aft");
-  var z = document.getElementById("myCam");
   if (x.style.display === "none") {
-    x.style.display = "block"; console.log
+    x.style.display = "block";
     y.style.display = "none";
   } else {
     x.style.display = "none";
