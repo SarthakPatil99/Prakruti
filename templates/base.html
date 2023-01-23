@@ -49,6 +49,11 @@
       </button>
       <div class="collapse navbar-collapse" id="mynavbar">
         <ul class="navbar-nav me-auto">
+          {% if user.get_username == 'Doctor01' %}
+          <li class="menu-active nav-item">
+            <a class="nav-link" href="/dashboard">Dashboard</a>
+          </li>
+          {% endif %}
           {%block nav_links%}{% endblock nav_links%}
         </ul>
 
@@ -59,9 +64,10 @@
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-white">{{ request.user }}</span>
-              <img class="img-profile rounded-circle" style="height: 2rem; width: 2rem;" src="../../static/admin/img/undraw_profile.svg">
+              <img class="img-profile rounded-circle" style="height: 2rem; width: 2rem;"
+                src="../../static/admin/img/undraw_profile.svg">
             </a>
-          
+
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
               <a class="dropdown-item text-dark" style="color: black !important;" href="#">
                 <i class="fas fa-user fa-lg fa-fw mr-2 text-gray-500"></i>
@@ -149,44 +155,51 @@
         </div>
         <div class="modal-body">
           <!-- <form action="/" method="POST"> -->
-            <div class="mb-3">
-              <label htmlFor="emailFP" class="col-form-label">
-                Email:
-              </label>
-              <input type="email" class="form-control" id="emailFP" onkeyup="onBtn()"/>
-              <span id ="wrMail" style="display:none;">Enter proper email</span>
-            </div>
-              {% csrf_token %}
+          <div class="mb-3">
+            <label htmlFor="emailFP" class="col-form-label">
+              Email:
+            </label>
+            <input type="email" class="form-control" id="emailFP" onkeyup="onBtn()" />
+            <span id="wrMail" style="display:none;">Enter proper email</span>
+          </div>
+          {% csrf_token %}
           <!-- </form> -->
-            <div id="getOTP" class="collapse">
-              <label class="label">Enter OTP:</label>
-              <form>
-                <div class="input-group mb-3">
-                  <input type="text" id="otp1" class="form-control" maxLength="1" onkeyup="clickEvent('otp1',this,'otp2')" style="margin-right: 5px; text-align: center;" />
-                  <input type="text" id="otp2" class="form-control" maxLength="1" onkeyup="clickEvent('otp1',this,'otp3')" style="margin-right: 5px; text-align: center;" />
-                  <input type="text" id="otp3" class="form-control" maxLength="1" onkeyup="clickEvent('otp2',this,'otp4')" style="margin-right: 5px; text-align: center;" />
-                  <input type="text" id="otp4" class="form-control" maxLength="1" onkeyup="clickEvent('otp3',this,'otp5')" style="margin-right: 5px; text-align: center;" />
-                  <input type="text" id="otp5" class="form-control" maxLength="1" onkeyup="clickEvent('otp4',this,'otp6')" style="margin-right: 5px; text-align: center;" />
-                  <input type="text" id="otp6" class="form-control" maxLength="1" onkeyup="clickEvent('otp5',this,'otp6')" style="margin-right: 0px; text-align: center;" />
-                </div>
-                <center>
-                  <span id ="wrOTP" style="display:none; margin-bottom:5px;">Enter proper otp</span>
-                </center>
-                {% csrf_token %}
-              </form>
-            </div>
+          <div id="getOTP" class="collapse">
+            <label class="label">Enter OTP:</label>
+            <form>
+              <div class="input-group mb-3">
+                <input type="text" id="otp1" class="form-control" maxLength="1" onkeyup="clickEvent('otp1',this,'otp2')"
+                  style="margin-right: 5px; text-align: center;" />
+                <input type="text" id="otp2" class="form-control" maxLength="1" onkeyup="clickEvent('otp1',this,'otp3')"
+                  style="margin-right: 5px; text-align: center;" />
+                <input type="text" id="otp3" class="form-control" maxLength="1" onkeyup="clickEvent('otp2',this,'otp4')"
+                  style="margin-right: 5px; text-align: center;" />
+                <input type="text" id="otp4" class="form-control" maxLength="1" onkeyup="clickEvent('otp3',this,'otp5')"
+                  style="margin-right: 5px; text-align: center;" />
+                <input type="text" id="otp5" class="form-control" maxLength="1" onkeyup="clickEvent('otp4',this,'otp6')"
+                  style="margin-right: 5px; text-align: center;" />
+                <input type="text" id="otp6" class="form-control" maxLength="1" onkeyup="clickEvent('otp5',this,'otp6')"
+                  style="margin-right: 0px; text-align: center;" />
+              </div>
+              <center>
+                <span id="wrOTP" style="display:none; margin-bottom:5px;">Enter proper otp</span>
+              </center>
+              {% csrf_token %}
+            </form>
+          </div>
           </form>
         </div>
         <div class="modal-footer">
           <a href="/signup" class="btn btn-warning" aria-label="Close">
-              Signup
-            </a>
-            <button id="OTPbtn" type="submit" onclick="sendmail()" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#getOTP">
-              Get OTP
-            </button>
-            <button id="verify" type="submit" onclick="verifyOTP()" class="btn btn-primary">
-              Verify OTP
-            </button>
+            Signup
+          </a>
+          <button id="OTPbtn" type="submit" onclick="sendmail()" class="btn btn-primary" data-bs-toggle="collapse"
+            data-bs-target="#getOTP">
+            Get OTP
+          </button>
+          <button id="verify" type="submit" onclick="verifyOTP()" class="btn btn-primary">
+            Verify OTP
+          </button>
         </div>
       </div>
     </div>
@@ -212,12 +225,13 @@
           <form action="/chPass" method="post">
             <div class="mb-3 mt-1">
               <label for="newPass" class="form-label">New Password:</label>
-              <input type="password" class="form-control" id="npass" placeholder="Enter New Password"
-                name="newPass" onkeyup="nPass()" />
+              <input type="password" class="form-control" id="npass" placeholder="Enter New Password" name="newPass"
+                onkeyup="nPass()" />
             </div>
             <div class="mb-3">
               <label for="confPass" class="form-label">Confirm Password:</label>
-              <input type="password" class="form-control" id="nconpass" placeholder="Confirm Password" name="confPass" onkeyup="nConPass()" />
+              <input type="password" class="form-control" id="nconpass" placeholder="Confirm Password" name="confPass"
+                onkeyup="nConPass()" />
             </div>
             <div class="row">
               <input id="chPassMail" name="chPassMail" style="display: none;" value="patilsarthak999@gmail.com" />
@@ -236,11 +250,11 @@
       </div>
     </div>
   </div>
-              </div>
-            </div>
-          </div>
+  </div>
+  </div>
+  </div>
 
-    <!-- #header -->
+  <!-- #header -->
 
   {% block body %} {% endblock body%}
 
@@ -285,12 +299,13 @@
   <script src="{% static '../static/lib/superfish/superfish.min.js' %}"></script>
   <script src="{% static '../static/lib/magnific-popup/magnific-popup.min.js' %}"></script>
 
-    <!-- Template Main Javascript File -->
-    <script src="{% static '../static/js/main.js' %}"></script>
-    <script src="{% static '../static/js/cam.js' %}"></script>
-    <script src="{% static '../static/js/mail.js' %}"></script>
-    <script src="{% static '../static/js/signup.js' %}"></script>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
-    
-  </body>
+  <!-- Template Main Javascript File -->
+  <script src="{% static '../static/js/main.js' %}"></script>
+  <script src="{% static '../static/js/cam.js' %}"></script>
+  <script src="{% static '../static/js/mail.js' %}"></script>
+  <script src="{% static '../static/js/signup.js' %}"></script>
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+</body>
+
 </html>

@@ -9,6 +9,12 @@ Patients
 /Patients
 {%endblock admin_title2%}
 
+{%block activeP%}
+<!-- Divider -->
+<hr
+    style="width: 15px; border: 3px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin-top: 0%; margin-bottom: 1%;">
+{% endblock activeP%}
+
 {% block admin_body %}
 
 <div class="d-flex justify-content-between">
@@ -157,30 +163,40 @@ Patients
     <thead class="table-primary">
         <tr class="table_tr">
             <th>Picture</th>
-            <th>Name</th>
+            <th>Name</th> <!-- <th>Email</th><th>Phone</th>age/ gender -->
+            <th>Age</th>
+            <th>Gender</th>
             <th>Prakruti</th>
-            <th>More Info</th> <!-- <th>Email</th><th>Phone</th>age/ gender -->
             <th>Total Appointments</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <td>asas</td>
-        <td>asasa</td>
-        <td>dfdfd</td>
-        <td>dfsdfs</td>
-        <td>gygyg</td>
-        <td width="14%">
-            <Button type="submit" class="btn bg-info text-white" name="book_apt" value="chval">
-                <i class="far fa-clock"></i>
-            </Button>
-            <Button type="submit" class="btn bg-success text-white" name="update" value="chval">
-                <i class="far fa-edit"></i>
-            </Button>
-            <Button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
-                <!-- <i class="fa-regular fa-trash-can"></i> -->
-                <i class="far fa-trash-alt"></i>
-            </Button>
+        <td width="10%">asas</td>
+        <td class="d-flex align-items-center justify-content-between border-0">
+            <label id="chang">sasasas</label>
+            <div class="dropdown no-arrow d-lg-inline">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-warning"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" style="width: 250px; font-size: medium;">
+                    <div class="dropdown-header text-warning" style="font-size: medium;">More Details</div>
+                    <b class="ms-3" style="font-size: large;">Email:</b> <label class="dropdown-list" for="Email_detail">example@gmail.com</label><br>
+                    <b class="ms-3">Ph no.:</b> <label class="dropdown-list" for="Phno_detail">1234567890</label>
+                </div>
+            </div>
+        </td>
+        <td width="1%">12</td>
+        <td width="1%">Female</td>
+        <td width="20%">dfdfd</td>
+        <td width="15%">gygyg</td>
+        <td class="align-items-center" width="5%">
+            <center>
+                <Button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
+                    <i class="far fa-trash-alt"></i>
+                </Button>
+            </center>
         </td>
     </tbody>
     <tfoot>

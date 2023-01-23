@@ -9,6 +9,11 @@ Orders
 /Orders
 {%endblock admin_title2%}
 
+{%block activeO%}
+<!-- Divider -->
+<hr style="width: 15px; border: 3px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin-top: 0%; margin-bottom: 1%;">
+{% endblock activeO%}
+
 {% block admin_body %}
 <div class="d-flex justify-content-between">
 
@@ -42,32 +47,56 @@ Orders
         <tr class="table_tr">
             <th>Order Number</th>
             <th>Product Details</th>
-            <th>User Details</th>
             <th>Day</th>
             <th>Time</th>
+            <th>User Details</th>
             <th>Status</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <td>asas</td>
-        <td>asasa</td>
-        <td>dfdfd</td>
-        <td>dfsdfs</td>
-        <td>dfsdfs</td>
+        <td width="1%">1234567890</td>
+        <td class="d-flex align-items-center justify-content-between border-0">
+            <label id="chang">asasa</label>
+            <div class="dropdown no-arrow d-lg-inline">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-warning"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" style="width: 250px; font-size: medium;">
+                    <div class="dropdown-header text-warning" style="font-size: medium;">More Details</div>
+                    <b class="ms-3">Quality:</b> <label class="dropdown-list" for="Email_detail">2</label>
+                    <b class="ms-3">Price:</b> ₹<label class="dropdown-list" for="Phno_detail">200</label>
+                </div>
+            </div>
+        </td>
+        <td width="1%">Wednesday</td>
+        <td width="1%">24:00</td>
+        <td class="d-flex align-items-center justify-content-between border-0">
+            <label id="chang">asasa</label>
+            <div class="dropdown no-arrow d-lg-inline">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-warning"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" style="width: 250px; font-size: medium;">
+                    <div class="dropdown-header text-warning" style="font-size: medium;">More Details</div>
+                    <b class="ms-3">Email:</b> <label class="dropdown-list" for="Email_detail">example@gmail.com</label><br>
+                    <b class="ms-3">Ph no.:</b> <label class="dropdown-list" for="Phno_detail">1234567890</label>
+                </div>
+            </div>
+        </td>
         <td width="16%">
             <span class="badge bg-success" style="font-size: 85%;">Delivered</span>
             <span class="badge bg-info" style="font-size: 85%;">Not Delivered</span>
             <span class="badge bg-warning" style="font-size: 85%;">Rescheduled</span>
         </td>
-        <td width="10%">
-            <Button type="submit" class="btn bg-success text-white" name="update" value="chval">
-                <i class="far fa-edit"></i>
-            </Button>
-            <Button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
-                <!-- <i class="fa-regular fa-trash-can"></i> -->
-                <i class="far fa-trash-alt"></i>
-            </Button>
+        <td class="align-items-center" width="1%">
+            <center>
+                <Button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
+                    <i class="far fa-trash-alt"></i>
+                </Button>
+            </center>
         </td>
     </tbody>
     <tfoot>

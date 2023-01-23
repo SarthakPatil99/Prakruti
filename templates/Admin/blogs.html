@@ -9,6 +9,12 @@ Blogs
 /Blogs
 {%endblock admin_title2%}
 
+{%block activeB%}
+<!-- Divider -->
+<hr
+    style="width: 15px; border: 3px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin-top: 0%; margin-bottom: 1%;">
+{% endblock activeB%}
+
 {% block admin_body %}
 <div class="d-flex justify-content-between">
     <button type="button" class="btn btn-warning mx-3 mb-3" data-toggle="modal" data-target="#add_BModal">
@@ -112,33 +118,159 @@ Blogs
     </div>
 </div>
 
-<table class="table table-hover table-bordered">
-    <thead class="table-primary">
-        <tr class="table_tr">
-            <th>Title</th>
-            <th>Type</th> <!-- Image/ video / blog -->
-            <th>Day</th>
-            <th>Time</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <td>asas</td>
-        <td>asasa</td>
-        <td>dfdfd</td>
-        <td>dfsdfs</td>
-        <td width="10%">
-            <Button type="submit" class="btn bg-success text-white" name="update" value="chval">
-                <i class="far fa-edit"></i>
-            </Button>
-            <Button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
-                <!-- <i class="fa-regular fa-trash-can"></i> -->
-                <i class="far fa-trash-alt"></i>
-            </Button>
-        </td>
-    </tbody>
-    <tfoot>
+<!-- bolgs' cards -->
+<div class="row m-1">
+    <div class="col-12 col-md-6 col-lg-4 mt-2">
+        <div class="card">
+            <div class="card-header" style="background-color: #aaccff;">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630;">
+                            What is overflowing text?
+                            <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%;
+                                ">Image</span>
+                            <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%;">Video</span>
+                            <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%;">Blog</span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="d-lg-inline date text-white text-uppercase h6">| Jan 2</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="min-height: 220px;">
+                <p class="card-text mb-0 pstyle">
+                    This might be useful if you want to prevent a large gap from appearing if there is just enough space
+                    for the string.Or,
+                    where there is another element that you would not want the break to happen immediately after.
+    
+                    In the example below there is a checkbox and label. Let's say, you want the label to break should it
+                    be
+                    too long for the
+                    box. However, you don't want it to break directly after the checkbox.
+                    With supporting text below as a natural lead-in to additional content.
+                </p>
+            </div>
+            <div class="text-end mb-3 me-3">
+                <a href="#" class="btn text-white" style="background-color: #aaccff;">
+                    <i class="far fa-edit"></i>
+                </a>
+                <a href="#" class="btn bg-danger text-white">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
-    </tfoot>
-</table>
+    <div class="col-12 col-md-6 col-lg-4 mt-2">
+        <div class="card">
+            <div class="card-header" style="background-color: #aaccff;">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630;">
+                            What is overflowing text?
+                            <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%;
+                                    ">Image</span>
+                            <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%;">Video</span>
+                            <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%;">Blog</span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="d-lg-inline date text-white text-uppercase h6">| Jan 2</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="min-height: 220px;">
+                <p class="card-text mb-0 pstyle">
+                    This might be useful if you want to prevent a large gap from appearing if there is just enough space
+                    for the string.Or,
+                    where there is another element that you would not want the break to happen immediately after.
+    
+                    In the example below there is a checkbox and label. Let's say, you want the label to break should it
+                    be
+                    too long for the
+                    box. However, you don't want it to break directly after the checkbox.
+                    With supporting text below as a natural lead-in to additional content.
+                </p>
+            </div>
+            <div class="text-end mb-3 me-3">
+                <a href="#" class="btn text-white" style="background-color: #aaccff;">
+                    <i class="far fa-edit"></i>
+                </a>
+                <a href="#" class="btn bg-danger text-white">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4 mt-2">
+        <div class="card">
+            <div class="card-header" style="background-color: #aaccff;">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630;">
+                            What is overflowing text?
+                            <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%;
+                                    ">Image</span>
+                            <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%;">Video</span>
+                            <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%;">Blog</span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="d-lg-inline date text-white text-uppercase h6">| Jan 2</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="min-height: 230px;">
+                <video width="100%" id="Vdo" style="border-radius: 5px;" controls>
+                    <source type="video/mp4" name="Vdo" />
+                </video>
+            </div>
+            <div class="text-end mb-3 me-3">
+                <a href="#" class="btn text-white" style="background-color: #aaccff;">
+                    <i class="far fa-edit"></i>
+                </a>
+                <a href="#" class="btn bg-danger text-white">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4 mt-2">
+        <div class="card">
+            <div class="card-header" style="background-color: #aaccff;">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630;">
+                            What is overflowing text?
+                            <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%;
+                                    ">Image</span>
+                            <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%;">Video</span>
+                            <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%;">Blog</span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="d-lg-inline date text-white text-uppercase h6">| Jan 2</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="min-height: 220px;">
+                <center>
+                    <img src="../../static/admin/img/undraw_posting_photo.svg"
+                        style="width: auto; max-height: 190px; border-radius: 5px;" alt="Italian Trulli">
+                </center>
+            </div>
+            <div class="text-end mb-3 me-3">
+                <a href="#" class="btn text-white" style="background-color: #aaccff;">
+                    <i class="far fa-edit"></i>
+                </a>
+                <a href="#" class="btn bg-danger text-white">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock admin_body%}
