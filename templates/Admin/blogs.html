@@ -1,6 +1,7 @@
 {%extends 'Admin/admin_base.html'%}
 {% load static %}
 
+<!-- 
 {% block admin_title%}
 Blogs
 {%endblock admin_title%}
@@ -8,6 +9,7 @@ Blogs
 {% block admin_title2%}
 /Blogs
 {%endblock admin_title2%}
+-->
 
 {%block activeB%}
 <!-- Divider -->
@@ -17,147 +19,236 @@ Blogs
 
 {% block admin_body %}
 <div class="d-flex justify-content-between">
-    <button type="button" class="btn btn-warning mx-3 mb-3" data-toggle="modal" data-target="#add_BModal">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" fill="currentColor" class="bi bi-plus-circle"
-            viewBox="0.5 2 15 16">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-            <path
-                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-        </svg> New
-    </button>
-    <div class="modal" id="add_BModal">
-        <div class="modal-dialog">
-            <div class="modal-content" style="border: none; background-color: rgb(221, 221, 221);
-                            z-index: 3;
-                            ">
-                <div class="modal-header bg-secondary">
-                    <h4 class="modal-title text-warning">New Medicine</h4>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                {% for message in messages %}
-                {% if message.tags == "error" %}
-                <div class="alert alert-danger alert-dismissible fade show msg" role="alert">
-                    <strong>{{ message.tags }}!</strong> {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                {% endif %}
-                {% endfor %}
-
-                <div class="modal-body">
-                    <form action="/login" method="post">
-                        <div class="row mb-2">
-                            <div class="col-12 col-md-12 col-lg-12">
-                                <label for="Title" class="form-label"><b>Blog Title:</b></label>
-                                <input type="text" class="form-control" id="Title" placeholder="Title" name="Title"
-                                    required>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <label for="Blog type" class="form-label"><b>Blog type:</b></label>
-                                <select class="form-select form-select-sm form-control"
-                                    aria-label=".form-select-sm example" placeholder="Type" id="Btype" name="Btype">
-                                    <option selected value="0">Select Type</option>
-                                    <option value="1">Blog</option>
-                                    <option value="2">Image</option>
-                                    <option value="3">Video</option>
-                                </select>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <label for="formFile" class="form-label"><b>Choose File:</b></label>
-                                <input class="form-control" type="file" id="formFile">
-                            </div>
-                        </div>
-
-                        <div class="row mb-2">
-                            <div class="col-12 col-md-12 col-lg-12">
-                                <label for="Contents" class="form-label"><b>Contents:</b></label>
-                                <textarea class="form-control" id="Contents" placeholder="Contents" name="Contents"
-                                    required></textarea>
-                            </div>
-                        </div>
-
-                        <!-- <div id="signup_email_error" class="alert alert-danger fade show msg" role="alert">
-                            <strong>INVALID EMAIL</strong>
-                        </div>
-                        <div id="signup_phone_error" class="alert alert-danger fade show msg" role="alert">
-                            <strong>INVALID PHONE</strong>
-                        </div> -->
-                        <button type="submit" class="btn btn-warning text-gray-800 mt-2 float-right">
-                            Insert
-                        </button>
-                        {% csrf_token %}
-                    </form>
-                </div>
-            </div>
+  <button
+    type="button"
+    class="btn btn-warning mx-3 mb-3"
+    data-toggle="modal"
+    data-target="#BModal"
+    onclick="transferBlog()"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="15"
+      height="20"
+      fill="currentColor"
+      class="bi bi-plus-circle"
+      viewBox="0.5 2 15 16"
+    >
+      <path
+        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+      />
+      <path
+        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+      />
+    </svg>
+    New
+  </button>
+  <!-- modal -->
+  <div class="modal" id="BModal">
+    <div class="modal-dialog">
+      <div
+        class="modal-content"
+        style="border: none; background-color: rgb(221, 221, 221); z-index: 3"
+      >
+        <div class="modal-header bg-secondary">
+          <h4 class="modal-title text-warning" id="MTitle"> </h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-dismiss="modal"
+            aria-label="Close"
+            onclick="transferBlog()"
+          ></button>
         </div>
+
+        {% for message in messages %} {% if message.tags == "error" %}
+        <div
+          class="alert alert-danger alert-dismissible fade show msg"
+          role="alert"
+        >
+          <strong>{{ message.tags }}!</strong> {{ message }}
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        {% endif %} {% endfor %}
+
+        <div class="modal-body">
+          <form action="/login" method="post">
+            <div class="row mb-2">
+              <div class="col-12 col-md-12 col-lg-12">
+                <label for="Title" class="form-label"> <b>Blog Title:</b> </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="Title"
+                  placeholder="Title"
+                  name="Title"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-12 col-md-6 col-lg-6">
+                <label for="Blog type" class="form-label"> <b>Blog type:</b> </label>
+                <select
+                  class="form-control form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  placeholder="Type"
+                  id="Btype"
+                  name="Btype"
+                  onchange="validateBType()"
+                >
+                  <option selected value="0">Select Type</option>
+                  <option value="1">Blog</option>
+                  <option value="2">Image</option>
+                  <option value="3">Video</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-6 col-lg-6" id="inGrp">
+                <label for="formFile" class="form-label"> </label>
+                  <b>Choose File:</b>
+                </label>
+                <input
+                  class="form-control mt-2"
+                  type="file"
+                  id="inFile"
+                  onchange="blogChk()"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div
+                class="col-12 col-md-12 col-lg-12"
+                id="textField"
+                style="display: none"
+              >
+                <label for="Contents" class="form-label"><b>Content:</b></label>
+                <textarea
+                  class="form-control"
+                  style="height: 150px"
+                  id="Contents"
+                  placeholder="Your Content here"
+                  name="Contents"
+                  required
+                ></textarea>
+              </div>
+              <div
+                class="col-12 col-md-12 col-lg-12"
+                id="imgField"
+                style="display: none"
+              >
+                <label for="Img" class="form-label"> <b>Image:</b> </label> <br />
+                <center>
+                  <input
+                    type="image"
+                    id="Img"
+                    value=""
+                    src="../../static/img/close_cam.png"
+                    width="75%"
+                    name="Img"
+                    disabled
+                  />
+                </center>
+              </div>
+              <div
+                class="col-12 col-md-12 col-lg-12"
+                id="videoField"
+                style="display: none"
+              >
+                <label for="Vdo" class="form-label"> <b>Video:</b> </label> <br />
+                <center>
+                  <video width="70%" id="Vdo" name="Vdo" controls>
+                  </video>
+                </center>
+              </div>
+            </div>
+            <button
+              type="submit"
+              id="Submit"
+              class="btn btn-warning text-gray-800 mt-2 float-right"
+            >
+            </button>
+            {% csrf_token %}
+          </form>
+        </div>
+      </div>
     </div>
-    <form style="width: 400px;">
-        <div class="input-group">
-            <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search"
-                aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                    <i class="fas fa-search fa-sm"></i>
-                </button>
-            </div>
-        </div>
-    </form>
+  </div>
 
-    <div class="dropdown float-right mx-3 mb-3">
-        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown"
-            aria-expanded="false">
-            Sort via
+  <form style="width: 55%">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control bg-light"
+        placeholder="Search for..."
+        aria-label="Search"
+        aria-describedby="basic-addon2"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button">
+          <i class="fas fa-search fa-sm"></i>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Title</a></li>
-            <li><a class="dropdown-item" href="#">Day</a></li>
-            <li><a class="dropdown-item" href="#">Type</a></li>
-        </ul>
+      </div>
     </div>
+  </form>
+
+  <div class="dropdown float-right mx-3 mb-3">
+    <button
+      class="btn btn-info dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton1"
+      data-toggle="dropdown"
+      aria-expanded="false"
+    >
+      Sort via
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" href="#">Title</a></li>
+      <li><a class="dropdown-item" href="#">Day</a></li>
+      <li><a class="dropdown-item" href="#">Type</a></li>
+    </ul>
+  </div>
 </div>
 
 <!-- bolgs' cards -->
 <div class="row m-1">
     <div class="col-12 col-md-6 col-lg-4 mt-2">
-        <div class="card">
+          <div class="card">
             <div class="card-header" style="background-color: #aaccff;">
                 <div class="row">
                     <div class="col-9">
                         <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630;">
-                            What is overflowing text?
-                            <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%;
-                                ">Image</span>
-                            <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%;">Video</span>
-                            <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%;">Blog</span>
+                            <b id="title">what is overflowing text?</b> 
+                            <!-- <span class="badge bg-secondary mb-1 text-uppercase" id="type" style="font-size: 55%;" >Image</span> -->
+                            <!-- <span class="badge bg-success mb-1 text-uppercase" id="type" style="font-size: 55%;" >Video</span> -->
+                            <span class="badge bg-warning mb-1 text-uppercase" id="type" style="font-size: 55%;">Blog</span>
                         </div>
                     </div>
                     <div class="col-3">
-                        <div class="d-lg-inline date text-white text-uppercase h6">| Jan 2</div>
+                        <div class="d-lg-inline date text-white text-uppercase h6" id="day">| Jan 2</div>
                     </div>
                 </div>
             </div>
             <div class="card-body" style="min-height: 220px;">
-                <p class="card-text mb-0 pstyle">
-                    This might be useful if you want to prevent a large gap from appearing if there is just enough space
-                    for the string.Or,
-                    where there is another element that you would not want the break to happen immediately after.
-    
-                    In the example below there is a checkbox and label. Let's say, you want the label to break should it
-                    be
-                    too long for the
-                    box. However, you don't want it to break directly after the checkbox.
-                    With supporting text below as a natural lead-in to additional content.
-                </p>
+                <p class="card-text mb-0 pstyle" id="contents">Lorem ipsum dolor sit, amet consectetur adipisicing elit. O dio repellendus id, 
+                  fugit atque inventore deserunt quod minus autem consectetur libero voluptatum voluptatem nam praesentium. Repudiandae sequi delectus dicta maiores? Illum.</p>
+                <!-- <img src="../../static/admin/img/undraw_posting_photo.svg" id="img" style="width: auto; max-height: 190px; border-radius: 5px;" alt="Italian Trulli"/> -->
+                <!-- <video width="100%" id="vdo" style="border-radius: 5px;" name="video" controls src="../../static/file_example_MP4_480_1_5MG.mp4">
+                </video> -->
             </div>
             <div class="text-end mb-3 me-3">
-                <a href="#" class="btn text-white" style="background-color: #aaccff;">
+                <button class="btn text-white" style="background-color: #aaccff;" name="update"
+                  value="chval"  data-toggle="modal" data-target="#BModal" onclick="transferBlog(true)">
                     <i class="far fa-edit"></i>
-                </a>
-                <a href="#" class="btn bg-danger text-white">
+                </button>
+                <button class="btn bg-danger text-white" name="Remove" value="chval">
                     <i class="far fa-trash-alt"></i>
-                </a>
+                </button>
             </div>
         </div>
     </div>
@@ -168,10 +259,9 @@ Blogs
                 <div class="row">
                     <div class="col-9">
                         <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630;">
-                            What is overflowing text?
-                            <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%;
-                                    ">Image</span>
-                            <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%;">Video</span>
+                            <b id="title">what is overflowing text?</b>
+                            <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%;" >Image</span>
+                            <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%;" >Video</span>
                             <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%;">Blog</span>
                         </div>
                     </div>
@@ -223,8 +313,7 @@ Blogs
                 </div>
             </div>
             <div class="card-body" style="min-height: 230px;">
-                <video width="100%" id="Vdo" style="border-radius: 5px;" controls>
-                    <source type="video/mp4" name="Vdo" />
+                <video width="100%" id="Vdo" style="border-radius: 5px;" controls src="../../static/file_example_MP4_480_1_5MG.mp4" name="Vdo">
                 </video>
             </div>
             <div class="text-end mb-3 me-3">

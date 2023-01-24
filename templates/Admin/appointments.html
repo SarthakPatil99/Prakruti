@@ -1,6 +1,6 @@
-{%extends 'Admin/admin_base.html'%}
-{% load static %}
+{%extends 'Admin/admin_base.html'%} {% load static %}
 
+<!-- 
 {% block admin_title%}
 Appointments
 {%endblock admin_title%}
@@ -8,91 +8,208 @@ Appointments
 {% block admin_title2%}
 /Appointments
 {%endblock admin_title2%}
+-->
 
 {%block activeA%}
 <!-- Divider -->
 <hr
-    style="width: 15px; border: 3px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin-top: 0%; margin-bottom: 1%;">
-{% endblock activeA%}
-
-{% block admin_body %}
-<div class="d-flex justify-content-between">
-    <form class="mx-3" style="width: 400px;">
-        <div class="input-group">
-            <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search"
-                aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                    <i class="fas fa-search fa-sm"></i>
-                </button>
+  style="
+    width: 15px;
+    border: 3px solid rgb(255, 183, 0);
+    border-radius: 5px;
+    opacity: 80%;
+    margin-top: 0%;
+    margin-bottom: 1%;
+  "
+/>
+{% endblock activeA%} {% block admin_body %}
+<div class="modal" id="ReschModal">
+  <div class="modal-dialog">
+    <div
+      class="modal-content"
+      style="border: none; background-color: rgb(221, 221, 221); z-index: 3"
+    >
+      <div class="modal-header bg-secondary">
+        <h4 class="modal-title text-warning">Appointment</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="/login" method="post">
+          <div class="row">
+            <div class="col-12 col-md-6 col-lg-6 mb-2">
+              <label for="name" class="form-label"> <b>Day :</b> </label>
+              <select
+                  class="form-select form-select-sm form-control"
+                  aria-label=".form-select-sm example"
+                  id="Day"
+                  name="Day"
+                  onchange="dayChoose()"
+                >
+                  <option selected value="0">Select</option>
+                  <option value="1">Today</option>
+                  <option value="2">Tomorrow</option>
+                  <option value="3">Other</option>
+                </select>
             </div>
-        </div>
-    </form>
-
-    <div class="dropdown float-right mx-3 mb-3">
-        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown"
-            aria-expanded="false">
-            Sort via
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Day</a></li>
-            <li><a class="dropdown-item" href="#">Status</a></li>
-        </ul>
+            <div class="col-12 col-md-6 col-lg-6 my-2" id="dateSec"
+              <label for="date" class="form-label"> <b>Date :</b> </label>
+              <input class="form-control" type="date" id="date" name="date" onchange="showAppnt()"/>
+            </div>
+          </div>
+          <div class="row mb-2" id="Appnts">
+            <label for="name" class="form-label"><b>Available Appointments :</b> </label> <br/>
+            <div class="form-check ms-5">
+              <input class="form-check-input" type="radio" name="appnt" id="appnt1" value="Morning" onchange="showAppnt()">
+              <label class="form-check-label me-5" for="appnt1">
+                Morning
+              </label>
+              <input class="form-check-input" type="radio" name="appnt" id="appnt2" value="Afternoon" onchange="showAppnt()">
+              <label class="form-check-label me-5" for="appnt2">
+                Afternoon
+              </label>
+              <input class="form-check-input" type="radio" name="appnt" id="appnt3" value="Evening" onchange="showAppnt()">
+              <label class="form-check-label me-5" for="appnt3">
+                Evening
+              </label>
+            </div>
+            <!-- <center class="my-2">
+                <button class="btn btn-info">Morning</button>
+                <button class="btn btn-info mx-5">Afternoon</button>
+                <button class="btn btn-info">Evening</button>
+            </center> -->
+          </div>  
+          <button
+            type="submit"
+            id="schedule"
+            class="btn btn-warning text-white-500 mt-2 float-right"
+          >
+            Schedule
+          </button>
+          {% csrf_token %}
+        </form>
+      </div>
     </div>
+  </div>
+</div>
+<div class="d-flex justify-content-between">
+  <form class="mx-3" style="width: 400px">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control bg-light"
+        placeholder="Search for..."
+        aria-label="Search"
+        aria-describedby="basic-addon2"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button">
+          <i class="fas fa-search fa-sm"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="dropdown float-right mx-3 mb-3">
+    <button
+      class="btn btn-info dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton1"
+      data-toggle="dropdown"
+      aria-expanded="false"
+    >
+      Sort via
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" href="#">Day</a></li>
+      <li><a class="dropdown-item" href="#">Status</a></li>
+    </ul>
+  </div>
 </div>
 
 <table class="table table-hover table-bordered">
-    <thead class="table-primary">
-        <tr class="table_tr">
-            <th>Name</th> <!-- mail, Phone -->
-            <th>age</th>
-            <th>Gender</th>
-            <th>Day</th>
-            <th>Time Slot</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <td class="d-flex align-items-center justify-content-between border-0">
-            <label id="chang">asasa</label>
-            <div class="dropdown no-arrow d-lg-inline">
-                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-warning"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                    style="width: 250px; font-size: medium;">
-                    <div class="dropdown-header text-warning" style="font-size: medium;">More Details</div>
-                    <b class="ms-3">Email:</b> <label class="dropdown-list"
-                        for="Email_detail">example@gmail.com</label><br>
-                    <b class="ms-3">Ph no.:</b> <label class="dropdown-list" for="Phno_detail">1234567890</label><br>
-                    <b class="ms-3"><a href="/history" style="text-decoration: none;">View Patient's History</a></b>
-                </div>
-            </div>
-        </td>
-        <td width="1%">12</td>
-        <td width="1%">Female</td>
-        <td width="1%">Wednesday</td>
-        <td width="12%">10.00 to 11.00</td>
-        <td width="16%">
-            <span class="badge bg-success" style="font-size: 85%;">Attended</span>
-            <span class="badge bg-info" style="font-size: 85%;">Not Attended</span>
-            <span class="badge bg-warning" style="font-size: 85%;">Rescheduled</span>
-        </td>
-        <td width="10%">
-            <center>
-                <Button type="submit" class="btn bg-info text-white" name="reschedule" value="chval">
-                    <i class="far fa-clock"></i>
-                </Button>
-                <Button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
-                    <i class="far fa-trash-alt"></i>
-                </Button>
-            </center>
-        </td>
-    </tbody>
-    <tfoot>
-
-    </tfoot>
+  <thead class="table-primary">
+    <tr class="table_tr">
+      <th>Name</th>
+      <!-- mail, Phone -->
+      <th>age</th>
+      <th>Gender</th>
+      <th>Day</th>
+      <th>Time Slot</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <td class="d-flex align-items-center justify-content-between border-0">
+      <label id="chang">asasa</label>
+      <div class="dropdown no-arrow d-lg-inline">
+        <a
+          class="dropdown-toggle"
+          href="#"
+          role="button"
+          id="dropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="fas fa-ellipsis-v fa-sm fa-fw text-warning"></i>
+        </a>
+        <div
+          class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+          style="width: 250px; font-size: medium"
+        >
+          <div class="dropdown-header text-warning" style="font-size: medium">
+            More Details
+          </div>
+          <b class="ms-3">Email:</b>
+          <label class="dropdown-list" for="Email_detail"
+            >example@gmail.com</label
+          ><br />
+          <b class="ms-3">Ph no.:</b>
+          <label class="dropdown-list" for="Phno_detail">1234567890</label>
+        </div>
+      </div>
+    </td>
+    <td width="1%">12</td>
+    <td width="1%">Female</td>
+    <td width="1%">Wednesday</td>
+    <td width="12%">10.00 to 11.00</td>
+    <td width="16%">
+      <span class="badge bg-success" style="font-size: 85%">Attended</span>
+      <span class="badge bg-info" style="font-size: 85%">Not Attended</span>
+      <span class="badge bg-warning" style="font-size: 85%">Rescheduled</span>
+    </td>
+    <td width="10%">
+      <center>
+        <button
+          type="submit"
+          class="btn bg-info text-white"
+          name="reschedule"
+          title="Reschedule"
+          value="chval"
+          data-toggle="modal"
+          data-target="#ReschModal"
+          onclick="dayReset()"
+        >
+          <i class="far fa-clock"></i>
+        </button>
+        <button
+          type="submit"
+          class="btn bg-danger text-white my-1"
+          name="Remove"
+          title="Remove"
+          value="chval"
+        >
+          <i class="far fa-trash-alt"></i>
+        </button>
+      </center>
+    </td>
+  </tbody>
+  <tfoot></tfoot>
 </table>
 {% endblock admin_body%}
