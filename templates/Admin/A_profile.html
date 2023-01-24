@@ -1,10 +1,271 @@
-{% extends 'Admin/admin_base.html' %}
-{% load static %}
+{% extends 'Admin/admin_base.html' %} {% load static %} {% block title %}
+Profile {% endblock title %} {% block body %}
+<div class="modal" id="add_PModal">
+  <div class="modal-dialog">
+    <div
+      class="modal-content"
+      style="border: none; background-color: rgb(221, 221, 221); z-index: 3"
+    >
+      <div class="modal-header bg-secondary">
+        <h4 class="modal-title text-warning">Edit Details</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
 
-{% block title %}
-Profile
-{% endblock title %}
+      <div class="modal-body">
+        <form action="/login" method="post">
+          <div class="row">
+            <div class="col-6">
+              <label for="name" class="form-label"> <b>Full Name:</b> </label>
+            </div>
+            <div class="col-6">
+              <label for="name" class="form-label"> <b>Your DP:</b> </label>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-6">
+              <div class="col-12 my-4">
+                <input
+                  type="first name"
+                  class="form-control"
+                  id="Fname"
+                  placeholder="First Name"
+                  name="Fname"
+                  required
+                />
+              </div>
+              <div class="col-12 my-4">
+                <input
+                  type="middle name"
+                  class="form-control"
+                  id="Mname"
+                  placeholder="Middle Name"
+                  name="Mname"
+                  required
+                />
+              </div>
+              <div class="col-12 my-4">
+                <input
+                  type="last name"
+                  class="form-control"
+                  id="Lname"
+                  placeholder="Last Name"
+                  name="Lname"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="col-12 my-0">
+                <center>
+                  <img
+                    id="Img"
+                    src="../../static/img/about-img.jpg"
+                    height="140px"
+                    width="140px"
+                    style="border-radius: 100%"
+                  />
+                </center>
+              </div>
+              <div class="col-12">
+                <input
+                  class="form-control mt-3"
+                  type="file"
+                  name="File"
+                  id="inFile"
+                  onchange="validateImage()"
+                />
+              </div>
+            </div>
+          </div>
 
-{% block body %}
+          <div class="row mb-2">
+            <div class="col-12 col-md-6 col-lg-6">
+              <label for="email" class="form-label"> <b>Email:</b> </label>
+              <input
+                type="email"
+                class="form-control"
+                id="Email"
+                placeholder="Email"
+                name="Email"
+                onfocusout="validateEmail()"
+                required
+              />
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+              <label for="Phone" class="form-label">
+                <b>Phone Number:</b>
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                id="Phone"
+                placeholder="Phone No."
+                name="Phone"
+                onfocusout="validatePhone()"
+                required
+              />
+            </div>
+          </div>
 
-{% endblock body %}
+          <div class="row mb-2">
+            <div class="col-12 col-md-3 col-lg-4">
+              <label for="age" class="form-label"> <b>Age:</b> </label>
+              <input
+                type="number"
+                class="form-control"
+                id="Age"
+                placeholder="Age"
+                name="Age"
+                onfocusout="validateAge()"
+                required
+              />
+            </div>
+            <div class="col-12 col-md-4 col-lg-4">
+              <label for="Gender" class="form-label"> <b>Gender:</b> </label>
+              <select
+                class="form-select form-select-sm form-control"
+                aria-label=".form-select-sm example"
+                placeholder="Select Gender"
+                id="Gender"
+                name="Gender"
+                onfocusout="validateGender()"
+              >
+                <option selected value="0">Select</option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+                <option value="3">Other</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-5 col-lg-4">
+              <label for="Prakruti" class="form-label">
+                <b>Prakruti:</b>
+              </label>
+              <select
+                class="form-select form-select-sm form-control"
+                aria-label=".form-select-sm example"
+                placeholder="Select Prakruti"
+                id="Prakruti"
+                name="Prakruti"
+                onfocusout="validatePrakruti()"
+              >
+                <option selected value="0">Select</option>
+                <option value="1">Vata Kapha</option>
+                <option value="2">Vata Pitta</option>
+                <option value="3">Kapha Vata</option>
+                <option value="4">Kapha Pitta</option>
+                <option value="5">Pitta Vata</option>
+                <option value="6">Pitta Kapha</option>
+              </select>
+            </div>
+          </div>
+          <button
+            type="submit"
+            id="Submit"
+            class="btn btn-warning text-gray-800 mt-2 float-right"
+          >
+            Edit
+          </button>
+          {% csrf_token %}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Body below -->
+<div class="row mx-4">
+  <div class="col-12 col-md-5 col-lg-3 mb-4">
+    <center>
+      <img
+        src="../../static/img/about-img.jpg"
+        width="250px"
+        height="250px"
+        id="dp"
+        style="border-radius: 100%"
+      />
+    </center>
+  </div>
+  <div class="col-12 col-md-7 col-lg-9 py-3">
+    <div class="row mb-2">
+      <div class="col-lg-1"></div>
+      <div class="col-12 col-md-12 col-lg-2">
+        <label class="form-label" for="name" class="form-label">
+          <b>Full Name:</b>
+        </label>
+      </div>
+      <div class="col-12 col-md-4 col-lg-3">
+        <label class="form-control" id="fname" name="fname">First Name</label>
+      </div>
+      <div class="col-12 col-md-4 col-lg-3">
+        <label class="form-control" id="mname" name="mname">Middle Name</label>
+      </div>
+      <div class="col-12 col-md-4 col-lg-3">
+        <label class="form-control" id="lname" name="lname">Last Name</label>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-lg-1"></div>
+      <div class="col-12 col-md-6 col-lg-2 align-items-center d-flex">
+        <label class="form-label"> <b>Email Address:</b> </label>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <label class="form-control" id="email" name="email"
+          >Email Address</label
+        >
+      </div>
+      <div class="col-12 col-md-6 col-lg-2 align-items-center d-flex">
+        <label class="form-label"><b>Phone Number:</b> </label>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <label class="form-control" id="phone" name="phone">Phone Number</label>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-lg-1"></div>
+      <div class="col-2 col-md-2 col-lg-1 align-items-center d-flex">
+        <label class="form-label"> <b>Age:</b> </label>
+      </div>
+      <div class="col-4 col-md-4 col-lg-2">
+        <label class="form-control" id="age" name="age">15</label>
+      </div>
+      <div class="col-2 col-md-2 col-lg-1 align-items-center d-flex">
+        <label class="form-label"> <b>Gender:</b> </label>
+      </div>
+      <div class="col-4 col-md-4 col-lg-2">
+        <label class="form-control" id="gender" name="gender">Gender</label>
+      </div>
+      <div class="col-2 col-md-2 col-lg-1 align-items-center d-flex">
+        <label class="form-label"> <b>Prakruti:</b> </label>
+      </div>
+      <div class="col-10 col-md-10 col-lg-4">
+        <label class="form-control" id="prakruti" name="prakruti"
+          >Prakruti</label
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-9 col-md-9 col-lg-10"></div>
+      <div class="col-3 col-md-3 col-lg-2">
+        <button
+          type="submit"
+          class="btn bg-success text-white"
+          name="Edit"
+          title="Edit Details"
+          value="chval"
+          data-toggle="modal"
+          data-target="#add_PModal"
+          onclick="transferED()"
+        >
+          <i class="far fa-edit"> Edit</i>
+        </button>
+      </div>
+    </div>
+  </div>
+  {% endblock body %}
+</div>
