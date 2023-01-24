@@ -171,6 +171,13 @@ def recommend(request):
 def shopping(request):
     return render(request, 'user/Shopping.html')
 
+
+def U_profile(request):
+    return render(request, 'user/U_profile.html', {'admin': 0})
+
+def profileU(request):
+    return render(request, 'user/U_profile.html', {'admin': 1})
+
 # -----------------------------ADMIN SIDE---------------------------
 
 
@@ -203,9 +210,7 @@ def orders(request):
 
 def A_profile(request):
     # jinja["prof_who"] = request.user
-    return render(request, 'admin/A_profile.html')
+    return render(request, 'admin/A_profile.html', {'admin': 0})
 
-
-def U_profile(request):
-    # jinja["prof_who"] = request.user
-    return render(request, 'user/U_profile.html')
+def profileA(request):
+    return render(request, 'admin/A_profile.html', {'admin': 1})

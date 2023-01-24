@@ -29,6 +29,7 @@ urlpatterns = [
     path("analyze/", views.analyze, name='analysis'),
     path("recommend/", views.recommend, name='recommender'),
     path("shopping/", views.shopping, name='shopping'),
+    path("profileU/", views.profileU, name='profileU'),
 
     # admin
     path("dashboard/", views.dashboard, name='dashboard'),
@@ -39,5 +40,6 @@ urlpatterns = [
     path("blogs/", views.blogs, name='blogs'),
     path("orders/", views.orders, name='orders'),
     path("A_profile/", views.A_profile, name='A_profile'),
+    path("profileA/", views.profileA, name='profileA'),
     path("U_profile/", views.U_profile, name='U_profile'),
 ]
