@@ -99,6 +99,52 @@ function transferHR(who) {
   }
 }
 
+function transferED() {
+  var Fname= document.getElementById("Fname");
+  var Mname = document.getElementById("Mname");
+  var Lname = document.getElementById("Lname");
+  var Email = document.getElementById("Email");
+  var Phone = document.getElementById("Phone");
+  var Age = document.getElementById("Age");
+  var Gender = document.getElementById("Gender");
+  var Prakruti = document.getElementById("Prakruti");
+
+  var gender =  document.getElementById("gender").innerHTML;
+  var prakruti =document.getElementById("prakruti").innerHTML;
+
+  Fname.value = document.getElementById("fname").innerHTML;
+  Mname.value = document.getElementById("mname").innerHTML;
+  Lname.value = document.getElementById("lname").innerHTML;
+  Email.value = document.getElementById("email").innerHTML;
+  Phone.value = document.getElementById("phone").innerHTML;
+  Age.value = parseInt(document.getElementById("age").innerHTML);
+  
+  if(gender == "male"){
+    Gender.value = "1";
+  }else if(gender == "female"){
+    Gender.value = "2";
+  }else if(gender == "other"){
+    Gender.value = "3";
+  }else{
+    Gender.value = "0";
+  }
+
+  if(prakruti=="Vata Kapha"){
+    Prakruti.value = "1";
+  }else if(prakruti =="Vata Pitta"){
+    Prakruti.value = "2";
+  }else if(prakruti =="Kapha Vata"){
+    Prakruti.value = "3";
+  }else if(prakruti =="Kapha Pitta"){
+    Prakruti.value = "4";
+  }else if(prakruti =="Pitta Vata"){
+    Prakruti.value = "5";
+  }else if(prakruti =="Pitta Kapha"){
+    Prakruti.value = "6";
+  } else{
+    Prakruti.value = "0";
+  }
+}
 // validators
 function validateEmail() {
   var email = document.getElementById("emailP");
@@ -131,11 +177,13 @@ function validateAge() {
   age = document.getElementById("age");
   if (age.value > 0) {
     console.log("valid Age");
+    age.style.border = "none";
     document.getElementById("Submit").disabled = false;
   } else {
     console.log("Invalid Age");
     age.value = "";
-    age.placeholder = "Enter a valid Age";
+    age.placeholder = "Invalid Age";
+    age.style.border = "1px solid red";
     document.getElementById("Submit").disabled = true;
   }
 }
@@ -338,32 +386,31 @@ function dayChoose() {
     document.getElementById("Appnts").style.display = "block";
     document.getElementById("schedule").disabled = true;
   } else {
-    document.getElementById("date").min=getday("-1");
+    document.getElementById("date").min = getday("-1");
     document.getElementById("dateSec").style.display = "block";
   }
 }
-function showAppnt(){
+function showAppnt() {
   // appointment showing code
   // console.log(document.getElementById("date").value);
   var ele = document.getElementsByName("appnt");
   for (i = 0; i < ele.length; i++) {
-    if (ele[i].checked)
-      console.log(ele[i].value);
+    if (ele[i].checked) console.log(ele[i].value);
   }
 }
 function getday(DAY) {
   var dt = new Date();
-  var day = String(dt.getDate()).padStart(2,0);
+  var day = String(dt.getDate()).padStart(2, 0);
   var month = String(dt.getMonth() + 1).padStart(2, 0);
   var year = dt.getFullYear();
   if (DAY == "1") {
     return `${day}-${month}-${year}`;
-  } else if(DAY == "2") {
-    day = parseInt(day)+1
+  } else if (DAY == "2") {
+    day = parseInt(day) + 1;
     return `${day}-${month}-${year}`;
-  } else{
+  } else {
     day = parseInt(day) + 2;
-    return `${year}-${month}-${day}`;;
+    return `${year}-${month}-${day}`;
   }
   DAY.value;
 }
