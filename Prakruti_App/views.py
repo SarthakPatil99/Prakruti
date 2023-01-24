@@ -201,5 +201,11 @@ def blogs(request):
 def orders(request):
     return render(request, 'admin/Orders.html')
 
-def profile(request):
-    return render(request, jinja, 'profile.html')
+def A_profile(request):
+    # jinja["prof_who"] = request.user
+    return render(request, 'admin/A_profile.html')
+
+
+def U_profile(request):
+    # jinja["prof_who"] = request.user
+    return render(request, 'user/U_profile.html')

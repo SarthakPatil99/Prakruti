@@ -38,4 +38,6 @@ urlpatterns = [
     path("home_remedies/", views.H_remedies, name='H_remedies'),
     path("blogs/", views.blogs, name='blogs'),
     path("orders/", views.orders, name='orders'),
+    path("A_profile/", views.A_profile, name='A_profile'),
+    path("U_profile/", views.U_profile, name='U_profile'),
 ]
