@@ -1,22 +1,24 @@
-{%extends 'base.html'%}
 
-{ % load static % }
-{% block title%}
-Sign Up
-{% endblock title%}
+{%extends 'base.html'%}
+<!--  
+{ % load static % } 
+
+{% block title%} 
+Sign Up 
+{% endblock title%} 
 
 {% block nav_links%}
 <li class="menu-active nav-item">
-    <a class="nav-link" href="/">Home</a>
+  <a class="nav-link" href="/">Home</a>
 </li>
-{% endblock nav_links%}
+{% endblock nav_links%} 
 
 {% block background%}
-    <div class="bg"></div>
-    <div class="bg bg2"></div>
-    <div class="bg bg3"></div>
-{% endblock background%}
-
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+{% endblock background%} 
+ -->
 {% block body %}
 <div class="sign_up">
     <div class="row">
@@ -55,8 +57,8 @@ Sign Up
                         </div>
                     </div>
                     <div id="signupup_Pass_rules" style="display:none" class="alert alert-danger fade show msg" role="alert">
-                        password should be 8 -16 characters wide<br>
-                        should contain at least one uppercase letter, <br>
+                        password should be 8 -16 characters wide<br/>
+                        should contain at least one uppercase letter, <br/>
                         one lowercase letter, one number and one special character
                     </div>
                     <div id="signup_passmtch" class="alert alert-danger fade show msg" role="alert">
@@ -83,13 +85,13 @@ Sign Up
                         <div class="col-12 col-md-6 col-lg-6">
                             <div class="mb-3 mt-3">
                                 <label for="email" class="form-label"><b>Email:</b></label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" onkeyup="validate_email()" required>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" onfocusout="validate_email()" required>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-6">
                             <div class="mb-3 mt-3">
                                 <label for="phone" class="form-label"><b>Phone Number:</b></label>
-                                <input type="phone" class="form-control" id="phone" placeholder="Enter Phone No." name="phone" onkeyup="validate_phone()" required>
+                                <input type="phone" class="form-control" id="phone" placeholder="Enter Phone No." name="phone" onfocusout="validate_phone()" required>
                             </div>
                         </div>
                     </div>
@@ -108,7 +110,9 @@ Sign Up
 </div>
 {% endblock body%}
 
-{% block footer_navs%}
-<a href="" class="scrollto">Home</a>
-<a href="" class="scrollto">About</a>
-{% endblock footer_navs%}
+
+  {% block footer_navs%}
+    <a href="" class="scrollto">Home</a>
+    <a href="" class="scrollto">About</a>
+  {% endblock footer_navs%} 
+

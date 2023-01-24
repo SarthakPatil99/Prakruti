@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>PRAKRUTI | {% block title%}{% endblock title%}</title>
+  <title> PRAKRUTI | {% block title%}{% endblock title%} </title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <meta content="" name="keywords" />
   <meta content="" name="description" />
@@ -48,18 +48,13 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mynavbar">
-        <ul class="navbar-nav me-auto">
-          {% if user.get_username == 'Doctor01' %}
-          <li class="menu-active nav-item">
-            <a class="nav-link" href="/dashboard">Dashboard</a>
-          </li>
-          {% endif %}
+        <ul class="navbar-nav me-auto"
           {%block nav_links%}{% endblock nav_links%}
         </ul>
 
+        <div class="topbar-divider d-lg-inline text-white mx-2 h1">|</div>
         {% if user.is_authenticated %}
         <ul class="navbar-nav ml-auto">
-          <div class="topbar-divider d-lg-inline text-white d-sm-block h2">|</div>
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
@@ -82,7 +77,6 @@
           </li>
         </ul>
         {% else %}
-        <div class="topbar-divider d-lg-inline text-white d-sm-block h2">|</div>
         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
           LOGIN
         </button>
@@ -132,12 +126,12 @@
                 {% csrf_token %}
               </div>
               <div class="col-3">
-                <a href="/signup" class="btn btn-warning" style="color: white">Sign up</a>
+                <a href="/signup" class="btn btn-warning" style="color: white"> Sign up </a>
               </div>
             </div>
             <a class="btn" href="#myModal1" data-bs-toggle="modal" style="border: none; color: rgb(4, 186, 4)">Forget
-              Password
-              ?</a>
+              Password ? 
+            </a>
           </form>
         </div>
       </div>
@@ -155,14 +149,14 @@
         </div>
         <div class="modal-body">
           <!-- <form action="/" method="POST"> -->
-          <div class="mb-3">
-            <label htmlFor="emailFP" class="col-form-label">
-              Email:
-            </label>
-            <input type="email" class="form-control" id="emailFP" onkeyup="onBtn()" />
-            <span id="wrMail" style="display:none;">Enter proper email</span>
-          </div>
-          {% csrf_token %}
+            <div class="mb-3">
+              <label htmlFor="emailFP" class="col-form-label">
+                Email:
+              </label>
+              <input type="email" class="form-control" id="emailFP" onfocusout="onBtn()"/>
+              <span id ="wrMail" style="display:none;">Enter proper email</span>
+            </div>
+              {% csrf_token %}
           <!-- </form> -->
           <div id="getOTP" class="collapse">
             <label class="label">Enter OTP:</label>
@@ -207,18 +201,18 @@
 
   <div class="modal" id="chPassModal">
     <div class="modal-dialog">
-      <div class="modal-content" style="
-                    border: none;
-                    background-color: rgb(221, 221, 221);
-                    z-index: 3;
-                  ">
+      <div class="modal-content" 
+        style=" border: none;
+          background-color: rgb(221, 221, 221);
+          z-index: 3;" 
+      >
         <div class="modal-header" style="background-color: #e8bb37">
           <h4 class="modal-title">CHANGE PASSWORD</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div id="Pass_rules" style="display:none" class="alert alert-danger fade show msg" role="alert">
-          password should be 8 -16 characters wide<br>
-          should contain at least one uppercase letter, <br>
+          password should be 8 -16 characters wide <br/>
+          should contain at least one uppercase letter, <br/>
           one lowercase letter, one number and one special character
         </div>
         <div class="modal-body">

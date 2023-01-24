@@ -1,14 +1,14 @@
-{%extends 'Admin/admin_base.html'%}
-{% load static %}
+{%extends 'Admin/admin_base.html'%} {% load static %}
 
+<!-- 
 {% block admin_title%}
 Patients
-{%endblock admin_title%}
+{%endblock admin_title%} 
 
-{% block admin_title2%}
-/Patients
+{% block admin_title2%} 
+/Patients 
 {%endblock admin_title2%}
-
+-->
 {%block activeP%}
 <!-- Divider -->
 <hr
@@ -18,145 +18,241 @@ Patients
 {% block admin_body %}
 
 <div class="d-flex justify-content-between">
-    <button type="button" class="btn btn-warning mx-3 mb-3" data-toggle="modal" data-target="#add_PModal">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" fill="currentColor" class="bi bi-plus-circle"
-            viewBox="0.5 2 15 16">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-            <path
-                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-        </svg> New
-    </button>
+  <button
+    type="button"
+    class="btn btn-warning mx-3 mb-3"
+    data-toggle="modal"
+    data-target="#add_PModal"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="21"
+      fill="currentColor"
+      class="bi bi-plus-circle"
+      viewBox="0.5 2 15 16"
+    >
+      <path
+        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+      />
+      <path
+        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+      />
+    </svg>
+    New
+  </button>
 
-    <div class="modal" id="add_PModal">
-        <div class="modal-dialog">
-            <div class="modal-content" style="border: none; background-color: rgb(221, 221, 221);
-                    z-index: 3;
-                    ">
-                <div class="modal-header bg-secondary">
-                    <h4 class="modal-title text-warning">New Patient</h4>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                {% for message in messages %}
-                {% if message.tags == "error" %}
-                <div class="alert alert-danger alert-dismissible fade show msg" role="alert">
-                    <strong>{{ message.tags }}!</strong> {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                {% endif %}
-                {% endfor %}
-
-                <div class="modal-body">
-                    <form action="/login" method="post">
-                        <label for="name" class="form-label"><b>Full Name:</b></label>
-                        <div class="row mb-2">
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <input type="first name" class="form-control" id="fname" placeholder="First Name"
-                                    name="fname" required>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <input type="middle name" class="form-control" id="mname" placeholder="Middle Name"
-                                    name="mname" required>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <input type="last name" class="form-control" id="lame" placeholder="Last Name"
-                                    name="lname" required>
-                            </div>
-                        </div>
-
-                        <div class="row mb-2">
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <label for="email" class="form-label"><b>Email:</b></label>
-                                <input type="email" class="form-control" id="email" placeholder="Email" name="email"
-                                    onkeyup="validate_email()" required>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <label for="phone" class="form-label"><b>Phone Number:</b></label>
-                                <input type="phone" class="form-control" id="phone" placeholder="Phone No." name="phone"
-                                    onkeyup="validate_phone()" required>
-                            </div>
-                        </div>
-
-                        <div class="row mb-2">
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <label for="age" class="form-label"><b>Age:</b></label>
-                                <input type="number" class="form-control" id="age" placeholder="Age" name="age"
-                                    required>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <label for="appointments" class="form-label"><b>Appointments:</b></label>
-                                <input type="number" class="form-control" id="appointments" placeholder="Total"
-                                    name="appointments">
-                            </div>
-                        </div>
-
-                        <div class="row mb-2">
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <label for="Gender" class="form-label"><b>Gender:</b></label>
-                                <select class="form-select form-select-sm form-control"
-                                    aria-label=".form-select-sm example" placeholder="Select Gender" id="Gender"
-                                    name="Gender">
-                                    <option selected value="0">Select</option>
-                                    <option value="1">Male</option>
-                                    <option value="2">Female</option>
-                                    <option value="3">Other</option>
-                                </select>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <label for="Prakruti" class="form-label"><b>Prakruti:</b></label>
-                                <select class="form-select form-select-sm form-control"
-                                    aria-label=".form-select-sm example" placeholder="Select Prakruti" id="Prakruti"
-                                    name="Prakruti">
-                                    <option selected value="0">Select</option>
-                                    <option value="1">Vata Kapha</option>
-                                    <option value="2">Vata Pitta</option>
-                                    <option value="3">Kapha Vata</option>
-                                    <option value="4">Kapha Pitta</option>
-                                    <option value="5">Pitta Vata</option>
-                                    <option value="6">Pitta Kapha</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- <div id="signup_email_error" class="alert alert-danger fade show msg" role="alert">
-                            <strong>INVALID EMAIL</strong>
-                        </div>
-                        <div id="signup_phone_error" class="alert alert-danger fade show msg" role="alert">
-                            <strong>INVALID PHONE</strong>
-                        </div> -->
-                        <button type="submit" class="btn btn-warning text-gray-800 mt-2 float-right">
-                            Create
-                        </button>
-                        {% csrf_token %}
-                    </form>
-                </div>
-            </div>
+  <!-- Creation modal -->
+  <div class="modal" id="add_PModal">
+    <div class="modal-dialog">
+      <div
+        class="modal-content"
+        style="border: none; background-color: rgb(221, 221, 221); z-index: 3"
+      >
+        <div class="modal-header bg-secondary">
+          <h4 class="modal-title text-warning">New Patient</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
+
+        {% for message in messages %} {% if message.tags == "error" %}
+        <div
+          class="alert alert-danger alert-dismissible fade show msg"
+          role="alert"
+        >
+          <strong>{{ message.tags }}!</strong> {{ message }}
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        {% endif %} {% endfor %}
+
+        <div class="modal-body">
+          <form action="/login" method="post">
+            <label for="name" class="form-label"> <b>Full Name:</b> </label>
+            <div class="row mb-2">
+              <div class="col-12 col-md-6 col-lg-4">
+                <input
+                  type="first name"
+                  class="form-control"
+                  id="fname"
+                  placeholder="First Name"
+                  name="fname"
+                  required
+                />
+              </div>
+              <div class="col-12 col-md-6 col-lg-4">
+                <input
+                  type="middle name"
+                  class="form-control"
+                  id="mname"
+                  placeholder="Middle Name"
+                  name="mname"
+                  required
+                />
+              </div>
+              <div class="col-12 col-md-6 col-lg-4">
+                <input
+                  type="last name"
+                  class="form-control"
+                  id="lame"
+                  placeholder="Last Name"
+                  name="lname"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-12 col-md-6 col-lg-6">
+                <label for="email" class="form-label"> <b>Email:</b> </label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="emailP"
+                  placeholder="Email"
+                  name="email"
+                  onfocusout="validateEmail()"
+                  required
+                />
+              </div>
+              <div class="col-12 col-md-6 col-lg-6">
+                <label for="phone" class="form-label">
+                  <b>Phone Number:</b>
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="phone"
+                  placeholder="Phone No."
+                  name="phone"
+                  onfocusout="validatePhone()"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-12 col-md-6 col-lg-6">
+                <label for="age" class="form-label"> <b>Age:</b> </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="age"
+                  placeholder="Age"
+                  name="age"
+                  onfocusout="validateAge()"
+                  required
+                />
+              </div>
+              <div class="col-12 col-md-6 col-lg-6">
+                <label for="appointments" class="form-label">
+                  <b>Appointments:</b>
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="appointments"
+                  placeholder="Total"
+                  name="appointments"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-12 col-md-6 col-lg-6">
+                <label for="Gender" class="form-label"> <b>Gender:</b> </label>
+                <select
+                  class="form-select form-select-sm form-control"
+                  aria-label=".form-select-sm example"
+                  placeholder="Select Gender"
+                  id="Gender"
+                  name="Gender"
+                  onfocusout="validateGender()"
+                >
+                  <option selected value="0">Select</option>
+                  <option value="1">Male</option>
+                  <option value="2">Female</option>
+                  <option value="3">Other</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-6 col-lg-6">
+                <label for="Prakruti" class="form-label">
+                  <b>Prakruti:</b>
+                </label>
+                <select
+                  class="form-select form-select-sm form-control"
+                  aria-label=".form-select-sm example"
+                  placeholder="Select Prakruti"
+                  id="Prakruti"
+                  name="Prakruti"
+                  onfocusout="validatePrakruti()"
+                >
+                  <option selected value="0">Select</option>
+                  <option value="1">Vata Kapha</option>
+                  <option value="2">Vata Pitta</option>
+                  <option value="3">Kapha Vata</option>
+                  <option value="4">Kapha Pitta</option>
+                  <option value="5">Pitta Vata</option>
+                  <option value="6">Pitta Kapha</option>
+                </select>
+              </div>
+            </div>
+            <button
+              type="submit"
+              id="Submit"
+              class="btn btn-warning text-gray-800 mt-2 float-right"
+            >
+              Create
+            </button>
+            {% csrf_token %}
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Topbar Search -->
-    <form style="width: 400px;">
-        <div class="input-group">
-            <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search"
-                aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                    <i class="fas fa-search fa-sm"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-
-    <div class="dropdown float-right mx-3 mb-3">
-        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown"
-            aria-expanded="false">
-            Sort via
+  <!-- Topbar Search -->
+  <form style="width: 55%">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control bg-light"
+        placeholder="Search for..."
+        aria-label="Search"
+        aria-describedby="basic-addon2"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button">
+          <i class="fas fa-search fa-sm"></i>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Name</a></li>
-            <li><a class="dropdown-item" href="#">Age</a></li>
-            <li><a class="dropdown-item" href="#">Total Appointments</a></li>
-        </ul>
+      </div>
     </div>
+  </form>
+
+  <div class="dropdown float-right mx-3 mb-3">
+    <button
+      class="btn btn-info dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton1"
+      data-toggle="dropdown"
+      aria-expanded="false"
+    >
+      Sort via
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" href="#">Name</a></li>
+      <li><a class="dropdown-item" href="#">Age</a></li>
+      <li><a class="dropdown-item" href="#">Total Appointments</a></li>
+    </ul>
+  </div>
 </div>
 
 <table class="table table-hover table-bordered">
@@ -191,9 +287,12 @@ Patients
         <td width="1%">Female</td>
         <td width="20%">dfdfd</td>
         <td width="15%">gygyg</td>
-        <td class="align-items-center" width="5%">
+        <td class="align-items-center" width="10%">
             <center>
-                <Button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
+              <Button type="submit" class="btn bg-success text-white" name="Bookappnt" title="Book appointment" value="chval">
+                    <i class="far fa-edit"></i>
+                </Button>
+                <Button type="submit" class="btn bg-danger text-white my-1" name="Remove" title="Remove appointment" value="chval">
                     <i class="far fa-trash-alt"></i>
                 </Button>
             </center>
