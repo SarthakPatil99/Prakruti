@@ -2,9 +2,9 @@
 {% load static %}
 
 <!-- 
-{% block admin_title%}
+{% block title%}
 Medicines 
-{%endblock admin_title%} 
+{%endblock title%} 
 
 {% block admin_title2%} 
 /Medicine remedies 
@@ -17,7 +17,7 @@ Medicines
   style="width: 15px; border: 3px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin-top: 0%; margin-bottom: 1%;">
 {% endblock activeMR%}
 
-{% block admin_body %}
+{% block body %}
 <div class="d-flex justify-content-between">
   <button type="button" class="btn btn-warning mx-3 mb-3" data-toggle="modal" data-target="#MModal"
     onclick="transferMR()">
@@ -180,4 +180,4 @@ Medicines
   <tfoot></tfoot>
 </table>
 
-{% endblock admin_body%}
+{% endblock body%}

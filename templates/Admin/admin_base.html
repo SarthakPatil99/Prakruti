@@ -9,7 +9,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>PRAKRUTI | {% block admin_title%}{% endblock admin_title%}</title>
+  <title>PRAKRUTI | {% block title%}{% endblock title%}</title>
 
   <!-- Custom fonts for this template-->
   <link href="../../static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -38,13 +38,13 @@
         </div>
       </a>
 
+      <!-- Divider -->
+      <hr style="width: 40px; border: 1.5px solid rgb(255, 191, 0); margin-top: 0%;">
+
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/dashboard">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
+      <a class="nav-link" href="/dashboard">
+        <i class="fas fa-tachometer-alt fa-2x text-white" style="font-size: 1.5em;"></i>
+      </a>
 
       <!-- Divider -->
       <hr style="width: 40px; border: 1px solid white; margin-top: 0%" />
@@ -225,7 +225,7 @@
         </nav>
         <!-- End of Topbar -->
 
-        {% block admin_body %} {% endblock admin_body%}
+        {% block body %} {% endblock body%}
       </div>
       <!-- End of Main Content -->
 

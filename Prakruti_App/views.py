@@ -200,3 +200,6 @@ def blogs(request):
 
 def orders(request):
     return render(request, 'admin/Orders.html')
+
+def profile(request):
+    return render(request, jinja, 'profile.html')

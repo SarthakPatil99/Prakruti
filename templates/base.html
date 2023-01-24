@@ -49,38 +49,44 @@
       </button>
       <div class="collapse navbar-collapse" id="mynavbar">
         <ul class="navbar-nav me-auto">
+          {% if user.get_username == 'Doctor01' %}
+          <li class="menu-active nav-item">
+            <a class="nav-link" href="/dashboard">Dashboard</a>
+          </li>
+          {% endif %}
           {%block nav_links%}{% endblock nav_links%}
         </ul>
 
-          <div class="topbar-divider d-lg-inline text-white mx-2 h1">|</div>
-          {% if user.is_authenticated %}
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-white">{{ request.user }}</span>
-                <img class="img-profile rounded-circle" style="height: 2rem; width: 2rem;"
-                  src="../../static/admin/img/undraw_profile.svg">
-              </a>
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav ml-auto">
+          <div class="topbar-divider d-lg-inline text-white d-sm-block h2">|</div>
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-white">{{ request.user }}</span>
+              <img class="img-profile rounded-circle" style="height: 2rem; width: 2rem;"
+                src="../../static/admin/img/undraw_profile.svg">
+            </a>
 
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item text-dark" style="color: black !important;" href="#">
-                  <i class="fas fa-user fa-lg fa-fw mr-2 text-gray-500"></i>
-                  Profile
-                </a>
-                <!-- <div class="dropdown-divider"></div> -->
-                <a class="dropdown-item" style="color: black !important;" href="/logout">
-                  <i class="fas fa-sign-out-alt fa-lg fa-fw mr-2 text-gray-500"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
-          </ul>
-          {% else %}
-          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            LOGIN
-          </button>
-          {% endif %}
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <a class="dropdown-item text-dark" style="color: black !important;" href="#">
+                <i class="fas fa-user fa-lg fa-fw mr-2 text-gray-500"></i>
+                Profile
+              </a>
+              <!-- <div class="dropdown-divider"></div> -->
+              <a class="dropdown-item" style="color: black !important;" href="/logout">
+                <i class="fas fa-sign-out-alt fa-lg fa-fw mr-2 text-gray-500"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+        {% else %}
+        <div class="topbar-divider d-lg-inline text-white d-sm-block h2">|</div>
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          LOGIN
+        </button>
+        {% endif %}
       </div>
     </div>
   </nav>
