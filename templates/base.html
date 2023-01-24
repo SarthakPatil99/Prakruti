@@ -48,39 +48,39 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mynavbar">
-        <ul class="navbar-nav me-auto"
+        <ul class="navbar-nav me-auto">
           {%block nav_links%}{% endblock nav_links%}
         </ul>
 
-        <div class="topbar-divider d-lg-inline text-white mx-2 h1">|</div>
-        {% if user.is_authenticated %}
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-white">{{ request.user }}</span>
-              <img class="img-profile rounded-circle" style="height: 2rem; width: 2rem;"
-                src="../../static/admin/img/undraw_profile.svg">
-            </a>
+          <div class="topbar-divider d-lg-inline text-white mx-2 h1">|</div>
+          {% if user.is_authenticated %}
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-white">{{ request.user }}</span>
+                <img class="img-profile rounded-circle" style="height: 2rem; width: 2rem;"
+                  src="../../static/admin/img/undraw_profile.svg">
+              </a>
 
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-              <a class="dropdown-item text-dark" style="color: black !important;" href="#">
-                <i class="fas fa-user fa-lg fa-fw mr-2 text-gray-500"></i>
-                Profile
-              </a>
-              <!-- <div class="dropdown-divider"></div> -->
-              <a class="dropdown-item" style="color: black !important;" href="/logout">
-                <i class="fas fa-sign-out-alt fa-lg fa-fw mr-2 text-gray-500"></i>
-                Logout
-              </a>
-            </div>
-          </li>
-        </ul>
-        {% else %}
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          LOGIN
-        </button>
-        {% endif %}
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item text-dark" style="color: black !important;" href="#">
+                  <i class="fas fa-user fa-lg fa-fw mr-2 text-gray-500"></i>
+                  Profile
+                </a>
+                <!-- <div class="dropdown-divider"></div> -->
+                <a class="dropdown-item" style="color: black !important;" href="/logout">
+                  <i class="fas fa-sign-out-alt fa-lg fa-fw mr-2 text-gray-500"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+          {% else %}
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            LOGIN
+          </button>
+          {% endif %}
       </div>
     </div>
   </nav>
@@ -130,7 +130,7 @@
               </div>
             </div>
             <a class="btn" href="#myModal1" data-bs-toggle="modal" style="border: none; color: rgb(4, 186, 4)">Forget
-              Password ? 
+              Password ?
             </a>
           </form>
         </div>
@@ -149,14 +149,14 @@
         </div>
         <div class="modal-body">
           <!-- <form action="/" method="POST"> -->
-            <div class="mb-3">
-              <label htmlFor="emailFP" class="col-form-label">
-                Email:
-              </label>
-              <input type="email" class="form-control" id="emailFP" onfocusout="onBtn()"/>
-              <span id ="wrMail" style="display:none;">Enter proper email</span>
-            </div>
-              {% csrf_token %}
+          <div class="mb-3">
+            <label htmlFor="emailFP" class="col-form-label">
+              Email:
+            </label>
+            <input type="email" class="form-control" id="emailFP" onfocusout="onBtn()" />
+            <span id="wrMail" style="display:none;">Enter proper email</span>
+          </div>
+          {% csrf_token %}
           <!-- </form> -->
           <div id="getOTP" class="collapse">
             <label class="label">Enter OTP:</label>
@@ -201,18 +201,16 @@
 
   <div class="modal" id="chPassModal">
     <div class="modal-dialog">
-      <div class="modal-content" 
-        style=" border: none;
+      <div class="modal-content" style=" border: none;
           background-color: rgb(221, 221, 221);
-          z-index: 3;" 
-      >
+          z-index: 3;">
         <div class="modal-header" style="background-color: #e8bb37">
           <h4 class="modal-title">CHANGE PASSWORD</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div id="Pass_rules" style="display:none" class="alert alert-danger fade show msg" role="alert">
-          password should be 8 -16 characters wide <br/>
-          should contain at least one uppercase letter, <br/>
+          password should be 8 -16 characters wide <br />
+          should contain at least one uppercase letter, <br />
           one lowercase letter, one number and one special character
         </div>
         <div class="modal-body">

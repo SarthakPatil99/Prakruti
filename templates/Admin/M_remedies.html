@@ -1,5 +1,5 @@
-{%extends 'Admin/admin_base.html'%} 
-{% load static %} 
+{%extends 'Admin/admin_base.html'%}
+{% load static %}
 
 <!-- 
 {% block admin_title%}
@@ -13,32 +13,18 @@ Medicines
 
 {%block activeMR%}
 <!-- Divider -->
-<hr style="width: 15px; border: 3px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin-top: 0%; margin-bottom: 1%;">
+<hr
+  style="width: 15px; border: 3px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin-top: 0%; margin-bottom: 1%;">
 {% endblock activeMR%}
 
 {% block admin_body %}
 <div class="d-flex justify-content-between">
-  <button
-    type="button"
-    class="btn btn-warning mx-3 mb-3"
-    data-toggle="modal"
-    data-target="#MModal"
-    onclick="transferMR()"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="21"
-      fill="currentColor"
-      class="bi bi-plus-circle"
-      viewBox="0.5 2 15 16"
-    >
-      <path
-        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-      />
-      <path
-        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
-      />
+  <button type="button" class="btn btn-warning mx-3 mb-3" data-toggle="modal" data-target="#MModal"
+    onclick="transferMR()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" fill="currentColor" class="bi bi-plus-circle"
+      viewBox="0.5 2 15 16">
+      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
     </svg>
     New
   </button>
@@ -46,33 +32,17 @@ Medicines
   <!-- Modal -->
   <div class="modal" id="MModal">
     <div class="modal-dialog">
-      <div
-        class="modal-content"
-        style="border: none; background-color: rgb(221, 221, 221); z-index: 3"
-      >
+      <div class="modal-content" style="border: none; background-color: rgb(221, 221, 221); z-index: 3">
         <div class="modal-header bg-secondary">
           <h4 class="modal-title text-warning" id="MTitle"></h4>
-          <button
-            type="button"
-            class="btn-close"
-            data-dismiss="modal"
-            aria-label="Close"
-            onclick="transferMR()"
-          ></button>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"
+            onclick="transferMR()"></button>
         </div>
 
         {% for message in messages %} {% if message.tags == "error" %}
-        <div
-          class="alert alert-danger alert-dismissible fade show msg"
-          role="alert"
-        >
+        <div class="alert alert-danger alert-dismissible fade show msg" role="alert">
           <strong>{{ message.tags }}!</strong> {{ message }}
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endif %} {% endfor %}
 
@@ -84,26 +54,14 @@ Medicines
                   <label for="name" class="form-label">
                     <b>Medicine Name:</b>
                   </label>
-                  <input
-                    type="first name"
-                    class="form-control"
-                    id="Name"
-                    placeholder="Medicine Name"
-                    name="name"
-                  />
+                  <input type="first name" class="form-control" id="Name" placeholder="Medicine Name" name="name" />
                 </div>
                 <div class="row">
                   <label for="file" class="form-label">
                     <b>Choose Image:</b>
                   </label>
-                  <input
-                    class="form-control"
-                    id="inFile"
-                    type="file"
-                    accept="image/*"
-                    onchange="validateImage()"
-                    required
-                  />
+                  <input class="form-control" id="inFile" type="file" accept="image/*" onchange="validateImage()"
+                    required />
                 </div>
               </div>
               <div class="col-4">
@@ -112,15 +70,8 @@ Medicines
                 </label>
                 <br />
                 <center>
-                  <input
-                    type="image"
-                    id="Img"
-                    value=""
-                    src="../../static/img/close_cam.png"
-                    width="100%"
-                    name="Img"
-                    disabled
-                  />
+                  <input type="image" id="Img" value="" src="../../static/img/close_cam.png" width="100%" name="Img"
+                    disabled />
                 </center>
               </div>
             </div>
@@ -130,13 +81,8 @@ Medicines
                 <label for="Description" class="form-label">
                   <b>Descripion:</b>
                 </label>
-                <textarea
-                  class="form-control"
-                  id="Desc"
-                  placeholder="Medicine Description"
-                  name="Description"
-                  required
-                ></textarea>
+                <textarea class="form-control" id="Desc" placeholder="Medicine Description" name="Description"
+                  required></textarea>
               </div>
             </div>
 
@@ -145,13 +91,8 @@ Medicines
                 <label for="Contents" class="form-label">
                   <b>Medicine Contents:</b>
                 </label>
-                <textarea
-                  class="form-control"
-                  id="Content"
-                  placeholder="Medicine Contents"
-                  name="Contents"
-                  required
-                ></textarea>
+                <textarea class="form-control" id="Content" placeholder="Medicine Contents" name="Contents"
+                  required></textarea>
               </div>
             </div>
 
@@ -160,38 +101,21 @@ Medicines
                 <label for="Quantity" class="form-label">
                   <b>Quantity:</b>
                 </label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="Quantity"
-                  placeholder="Quantity"
-                  name="Quantity"
-                  onfocusout="validateQuantity()"
-                  required
-                />
+                <input type="number" class="form-control" id="Quantity" placeholder="Quantity" name="Quantity"
+                  onfocusout="validateQuantity()" required />
               </div>
               <div class="col-12 col-md-6 col-lg-6">
                 <label for="price" class="form-label"> <b>Price:</b> </label>
                 <div class="input-group">
                   <span class="input-group-text">₹</span>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="Price"
-                    placeholder="Unit price"
-                    name="price"
-                    onfocusout="validatePrice()"
-                  />
+                  <input type="number" class="form-control" id="Price" placeholder="Unit price" name="price"
+                    onfocusout="validatePrice()" />
                 </div>
               </div>
             </div>
 
-            <button
-              type="submit"
-              id="Submit"
-              class="btn btn-warning text-gray-800 mt-2 float-right"
-              value="sndjash"
-            ></button>
+            <button type="submit" id="Submit" class="btn btn-warning text-gray-800 mt-2 float-right"
+              value="sndjash"></button>
             {% csrf_token %}
           </form>
         </div>
@@ -201,13 +125,8 @@ Medicines
 
   <form style="width: 55%">
     <div class="input-group">
-      <input
-        type="text"
-        class="form-control bg-light"
-        placeholder="Search for..."
-        aria-label="Search"
-        aria-describedby="basic-addon2"
-      />
+      <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search"
+        aria-describedby="basic-addon2" />
       <div class="input-group-append">
         <button class="btn btn-primary" type="button">
           <i class="fas fa-search fa-sm"></i>
@@ -217,13 +136,8 @@ Medicines
   </form>
 
   <div class="dropdown float-right mx-3 mb-3">
-    <button
-      class="btn btn-info dropdown-toggle"
-      type="button"
-      id="dropdownMenuButton1"
-      data-toggle="dropdown"
-      aria-expanded="false"
-    >
+    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown"
+      aria-expanded="false">
       Sort via
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -254,23 +168,11 @@ Medicines
     <td id="quantity" width="1%">25</td>
     <td id="price" width="1%">45</td>
     <td width="10%">
-      <button
-        type="submit"
-        class="btn bg-success text-white my-1"
-        name="update"
-        value="chval"
-        data-toggle="modal"
-        data-target="#MModal"
-        onclick="transferMR(true)"
-      >
+      <button type="submit" class="btn bg-success text-white my-1" name="update" value="chval" data-toggle="modal"
+        data-target="#MModal" onclick="transferMR(true)">
         <i class="far fa-edit"></i>
       </button>
-      <button
-        type="submit"
-        class="btn bg-danger text-white"
-        name="Remove"
-        value="chval"
-      >
+      <button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
         <i class="far fa-trash-alt"></i>
       </button>
     </td>

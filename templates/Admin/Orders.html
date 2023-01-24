@@ -1,7 +1,7 @@
 {%extends 'Admin/admin_base.html'%}
 {% load static %}
 
-<!-- 
+
 {% block admin_title%}
 Orders
 {%endblock admin_title%}
@@ -9,48 +9,39 @@ Orders
 {% block admin_title2%}
 /Orders
 {%endblock admin_title2%}
--->
+
 
 {%block activeO%}
 <!-- Divider -->
-<hr style="width: 15px; border: 3px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin-top: 0%; margin-bottom: 1%;">
+<hr
+    style="width: 15px; border: 3px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin-top: 0%; margin-bottom: 1%;">
 {% endblock activeO%}
 
 {% block admin_body %}
 <div class="d-flex justify-content-between">
-  <form style="width: 400px" class="mx-3">
-    <div class="input-group">
-      <input
-        type="text"
-        class="form-control bg-light"
-        placeholder="Search for..."
-        aria-label="Search"
-        aria-describedby="basic-addon2"
-      />
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="button">
-          <i class="fas fa-search fa-sm"></i>
-        </button>
-      </div>
-    </div>
-  </form>
+    <form style="width: 400px" class="mx-3">
+        <div class="input-group">
+            <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search"
+                aria-describedby="basic-addon2" />
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    </form>
 
-  <div class="dropdown float-right mx-3 mb-3">
-    <button
-      class="btn btn-info dropdown-toggle"
-      type="button"
-      id="dropdownMenuButton1"
-      data-toggle="dropdown"
-      aria-expanded="false"
-    >
-      Sort via
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" href="#">Title</a></li>
-      <li><a class="dropdown-item" href="#">Day</a></li>
-      <li><a class="dropdown-item" href="#">Type</a></li>
-    </ul>
-  </div>
+    <div class="dropdown float-right mx-3 mb-3">
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown"
+            aria-expanded="false">
+            Sort via
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Title</a></li>
+            <li><a class="dropdown-item" href="#">Day</a></li>
+            <li><a class="dropdown-item" href="#">Type</a></li>
+        </ul>
+    </div>
 </div>
 
 <table class="table table-hover table-bordered">
@@ -74,7 +65,8 @@ Orders
                     aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v fa-sm fa-fw text-warning"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" style="width: 250px; font-size: medium;">
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                    style="width: 250px; font-size: medium;">
                     <div class="dropdown-header text-warning" style="font-size: medium;">More Details</div>
                     <b class="ms-3">Quality:</b> <label class="dropdown-list" for="Email_detail">2</label>
                     <b class="ms-3">Price:</b> ₹<label class="dropdown-list" for="Phno_detail">200</label>
@@ -90,9 +82,11 @@ Orders
                     aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v fa-sm fa-fw text-warning"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" style="width: 250px; font-size: medium;">
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                    style="width: 250px; font-size: medium;">
                     <div class="dropdown-header text-warning" style="font-size: medium;">More Details</div>
-                    <b class="ms-3">Email:</b> <label class="dropdown-list" for="Email_detail">example@gmail.com</label><br>
+                    <b class="ms-3">Email:</b> <label class="dropdown-list"
+                        for="Email_detail">example@gmail.com</label><br>
                     <b class="ms-3">Ph no.:</b> <label class="dropdown-list" for="Phno_detail">1234567890</label>
                 </div>
             </div>
