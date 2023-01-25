@@ -15,7 +15,7 @@ function transferMR(who) {
     MTitle.innerHTML = "Update Medicine";
     inFile.value = "";
     name.value = document.getElementById("name").innerHTML;
-    img.src = document.getElementById("img").innerHTML;
+    img.src = document.getElementById("img").src;
     desc.value = document.getElementById("desc").innerHTML;
     content.value = document.getElementById("contents").innerHTML;
     quantity.value = parseInt(document.getElementById("quantity").innerHTML);
@@ -85,7 +85,7 @@ function transferHR(who) {
     MTitle.innerHTML = "Update Remedy";
     inFile.value = "";
     title.value = document.getElementById("title").innerHTML;
-    img.src = document.getElementById("img").innerHTML;
+    img.src = document.getElementById("img").src;
     desc.value = document.getElementById("desc").innerHTML;
     acce.value = document.getElementById("acce").innerHTML;
   } else {
