@@ -30,6 +30,7 @@ urlpatterns = [
     path("recommend/", views.recommend, name='recommender'),
     path("shopping/", views.shopping, name='shopping'),
     path("profileU/", views.profileU, name='profileU'),
+    path("cart/", views.cart, name='cart'),
 
     # admin
     path("dashboard/", views.dashboard, name='dashboard'),

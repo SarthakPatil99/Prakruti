@@ -178,6 +178,10 @@ def U_profile(request):
 def profileU(request):
     return render(request, 'user/U_profile.html', {'admin': 1})
 
+
+def cart(request):
+    return render(request, 'user/Cart.html')
+
 # -----------------------------ADMIN SIDE---------------------------
 
 

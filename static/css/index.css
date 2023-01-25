@@ -1372,7 +1372,6 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: linear-gradient(0deg, #1dc8cd 0%, #55fabe 100%);
   margin: 0 auto;
   margin-bottom: 20px;
-  margin-left: 30px;
 }
 
 .myContainer .section-header .section-dividerO {
@@ -1545,3 +1544,5 @@ body.mobile-nav-active #mobile-nav-toggle {
     word-spacing: 2px;
   }
 }
+
+/* shopping */
