@@ -13,6 +13,9 @@
   <a class="nav-link" href="#features">Features</a>
 </li>
 <li class="nav-item">
+  <a class="nav-link" href="#book">Book</a>
+</li>
+<li class="nav-item">
   <a class="nav-link" href="#team">Team</a>
 </li>
 <li class="nav-item">
@@ -418,9 +421,71 @@
   <!-- #advanced-features -->
 
   <!--==========================
-      Call To Action Section
+      Book Appointment Section
     ============================-->
-  <section id="call-to-action">
+  <!-- book apt modal -->
+  {% if user.is_authenticated %}
+  <div class="modal" id="ReschModal">
+    <div class="modal-dialog">
+      <div class="modal-content" style="
+                            border: none;
+                            background-color: rgb(221, 221, 221);
+                            z-index: 3;
+                          ">
+        <div class="modal-header" style="background-color: #e8bb37">
+          <h4 class="modal-title">Book Appointment</h4>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        <div class="modal-body">
+          <form action="/login" method="post">
+            <div class="row">
+              <div class="col-12 col-md-6 col-lg-6 mb-2">
+                <label for="name" class="form-label"> <b>Day :</b> </label>
+                <select class="form-select form-select-sm form-control" aria-label=".form-select-sm example" id="Day"
+                  name="Day" onchange="dayChoose()">
+                  <option selected value="0">Select</option>
+                  <option value="1">Today</option>
+                  <option value="2">Tomorrow</option>
+                  <option value="3">Other</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-6 col-lg-6 my-2" id="dateSec">
+                <label for="date" class="form-label"> <b>Date :</b> </label>
+                <input class="form-control" type="date" id="date" name="date" onchange="showAppnt()" />
+              </div>
+            </div>
+            <div class="row mb-2" id="Appnts">
+              <label for="name" class="form-label"><b>Available Appointments :</b> </label> <br />
+              <div class="form-check ms-5">
+                <input class="form-check-input" type="radio" name="appnt" id="appnt1" value="Morning"
+                  onchange="showAppnt()">
+                <label class="form-check-label me-5" for="appnt1">
+                  Morning
+                </label>
+                <input class="form-check-input" type="radio" name="appnt" id="appnt2" value="Afternoon"
+                  onchange="showAppnt()">
+                <label class="form-check-label me-5" for="appnt2">
+                  Afternoon
+                </label>
+                <input class="form-check-input" type="radio" name="appnt" id="appnt3" value="Evening"
+                  onchange="showAppnt()">
+                <label class="form-check-label me-5" for="appnt3">
+                  Evening
+                </label>
+              </div>
+            </div>
+            <button type="submit" id="schedule" class="btn btn-warning text-white-500 mt-2 float-right">
+              Book
+            </button>
+            {% csrf_token %}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <section id="book">
     <div class="container">
       <div class="row">
         <div class="col-lg-9 text-center text-lg-left">
@@ -430,13 +495,16 @@
             particular patient according to schedule.
           </p>
         </div>
-        <div class="col-lg-3 cta-btn-container text-center">
-          <a class="cta-btn align-middle" href="#">Book </a>
+        {% if user.is_authenticated %}
+        <div class="col-lg-3 col-12 cta-btn-container text-center">
+          <a class="cta-btn align-middle" href="#" data-toggle="modal" data-target="#ReschModal" onclick="dayReset()">Book Now </a>
         </div>
-
-        <!------<div class="col-lg-3 cta-btn-container text-center">
-          <a class="cta-btn align-middle" href="#">Call To Action</a>
-        </div> ----->
+        {% else %}
+        <div class="col-lg-3 col-12 cta-btn-container text-center">
+          <a class="cta-btn align-middle" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Book Now
+          </a>
+        </div>
+        {% endif %}
       </div>
     </div>
   </section>

@@ -58,6 +58,7 @@
         </ul>
 
         {% if user.is_authenticated %}
+        <!-- nav bar components -->
         <ul class="navbar-nav ml-auto">
           <div class="d-flex align-items-center">
             <a href="/cart" class="btn text-white" style="font-size:x-large;" name="Remove" value="chval">
@@ -95,7 +96,7 @@
         </ul>
         {% else %}
         <div class="topbar-divider d-lg-inline text-white d-sm-block h2">|</div>
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#loginModal">
           LOGIN
         </button>
         {% endif %}
@@ -104,7 +105,7 @@
   </nav>
 
   <!-- modal -->
-  <div class="modal" id="exampleModal">
+  <div class="modal" id="loginModal">
     <div class="modal-dialog">
       <div class="modal-content" style="
                   border: none;

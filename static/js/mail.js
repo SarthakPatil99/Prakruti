@@ -99,3 +99,54 @@ function nConPass() {
     passrules.style.display = "block";
   }
 }
+
+// Reschedule part
+
+function dayChoose() {
+  document.getElementById("dateSec").style.display = "none";
+  day = document.getElementById("Day");
+  if (parseInt(day.value) > 0 && parseInt(day.value) < 3) {
+    console.log(getday(day.value));
+    // showAppnt(getday(day));
+    // window.alert("day selected");
+  } else if (day.value == "0") {
+    document.getElementById("Appnts").style.display = "block";
+    document.getElementById("schedule").disabled = true;
+  } else {
+    document.getElementById("date").min = getday("-1");
+    document.getElementById("dateSec").style.display = "block";
+  }
+}
+function showAppnt() {
+  // appointment showing code
+  // console.log(document.getElementById("date").value);
+  var ele = document.getElementsByName("appnt");
+  for (i = 0; i < ele.length; i++) {
+    if (ele[i].checked) console.log(ele[i].value);
+  }
+  document.getElementById("schedule").disabled=false;
+}
+function getday(DAY) {
+  var dt = new Date();
+  var day = String(dt.getDate()).padStart(2, 0);
+  var month = String(dt.getMonth() + 1).padStart(2, 0);
+  var year = dt.getFullYear();
+  if (DAY == "1") {
+    return `${day}-${month}-${year}`;
+  } else if (DAY == "2") {
+    day = parseInt(day) + 1;
+    return `${day}-${month}-${year}`;
+  } else {
+    day = parseInt(day) + 2;
+    return `${year}-${month}-${day}`;
+  }
+  DAY.value;
+}
+function dayReset() {
+  document.getElementById("Day").value = "0";
+  var ele = document.getElementsByName("appnt");
+  for (i = 0; i < ele.length; i++) {
+    ele[i].checked=false;
+  }
+  dayChoose();
+}
