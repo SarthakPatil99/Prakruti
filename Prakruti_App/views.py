@@ -55,6 +55,13 @@ def password_check(request, passwd):
     if val:
         return val
 
+def getGender(gender):
+    if (gender == "1"): 
+        return "male"
+    elif (gender == ""): 
+        return "female"
+    elif (gender == ""): 
+        return "other"
 
 def handleSignUp(request):
     print('----------------------1')
@@ -67,35 +74,40 @@ def handleSignUp(request):
         phone = request.POST['phone']
         pwd = request.POST['pwd']
         cpwd = request.POST['confirm_pwd']
+        age = request.POST['age']
+        gender = getGender(request.POST['gender'])
+        picture = request.FILES['inFile']['name']
+        print(urname,fname,mname,lname,email,phone,pwd,cpwd,age,gender,picture);
         print('-------------------------2')
-        if User.objects.filter(username=urname):
-            messages.error(
-                request, "USERNAME ALREADY EXIST! PLEASE TRY SOME ANOTHER USERNAME")
-            return redirect('/signup')
+        # if User.objects.filter(username=urname):
+        #     messages.error(
+        #         request, "USERNAME ALREADY EXIST! PLEASE TRY SOME ANOTHER USERNAME")
+        #     return redirect('/signup')
 
-        if User.objects.filter(email=email):
-            messages.error(
-                request, "E-MAIL ALREADY EXIST! PLEASE TRY SOME ANOTHER E-MAIL")
-            return redirect('/signup')
+        # if User.objects.filter(email=email):
+        #     messages.error(
+        #         request, "E-MAIL ALREADY EXIST! PLEASE TRY SOME ANOTHER E-MAIL")
+        #     return redirect('/signup')
 
-        if pwd != cpwd:
-            messages.error(request, "PASSWARD DOES NOT MATCH!!!")
-            return redirect('/signup')
+        # if pwd != cpwd:
+        #     messages.error(request, "PASSWARD DOES NOT MATCH!!!")
+        #     return redirect('/signup')
 
-        if (not password_check(request, pwd)):
-            return redirect('/signup')
+        # if (not password_check(request, pwd)):
+        #     return redirect('/signup')
 
-        if len(phone) < 10:
-            messages.error(request, "INVALID PHONE NUMBER!!!")
-            return redirect('/signup')
+        # if len(phone) < 10:
+        #     messages.error(request, "INVALID PHONE NUMBER!!!")
+        #     return redirect('/signup')
 
-        user = User.objects.create_user(
-            username=urname, password=pwd, email=email, first_name=fname, last_name=lname)
-        user.save()
+        # user = User.objects.create_user(
+        #     username=urname, password=pwd, email=email, first_name=fname, last_name=lname)
+        # user.save()
 
-        messages.success(
-            request, "Your account has been successfully created.")
-        return redirect('/')
+        # messages.success(
+        #     request, "Your account has been successfully created.")
+        # return redirect('/')
+        return render(request, 'signup.html')
     else:
         return render(request, 'signup.html')
 
@@ -181,6 +193,9 @@ def profileU(request):
 
 def cart(request):
     return render(request, 'user/Cart.html')
+
+def our_blogs(request):
+    return render(request, 'user/our_blogs.html')
 
 # -----------------------------ADMIN SIDE---------------------------
 

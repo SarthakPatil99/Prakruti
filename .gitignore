@@ -1,5 +1,5 @@
 */__pycache__
-*.pyc
-*/settings.py
 */__init__.py
 *.pyc
+.vscode/settings.json
+Prakruti/settings.py

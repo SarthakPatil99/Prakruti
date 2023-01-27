@@ -46,7 +46,8 @@ function cam() {
   }
 }
 
-var context = canvas.getContext("2d");
-snapshot.addEventListener("click", function () {
+function snap(){
+  console.log("snapshot clicked");
+  var context = canvas.getContext("2d");
   context.drawImage(video, 0, 0);
-});
+}

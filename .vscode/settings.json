@@ -1,4 +1,14 @@
 {
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.fontLigatures": true,
+  "html.format.templating": true,
+  "html.format.indentInnerHtml": true,
+  "html.format.indentHandlebars": true,
+  "html.format.wrapLineLength": 200,
+  "prettier.bracketSameLine": true,
+  "prettier.singleAttributePerLine": true,
+  "html.format.preserveNewLines": false,
+  "editor.fontFamily": "cascadia code",
+  "editor.fontSize": 15
 }

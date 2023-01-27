@@ -33,7 +33,7 @@
       </div>
       <div class="modal-footer">
         <div id="aft" style="display:none;">
-          <button class="btn btn-primary" id="snapshot">
+          <button class="btn btn-primary" id="snapshot" onclick="snap()">
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-camera"
               viewBox="3 0 10 16">
               <path
@@ -64,13 +64,13 @@
 </div>
 </div>
 <center>
-  <div class="webcam row">
-    <div class="col-9">
+  <div class="webcam row w-50 mx-auto p-3 ps-1">
+    <div class="col-6 col-md-7 col-lg-8">
       <h5>Do you want to get details with camera ?</h5>
     </div>
-    <div class="col-2">
+    <div class="col-6 col-md-5 col-lg-4">
       <button class="btn btn-primary" data-toggle="modal" data-target="#WebcamM">
-        Open camera
+        <b>Open camera</b>
       </button>
     </div>
   </div>
@@ -79,86 +79,49 @@
 </center>
 
 <!-- repeat START -->
-<!-- <div class="row w-75 mx-auto">
-  <div class="col-12 mb-2 bg-white rounded-3 p-3" style="border:3px solid #ffcb30">
-    <div class="row">
-      <div class="col-12"><b>Q. 1)What is your body build type?</b></div>
-      <div class="col-6">
-        <label class="options">
-          Lean
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
+
+<div class="mx-auto mb-4 bg-white rounded-3 p-3" style="width:85% !important; border:3px solid #ffcb30">
+    <div class="h5 mb-4 mt-2 text-secondary">
+      <b>Q. 1) What is your body build type?</b>
+    </div>
+    <div class="row" id="options">
+      <div class="col-4">
+        <input type="radio" class="btn-check" name="build_type" id="bld-tp1" autocomplete="off">
+        <label class="btn btn-outline-warning" for="bld-tp1"><b>Lean</b></label>
       </div>
-      <div class="col-6">
-        <label class="options">
-          Medium
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
+      <div class="col-4">
+        <input type="radio" class="btn-check" name="build_type" id="bld-tp2" autocomplete="off">
+        <label class="btn btn-outline-warning" for="bld-tp2"><b>Medium</b></label>
       </div>
-      <div class="col-6">
-        <label class="options">
-          Stout
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
-      </div>
-      <div class="col-6">
-        <label class="options">
-          Other
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
+      <div class="col-4">
+        <input type="radio" class="btn-check" name="build_type" id="bld-tp3" autocomplete="off">
+        <label class="btn btn-outline-warning" for="bld-tp3"><b>Stout</b></label>
       </div>
     </div>
-  </div>
-</div> -->
-<div class="Q_Form">
-  <div class="container">
-    <div class="question">
-      <div class="h5 mb-4 mt-2"><b>Q. 1)What is your body build type?</b></div>
-      <div id="options">
-        <div class="row row-cols-auto">
-          <div class="col">
-            <label class="options">
-              Lean
-              <input type="radio" name="radio">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-          <div class="col">
-            <label class="options">
-              Medium
-              <input type="radio" name="radio">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-        </div>
-        <div class="row row-cols-auto">
-          <div class="col">
-            <label class="options">
-              Stout
-              <input type="radio" name="radio">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-          <div class="col">
-            <label class="options">
-              Other
-              <input type="radio" name="radio">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-        </div>
+</div>
+<div class="mx-auto mb-4 bg-white rounded-3 p-3" style="width:85% !important;border:3px solid #ffcb30">
+    <div class="h5 mb-4 mt-2 text-secondary">
+      <b>Q.2) What is your skin colour</b>
+    </div>
+    <div class="row" id="options">
+      <div class="col-4">
+        <input type="radio" class="btn-check" name="skin_color" id="skn_clr1">
+        <label class="btn btn-outline-warning" for="skn_clr1"><b>Dark/Brown</b></label>
+      </div>
+      <div class="col-4">
+        <input type="radio" class="btn-check" name="skin_color" id="skn_clr2">
+        <label class="btn btn-outline-warning" for="skn_clr2"><b>Pink blushed</b></label>
+      </div>
+      <div class="col-4">
+        <input type="radio" class="btn-check" name="skin_color" id="skn_clr3">
+        <label class="btn btn-outline-warning" for="skn_clr3"><b>Fair</b></label>
       </div>
     </div>
-  </div>
 </div>
 <div class="Q_Form">
   <div class="container">
     <div class="question">
-      <div class="h5 mb-4 mt-2"><b>Q.2)What is your skin colour</b></div>
+      <div class="h5 mb-4 mt-2"><b>Q.2) What is your skin colour</b></div>
       <div id="options">
         <div class="row row-cols-auto">
           <div class="col">
@@ -1434,14 +1397,13 @@
 </div>
 <!-- repeat end -->
 
-<center>
-  <div class="Q_Form row" style="width:fit-content !important">
-    <div class="col-8">
+  <div class="Q_Form row mx-auto p-3" style="width:40% !important;">
+    <div class="col-7 col-md-4 col-lg-9">
       <h5>Are you sure with your answers ?</h5>
     </div>
-    <div class="col-4">
-      <a class="btn btn-primary" href="/recommend"> Proceed </a>
+    <div class="col-5 col-md-4 col-lg-3">
+      <a class="btn btn-primary" href="/recommend"> <b>Proceed</b> </a>
     </div>
   </div>
-</center>
+
 {% endblock body%}

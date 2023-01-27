@@ -147,7 +147,7 @@
                 <a href="/signup" class="btn btn-warning" style="color: white"> Sign up </a>
               </div>
             </div>
-            <a class="btn" href="#myModal1" data-bs-toggle="modal" style="border: none; color: rgb(4, 186, 4)">Forget
+            <a class="btn" href="#FpModal" data-bs-toggle="modal" style="border: none; color: rgb(4, 186, 4)">Forget
               Password ?
             </a>
           </form>
@@ -156,7 +156,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="myModal1" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="FpModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content" style="border: none; background-color: rgb(221, 221, 221)">
         <div class="modal-header mymodal" style="background-color: #e8bb37">
@@ -172,7 +172,6 @@
               Email:
             </label>
             <input type="email" class="form-control" id="emailFP" onfocusout="onBtn()" />
-            <span id="wrMail" style="display:none;">Enter proper email</span>
           </div>
           {% csrf_token %}
           <!-- </form> -->
@@ -202,14 +201,13 @@
           </form>
         </div>
         <div class="modal-footer">
-          <a href="/signup" class="btn btn-warning" aria-label="Close">
+          <a href="/signup" class="btn btn-warning me-3" aria-label="Close">
             Signup
           </a>
-          <button id="OTPbtn" type="submit" onclick="sendmail()" class="btn btn-primary" data-bs-toggle="collapse"
-            data-bs-target="#getOTP">
+          <button id="OTPbtn" type="submit" onclick="sendmail()" class="btn btn-primary" disabled>
             Get OTP
           </button>
-          <button id="verify" type="submit" onclick="verifyOTP()" class="btn btn-primary">
+          <button id="verify" type="submit" onclick="verifyOTP()" class="btn btn-primary" style="display:none">
             Verify OTP
           </button>
         </div>
@@ -226,34 +224,33 @@
           <h4 class="modal-title">CHANGE PASSWORD</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div id="Pass_rules" style="display:none" class="alert alert-danger fade show msg" role="alert">
-          password should be 8 -16 characters wide <br />
-          should contain at least one uppercase letter, <br />
-          one lowercase letter, one number and one special character
+        <div id="Pass_rules" style="display:none" class="alert alert-warning mx-4 py-1 px-2" role="alert">
+            Password should be 8 - 16 characters wide<br/> And should contain<br/> 
+            - Uppercase & Lowercase letters<br/>- Numbers and One special character
         </div>
         <div class="modal-body">
           <form action="/chPass" method="post">
             <div class="mb-3 mt-1">
               <label for="newPass" class="form-label">New Password:</label>
               <input type="password" class="form-control" id="npass" placeholder="Enter New Password" name="newPass"
-                onkeyup="nPass()" />
+                onfocusout="nPass()" />
             </div>
             <div class="mb-3">
               <label for="confPass" class="form-label">Confirm Password:</label>
               <input type="password" class="form-control" id="nconpass" placeholder="Confirm Password" name="confPass"
-                onkeyup="nConPass()" />
+                onfocusout="nConPass()" />
             </div>
             <div class="row">
               <input id="chPassMail" name="chPassMail" style="display: none;" value="patilsarthak999@gmail.com" />
-              <div id="passmtch" class="alert alert-danger fade show msg" role="alert">
+              <div id="passmtch" class="alert alert-danger fade show msg" role="alert" style="display: none;">
                 <strong>PASSWORDS DONT MATCH</strong>
               </div>
-              <div class="col-3">
-                <button id="newPassBtn" type="submit" class="btn btn-primary">
+              <div class="col-12">
+                <button id="newPassBtn" type="submit" class="btn btn-primary float-end ">
                   Confirm
                 </button>
-                {% csrf_token %}
               </div>
+              {% csrf_token %}
             </div>
           </form>
         </div>
