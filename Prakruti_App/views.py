@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-# from .models import User
+from .models import Users
 from django.contrib.auth.models import User, auth
 # from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -20,47 +20,12 @@ def signup(request):
 
 # Login Logout Signup Password Handling
 
-
-def password_check(request, passwd):
-
-    SpecialSym = ['$', '@', '#', '%']
-    val = True
-
-    if len(passwd) < 6:
-        messages.error(request, "LENGTH SHOULD BE AT LEAST 6!!!")
-        val = False
-
-    if len(passwd) > 20:
-        messages.error(request, "LENGTH SHOULD NOT BE GREATER THAN 8!!!")
-        val = False
-
-    if not any(char.isdigit() for char in passwd):
-        messages.error(request, "PASSWORD SHOULD HAVE AT LEAST ONE NUMERAL!!!")
-        val = False
-
-    if not any(char.isupper() for char in passwd):
-        messages.error(
-            request, "PASSWORD SHOULD HAVE AT LEAST ONE UPPERCASE LETTER!!!")
-        val = False
-
-    if not any(char.islower() for char in passwd):
-        messages.error(
-            request, "PASSWORD SHOULD HAVE AT LEAST ONE LOWERCASE LETTER!!!")
-        val = False
-
-    if not any(char in SpecialSym for char in passwd):
-        messages.error(
-            request, "PASSWORD SHOULD HAVE AT LEAST ONE OF THE SYMBOLS $@#!!!")
-        val = False
-    if val:
-        return val
-
 def getGender(gender):
     if (gender == "1"): 
         return "male"
-    elif (gender == ""): 
+    elif (gender == "2"): 
         return "female"
-    elif (gender == ""): 
+    elif (gender == "3"): 
         return "other"
 
 def handleSignUp(request):
@@ -76,38 +41,32 @@ def handleSignUp(request):
         cpwd = request.POST['confirm_pwd']
         age = request.POST['age']
         gender = getGender(request.POST['gender'])
-        picture = request.FILES['inFile']['name']
-        print(urname,fname,mname,lname,email,phone,pwd,cpwd,age,gender,picture);
+        picture = request.FILES['inFile']
+        print(urname,fname,mname,lname,email,phone,pwd,cpwd,age,gender,picture)
         print('-------------------------2')
-        # if User.objects.filter(username=urname):
-        #     messages.error(
-        #         request, "USERNAME ALREADY EXIST! PLEASE TRY SOME ANOTHER USERNAME")
-        #     return redirect('/signup')
+        if User.objects.filter(username=urname):
+            messages.error(
+                request, "USERNAME ALREADY EXIST! PLEASE TRY SOME ANOTHER USERNAME")
+            return redirect('/signup')
 
-        # if User.objects.filter(email=email):
-        #     messages.error(
-        #         request, "E-MAIL ALREADY EXIST! PLEASE TRY SOME ANOTHER E-MAIL")
-        #     return redirect('/signup')
+        if User.objects.filter(email=email):
+            messages.error(
+                request, "E-MAIL ALREADY EXIST! PLEASE TRY SOME ANOTHER E-MAIL")
+            return redirect('/signup')
 
-        # if pwd != cpwd:
-        #     messages.error(request, "PASSWARD DOES NOT MATCH!!!")
-        #     return redirect('/signup')
-
-        # if (not password_check(request, pwd)):
-        #     return redirect('/signup')
-
-        # if len(phone) < 10:
-        #     messages.error(request, "INVALID PHONE NUMBER!!!")
-        #     return redirect('/signup')
-
-        # user = User.objects.create_user(
-        #     username=urname, password=pwd, email=email, first_name=fname, last_name=lname)
-        # user.save()
-
-        # messages.success(
-        #     request, "Your account has been successfully created.")
-        # return redirect('/')
-        return render(request, 'signup.html')
+        user = User.objects.create_user(
+            username=urname, password=pwd, email=email, first_name=fname, last_name=lname)
+        user.save()
+        
+        try:
+            new_user = Users(UserName = urname, Middle_name = mname, Phone_No=phone, Age=age, Gender=gender, Img=picture)
+            new_user.save()
+        except Exception:
+            print(Exception)
+        
+        messages.success(
+            request, "Your account has been successfully created.")
+        return redirect('/')
     else:
         return render(request, 'signup.html')
 

@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Prakruti_App import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.index, name='landing'),
@@ -45,3 +47,5 @@ urlpatterns = [
     path("profileA/", views.profileA, name='profileA'),
     path("U_profile/", views.U_profile, name='U_profile'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
