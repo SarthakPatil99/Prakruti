@@ -37,9 +37,6 @@ function transferMR(who) {
 function transferBlog(who) {
   var title = document.getElementById("Title");
   var type = document.getElementById("Btype");
-  var contents = document.getElementById("Contents");
-  var video = document.getElementById("Vdo");
-  var img = document.getElementById("Img");
   var Submit = document.getElementById("Submit");
   var MTitle = document.getElementById("MTitle");
   if (document.getElementById("Vdo")) {
@@ -52,18 +49,12 @@ function transferBlog(who) {
     title.value = document.getElementById("title").innerHTML;
     type.value = gettype(document.getElementById("type").innerHTML);
     type.disabled = true;
-    contents.value = document.getElementById("contents").textContent;
-    // img.src = document.getElementById("img").src;
-    // video.src = document.getElementById("vdo").src;
     seeType(type);
   } else {
     Submit.innerHTML = "Create";
     MTitle.innerHTML = "New Blog";
     title.value = "";
     type.value = "0";
-    contents.value = "";
-    // img.src = "";
-    // video.src = "";
     document.getElementById("inGrp").style.display = "block";
     document.getElementById("textField").style.display = "none";
     document.getElementById("imgField").style.display = "none";
@@ -100,7 +91,7 @@ function transferHR(who) {
 }
 
 function transferED() {
-  var Fname= document.getElementById("Fname");
+  var Fname = document.getElementById("Fname");
   var Mname = document.getElementById("Mname");
   var Lname = document.getElementById("Lname");
   var Email = document.getElementById("Email");
@@ -109,40 +100,24 @@ function transferED() {
   var Gender = document.getElementById("Gender");
   var Prakruti = document.getElementById("Prakruti");
 
-  var gender =  document.getElementById("gender").innerHTML;
-  var prakruti =document.getElementById("prakruti").innerHTML;
+  var gender = document.getElementById("gender").innerHTML;
 
   Fname.value = document.getElementById("fname").innerHTML;
   Mname.value = document.getElementById("mname").innerHTML;
   Lname.value = document.getElementById("lname").innerHTML;
-  Email.value = document.getElementById("email").innerHTML;
+  Email.value = document.getElementById("emailP").innerHTML;
   Phone.value = document.getElementById("phone").innerHTML;
   Age.value = parseInt(document.getElementById("age").innerHTML);
-  
-  if(gender == "male"){
-    Gender.value = "1";
-  }else if(gender == "female"){
-    Gender.value = "2";
-  }else if(gender == "other"){
-    Gender.value = "3";
-  }else{
-    Gender.value = "0";
-  }
+  Prakruti.innerHTML = document.getElementById("prakruti").innerHTML;
 
-  if(prakruti=="Vata Kapha"){
-    Prakruti.value = "1";
-  }else if(prakruti =="Vata Pitta"){
-    Prakruti.value = "2";
-  }else if(prakruti =="Kapha Vata"){
-    Prakruti.value = "3";
-  }else if(prakruti =="Kapha Pitta"){
-    Prakruti.value = "4";
-  }else if(prakruti =="Pitta Vata"){
-    Prakruti.value = "5";
-  }else if(prakruti =="Pitta Kapha"){
-    Prakruti.value = "6";
-  } else{
-    Prakruti.value = "0";
+  if (gender == "male") {
+    Gender.value = "1";
+  } else if (gender == "female") {
+    Gender.value = "2";
+  } else if (gender == "other") {
+    Gender.value = "3";
+  } else {
+    Gender.value = "0";
   }
 }
 // validators
@@ -284,17 +259,28 @@ function validateBType() {
 }
 
 function gettype(val) {
+  var Contents = document.getElementById("Contents");
+  var Video = document.getElementById("Vdo");
+  var Img = document.getElementById("Img");
   // console.log("gettype");
+  Img.src = "";
+  Video.src = "";
+  Contents.value = "";
+
   if (val == "Blog") {
+    Contents.value = document.getElementById("contents").textContent;
     return "1";
   } else if (val == "Image") {
+    Img.src = document.getElementById("img").src;
     return "2";
   } else if (val == "Video") {
+    Video.src = document.getElementById("vdo").src;
     return "3";
   } else {
     return "0";
   }
 }
+
 function seeType(type) {
   img = document.getElementById("imgField");
   vdo = document.getElementById("videoField");
@@ -322,6 +308,7 @@ function seeType(type) {
     vdo.style.display = "none";
   }
 }
+
 function stopVideo() {
   var video = document.getElementById("Vdo");
   video.pause();

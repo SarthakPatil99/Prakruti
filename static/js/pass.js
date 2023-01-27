@@ -1,41 +1,33 @@
-var btn = document.getElementById("newPass");
-var passmtch = document.getElementById("passmtch");
-btn.disabled = true;
-var np = false,
-  ncp = false;
 var npass, nconpass;
 function nPass() {
+  npass = document.getElementById("npass");
   var validRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
-  npass = document.getElementById("npass").value;
-  if (validRegex.test(npass)) {
-    np = true;
+  if (validRegex.test(npass.value)) {
+    npass.style.border = "none";
+    document.getElementById("newPass").disabled = false;
   } else {
-    np = false;
+    npass.style.border = "1px solid red";
+    document.getElementById("newPass").disabled = true;
   }
 }
 function nConPass() {
+  nconpass = document.getElementById("nconpass");
   validRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
-  nconpass = document.getElementById("nconpass").value;
-  if (validRegex.test(nconpass)) {
-    ncp = true;
-  } else {
-    ncp = false;
-  }
-}
+  if (validRegex.test(nconpass.value)) {
+    nconpass.style.border = "none";
 
-if (ncp && np) {
-  spn.style.display = "none";
-  if (nconpass === npass) {
-    btn.disabled = false;
-    passmtch.style.display = "none";
+    if (nconpass.value === npass.value) {
+      document.getElementById("passmtch").style.display = "none";
+      document.getElementById("newPass").disabled = false;
+      // btn.submit();
+    } else {
+      document.getElementById("passmtch").style.display = "block";
+      document.getElementById("newPass").disabled = true;
+    }
   } else {
-    btn.disabled = true;
-    passmtch.styles.display = "block";
+    nconpass.style.border = "1px solid red";
+    document.getElementById("newPassBtn").disabled = true;
   }
-} else {
-  btn.disabled = true;
-  passmtch.style.display = "none";
-  spn.style.display = "block";
 }

@@ -1,18 +1,15 @@
-var getotp = document.getElementById("OTPbtn");
-var verify = document.getElementById("verify");
 var otp;
-verify.style.display = "none";
-getotp.disabled = true;
 function onBtn() {
-  var email = document.getElementById("emailFP").value;
-  var spn = document.getElementById("wrMail");
+  console.log("onBtn clicked");
+  var email = document.getElementById("emailFP");
   var validRegex =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (validRegex.test(email)) {
-    getotp.disabled = false;
-    spn.style.display = "none";
+  if (validRegex.test(email.value)) {
+    email.border = "none";
+    document.getElementById("OTPbtn").disabled = false;
   } else {
-    spn.style.display = "block";
+    email.border = "1px solid red";
+    document.getElementById("OTPbtn").disabled = true;
   }
 }
 function generateOTP() {
@@ -26,6 +23,8 @@ function generateOTP() {
 
 function sendmail() {
   var email = document.getElementById("emailFP").value;
+  console.log(email);
+  // check if email is present in database or not
   otp = generateOTP();
   ebody = "This is your OTP : " + otp;
   Email.send({
@@ -34,11 +33,16 @@ function sendmail() {
     From: "getyourprakruti@gmail.com",
     Subject: "This is the subject",
     Body: ebody,
-  }).then((message) => {
-    alert("Email has been sent successfully!!!");
-    verify.style.display = "block";
-    getotp.style.display = "none";
-  });
+  })
+    .then((message) => {
+      alert("Email has been sent successfully!!!" + message);
+      document.getElementById("verify").style.display = "block";
+      document.getElementById("OTPbtn").style.display = "none";
+      $("#getOTP").collapse("toggle");
+    })
+    .catch((error) => {
+      alert(error);
+    });
 }
 function verifyOTP() {
   var spn = document.getElementById("wrOTP");
@@ -66,87 +70,46 @@ function clickEvent(prev, first, last) {
     document.getElementById(prev).focus();
   }
 }
-var btn = document.getElementById("newPassBtn");
-var passmtch = document.getElementById("passmtch");
-var passrules = document.getElementById("Pass_rules");
+
 var npass, nconpass;
-passrules.style.display = "none";
-passmtch.style.display = "none";
 function nPass() {
-  npass = document.getElementById("npass").value;
+  npass = document.getElementById("npass");
   var validRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
-  if (validRegex.test(npass)) {
-    passrules.style.display = "none";
+  if (validRegex.test(npass.value)) {
+    npass.style.border = "none";
+    document.getElementById("newPassBtn").disabled = false;
   } else {
-    passrules.style.display = "block";
+    npass.style.border = "1px solid red";
+    document.getElementById("newPassBtn").disabled = true;
   }
 }
 function nConPass() {
-  nconpass = document.getElementById("nconpass").value;
+  nconpass = document.getElementById("nconpass");
   validRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
-  if (validRegex.test(nconpass)) {
-    passrules.style.display = "none";
-    // alert(nconpass + " " + npass);
-    if (nconpass === npass) {
-      passmtch.style.display = "none";
+  if (validRegex.test(nconpass.value)) {
+    nconpass.style.border = "none";
+
+    if (nconpass.value === npass.value) {
+      document.getElementById("passmtch").style.display = "none";
+      document.getElementById("newPassBtn").disabled = false;
       // btn.submit();
     } else {
-      passmtch.style.display = "block";
+      document.getElementById("passmtch").style.display = "block";
+      document.getElementById("newPassBtn").disabled = true;
     }
   } else {
-    passrules.style.display = "block";
+    nconpass.style.border = "1px solid red";
+    document.getElementById("newPassBtn").disabled = true;
   }
 }
 
-// Reschedule part
-
-function dayChoose() {
-  document.getElementById("dateSec").style.display = "none";
-  day = document.getElementById("Day");
-  if (parseInt(day.value) > 0 && parseInt(day.value) < 3) {
-    console.log(getday(day.value));
-    // showAppnt(getday(day));
-    // window.alert("day selected");
-  } else if (day.value == "0") {
-    document.getElementById("Appnts").style.display = "block";
-    document.getElementById("schedule").disabled = true;
-  } else {
-    document.getElementById("date").min = getday("-1");
-    document.getElementById("dateSec").style.display = "block";
-  }
-}
-function showAppnt() {
-  // appointment showing code
-  // console.log(document.getElementById("date").value);
-  var ele = document.getElementsByName("appnt");
-  for (i = 0; i < ele.length; i++) {
-    if (ele[i].checked) console.log(ele[i].value);
-  }
-  document.getElementById("schedule").disabled=false;
-}
-function getday(DAY) {
-  var dt = new Date();
-  var day = String(dt.getDate()).padStart(2, 0);
-  var month = String(dt.getMonth() + 1).padStart(2, 0);
-  var year = dt.getFullYear();
-  if (DAY == "1") {
-    return `${day}-${month}-${year}`;
-  } else if (DAY == "2") {
-    day = parseInt(day) + 1;
-    return `${day}-${month}-${year}`;
-  } else {
-    day = parseInt(day) + 2;
-    return `${year}-${month}-${day}`;
-  }
-  DAY.value;
-}
-function dayReset() {
-  document.getElementById("Day").value = "0";
-  var ele = document.getElementsByName("appnt");
-  for (i = 0; i < ele.length; i++) {
-    ele[i].checked=false;
-  }
-  dayChoose();
+function passCont() {
+  document.getElementById("BType").innerHTML =
+    document.getElementById("Btype").innerHTML;
+  document.getElementById("Btitle").innerHTML =
+    document.getElementById("title").innerHTML;
+  document.getElementById("Content").innerHTML =
+    document.getElementById("content").innerHTML;
 }
