@@ -1,172 +1,88 @@
-{%extends 'base.html'%} {% load static %} {%block title%} Landing Page
-{%endblock title%} {% block nav_links%}
-<li class="menu-active nav-item">
-  <a
-    class="nav-link"
-    href="#intro"
-    >Home</a
-  >
+{%extends 'base.html'%} {% load static %} {%block title%} Landing Page {%endblock title%} {% block nav_links%} <li class="menu-active nav-item">
+  <a class="nav-link" href="#intro">Home</a>
 </li>
 <li class="nav-item">
-  <a
-    class="nav-link"
-    href="#about"
-    >About Us</a
-  >
+  <a class="nav-link" href="#about">About Us</a>
 </li>
 <li class="menu-active nav-item">
-  <a
-    class="nav-link"
-    href="#shopping"
-    >Shopping</a
-  >
+  <a class="nav-link" href="#shopping">Shopping</a>
 </li>
 <li class="nav-item">
-  <a
-    class="nav-link"
-    href="#features"
-    >Features</a
-  >
+  <a class="nav-link" href="#features">Features</a>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="#book">Book</a>
 </li>
 <li class="nav-item">
-  <a
-    class="nav-link"
-    href="#blogs"
-    >Blogs</a
-  >
+  <a class="nav-link" href="#blogs">Blogs</a>
 </li>
 <li class="nav-item">
-  <a
-    class="nav-link"
-    href="#gallery"
-    >Gallery</a
-  >
+  <a class="nav-link" href="#gallery">Gallery</a>
 </li>
 <li class="nav-item">
-  <a
-    class="nav-link"
-    href="#contact"
-    >Contact Us</a
-  >
-</li>
-{% endblock nav_links%} {%block body %}
-<!--==========================
+  <a class="nav-link" href="#contact">Contact Us</a>
+</li> {% endblock nav_links%} {%block body %} <!--==========================
     Intro Section
   ============================-->
 <section id="intro">
   <div class="intro-text">
     <h2>Welcome to Prakruti</h2>
     <p>We are team of talanted designers making websites with Bootstrap</p>
-    <a
-      href="analyze/"
-      class="btn-get-started scrollto"
-      >Get Started</a
-    >
+    <a href="analyze/" class="btn-get-started scrollto">Get Started</a>
   </div>
-
   <div class="product-screens">
-    <div
-      class="product-screen-1"
-      data-aos="fade-up"
-      data-aos-delay="400">
-      <img
-        src="../static/img/product-screen-1.png"
-        alt="" />
+    <div class="product-screen-1" data-aos="fade-up" data-aos-delay="400">
+      <img src="../static/img/product-screen-1.png" alt="" />
     </div>
-
-    <div
-      class="product-screen-2"
-      data-aos="fade-up"
-      data-aos-delay="200">
-      <img
-        src="../static/img/product-screen-2.png"
-        alt="" />
+    <div class="product-screen-2" data-aos="fade-up" data-aos-delay="200">
+      <img src="../static/img/product-screen-2.png" alt="" />
     </div>
-
-    <div
-      class="product-screen-3"
-      data-aos="fade-up">
-      <img
-        src="../static/img/product-screen-3.png"
-        alt="" />
+    <div class="product-screen-3" data-aos="fade-up">
+      <img src="../static/img/product-screen-3.png" alt="" />
     </div>
   </div>
 </section>
 <!-- #intro -->
-
 <main id="main">
   <!--==========================
       About Us Section
     ============================-->
-  <section
-    id="about"
-    class="section-bg">
+  <section id="about" class="section-bg">
     <div class="container-fluid">
       <div class="section-header">
         <h3 class="section-title">About Us</h3>
         <span class="section-divider"></span>
-        <p class="section-description">
-          Digital prakruti analysis and prediction for remedy<br />
-          Using advance Technology’s
-        </p>
+        <p class="section-description"> Digital prakruti analysis and prediction for remedy<br /> Using advance Technology’s </p>
       </div>
-
       <div class="row">
-        <div
-          class="col-lg-6 about-img"
-          data-aos="fade-right">
-          <img
-            src="../static/img/about-img.jpg"
-            alt="" />
+        <div class="col-lg-6 about-img" data-aos="fade-right">
+          <img src="../static/img/about-img.jpg" alt="" />
         </div>
-
-        <div
-          class="col-lg-6 content"
-          data-aos="fade-left">
-          <h2>
-            Analysis the patient,predict prakruti and recommend home therapy &
-            meditation.
-          </h2>
+        <div class="col-lg-6 content" data-aos="fade-left">
+          <h2> Analysis the patient,predict prakruti and recommend home therapy & meditation. </h2>
           <h3>we will reduce time of doctor and patient using Technology.</h3>
-          <p>
-            We will analysis the patient through Q & A session and face
-            recognition and predict prakruti.
-          </p>
-
+          <p> We will analysis the patient through Q & A session and face recognition and predict prakruti. </p>
           <ul>
             <li>
               <i class="ion-android-checkmark-circle"></i> face recognition.
             </li>
             <li>
-              <i class="ion-android-checkmark-circle"></i> Recommend home
-              therapy / meditation & medicines
+              <i class="ion-android-checkmark-circle"></i> Recommend home therapy / meditation & medicines
             </li>
             <li>
-              <i class="ion-android-checkmark-circle"></i> Easy Book
-              appointment.
+              <i class="ion-android-checkmark-circle"></i> Easy Book appointment.
             </li>
           </ul>
-
-          <p>
-            With the help of blogs, doctors can give some general suggestions
-            and advice to everyone.
-          </p>
+          <p> With the help of blogs, doctors can give some general suggestions and advice to everyone. </p>
         </div>
       </div>
     </div>
   </section>
   <!-- #about -->
-
   <!--==========================
       Shopping Section
     ============================-->
-  <section
-    id="shopping"
-    class="section-bg"
-    style="
+  <section id="shopping" class="section-bg" style="
       background-image: url(../static/img/call-to-action-bg.jpg);
       padding-top: 20px;
       padding-bottom: 20px;
@@ -174,123 +90,48 @@
     <center>
       <div class="mycontainer">
         <div class="section-header">
-          <h3
-            class="section-title cta-title"
-            style="color: white">
-            Our Products
-          </h3>
+          <h3 class="section-title cta-title" style="color: white"> Our Products </h3>
           <span class="section-divider"></span>
-          <p
-            class="section-description cta-text"
-            style="color: white">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque
-          </p>
+          <p class="section-description cta-text" style="color: white"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </p>
         </div>
-        <div
-          class="row"
-          data-aos="fade-up">
-          <div
-            class="col-lg-3 col-md-6"
-            style="margin-bottom: 10px">
-            <div
-              class="card"
-              style="width: 18rem; border-radius: 15px">
-              <img
-                src="../static/img/landing_products/shopping_product_1.jpg"
-                class="card-img-top"
-                alt="..."
-                style="border-radius: 15px" />
+        <div class="row" data-aos="fade-up">
+          <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
+            <div class="card" style="width: 18rem; border-radius: 15px">
+              <img src="../static/img/landing_products/shopping_product_1.jpg" class="card-img-top" alt="..." style="border-radius: 15px" />
               <div class="card-body">
                 <h5 class="card-title">Product name</h5>
-                <p class="card-text">
-                  Some quick product information to show on the card title and
-                  make up the bulk of the card's content.
-                </p>
-                <a
-                  href="#"
-                  class="btn btn-primary"
-                  style="border-radius: 10px">
-                  View Product
-                </a>
+                <p class="card-text"> Some quick product information to show on the card title and make up the bulk of the card's content. </p>
+                <a href="#" class="btn btn-primary" style="border-radius: 10px"> View Product </a>
               </div>
             </div>
           </div>
-          <div
-            class="col-lg-3 col-md-6"
-            style="margin-bottom: 10px">
-            <div
-              class="card"
-              style="width: 18rem; border-radius: 15px">
-              <img
-                src="../static/img/landing_products/shopping_product_2.jpg"
-                class="card-img-top"
-                alt="..."
-                style="border-radius: 15px" />
+          <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
+            <div class="card" style="width: 18rem; border-radius: 15px">
+              <img src="../static/img/landing_products/shopping_product_2.jpg" class="card-img-top" alt="..." style="border-radius: 15px" />
               <div class="card-body">
                 <h5 class="card-title">Product name</h5>
-                <p class="card-text">
-                  Some quick product information to show on the card title and
-                  make up the bulk of the card's content.
-                </p>
-                <a
-                  href="#"
-                  class="btn btn-primary"
-                  style="border-radius: 10px">
-                  View Product
-                </a>
+                <p class="card-text"> Some quick product information to show on the card title and make up the bulk of the card's content. </p>
+                <a href="#" class="btn btn-primary" style="border-radius: 10px"> View Product </a>
               </div>
             </div>
           </div>
-          <div
-            class="col-lg-3 col-md-6"
-            style="margin-bottom: 10px">
-            <div
-              class="card"
-              style="width: 18rem; border-radius: 15px">
-              <img
-                src="../static/img/landing_products/shopping_product_3.jpg"
-                class="card-img-top"
-                alt="..."
-                style="border-radius: 15px" />
+          <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
+            <div class="card" style="width: 18rem; border-radius: 15px">
+              <img src="../static/img/landing_products/shopping_product_3.jpg" class="card-img-top" alt="..." style="border-radius: 15px" />
               <div class="card-body">
                 <h5 class="card-title">Product name</h5>
-                <p class="card-text">
-                  Some quick product information to show on the card title and
-                  make up the bulk of the card's content.
-                </p>
-                <a
-                  href="#"
-                  class="btn btn-primary"
-                  style="border-radius: 10px">
-                  View Product
-                </a>
+                <p class="card-text"> Some quick product information to show on the card title and make up the bulk of the card's content. </p>
+                <a href="#" class="btn btn-primary" style="border-radius: 10px"> View Product </a>
               </div>
             </div>
           </div>
-          <div
-            class="col-lg-3 col-md-6"
-            style="margin-bottom: 10px">
-            <div
-              class="card"
-              style="width: 18rem; border-radius: 15px">
-              <img
-                src="../static/img/landing_products/shopping_product_4.jpg"
-                class="card-img-top"
-                alt="..."
-                style="border-radius: 15px" />
+          <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
+            <div class="card" style="width: 18rem; border-radius: 15px">
+              <img src="../static/img/landing_products/shopping_product_4.jpg" class="card-img-top" alt="..." style="border-radius: 15px" />
               <div class="card-body">
                 <h5 class="card-title">Product name</h5>
-                <p class="card-text">
-                  Some quick product information to show on the card title and
-                  make up the bulk of the card's content.
-                </p>
-                <a
-                  href="#"
-                  class="btn btn-primary"
-                  style="border-radius: 10px">
-                  View Product
-                </a>
+                <p class="card-text"> Some quick product information to show on the card title and make up the bulk of the card's content. </p>
+                <a href="#" class="btn btn-primary" style="border-radius: 10px"> View Product </a>
               </div>
             </div>
           </div>
@@ -299,20 +140,9 @@
           </div>
         </div>
         <div class="intro-text">
-          <a
-            href="/shopping"
-            class="btn-get-started scrollto">
-            More Products
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="23"
-              height="23"
-              fill="currentColor"
-              class="bi bi-arrow-right-circle"
-              viewBox="0 0 16 16"
-              style="margin-left: 10px">
-              <path
-                fillRule="evenodd"
+          <a href="/shopping" class="btn-get-started scrollto"> More Products <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-arrow-right-circle"
+              viewBox="0 0 16 16" style="margin-left: 10px">
+              <path fillRule="evenodd"
                 d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
             </svg>
           </a>
@@ -321,7 +151,6 @@
     </center>
   </section>
   <!-- #Shopping -->
-
   <!--==========================
       Product Featuress Section
     ============================-->
@@ -329,71 +158,39 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 offset-lg-4">
-          <div
-            class="section-header"
-            data-aos="fade"
-            data-aos-duration="1000">
+          <div class="section-header" data-aos="fade" data-aos-duration="1000">
             <h3 class="section-title">Product Features</h3>
             <span class="section-divider"></span>
           </div>
         </div>
-
         <div class="col-lg-4 col-md-5 features-img">
-          <img
-            src="../static/img/product-features.png"
-            alt=""
-            data-aos="fade-right"
-            data-aos-easing="ease-out-back" />
+          <img src="../static/img/product-features.png" alt="" data-aos="fade-right" data-aos-easing="ease-out-back" />
         </div>
-
         <div class="col-lg-8 col-md-7">
           <div class="row">
-            <div
-              class="col-lg-6 col-md-6 box"
-              data-aos="fade-left">
+            <div class="col-lg-6 col-md-6 box" data-aos="fade-left">
               <div class="icon">
                 <i class="ion-ios-speedometer-outline"></i>
               </div>
               <h4 class="title"><a href="">Prakruti Predictor</a></h4>
-              <p class="description">
-                Prakruti prediction via Question and Answers also via Image
-                Recognition.
-              </p>
+              <p class="description"> Prakruti prediction via Question and Answers also via Image Recognition. </p>
             </div>
-            <div
-              class="col-lg-6 col-md-6 box"
-              data-aos="fade-left"
-              data-aos-delay="100">
+            <div class="col-lg-6 col-md-6 box" data-aos="fade-left" data-aos-delay="100">
               <div class="icon"><i class="ion-ios-flask-outline"></i></div>
               <h4 class="title"><a href="">Home Remedies Recommendation</a></h4>
-              <p class="description">
-                After analysis of patient, we will recommend home therapy &
-                meditation.
-              </p>
+              <p class="description"> After analysis of patient, we will recommend home therapy & meditation. </p>
             </div>
-            <div
-              class="col-lg-6 col-md-6 box"
-              data-aos="fade-left"
-              data-aos-delay="200">
+            <div class="col-lg-6 col-md-6 box" data-aos="fade-left" data-aos-delay="200">
               <div class="icon"><i class="ion-social-buffer-outline"></i></div>
               <h4 class="title">
                 <a href="">Medicine Remedies Recommendation</a>
               </h4>
-              <p class="description">
-                for fast recovery ,medicine and tonics also available and we
-                recommend that medicine using prakruti prediction data.
-              </p>
+              <p class="description"> for fast recovery ,medicine and tonics also available and we recommend that medicine using prakruti prediction data. </p>
             </div>
-            <div
-              class="col-lg-6 col-md-6 box"
-              data-aos="fade-left"
-              data-aos-delay="300">
+            <div class="col-lg-6 col-md-6 box" data-aos="fade-left" data-aos-delay="300">
               <div class="icon"><i class="ion-ios-analytics-outline"></i></div>
               <h4 class="title"><a href="">Book Apointment</a></h4>
-              <p class="description">
-                Patients can book an appointment through online video
-                conferencing or you can visit physically.
-              </p>
+              <p class="description"> Patients can book an appointment through online video conferencing or you can visit physically. </p>
             </div>
           </div>
         </div>
@@ -401,7 +198,6 @@
     </div>
   </section>
   <!-- #features -->
-
   <!--==========================
       Product Advanced Featuress Section
     ============================-->
@@ -410,97 +206,47 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <img
-              class="advanced-feature-img-right"
-              src="../static/img/advanced-feature-1.jpg"
-              alt=""
-              data-aos="fade-left" />
+            <img class="advanced-feature-img-right" src="../static/img/advanced-feature-1.jpg" alt="" data-aos="fade-left" />
             <div data-aos="fade-right">
-              <h2>
-                Analysis the Patient through Q & A Session and Face Recognition
-              </h2>
+              <h2> Analysis the Patient through Q & A Session and Face Recognition </h2>
               <h3>analysis patient using advanced technology.</h3>
-              <p>
-                we take question and answer sessoin and image for accurate
-                health prediction.
-              </p>
+              <p> we take question and answer sessoin and image for accurate health prediction. </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="features-row">
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <img
-              class="advanced-feature-img-left"
-              src="../static/img/advanced-feature-2.jpg"
-              alt="" />
+            <img class="advanced-feature-img-left" src="../static/img/advanced-feature-2.jpg" alt="" />
             <div data-aos="fade-left">
               <h2>Recommend Home Therapy & Meditation.</h2>
-              <i
-                class="ion-ios-paper-outline mt-2"
-                data-aos="fade-left"></i>
+              <i class="ion-ios-paper-outline mt-2" data-aos="fade-left"></i>
               <p data-aos="fade-left">Take analysis data and Prakruti Type.</p>
-              <i
-                class="ion-ios-color-filter-outline mt-2"
-                data-aos="fade-left"
-                data-aos-delay="200"></i>
-              <p
-                data-aos="fade-left"
-                data-aos-delay="200">
-                find illness reason
-              </p>
-              <i
-                class="ion-ios-barcode-outline mt-2"
-                data-aos="fade-left"
-                data-aos-delay="400"></i>
-              <p
-                data-aos="fade-left"
-                data-aos-delay="400">
-                Suggest Best Remedies
-              </p>
+              <i class="ion-ios-color-filter-outline mt-2" data-aos="fade-left" data-aos-delay="200"></i>
+              <p data-aos="fade-left" data-aos-delay="200"> find illness reason </p>
+              <i class="ion-ios-barcode-outline mt-2" data-aos="fade-left" data-aos-delay="400"></i>
+              <p data-aos="fade-left" data-aos-delay="400"> Suggest Best Remedies </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="features-row section-bg">
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <img
-              class="advanced-feature-img-right"
-              src="../static/img/advanced-feature-3.jpg"
-              alt=""
-              data-aos="fade-left" />
+            <img class="advanced-feature-img-right" src="../static/img/advanced-feature-3.jpg" alt="" data-aos="fade-left" />
             <div data-aos="fade-right">
               <h2>Recommend Home Therapy & Meditation.</h2>
-              <i
-                class="ion-ios-paper-outline"
-                data-aos="fade-left"></i>
+              <i class="ion-ios-paper-outline" data-aos="fade-left"></i>
               <p data-aos="fade-left">Take analysis data and Prakruti Type.</p>
-              <i
-                class="ion-ios-color-filter-outline"
-                data-aos="fade-left"
-                data-aos-delay="200"></i>
-              <p
-                data-aos="fade-left"
-                data-aos-delay="200">
-                find illness reason
-              </p>
-              <i
-                class="ion-ios-barcode-outline"
-                data-aos="fade-left"
-                data-aos-delay="400"></i>
-              <p
-                data-aos="fade-left"
-                data-aos-delay="400">
-                Suggest Best Remedies
-              </p>
+              <i class="ion-ios-color-filter-outline" data-aos="fade-left" data-aos-delay="200"></i>
+              <p data-aos="fade-left" data-aos-delay="200"> find illness reason </p>
+              <i class="ion-ios-barcode-outline" data-aos="fade-left" data-aos-delay="400"></i>
+              <p data-aos="fade-left" data-aos-delay="400"> Suggest Best Remedies </p>
             </div>
           </div>
         </div>
@@ -508,13 +254,10 @@
     </div>
   </section>
   <!-- #advanced-features -->
-
   <!--==========================
       Book Appointment Section
     ============================-->
-  <!-- book apt modal -->
-  {% if user.is_authenticated %}
-  <div class="modal" id="ReschModal">
+  <!-- book apt modal --> {% if user.is_authenticated %} <div class="modal" id="ReschModal">
     <div class="modal-dialog">
       <div class="modal-content" style="
                             border: none;
@@ -525,14 +268,12 @@
           <h4 class="modal-title">Book Appointment</h4>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
-  
         <div class="modal-body">
           <form action="/login" method="post">
             <div class="row">
               <div class="col-12 col-md-6 col-lg-6 mb-2">
                 <label for="name" class="form-label"> <b>Day :</b> </label>
-                <select class="form-select form-select-sm form-control" aria-label=".form-select-sm example" id="Day"
-                  name="Day" onchange="dayChoose()">
+                <select class="form-select form-select-sm form-control" aria-label=".form-select-sm example" id="Day" name="Day" onchange="dayChoose()">
                   <option selected value="0">Select</option>
                   <option value="1">Today</option>
                   <option value="2">Tomorrow</option>
@@ -547,62 +288,34 @@
             <div class="row mb-2" id="Appnts">
               <label for="name" class="form-label"><b>Available Appointments :</b> </label> <br />
               <div class="form-check ms-5">
-                <input class="form-check-input" type="radio" name="appnt" id="appnt1" value="Morning"
-                  onchange="showAppnt()">
-                <label class="form-check-label me-5" for="appnt1">
-                  Morning
-                </label>
-                <input class="form-check-input" type="radio" name="appnt" id="appnt2" value="Afternoon"
-                  onchange="showAppnt()">
-                <label class="form-check-label me-5" for="appnt2">
-                  Afternoon
-                </label>
-                <input class="form-check-input" type="radio" name="appnt" id="appnt3" value="Evening"
-                  onchange="showAppnt()">
-                <label class="form-check-label me-5" for="appnt3">
-                  Evening
-                </label>
+                <input class="form-check-input" type="radio" name="appnt" id="appnt1" value="Morning" onchange="showAppnt()">
+                <label class="form-check-label me-5" for="appnt1"> Morning </label>
+                <input class="form-check-input" type="radio" name="appnt" id="appnt2" value="Afternoon" onchange="showAppnt()">
+                <label class="form-check-label me-5" for="appnt2"> Afternoon </label>
+                <input class="form-check-input" type="radio" name="appnt" id="appnt3" value="Evening" onchange="showAppnt()">
+                <label class="form-check-label me-5" for="appnt3"> Evening </label>
               </div>
             </div>
-            <button type="submit" id="schedule" class="btn btn-warning text-white-500 mt-2 float-right">
-              Book
-            </button>
-            {% csrf_token %}
+            <button type="submit" id="schedule" class="btn btn-warning text-white-500 mt-2 float-right"> Book </button> {% csrf_token %}
           </form>
         </div>
       </div>
     </div>
-  </div>
-  {% endif %}
-  <section id="book">
+  </div> {% endif %} <section id="book">
     <div class="container">
       <div class="row">
         <div class="col-lg-9 text-center text-lg-left">
           <h3 class="cta-title">Book Appointment</h3>
-          <p class="cta-text">
-            By booking an appointment the doctor can easily schedule that
-            particular patient according to schedule.
-          </p>
-        </div>
-        {% if user.is_authenticated %}
-        <div class="col-lg-3 col-12 cta-btn-container text-center">
-          <a
-            class="cta-btn align-middle"
-            href="#" data-toggle="modal" data-target="#ReschModal" onclick="dayReset()"
-            >Book
-          Now </a>
-        </div>
-        {% else %}
-        <div class="col-lg-3 col-12 cta-btn-container text-center">
-          <a class="cta-btn align-middle" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Book Now
-          </a>
-        </div>
-        {% endif %}
+          <p class="cta-text"> By booking an appointment the doctor can easily schedule that particular patient according to schedule. </p>
+        </div> {% if user.is_authenticated %} <div class="col-lg-3 col-12 cta-btn-container text-center">
+          <a class="cta-btn align-middle" href="#" data-toggle="modal" data-target="#ReschModal" onclick="dayReset()">Book Now </a>
+        </div> {% else %} <div class="col-lg-3 col-12 cta-btn-container text-center">
+          <a class="cta-btn align-middle" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Book Now </a>
+        </div> {% endif %}
       </div>
     </div>
   </section>
   <!-- #call-to-action -->
-
   <!--==========================
       Frequently Asked Questions Section
     ============================-->
@@ -611,190 +324,75 @@
       <div class="section-header">
         <h3 class="section-title">Frequently Asked Questions</h3>
         <span class="section-divider"></span>
-        <p class="section-description">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque
-        </p>
+        <p class="section-description"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </p>
       </div>
-
-      <ul
-        id="faq-list"
-        data-aos="fade-up">
+      <ul id="faq-list" data-aos="fade-up">
         <li>
-          <a
-            data-toggle="collapse"
-            class="collapsed"
-            href="#faq1"
-            >Non consectetur a erat nam at lectus urna duis?
-            <i class="ion-android-remove"></i
-          ></a>
-          <div
-            id="faq1"
-            class="collapse"
-            data-parent="#faq-list">
-            <p>
-              Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id
-              volutpat lacus laoreet non curabitur gravida. Venenatis lectus
-              magna fringilla urna porttitor rhoncus dolor purus non.
-            </p>
+          <a data-toggle="collapse" class="collapsed" href="#faq1">Non consectetur a erat nam at lectus urna duis? <i class="ion-android-remove"></i></a>
+          <div id="faq1" class="collapse" data-parent="#faq-list">
+            <p> Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non. </p>
           </div>
         </li>
-
         <li>
-          <a
-            data-toggle="collapse"
-            href="#faq2"
-            class="collapsed"
-            >Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?
-            <i class="ion-android-remove"></i
-          ></a>
-          <div
-            id="faq2"
-            class="collapse"
-            data-parent="#faq-list">
-            <p>
-              Dolor sit amet consectetur adipiscing elit pellentesque habitant
-              morbi. Id interdum velit laoreet id donec ultrices. Fringilla
-              phasellus faucibus scelerisque eleifend donec pretium. Est
-              pellentesque elit ullamcorper dignissim. Mauris ultrices eros in
-              cursus turpis massa tincidunt dui.
-            </p>
+          <a data-toggle="collapse" href="#faq2" class="collapsed">Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque? <i class="ion-android-remove"></i></a>
+          <div id="faq2" class="collapse" data-parent="#faq-list">
+            <p> Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium.
+              Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui. </p>
           </div>
         </li>
-
         <li>
-          <a
-            data-toggle="collapse"
-            href="#faq3"
-            class="collapsed"
-            >Dolor sit amet consectetur adipiscing elit pellentesque habitant
-            morbi? <i class="ion-android-remove"></i
-          ></a>
-          <div
-            id="faq3"
-            class="collapse"
-            data-parent="#faq-list">
-            <p>
-              Eleifend mi in nulla posuere sollicitudin aliquam ultrices
-              sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla
-              pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque
-              eu tincidunt. Lectus urna duis convallis convallis tellus. Urna
-              molestie at elementum eu facilisis sed odio morbi quis
-            </p>
+          <a data-toggle="collapse" href="#faq3" class="collapsed">Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi? <i class="ion-android-remove"></i></a>
+          <div id="faq3" class="collapse" data-parent="#faq-list">
+            <p> Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus
+              pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis </p>
           </div>
         </li>
-
         <li>
-          <a
-            data-toggle="collapse"
-            href="#faq4"
-            class="collapsed"
-            >Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?
-            <i class="ion-android-remove"></i
-          ></a>
-          <div
-            id="faq4"
-            class="collapse"
-            data-parent="#faq-list">
-            <p>
-              Dolor sit amet consectetur adipiscing elit pellentesque habitant
-              morbi. Id interdum velit laoreet id donec ultrices. Fringilla
-              phasellus faucibus scelerisque eleifend donec pretium. Est
-              pellentesque elit ullamcorper dignissim. Mauris ultrices eros in
-              cursus turpis massa tincidunt dui.
-            </p>
+          <a data-toggle="collapse" href="#faq4" class="collapsed">Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla? <i class="ion-android-remove"></i></a>
+          <div id="faq4" class="collapse" data-parent="#faq-list">
+            <p> Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium.
+              Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui. </p>
           </div>
         </li>
-
         <li>
-          <a
-            data-toggle="collapse"
-            href="#faq5"
-            class="collapsed"
-            >Tempus quam pellentesque nec nam aliquam sem et tortor consequat?
-            <i class="ion-android-remove"></i
-          ></a>
-          <div
-            id="faq5"
-            class="collapse"
-            data-parent="#faq-list">
-            <p>
-              Molestie a iaculis at erat pellentesque adipiscing commodo.
-              Dignissim suspendisse in est ante in. Nunc vel risus commodo
-              viverra maecenas accumsan. Sit amet nisl suscipit adipiscing
-              bibendum est. Purus gravida quis blandit turpis cursus in
-            </p>
+          <a data-toggle="collapse" href="#faq5" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="ion-android-remove"></i></a>
+          <div id="faq5" class="collapse" data-parent="#faq-list">
+            <p> Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing
+              bibendum est. Purus gravida quis blandit turpis cursus in </p>
           </div>
         </li>
-
         <li>
-          <a
-            data-toggle="collapse"
-            href="#faq6"
-            class="collapsed"
-            >Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis
-            nunc eget lorem dolor? <i class="ion-android-remove"></i
-          ></a>
-          <div
-            id="faq6"
-            class="collapse"
-            data-parent="#faq-list">
-            <p>
-              Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris
-              vitae ultricies leo integer malesuada nunc vel. Tincidunt eget
-              nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut
-              venenatis tellus in metus vulputate eu scelerisque. Pellentesque
-              diam volutpat commodo sed egestas egestas fringilla phasellus
-              faucibus. Nibh tellus molestie nunc non blandit massa enim nec.
-            </p>
+          <a data-toggle="collapse" href="#faq6" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="ion-android-remove"></i></a>
+          <div id="faq6" class="collapse" data-parent="#faq-list">
+            <p> Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor
+              sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit
+              massa enim nec. </p>
           </div>
         </li>
       </ul>
     </div>
   </section>
   <!-- #faq -->
-
   <!--==========================
       Our Team Section
     ============================-->
-  <section
-    id="blogs"
-    class="section-bg">
+  <section id="blogs" class="section-bg">
     <div class="section-header pt-5">
-        <h3 class="section-title">Blogs</h3>
-        <span class="section-divider"></span>
-        <p class="section-description m-0">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque
-        </p>
-      </div>
+      <h3 class="section-title">Blogs</h3>
+      <span class="section-divider"></span>
+      <p class="section-description m-0"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </p>
+    </div>
     <div class="row mb-2 mx-3">
       <div class="col-12 col-md-6 col-lg-4 my-2">
         <div class="card">
-          <div
-            class="card-header"
-            style="background-color: #aaccff">
+          <div class="card-header" style="background-color: #aaccff">
             <div class="row">
               <div class="col-9">
-                <div
-                  class="title d-lg-inline text-white"
-                  style="font-size: larger; font-weight: 630">
+                <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630">
                   <b id="title">what is overflowing text?</b>
-                  <span
-                    class="badge bg-secondary mb-1 text-uppercase"
-                    style="font-size: 55%"
-                    >Image</span
-                  >
-                  <span
-                    class="badge bg-success mb-1 text-uppercase"
-                    style="font-size: 55%"
-                    >Video</span
-                  >
-                  <span
-                    class="badge bg-warning mb-1 text-uppercase"
-                    style="font-size: 55%"
-                    >Blog</span
-                  >
+                  <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%">Image</span>
+                  <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
+                  <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
                 </div>
               </div>
               <div class="col-3">
@@ -802,45 +400,22 @@
               </div>
             </div>
           </div>
-          <div
-            class="card-body"
-            style="min-height: 240px">
-            <p class="card-text mb-0 pstyle">
-              This might be useful if you want to prevent a large gap from appearing if there is just enough space 
-              for the string.Or, where there is another element that you would not want the break to happen immediately 
-              after. In the example below there is a checkbox and label. Let's say, you want the label to break should 
-              it be too long for the box. However, you don't want it to break directly after the checkbox.
-            </p>
+          <div class="card-body" style="min-height: 240px">
+            <p class="card-text mb-0 pstyle"> This might be useful if you want to prevent a large gap from appearing if there is just enough space for the string.Or, where there is another element
+              that you would not want the break to happen immediately after. In the example below there is a checkbox and label. Let's say, you want the label to break should it be too long for the
+              box. However, you don't want it to break directly after the checkbox. </p>
           </div>
         </div>
       </div>
-
       <div class="col-12 col-md-6 col-lg-4 my-2" onclick="">
         <div class="card">
-          <div
-            class="card-header"
-            style="background-color: #aaccff">
+          <div class="card-header" style="background-color: #aaccff">
             <div class="row">
               <div class="col-9">
-                <div
-                  class="title d-lg-inline text-white"
-                  style="font-size: larger; font-weight: 630">
-                  What is overflowing text?
-                  <span
-                    class="badge bg-secondary mb-1 text-uppercase"
-                    style="font-size: 55%"
-                    >Image</span
-                  >
-                  <span
-                    class="badge bg-success mb-1 text-uppercase"
-                    style="font-size: 55%"
-                    >Video</span
-                  >
-                  <span
-                    class="badge bg-warning mb-1 text-uppercase"
-                    style="font-size: 55%"
-                    >Blog</span
-                  >
+                <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is overflowing text? <span class="badge bg-secondary mb-1 text-uppercase"
+                    style="font-size: 55%">Image</span>
+                  <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
+                  <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
                 </div>
               </div>
               <div class="col-3">
@@ -848,46 +423,20 @@
               </div>
             </div>
           </div>
-          <div
-            class="card-body"
-            style="min-height: 240px">
-            <video
-              width="100%"
-              id="Vdo"
-              style="border-radius: 5px"
-              controls
-              src="../../static/file_example_MP4_480_1_5MG.mp4"
-              name="Vdo"></video>
+          <div class="card-body" style="min-height: 240px">
+            <video width="100%" id="Vdo" style="border-radius: 5px" controls src="../../static/file_example_MP4_480_1_5MG.mp4" name="Vdo"></video>
           </div>
         </div>
       </div>
-
       <div class="col-12 col-md-6 col-lg-4 my-2">
         <div class="card">
-          <div
-            class="card-header"
-            style="background-color: #aaccff">
+          <div class="card-header" style="background-color: #aaccff">
             <div class="row">
               <div class="col-9">
-                <div
-                  class="title d-lg-inline text-white"
-                  style="font-size: larger; font-weight: 630">
-                  What is overflowing text?
-                  <span
-                    class="badge bg-secondary mb-1 text-uppercase"
-                    style="font-size: 55%"
-                    >Image</span
-                  >
-                  <span
-                    class="badge bg-success mb-1 text-uppercase"
-                    style="font-size: 55%"
-                    >Video</span
-                  >
-                  <span
-                    class="badge bg-warning mb-1 text-uppercase"
-                    style="font-size: 55%"
-                    >Blog</span
-                  >
+                <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is overflowing text? <span class="badge bg-secondary mb-1 text-uppercase"
+                    style="font-size: 55%">Image</span>
+                  <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
+                  <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
                 </div>
               </div>
               <div class="col-3">
@@ -895,14 +444,9 @@
               </div>
             </div>
           </div>
-          <div
-            class="card-body"
-            style="min-height: 240px">
+          <div class="card-body" style="min-height: 240px">
             <center>
-              <img
-                src="../../static/admin/img/undraw_posting_photo.svg"
-                style="width: auto; max-width: 290px; border-radius: 5px"
-                alt="Italian Trulli" />
+              <img src="../../static/admin/img/undraw_posting_photo.svg" style="width: auto; max-width: 290px; border-radius: 5px" alt="Italian Trulli" />
             </center>
           </div>
         </div>
@@ -910,28 +454,16 @@
     </div>
     <center>
       <div class="intro-text pb-4">
-          <a
-            href="/our_blogs"
-            class="btn-get-started scrollto bg-gray-500 border-none">
-            More Products
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="25"
-              height="25"
-              fill="white"
-              class="bi bi-arrow-right-circle"
-              viewBox="0 0 16 16"
-              style="margin-left: 10px">
-              <path
-                fillRule="evenodd"
-                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
-            </svg>
-          </a>
-        </div>
+        <a href="/our_blogs" class="btn-get-started scrollto bg-gray-500 border-none"> More Products <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white"
+            class="bi bi-arrow-right-circle" viewBox="0 0 16 16" style="margin-left: 10px">
+            <path fillRule="evenodd"
+              d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+          </svg>
+        </a>
+      </div>
     </center>
   </section>
   <!-- #blog -->
-
   <!--==========================
       Gallery Section
     ============================-->
@@ -940,93 +472,48 @@
       <div class="section-header">
         <h3 class="section-title">Gallery</h3>
         <span class="section-divider"></span>
-        <p class="section-description">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque
-        </p>
+        <p class="section-description"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </p>
       </div>
-
       <div class="row no-gutters">
         <div class="col-lg-4 col-md-6">
-          <div
-            class="gallery-item"
-            data-aos="fade-up">
-            <a
-              href="img/gallery/gallery-1.jpg"
-              class="gallery-popup">
-              <img
-                src="../static/img/gallery/gallery-1.jpg"
-                alt="" />
+          <div class="gallery-item" data-aos="fade-up">
+            <a href="img/gallery/gallery-1.jpg" class="gallery-popup">
+              <img src="../static/img/gallery/gallery-1.jpg" alt="" />
             </a>
           </div>
         </div>
-
         <div class="col-lg-4 col-md-6">
-          <div
-            class="gallery-item"
-            data-aos="fade-up">
-            <a
-              href="img/gallery/gallery-2.jpg"
-              class="gallery-popup">
-              <img
-                src="../static/img/gallery/gallery-2.jpg"
-                alt="" />
+          <div class="gallery-item" data-aos="fade-up">
+            <a href="img/gallery/gallery-2.jpg" class="gallery-popup">
+              <img src="../static/img/gallery/gallery-2.jpg" alt="" />
             </a>
           </div>
         </div>
-
         <div class="col-lg-4 col-md-6">
-          <div
-            class="gallery-item"
-            data-aos="fade-up">
-            <a
-              href="img/gallery/gallery-3.jpg"
-              class="gallery-popup">
-              <img
-                src="../static/img/gallery/gallery-3.jpg"
-                alt="" />
+          <div class="gallery-item" data-aos="fade-up">
+            <a href="img/gallery/gallery-3.jpg" class="gallery-popup">
+              <img src="../static/img/gallery/gallery-3.jpg" alt="" />
             </a>
           </div>
         </div>
-
         <div class="col-lg-4 col-md-6">
-          <div
-            class="gallery-item"
-            data-aos="fade-up">
-            <a
-              href="img/gallery/gallery-4.jpg"
-              class="gallery-popup">
-              <img
-                src="../static/img/gallery/gallery-4.jpg"
-                alt="" />
+          <div class="gallery-item" data-aos="fade-up">
+            <a href="img/gallery/gallery-4.jpg" class="gallery-popup">
+              <img src="../static/img/gallery/gallery-4.jpg" alt="" />
             </a>
           </div>
         </div>
-
         <div class="col-lg-4 col-md-6">
-          <div
-            class="gallery-item"
-            data-aos="fade-up">
-            <a
-              href="img/gallery/gallery-5.jpg"
-              class="gallery-popup">
-              <img
-                src="../static/img/gallery/gallery-5.jpg"
-                alt="" />
+          <div class="gallery-item" data-aos="fade-up">
+            <a href="img/gallery/gallery-5.jpg" class="gallery-popup">
+              <img src="../static/img/gallery/gallery-5.jpg" alt="" />
             </a>
           </div>
         </div>
-
         <div class="col-lg-4 col-md-6">
-          <div
-            class="gallery-item"
-            data-aos="fade-up">
-            <a
-              href="img/gallery/gallery-6.jpg"
-              class="gallery-popup">
-              <img
-                src="../static/img/gallery/gallery-6.jpg"
-                alt="" />
+          <div class="gallery-item" data-aos="fade-up">
+            <a href="img/gallery/gallery-6.jpg" class="gallery-popup">
+              <img src="../static/img/gallery/gallery-6.jpg" alt="" />
             </a>
           </div>
         </div>
@@ -1034,128 +521,66 @@
     </div>
   </section>
   <!-- #gallery -->
-
   <!--==========================
       Contact Section
     ============================-->
   <section id="contact">
     <div class="container">
-      <div
-        class="row"
-        data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
         <div class="col-lg-4 col-md-4">
           <div class="contact-about">
             <h3>PRAKRUTI</h3>
             <p>Your Health Our Responsibility</p>
             <div class="social-links">
-              <a
-                href="#"
-                class="twitter"
-                ><i class="fa fa-twitter"></i
-              ></a>
-              <a
-                href="#"
-                class="facebook"
-                ><i class="fa fa-facebook"></i
-              ></a>
-              <a
-                href="#"
-                class="instagram"
-                ><i class="fa fa-instagram"></i
-              ></a>
-              <a
-                href="#"
-                class="google-plus"
-                ><i class="fa fa-google-plus"></i
-              ></a>
-              <a
-                href="#"
-                class="linkedin"
-                ><i class="fa fa-linkedin"></i
-              ></a>
+              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
             </div>
           </div>
         </div>
-
         <div class="col-lg-3 col-md-4">
           <div class="info">
             <div>
               <i class="ion-ios-location-outline"></i>
               <p>A101 Rjarampuri 2nd lane<br />Kolhapur, 416012</p>
             </div>
-
             <div>
               <i class="ion-ios-email-outline"></i>
               <p>getyourprakruti@gmail.com.com</p>
             </div>
-
             <div>
               <i class="ion-ios-telephone-outline"></i>
               <p>+91 9189 55488 55</p>
             </div>
           </div>
         </div>
-
         <div class="col-lg-5 col-md-8">
           <div class="form">
             <div id="sendmessage">Your message has been sent. Thank you!</div>
             <div id="errormessage"></div>
-            <form
-              action=""
-              method="post"
-              role="form"
-              class="contactForm">
+            <form action="" method="post" role="form" class="contactForm">
               <div class="form-row">
                 <div class="form-group col-lg-6">
-                  <input
-                    type="text"
-                    name="name"
-                    class="form-control"
-                    id="name"
-                    placeholder="Your Name"
-                    data-rule="minlen:4"
-                    data-msg="Please enter at least 4 chars" />
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                   <div class="validation"></div>
                 </div>
                 <div class="form-group col-lg-6">
-                  <input
-                    type="email"
-                    class="form-control"
-                    name="email"
-                    id="email"
-                    placeholder="Your Email"
-                    data-rule="email"
-                    data-msg="Please enter a valid email" />
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
                   <div class="validation"></div>
                 </div>
               </div>
               <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="subject"
-                  id="subject"
-                  placeholder="Subject"
-                  data-rule="minlen:4"
-                  data-msg="Please enter at least 8 chars of subject" />
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
                 <div class="validation"></div>
               </div>
               <div class="form-group">
-                <textarea
-                  class="form-control"
-                  name="message"
-                  rows="5"
-                  data-rule="required"
-                  data-msg="Please write something for us"
-                  placeholder="Message"></textarea>
+                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
                 <div class="validation"></div>
               </div>
               <div class="text-center">
-                <button
-                  type="submit"
-                  title="Send Message">
-                  Send Message
-                </button>
+                <button type="submit" title="Send Message"> Send Message </button>
               </div>
             </form>
           </div>
@@ -1164,5 +589,4 @@
     </div>
   </section>
   <!-- #contact -->
-</main>
-{% endblock body%}
+</main> {% endblock body%}
