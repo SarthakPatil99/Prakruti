@@ -47,7 +47,7 @@ Medicines
         {% endif %} {% endfor %}
 
         <div class="modal-body">
-          <form action="/login" method="post">
+          <form action="/medicine_remedies/" method="post">
             <div class="row mx-0 mb-2">
               <div class="col-8">
                 <div class="row mb-2">
@@ -60,7 +60,7 @@ Medicines
                   <label for="file" class="form-label">
                     <b>Choose Image:</b>
                   </label>
-                  <input class="form-control" id="inFile" type="file" accept="image/*" onchange="validateImage()"
+                  <input class="form-control" id="inFile" name="inFile" type="file" accept="image/*" onchange="validateImage()"
                     required />
                 </div>
               </div>
@@ -70,8 +70,7 @@ Medicines
                 </label>
                 <br />
                 <center>
-                  <input type="image" id="Img" value="" src="../../static/img/close_cam.png" width="100%" name="Img"
-                    disabled />
+                  <img src="../../static/img/close_cam.png" width="100%" id="Img"/>
                 </center>
               </div>
             </div>
@@ -81,7 +80,7 @@ Medicines
                 <label for="Description" class="form-label">
                   <b>Descripion:</b>
                 </label>
-                <textarea class="form-control" id="Desc" placeholder="Medicine Description" name="Description"
+                <textarea class="form-control" id="Desc" placeholder="Medicine Description" name="description"
                   required></textarea>
               </div>
             </div>
@@ -91,7 +90,7 @@ Medicines
                 <label for="Contents" class="form-label">
                   <b>Medicine Contents:</b>
                 </label>
-                <textarea class="form-control" id="Content" placeholder="Medicine Contents" name="Contents"
+                <textarea class="form-control" id="Content" placeholder="Medicine Contents" name="contents"
                   required></textarea>
               </div>
             </div>
@@ -101,7 +100,7 @@ Medicines
                 <label for="Quantity" class="form-label">
                   <b>Quantity:</b>
                 </label>
-                <input type="number" class="form-control" id="Quantity" placeholder="Quantity" name="Quantity"
+                <input type="number" class="form-control" id="Quantity" placeholder="Quantity" name="quantity"
                   onfocusout="validateQuantity()" required />
               </div>
               <div class="col-12 col-md-6 col-lg-6">
@@ -114,8 +113,7 @@ Medicines
               </div>
             </div>
 
-            <button type="submit" id="Submit" class="btn btn-warning text-gray-800 mt-2 float-right"
-              value="sndjash"></button>
+            <button type="submit" name="submit" value="" id="Submit" class="btn btn-warning text-gray-800 mt-2 float-right"></button>
             {% csrf_token %}
           </form>
         </div>
@@ -173,11 +171,11 @@ Medicines
     <td id="quantity" width="1%">25</td>
     <td id="price" width="1%">45</td>
     <td width="10%">
-      <button type="submit" class="btn bg-success text-white my-1" name="update" value="chval" data-toggle="modal"
+      <button class="btn bg-success text-white my-1" data-toggle="modal"
         data-target="#MModal" onclick="transferMR(true)">
         <i class="far fa-edit"></i>
       </button>
-      <button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
+      <button type="submit" class="btn bg-danger text-white" name="Remove" value="RemedyId">
         <i class="far fa-trash-alt"></i>
       </button>
     </td>

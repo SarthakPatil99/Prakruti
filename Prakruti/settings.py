@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'Prakruti',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +80,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Prakruti',
         'USER': 'postgres',
-        'PASSWORD': 'Sarthak@123',
+        'PASSWORD': 'Djshottt',
+        # 'PASSWORD': 'Sarthak@123',
         'HOST': 'localhost'
     }
 }

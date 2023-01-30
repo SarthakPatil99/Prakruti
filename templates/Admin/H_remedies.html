@@ -46,18 +46,18 @@ Medicines
         {% endif %} {% endfor %}
 
         <div class="modal-body">
-          <form action="/login" method="post">
+          <form action="/home_remedies/" method="post">
             <div class="row mx-0 mb-2">
               <div class="col-8">
                 <div class="row mb-2">
                   <label for="name" class="form-label"><b>Remedy Title:</b></label>
-                  <input type="text" class="form-control" id="Title" placeholder="Remedy title" name="fname" required />
+                  <input type="text" class="form-control" id="Title" placeholder="Remedy title" name="title" required />
                 </div>
                 <div class="row">
                   <label for="formFile" class="form-label">
                     <b>Image:</b>
                   </label>
-                  <input class="form-control -sm" type="file" id="inFile" accept="image/*" onchange="validateImage()"
+                  <input class="form-control -sm" type="file" name="inFile" id="inFile" accept="image/*" onchange="validateImage()"
                     required />
                 </div>
               </div>
@@ -67,8 +67,7 @@ Medicines
                 </label>
                 <br />
                 <center>
-                  <input type="image" id="Img" value="" src="../../static/img/close_cam.png" width="100%" name="Img"
-                    disabled />
+                  <img id="Img" src="../../static/img/close_cam.png" width="100%"/>
                 </center>
               </div>
             </div>
@@ -78,7 +77,7 @@ Medicines
                 <label for="Description" class="form-label">
                   <b>Description:</b>
                 </label>
-                <textarea class="form-control" id="Desc" placeholder="Remedy Description" name="Description"
+                <textarea class="form-control" id="Desc" placeholder="Remedy Description" name="description"
                   required></textarea>
               </div>
             </div>
@@ -88,12 +87,12 @@ Medicines
                 <label for="Accessaries" class="form-label">
                   <b>Accessaries:</b>
                 </label>
-                <textarea class="form-control" id="Acce" placeholder="Required Accessaries" name="Accessaries"
+                <textarea class="form-control" id="Acce" placeholder="Required Accessaries" name="accessaries"
                   required></textarea>
               </div>
             </div>
 
-            <button type="submit" id="Submit" class="btn btn-warning text-gray-800 mt-2 float-right">
+            <button type="submit" name="submit" id="Submit" class="btn btn-warning text-gray-800 mt-2 float-right">
               Update
             </button>
             {% csrf_token %}
@@ -137,11 +136,10 @@ Medicines
     <td id="desc">gygyg</td>
     <td id="acce">gygyg</td>
     <td width="10%">
-      <button type="submit" class="btn bg-success text-white my-1" name="Update" value="chval" data-toggle="modal"
-        data-target="#HModal" onclick="transferHR(true)">
+      <button type="submit" class="btn bg-success text-white my-1" data-toggle="modal" data-target="#HModal" onclick="transferHR(true)">
         <i class="far fa-edit"></i>
       </button>
-      <button type="submit" class="btn bg-danger text-white" name="Remove" value="chval">
+      <button type="submit" class="btn bg-danger text-white" name="Remove" value="RemedyId">
         <i class="far fa-trash-alt"></i>
       </button>
     </td>

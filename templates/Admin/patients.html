@@ -45,20 +45,17 @@ Patients
                 {% endif %} {% endfor %}
 
                 <div class="modal-body">
-                    <form action="/login" method="post">
+                    <form action="/patients/" method="post">
                         <label for="name" class="form-label"> <b>Full Name:</b> </label>
                         <div class="row mb-2">
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <input type="first name" class="form-control" id="fname" placeholder="First Name"
-                                    name="fname" required />
+                            <div class="col-12 col-md-12 col-lg-4">
+                                <input type="first name" class="form-control" id="fname" placeholder="First Name" name="fname" required />
                             </div>
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <input type="middle name" class="form-control" id="mname" placeholder="Middle Name"
-                                    name="mname" required />
+                            <div class="col-12 col-md-12 col-lg-4 py-2 py-lg-0">
+                                <input type="middle name" class="form-control" id="mname" placeholder="Middle Name" name="mname" required />
                             </div>
-                            <div class="col-12 col-md-6 col-lg-4">
-                                <input type="last name" class="form-control" id="lame" placeholder="Last Name"
-                                    name="lname" required />
+                            <div class="col-12 col-md-12 col-lg-4">
+                                <input type="last name" class="form-control" id="lame" placeholder="Last Name" name="lname" required />
                             </div>
                         </div>
 
@@ -78,39 +75,29 @@ Patients
                         </div>
 
                         <div class="row mb-2">
-                            <div class="col-12 col-md-6 col-lg-6">
+                            <div class="col-6 col-md-6 col-lg-4">
                                 <label for="age" class="form-label"> <b>Age:</b> </label>
                                 <input type="number" class="form-control" id="age" placeholder="Age" name="age"
                                     onfocusout="validateAge()" required />
                             </div>
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <label for="appointments" class="form-label">
-                                    <b>Appointments:</b>
-                                </label>
-                                <input type="number" class="form-control" id="appointments" placeholder="Total"
-                                    name="appointments" />
-                            </div>
-                        </div>
-
-                        <div class="row mb-2">
-                            <div class="col-12 col-md-6 col-lg-6">
+                            <div class="col-6 col-md-6 col-lg-4">
                                 <label for="Gender" class="form-label"> <b>Gender:</b> </label>
                                 <select class="form-select form-select-sm form-control"
                                     aria-label=".form-select-sm example" placeholder="Select Gender" id="Gender"
-                                    name="Gender" onfocusout="validateGender()">
+                                    name="gender" onfocusout="validateGender()">
                                     <option selected value="0">Select</option>
                                     <option value="1">Male</option>
                                     <option value="2">Female</option>
                                     <option value="3">Other</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-md-6 col-lg-6">
+                            <div class="col-12 col-md-12 col-lg-4">
                                 <label for="Prakruti" class="form-label">
                                     <b>Prakruti:</b>
                                 </label>
                                 <select class="form-select form-select-sm form-control"
                                     aria-label=".form-select-sm example" placeholder="Select Prakruti" id="Prakruti"
-                                    name="Prakruti" onfocusout="validatePrakruti()">
+                                    name="prakruti" onfocusout="validatePrakruti()">
                                     <option selected value="0">Select</option>
                                     <option value="1">Vata Kapha</option>
                                     <option value="2">Vata Pitta</option>
@@ -121,7 +108,7 @@ Patients
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" id="Submit" class="btn btn-warning text-gray-800 mt-2 float-right">
+                        <button type="submit" name="submit" value="Create" id="Submit" class="btn btn-warning text-gray-800 mt-2 float-right">
                             Create
                         </button>
                         {% csrf_token %}
@@ -199,14 +186,15 @@ Patients
         <td width="15%">gygyg</td>
         <td class="align-items-center" width="10%">
             <center>
-                <Button type="submit" class="btn bg-success text-white" name="Bookappnt" title="Book appointment"
-                    value="chval">
-                    <i class="fas fa-calendar-check"></i>
-                </Button>
-                <Button type="submit" class="btn bg-danger text-white my-1" name="Remove" title="Remove appointment"
-                    value="chval">
-                    <i class="far fa-trash-alt"></i>
-                </Button>
+                <form action="/patients/" method="post">
+                    <Button type="submit" class="btn bg-success text-white" name="book" value="PatientID" title="Book appointment">
+                        <i class="fas fa-calendar-check"></i>
+                    </Button>
+                    <Button type="submit" class="btn bg-danger text-white my-1" name="remove" title="Remove appointment" value="PatientID">
+                        <i class="far fa-trash-alt"></i>
+                    </Button>
+                    {% csrf_token %}
+                </form>
             </center>
         </td>
     </tbody>

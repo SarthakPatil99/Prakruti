@@ -374,7 +374,7 @@
   </section>
   <!-- #faq -->
   <!--==========================
-      Our Team Section
+     Blogs Section
     ============================-->
   <section id="blogs" class="section-bg">
     <div class="section-header pt-5">
@@ -382,14 +382,38 @@
       <span class="section-divider"></span>
       <p class="section-description m-0"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </p>
     </div>
-    <div class="row mb-2 mx-3">
-      <div class="col-12 col-md-6 col-lg-4 my-2">
+    <div class="row m-1 mb-3">
+      <div class="col-12 col-md-6 col-lg-4 mt-3">
         <div class="card">
           <div class="card-header" style="background-color: #aaccff">
             <div class="row">
               <div class="col-9">
                 <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630">
-                  <b id="title">what is overflowing text?</b>
+                  <b id="title">what is overflowing text?</b><br />
+                  <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%">Image</span>
+                  <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
+                  <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%" id="Btype">Blog</span>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="text-white text-uppercase text-end h6">| Jan 2</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body overflow-auto text-justify" style="max-height: 280px" onclick="passCont()" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" id="content"> This might be
+            useful if you want to prevent a large gap from appearing if there is just enough space for the string.Or, where there is another element that you would not want the break to happen
+            immediately after. In the example below there is a checkbox and label. Let's say, you want the label to break should it be too long for the box. However, you don't want it to break
+            directly after the checkbox. With supporting text below as a natural lead-in to additional content. However, you don't want it to break directly after the checkbox. With supporting text
+            below as a natural lead-in to additional content. However, you don't want it to break directly after the checkbox. With supporting text below as a natural lead-in to additional content.
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mt-3">
+        <div class="card">
+          <div class="card-header" style="background-color: #aaccff">
+            <div class="row">
+              <div class="col-9">
+                <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is overflowing text? <br />
                   <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%">Image</span>
                   <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
                   <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
@@ -400,53 +424,33 @@
               </div>
             </div>
           </div>
-          <div class="card-body" style="min-height: 240px">
-            <p class="card-text mb-0 pstyle"> This might be useful if you want to prevent a large gap from appearing if there is just enough space for the string.Or, where there is another element
-              that you would not want the break to happen immediately after. In the example below there is a checkbox and label. Let's say, you want the label to break should it be too long for the
-              box. However, you don't want it to break directly after the checkbox. </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 my-2" onclick="">
-        <div class="card">
-          <div class="card-header" style="background-color: #aaccff">
-            <div class="row">
-              <div class="col-9">
-                <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is overflowing text? <span class="badge bg-secondary mb-1 text-uppercase"
-                    style="font-size: 55%">Image</span>
-                  <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
-                  <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="text-white text-uppercase text-end h6">| Jan 2</div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body" style="min-height: 240px">
-            <video width="100%" id="Vdo" style="border-radius: 5px" controls src="../../static/file_example_MP4_480_1_5MG.mp4" name="Vdo"></video>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 my-2">
-        <div class="card">
-          <div class="card-header" style="background-color: #aaccff">
-            <div class="row">
-              <div class="col-9">
-                <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is overflowing text? <span class="badge bg-secondary mb-1 text-uppercase"
-                    style="font-size: 55%">Image</span>
-                  <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
-                  <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="text-white text-uppercase text-end h6">| Jan 2</div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body" style="min-height: 240px">
+          <div class="card-body col-12" style="min-height: 280px">
             <center>
-              <img src="../../static/admin/img/undraw_posting_photo.svg" style="width: auto; max-width: 290px; border-radius: 5px" alt="Italian Trulli" />
+              <video id="Vdo" style="border-radius: 5px;width:100%" controls src="../../static/file_example_MP4_480_1_5MG.mp4" name="Vdo">
+              </video>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mt-3">
+        <div class="card">
+          <div class="card-header" style="background-color: #aaccff">
+            <div class="row">
+              <div class="col-9">
+                <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is overflowing text? <br />
+                  <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%">Image</span>
+                  <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
+                  <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="text-white text-uppercase text-end h6">| Jan 2</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body" style="min-height: 280px">
+            <center>
+              <img src="../../static/admin/img/undraw_posting_photo.svg" style="width: 100%; border-radius: 5px" alt="Italian Trulli" />
             </center>
           </div>
         </div>
@@ -454,7 +458,7 @@
     </div>
     <center>
       <div class="intro-text pb-4">
-        <a href="/our_blogs" class="btn-get-started scrollto bg-gray-500 border-none"> More Products <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white"
+        <a href="/our_blogs" class="btn-get-started scrollto bg-gray-500 border-none"> More Blogs <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white"
             class="bi bi-arrow-right-circle" viewBox="0 0 16 16" style="margin-left: 10px">
             <path fillRule="evenodd"
               d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />

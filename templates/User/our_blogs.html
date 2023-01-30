@@ -1,5 +1,4 @@
-{%extends 'base.html'%}
-<!--  
+{%extends 'base.html'%} <!--  
 {% block background%}
 <div class="bg"></div>
 <div class="bg bg2"></div>
@@ -18,95 +17,45 @@ Our Blogs
     <a class="nav-link" href="/analyze">Analyzer</a>
 </li>
 {% endblock nav_links%} 
--->
-{% block body %}
-<div class="offcanvas offcanvas-bottom mx-auto"
-  style="height:fit-content; width: 80%; border-top-left-radius: 10px; border-top-right-radius: 10px;" id="offcanvasBottom"
-  aria-labelledby="offcanvasBottomLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title fw-bold text-warning" id="Btitle">Blog title</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <span class="badge bg-warning mb-1 text-uppercase ms-4" style="font-size: 55%; width:50px" id="BType">Blog</span>
-  <div class="offcanvas-body px-5 pb-4" id="Content">
-  </div>
-</div>
-
+--> {% block body %} 
 <!-- body below -->
-<div
-  class="blgs"
-  style="margin-top: 100px">
+<div class="blgs" style="margin-top: 100px">
   <div class="d-flex justify-content-between">
     <form style="width: 55%">
       <div class="input-group ms-3">
-        <input
-          type="text"
-          class="form-control bg-light"
-          placeholder="Search for..."
-          aria-label="Search"
-          aria-describedby="basic-addon2" />
+        <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
         <div class="input-group-append">
-          <button
-            class="btn btn-primary"
-            type="button">
+          <button class="btn btn-primary" type="button">
             <i class="fas fa-search fa-sm"></i>
           </button>
         </div>
       </div>
     </form>
-
     <div class="dropdown float-right mx-3 mb-4">
-      <button
-        class="btn btn-info dropdown-toggle"
-        type="button"
-        id="dropdownMenuButton1"
-        data-toggle="dropdown"
-        aria-expanded="false">
-        Sort via
-      </button>
-      <ul
-        class="dropdown-menu"
-        aria-labelledby="dropdownMenuButton1">
+      <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false"> Sort via </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li>
-          <a
-            class="dropdown-item"
-            href="#"
-            >Title</a
-          >
+          <a class="dropdown-item" href="#">Title</a>
         </li>
         <li>
-          <a
-            class="dropdown-item"
-            href="#"
-            >Day</a
-          >
+          <a class="dropdown-item" href="#">Day</a>
         </li>
         <li>
-          <a
-            class="dropdown-item"
-            href="#"
-            >Type</a
-          >
+          <a class="dropdown-item" href="#">Type</a>
         </li>
       </ul>
     </div>
   </div>
-
   <!-- bolgs' cards -->
   <div class="row m-1 mb-5">
-    <div class="col-12 col-md-6 col-lg-4 mt-2">
+    <div class="col-12 col-md-6 col-lg-4 mt-3">
       <div class="card">
-        <div
-          class="card-header"
-          style="background-color: #aaccff">
+        <div class="card-header" style="background-color: #aaccff">
           <div class="row">
             <div class="col-9">
-              <div
-                class="title d-lg-inline text-white"
-                style="font-size: larger; font-weight: 630">
-                <b 
-                id="title" >what is overflowing text?</b>
-                <!-- <span
+              <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630">
+                <b id="title">what is overflowing text?</b><br/>
+                <span
                   class="badge bg-secondary mb-1 text-uppercase"
                   style="font-size: 55%"
                   >Image</span
@@ -115,12 +64,8 @@ Our Blogs
                   class="badge bg-success mb-1 text-uppercase"
                   style="font-size: 55%"
                   >Video</span
-                > -->
-                <span
-                  class="badge bg-warning mb-1 text-uppercase"
-                  style="font-size: 55%" id="Btype"
-                  >Blog</span
                 >
+                <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%" id="Btype">Blog</span>
               </div>
             </div>
             <div class="col-3">
@@ -128,53 +73,23 @@ Our Blogs
             </div>
           </div>
         </div>
-        <div
-          class="card-body  overflow-auto" 
-          style="max-height: 250px"  onclick="passCont()" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" id="content">
-            This might be useful if you want to prevent a large gap from
-            appearing if there is just enough space for the string.Or, where
-            there is another element that you would not want the break to happen
-            immediately after. In the example below there is a checkbox and
-            label. Let's say, you want the label to break should it be too long
-            for the box. However, you don't want it to break directly after the
-            checkbox. With supporting text below as a natural lead-in to
-            additional content.
-            However, you don't want it to break directly after the
-            checkbox. With supporting text below as a natural lead-in to
-            additional content.
-            However, you don't want it to break directly after the
-            checkbox. With supporting text below as a natural lead-in to
-            additional content.
-        </div>
+        <div class="card-body overflow-auto text-justify" style="max-height: 280px" onclick="passCont()" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" id="content"> This might be useful if you want
+          to prevent a large gap from appearing if there is just enough space for the string.Or, where there is another element that you would not want the break to happen immediately after. In the
+          example below there is a checkbox and label. Let's say, you want the label to break should it be too long for the box. However, you don't want it to break directly after the checkbox. With
+          supporting text below as a natural lead-in to additional content. However, you don't want it to break directly after the checkbox. With supporting text below as a natural lead-in to
+          additional content. However, you don't want it to break directly after the checkbox. With supporting text below as a natural lead-in to additional content. </div>
       </div>
     </div>
-
-    <div class="col-12 col-md-6 col-lg-4 mt-2">
+    <div class="col-12 col-md-6 col-lg-4 mt-3">
       <div class="card">
-        <div
-          class="card-header"
-          style="background-color: #aaccff">
+        <div class="card-header" style="background-color: #aaccff">
           <div class="row">
             <div class="col-9">
-              <div
-                class="title d-lg-inline text-white"
-                style="font-size: larger; font-weight: 630">
-                What is overflowing text?
-                <span
-                  class="badge bg-secondary mb-1 text-uppercase"
-                  style="font-size: 55%" 
-                  >Image</span
-                >
-                <span
-                  class="badge bg-success mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Video</span
-                >
-                <span
-                  class="badge bg-warning mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Blog</span
-                >
+              <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630">
+                What is overflowing text? <br/>
+                <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%">Image</span>
+                <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
+                <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
               </div>
             </div>
             <div class="col-3">
@@ -182,49 +97,24 @@ Our Blogs
             </div>
           </div>
         </div>
-        <div
-          class="card-body col-12"
-          style="min-height: 250px">
+        <div class="card-body col-12" style="min-height: 280px">
           <center>
-             <video
-                id="Vdo"
-                style="border-radius: 5px;width:100%"
-                controls
-                src="../../static/file_example_MP4_480_1_5MG.mp4"
-                name="Vdo">
+            <video id="Vdo" style="border-radius: 5px;width:100%" controls src="../../static/file_example_MP4_480_1_5MG.mp4" name="Vdo">
             </video>
           </center>
         </div>
-        
       </div>
     </div>
-
-    <div class="col-12 col-md-6 col-lg-4 mt-2">
+    <div class="col-12 col-md-6 col-lg-4 mt-3">
       <div class="card">
-        <div
-          class="card-header"
-          style="background-color: #aaccff">
+        <div class="card-header" style="background-color: #aaccff">
           <div class="row">
             <div class="col-9">
-              <div
-                class="title d-lg-inline text-white"
-                style="font-size: larger; font-weight: 630">
-                What is overflowing text?
-                <span
-                  class="badge bg-secondary mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Image</span
-                >
-                <span
-                  class="badge bg-success mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Video</span
-                >
-                <span
-                  class="badge bg-warning mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Blog</span
-                >
+              <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is overflowing text? <br/>
+                <span class="badge bg-secondary mb-1 text-uppercase"
+                  style="font-size: 55%">Image</span>
+                <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
+                <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
               </div>
             </div>
             <div class="col-3">
@@ -232,145 +122,23 @@ Our Blogs
             </div>
           </div>
         </div>
-        <div
-          class="card-body"
-          style="min-height: 250px">
-          <center >
-            <img
-              src="../../static/admin/img/undraw_posting_photo.svg"
-              style="width: 100%; border-radius: 5px"
-              alt="Italian Trulli" />
-          </center>
-        </div>
-        
-      </div>
-    </div>
-    <div class="col-12 col-md-6 col-lg-4 mt-2">
-      <div class="card">
-        <div
-          class="card-header"
-          style="background-color: #aaccff">
-          <div class="row">
-            <div class="col-9">
-              <div
-                class="title d-lg-inline text-white"
-                style="font-size: larger; font-weight: 630">
-                <b id="title">what is overflowing text?</b>
-                <span
-                  class="badge bg-secondary mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Image</span
-                >
-                <span
-                  class="badge bg-success mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Video</span
-                >
-                <span
-                  class="badge bg-warning mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Blog</span
-                >
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="text-white text-uppercase text-end h6">| Jan 2</div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="card-body"
-          style="max-height: 250px">
-          <p class="card-text mb-0 pstyle">
-            This might be useful if you want to prevent a large gap from
-            appearing if there is just enough space for the string.Or, where
-            there is another element that you would not want the break to happen
-            immediately after. In the example below there is a checkbox and
-            label. Let's say, you want the label to break should it be too long
-            for the box. However, you don't want it to break directly after the
-            checkbox. With supporting text below as a natural lead-in to
-            additional content.
-          </p>
-        </div>
-        
-      </div>
-    </div>
-
-    <div class="col-12 col-md-6 col-lg-4 mt-2">
-      <div class="card">
-        <div
-          class="card-header"
-          style="background-color: #aaccff">
-          <div class="row">
-            <div class="col-9">
-              <div
-                class="title d-lg-inline text-white"
-                style="font-size: larger; font-weight: 630">
-                What is overflowing text?
-                <span
-                  class="badge bg-secondary mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Image</span
-                >
-                <span
-                  class="badge bg-success mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Video</span
-                >
-                <span
-                  class="badge bg-warning mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Blog</span
-                >
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="text-white text-uppercase text-end h6">| Jan 2</div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="card-body"
-          style="min-height: 250px">
+        <div class="card-body" style="min-height: 280px">
           <center>
-            <video
-            id="Vdo"
-            style="border-radius: 5px; width:100%"
-            controls
-            src="../../static/file_example_MP4_480_1_5MG.mp4"
-            name="Vdo"></video>
+            <img src="../../static/admin/img/undraw_posting_photo.svg" style="width: 100%; border-radius: 5px" alt="Italian Trulli" />
           </center>
         </div>
-        
       </div>
     </div>
-
-    <div class="col-12 col-md-6 col-lg-4 mt-2">
+    <div class="col-12 col-md-6 col-lg-4 mt-3">
       <div class="card">
-        <div
-          class="card-header"
-          style="background-color: #aaccff">
+        <div class="card-header" style="background-color: #aaccff">
           <div class="row">
             <div class="col-9">
-              <div
-                class="title d-lg-inline text-white"
-                style="font-size: larger; font-weight: 630">
-                What is overflowing text?
-                <span
-                  class="badge bg-secondary mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Image</span
-                >
-                <span
-                  class="badge bg-success mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Video</span
-                >
-                <span
-                  class="badge bg-warning mb-1 text-uppercase"
-                  style="font-size: 55%"
-                  >Blog</span
-                >
+              <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630">
+                <b id="title">what is overflowing text?</b><br/>
+                <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%">Image</span>
+                <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
+                <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
               </div>
             </div>
             <div class="col-3">
@@ -378,19 +146,60 @@ Our Blogs
             </div>
           </div>
         </div>
-        <div
-          class="card-body"
-          style="min-height: 250px">
+        <div class="card-body" style="min-height: 280px; max-height: 280px;">
+          <p class="card-text mb-0  text-justify"> 
+            This might be useful if you want to prevent a large gap from appearing if there is just enough space for the string.Or, where there is another element that
+            you would not want the break to happen immediately after. In the example below there is a checkbox and label. Let's say, you want the label to break should it be too long for the box.
+            However, you don't want it to break directly after the checkbox. With supporting text below as a natural lead-in to additional content. </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4 mt-3">
+      <div class="card">
+        <div class="card-header" style="background-color: #aaccff">
+          <div class="row">
+            <div class="col-9">
+              <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is overflowing text? <br />
+                <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%">Image</span>
+                <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
+                <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="text-white text-uppercase text-end h6">| Jan 2</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body col-12" style="min-height: 280px">
           <center>
-            <img
-              src="../../static/admin/img/undraw_posting_photo.svg"
-              style="width: auto; max-height: 200px; border-radius: 5px"
-              alt="Italian Trulli" />
+            <video id="Vdo" style="border-radius: 5px;width:100%" controls src="../../static/file_example_MP4_480_1_5MG.mp4" name="Vdo">
+            </video>
           </center>
         </div>
-        
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4 mt-3">
+      <div class="card">
+        <div class="card-header" style="background-color: #aaccff">
+          <div class="row">
+            <div class="col-9">
+              <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is overflowing text? <br />
+                <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%">Image</span>
+                <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
+                <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="text-white text-uppercase text-end h6">| Jan 2</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body" style="min-height: 280px">
+          <center>
+            <img src="../../static/admin/img/undraw_posting_photo.svg" style="width: 100%; border-radius: 5px" alt="Italian Trulli" />
+          </center>
+        </div>
       </div>
     </div>
   </div>
-</div>
-{% endblock body %}
+</div> {% endblock body %}

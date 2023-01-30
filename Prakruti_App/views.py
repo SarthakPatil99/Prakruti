@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .models import Users
+from .models import Users, Appointments ,M_remedy, H_remedy, Blogs
 from django.contrib.auth.models import User, auth
 # from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -146,12 +146,14 @@ def shopping(request):
 def U_profile(request):
     return render(request, 'user/U_profile.html', {'admin': 0})
 
+
 def profileU(request):
     return render(request, 'user/U_profile.html', {'admin': 1})
 
 
 def cart(request):
     return render(request, 'user/Cart.html')
+
 
 def our_blogs(request):
     return render(request, 'user/our_blogs.html')
@@ -164,26 +166,108 @@ def dashboard(request):
 
 
 def patients(request):
+    if request.method == 'POST':
+        print(request.POST)
+        # if request.POST['submit']:
+        #     # add patient code
+        #     fname = request.POST['fname']
+        #     mname = request.POST['mname']
+        #     lname = request.POST['lname']
+        #     email = request.POST['email']
+        #     phone = request.POST['phone']
+        #     age = request.POST['age']
+        #     gender = getGender(request.POST['gender'])
+        #     P_prakruti, S_prakruti = getPrakruti(request.POST['prakruti'])
+
+        #     pass
+        # elif request.POST['remove']:
+        #     #remove patient code
+        #     pass
+        # else:
+        #     # appintment booking code
+        #     pass
+        render(request, 'admin/patients.html')
     return render(request, 'admin/patients.html')
 
 
 def appointments(request):
+    if request.method == 'POST':
+        print(request.POST)
+        # if request.POST['submit'] == 'Schedule':
+        #     Pid = request.POST['apptID']
+        #     Day = request.POST['day']
+        #     Appnt = request.POST['appnt']
+        #     Date = request.POST['date']
+        #     # appintment booking code
+        #     pass
+        # elif request.POST['submit'] == 'addPresc':
+        #     Pid = request.POST['apptID']
+        #     Presc = request.POST['Description']
+        #     # add prescription code
+        #     pass
+        # else:
+        #     # remove appintment code
+        #     pass
+
+        render(request, 'admin/appointments.html')
     return render(request, 'admin/appointments.html')
 
 
 def M_remedies(request):
+    if request.method == 'POST':
+        print(request.POST)
+        
+        if request.POST['submit'] == 'Modify':
+            # update medicine code
+            pass
+        elif request.POST['submit'] == 'Create':
+            # add medicine code
+            pass
+        else:
+            # remove medicine code
+            pass
+        render(request, 'admin/M_remedies.html')
     return render(request, 'admin/M_remedies.html')
 
 
 def H_remedies(request):
+    if request.method == 'POST':
+        print(request.POST)
+        if request.POST['submit'] == 'Modify':
+            # update remedy code
+            pass
+        elif request.POST['submit'] == 'Create':
+            # add remedy code
+            pass
+        else:
+            #remove remedy code
+            pass
+        render(request, 'admin/H_remedies.html')
     return render(request, 'admin/H_remedies.html')
 
 
 def blogs(request):
+    if request.method == 'POST':
+        print(request.POST)
+        if request.POST['submit'] == 'Modify':
+            # update blog code
+            pass
+        elif request.POST['submit'] == 'Create':
+            # add blog code
+            pass
+        else:
+            #remove blog code
+            pass
+        render(request, 'admin/blogs.html')
     return render(request, 'admin/blogs.html')
 
 
 def orders(request):
+    if request.method == 'POST':
+        # if request.POST['Remove']:
+        #       remove order code
+        pass
+    render(request, 'admin/Orders.html')
     return render(request, 'admin/Orders.html')
 
 def A_profile(request):

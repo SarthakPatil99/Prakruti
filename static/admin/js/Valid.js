@@ -12,6 +12,7 @@ function transferMR(who) {
   var MTitle = document.getElementById("MTitle");
   if (who) {
     Submit.innerHTML = "Modify";
+    Submit.value = "Modify";
     MTitle.innerHTML = "Update Medicine";
     inFile.value = "";
     name.value = document.getElementById("name").innerHTML;
@@ -22,6 +23,7 @@ function transferMR(who) {
     price.value = parseInt(document.getElementById("price").innerHTML);
   } else {
     Submit.innerHTML = "Create";
+    Submit.value = "Create";
     MTitle.innerHTML = "New Medicine";
     name.value = "";
     inFile.value = "";
@@ -32,7 +34,6 @@ function transferMR(who) {
     price.value = "";
   }
 }
-
 // data transfer Blogs
 function transferBlog(who) {
   var title = document.getElementById("Title");
@@ -42,15 +43,18 @@ function transferBlog(who) {
   if (document.getElementById("Vdo")) {
     stopVideo();
   }
+  console.log(Submit.value) + "bhdsahd";
 
   if (who) {
+    Submit.value = "Modify";
     Submit.innerHTML = "Modify";
     MTitle.innerHTML = "Update Blog";
     title.value = document.getElementById("title").innerHTML;
     type.value = gettype(document.getElementById("type").innerHTML);
-    type.disabled = true;
+    // type.disabled = true;
     seeType(type);
   } else {
+    Submit.value = "Create";
     Submit.innerHTML = "Create";
     MTitle.innerHTML = "New Blog";
     title.value = "";
@@ -73,6 +77,7 @@ function transferHR(who) {
   var MTitle = document.getElementById("MTitle");
   if (who) {
     Submit.innerHTML = "Modify";
+    Submit.value = "Modify";
     MTitle.innerHTML = "Update Remedy";
     inFile.value = "";
     title.value = document.getElementById("title").innerHTML;
@@ -81,6 +86,7 @@ function transferHR(who) {
     acce.value = document.getElementById("acce").innerHTML;
   } else {
     Submit.innerHTML = "Create";
+    Submit.value = "Create";
     MTitle.innerHTML = "New Remedy";
     title.value = "";
     img.src = "";
@@ -90,6 +96,18 @@ function transferHR(who) {
   }
 }
 
+// data tranfer appt
+function transferApt() {
+  var PId = document.getElementById("PID");
+  var Name = document.getElementById("Name");
+  var Pid = document.getElementById("Pid");
+
+  PId.value = document.getElementById("pid").innerHTML;
+  Pid.innerHTML = document.getElementById("pid").innerHTML;
+  Name.innerHTML = document.getElementById("name").innerHTML;
+}
+
+// data tranfer Edit Details
 function transferED() {
   var Fname = document.getElementById("Fname");
   var Mname = document.getElementById("Mname");
@@ -399,9 +417,12 @@ function getday(DAY) {
     day = parseInt(day) + 2;
     return `${year}-${month}-${day}`;
   }
-  DAY.value;
+  // DAY.value;
 }
 function dayReset() {
+  document.getElementById("apptID").value =
+    document.getElementById("pid").innerHTML;
   document.getElementById("Day").value = "0";
+  document.getElementById("submit").disabled = false;
   dayChoose();
 }

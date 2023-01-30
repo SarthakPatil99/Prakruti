@@ -39,7 +39,7 @@ Blogs
         </div>
 
         <div class="modal-body">
-          <form action="/login" method="post">
+          <form action="/blogs/" method="post">
             <div class="row mb-2">
               <div class="col-12 col-md-12 col-lg-12">
                 <label for="Title" class="form-label"> <b>Blog Title:</b> </label>
@@ -61,14 +61,14 @@ Blogs
                 <label for="formFile" class="form-label"> </label>
                 <b>Choose File:</b>
                 </label>
-                <input class="form-control mt-2" type="file" id="inFile" onchange="blogChk()" />
+                <input class="form-control mt-2" type="file" name="inFile" id="inFile" onchange="blogChk()" />
               </div>
             </div>
 
             <div class="row mb-2">
               <div class="col-12 col-md-12 col-lg-12" id="textField" style="display: none">
                 <label for="Contents" class="form-label"><b>Content:</b></label>
-                <textarea class="form-control" style="height: 150px" id="Contents" placeholder="Your Content here"
+                <textarea class="form-control" style="height: 150px" name="content" id="Contents" placeholder="Your Content here"
                   name="Contents" required></textarea>
               </div>
               <div class="col-12 col-md-12 col-lg-12" id="imgField" style="display: none">
@@ -86,8 +86,7 @@ Blogs
                 </center>
               </div>
             </div>
-            <button type="submit" id="Submit" class="btn btn-warning text-gray-800 mt-2 float-right">
-            </button>
+            <button type="submit" name="submit" id="Submit" class="btn btn-warning text-gray-800 mt-2 float-right"></button>
             {% csrf_token %}
           </form>
         </div>
@@ -149,13 +148,12 @@ Blogs
                 </video> -->
       </div>
       <div class="text-end mb-3 me-3">
-        <button class="btn text-white" style="background-color: #aaccff;" name="update" value="chval"
-          data-toggle="modal" data-target="#BModal" onclick="transferBlog(true)">
+        <a href="#" class="btn text-white" style="background-color: #aaccff;" data-toggle="modal" data-target="#BModal" onclick="transferBlog(true)">
           <i class="far fa-edit"></i>
-        </button>
-        <button class="btn bg-danger text-white" name="Remove" value="chval">
+        </a>
+        <a href="/blogs/" class="btn bg-danger text-white" name="Remove" value="blogId">
           <i class="far fa-trash-alt"></i>
-        </button>
+        </a>
       </div>
     </div>
   </div>
@@ -194,7 +192,7 @@ Blogs
         <a href="#" class="btn text-white" style="background-color: #aaccff;">
           <i class="far fa-edit"></i>
         </a>
-        <a href="#" class="btn bg-danger text-white">
+        <a href="/blogs/" class="btn bg-danger text-white" name="Remove" value="blogId">
           <i class="far fa-trash-alt"></i>
         </a>
       </div>
@@ -227,7 +225,7 @@ Blogs
         <a href="#" class="btn text-white" style="background-color: #aaccff;">
           <i class="far fa-edit"></i>
         </a>
-        <a href="#" class="btn bg-danger text-white">
+        <a href="/blogs/" class="btn bg-danger text-white" name="Remove" value="blogId">
           <i class="far fa-trash-alt"></i>
         </a>
       </div>
@@ -262,7 +260,7 @@ Blogs
         <a href="#" class="btn text-white" style="background-color: #aaccff;">
           <i class="far fa-edit"></i>
         </a>
-        <a href="#" class="btn bg-danger text-white">
+        <a href="/blogs/" class="btn bg-danger text-white" name="Remove" value="blogId">
           <i class="far fa-trash-alt"></i>
         </a>
       </div>
