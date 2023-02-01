@@ -4,14 +4,21 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
+var hr = parseInt(document.getElementById("hr").innerHTML);
+var mr = parseInt(document.getElementById("mr").innerHTML);
+var bl = parseInt(document.getElementById("bl").innerHTML);
+var add = hr + mr + bl;
+hr = (hr/add)*100;
+mr = (mr/add)*100;
+bl = (bl/add)*100;
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Direct", "Referral", "Social"],
+    labels: ["Medicine Remedies", "Home Remedies", "Blogs"],
     datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      data: [mr, hr, bl],
+      backgroundColor: ['#1cc88a', '#858796', '#e74a3b'],
+      hoverBackgroundColor: ['#76d9b5', '#d4d5db', '#e9756a'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },

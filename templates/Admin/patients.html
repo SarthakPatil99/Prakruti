@@ -45,7 +45,7 @@ Patients
                 {% endif %} {% endfor %}
 
                 <div class="modal-body">
-                    <form action="/patients/" method="post">
+                    <form action="/patients/" method="post" enctype="multipart/form-data">
                         <label for="name" class="form-label"> <b>Full Name:</b> </label>
                         <div class="row mb-2">
                             <div class="col-12 col-md-12 col-lg-4">
@@ -149,48 +149,49 @@ Patients
         <tr class="table_tr">
             <th>ID</th>
             <th>Picture</th>
-            <th>Name</th> <!-- <th>Email</th><th>Phone</th>age/ gender -->
+            <th>Name</th>
+            <th>Email ID</th>
+            <th>Phone Number</th>
             <th>Age</th>
             <th>Gender</th>
             <th>Prakruti</th>
-            <th>Total Appointments</th>
             <th>Actions</th>
         </tr>
     </thead>
+    {% for patient in patients %}
     <tbody>
-        <td width="1%">pt2134</td>
+        <td width="1%">{{ patient.id }}</td>
         <td width="1%">
-            <img src="../../static/admin/img/undraw_posting_photo.svg"
-                style="width: auto; max-height: 50px; border-radius: 5px;" alt="Italian Trulli">
+            <center>
+                <img src="../../media/{{ patient.Img }}" style="width: auto; max-height: 50px; border-radius: 5px;"
+                    alt="Italian Trulli">
+            </center>
         </td>
         <td class="d-flex align-items-center justify-content-between border-0">
-            <label id="chang">sasasas</label>
+            <label id="chang">{{ patient.first_name }} {{ patient.Middle_name }} {{ patient.last_name }}</label>
             <div class="dropdown no-arrow d-lg-inline">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v fa-sm fa-fw text-warning"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                    style="width: 250px; font-size: medium;">
-                    <div class="dropdown-header text-warning" style="font-size: medium;">More Details</div>
-                    <b class="ms-3" style="font-size: large;">Email:</b> <label class="dropdown-list"
-                        for="Email_detail">example@gmail.com</label><br>
-                    <b class="ms-3">Ph no.:</b> <label class="dropdown-list" for="Phno_detail">1234567890</label><br>
+                    style="width: 200px; font-size: medium;">
                     <b class="ms-3"><a href="/A_profile" style="text-decoration: none;">View Patient's History</a></b>
                 </div>
             </div>
         </td>
-        <td width="1%">12</td>
-        <td width="1%">Female</td>
-        <td width="20%">dfdfd</td>
-        <td width="15%">gygyg</td>
+        <td width="12%">{{ patient.email }}</td>
+        <td width="12%">{{ patient.Phone_No }}</td>
+        <td width="1%">{{ patient.Age }}</td>
+        <td width="1%">{{ patient.Gender }}</td>
+        <td width="10%">{{ patient.P_Prakruti }}-{{ patient.S_Prakruti }}</td>
         <td class="align-items-center" width="10%">
             <center>
                 <form action="/patients/" method="post">
                     <Button type="submit" class="btn bg-success text-white" name="book" value="PatientID" title="Book appointment">
                         <i class="fas fa-calendar-check"></i>
                     </Button>
-                    <Button type="submit" class="btn bg-danger text-white my-1" name="remove" title="Remove appointment" value="PatientID">
+                    <Button type="submit" class="btn bg-danger text-white my-1" name="remove" title="Remove appointment" value="{{ patient.username }}">
                         <i class="far fa-trash-alt"></i>
                     </Button>
                     {% csrf_token %}
@@ -198,6 +199,7 @@ Patients
             </center>
         </td>
     </tbody>
+    {% endfor %}
     <tfoot>
 
     </tfoot>

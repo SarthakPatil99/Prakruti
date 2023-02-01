@@ -15,12 +15,16 @@ function transferMR(who) {
     Submit.value = "Modify";
     MTitle.innerHTML = "Update Medicine";
     inFile.value = "";
-    name.value = document.getElementById("name").innerHTML;
-    img.src = document.getElementById("img").src;
-    desc.value = document.getElementById("desc").innerHTML;
-    content.value = document.getElementById("contents").innerHTML;
-    quantity.value = parseInt(document.getElementById("quantity").innerHTML);
-    price.value = parseInt(document.getElementById("price").innerHTML);
+    inFile.required = false;
+    name.value = document.getElementById("name"+who).innerHTML;
+    img.src = document.getElementById("img"+who).src;
+    desc.value = document.getElementById("desc"+who).innerHTML;
+    content.value = document.getElementById("contents"+who).innerHTML;
+    quantity.value = parseInt(document.getElementById("quantity"+who).innerHTML);
+    price.value = parseInt(document.getElementById("price"+who).innerHTML);
+    document.getElementById('setImgURL').value = document.getElementById('getImgURL'+who).value;
+    document.getElementById('setmid').value = document.getElementById('getmid'+who).innerHTML;
+
   } else {
     Submit.innerHTML = "Create";
     Submit.value = "Create";
@@ -40,17 +44,19 @@ function transferBlog(who) {
   var type = document.getElementById("Btype");
   var Submit = document.getElementById("Submit");
   var MTitle = document.getElementById("MTitle");
+  var Bid = document.getElementById("bid");
   if (document.getElementById("Vdo")) {
     stopVideo();
   }
-  console.log(Submit.value) + "bhdsahd";
-
+  
   if (who) {
+    document.getElementById('setImgURL').value = document.getElementById('getImgURL'+who).value
+    Bid.value = who;
     Submit.value = "Modify";
     Submit.innerHTML = "Modify";
     MTitle.innerHTML = "Update Blog";
-    title.value = document.getElementById("title").innerHTML;
-    type.value = gettype(document.getElementById("type").innerHTML);
+    title.value = document.getElementById("title"+who).innerHTML;
+    type.value = gettype(document.getElementById("type"+who).innerHTML,who);
     // type.disabled = true;
     seeType(type);
   } else {
@@ -80,10 +86,16 @@ function transferHR(who) {
     Submit.value = "Modify";
     MTitle.innerHTML = "Update Remedy";
     inFile.value = "";
-    title.value = document.getElementById("title").innerHTML;
-    img.src = document.getElementById("img").src;
-    desc.value = document.getElementById("desc").innerHTML;
-    acce.value = document.getElementById("acce").innerHTML;
+    inFile.required = false;
+    // 
+    // Bid.value="mgf gn ";
+    title.value = document.getElementById("title"+who).innerHTML;
+    img.src = document.getElementById("img"+who).src;
+    desc.value = document.getElementById("desc"+who).innerHTML;
+    acce.value = document.getElementById("acce"+who).innerHTML;
+    document.getElementById('setImgURL').value = document.getElementById('getImgURL'+who).value;
+    document.getElementById('sethid').value = document.getElementById('gethid'+who).innerHTML;
+
   } else {
     Submit.innerHTML = "Create";
     Submit.value = "Create";
@@ -276,7 +288,7 @@ function validateBType() {
   seeType(type);
 }
 
-function gettype(val) {
+function gettype(val, who) {
   var Contents = document.getElementById("Contents");
   var Video = document.getElementById("Vdo");
   var Img = document.getElementById("Img");
@@ -285,14 +297,14 @@ function gettype(val) {
   Video.src = "";
   Contents.value = "";
 
-  if (val == "Blog") {
-    Contents.value = document.getElementById("contents").textContent;
+  if (val == "BLOG") {
+    Contents.value = document.getElementById("contents"+who).textContent;
     return "1";
-  } else if (val == "Image") {
-    Img.src = document.getElementById("img").src;
+  } else if (val == "IMAGE") {
+    Img.src = document.getElementById("img"+who).src;
     return "2";
-  } else if (val == "Video") {
-    Video.src = document.getElementById("vdo").src;
+  } else if (val == "VIDEO") {
+    Video.src = document.getElementById("vdo"+who).src;
     return "3";
   } else {
     return "0";
@@ -304,14 +316,17 @@ function seeType(type) {
   vdo = document.getElementById("videoField");
   txt = document.getElementById("textField");
   inp = document.getElementById("inGrp");
+  ct = document.getElementById("Contents")
   if (type.value == 3) {
     inp.style.display = "block";
     txt.style.display = "none";
+    ct.required = false
     img.style.display = "none";
     vdo.style.display = "block";
   } else if (type.value == 2) {
     inp.style.display = "block";
     txt.style.display = "none";
+    ct.required = false
     img.style.display = "block";
     vdo.style.display = "none";
   } else if (type.value == 1) {
@@ -322,6 +337,7 @@ function seeType(type) {
   } else {
     inp.style.display = "block";
     txt.style.display = "none";
+    ct.required = false
     img.style.display = "none";
     vdo.style.display = "none";
   }

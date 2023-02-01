@@ -1,7 +1,9 @@
 from django.db import models
 
+
 class Users(models.Model):
     UserName = models.CharField(max_length=20, default='')
+    # UserName = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     Middle_name = models.CharField(max_length=20, default='')
     Phone_No = models.BigIntegerField(default=0)
     Age = models.IntegerField(default=0)
@@ -13,26 +15,28 @@ class Users(models.Model):
 
 
 class Appointments(models.Model):
-    Day = models.DateField()
+    U_id = models.BigIntegerField(default=0)
+    Date = models.DateField()
     TimeSlot = models.CharField(max_length=20, default='')
-    Status = models.CharField(max_length=20, default='')
-    P_med = models.CharField(max_length=20, default='')
+    Status_A = models.BooleanField(default=False)
+    Status_R = models.BooleanField(default=False)
+    P_med = models.CharField(max_length=20, default='', null=True)
 
 
 class M_remedy(models.Model):
     Name = models.CharField(max_length=20, default='')
-    Desc = models.CharField(max_length=20, default='')
-    Content = models.CharField(max_length=20, default='')
-    Quantity = models.IntegerField()
-    Price = models.IntegerField()
+    Desc = models.TextField(default='')
+    Content = models.TextField(default='')
+    Quantity = models.IntegerField(default=0)
+    Price = models.IntegerField(default=0)
     Img = models.ImageField(
         null=True, blank=True, upload_to="Prakruti_App/Med_images/",  default="Prakruti_App/Med_images/mr1.jpg")
 
 
 class H_remedy(models.Model):
     Name = models.CharField(max_length=20, default='')
-    Desc = models.CharField(max_length=20, default='')
-    Accessories = models.CharField(max_length=20, default='')
+    Desc = models.TextField(default='')
+    Accessories = models.TextField(default='')
     Img = models.ImageField(
         null=True, blank=True, upload_to="Prakruti_App/Hom_images/",  default="Prakruti_App/Hom_images/hr1.jpg")
 
@@ -40,7 +44,21 @@ class H_remedy(models.Model):
 class Blogs(models.Model):
     Title = models.CharField(max_length=20, default='')
     Type = models.CharField(max_length=20, default='')
-    Content = models.CharField(max_length=20, default='')
-    text = models.CharField(max_length=20, default='')
-    Img = models.ImageField(
-        null=True, blank=True, upload_to="Prakruti_App/blogs_images/",  default="Prakruti_App/blogs_images/blog1.jpg")
+    Content = models.TextField(default='')
+    Date = models.DateField(null=True)
+    file = models.FileField(null=True, blank=True,
+                            upload_to="Prakruti_App/Blogs/", default="Prakruti_App/Blogs/hr1.jpg")
+
+
+class Orders(models.Model):
+    o_id = models.IntegerField(default=0,primary_key=True)
+    UserName = models.CharField(max_length=20, default='')
+    Date = models.DateField()
+    Time = models.TimeField()
+    Status = models.BooleanField(default=False)
+
+
+class Med_per_ord(models.Model):
+    o_id = models.IntegerField(default=0)
+    m_id = models.IntegerField(default=0)
+    m_name =models.CharField(default="",max_length=100,null=True)

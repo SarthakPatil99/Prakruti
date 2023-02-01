@@ -46,7 +46,7 @@ Medicines
         {% endif %} {% endfor %}
 
         <div class="modal-body">
-          <form action="/home_remedies/" method="post">
+          <form action="/home_remedies/" method="post" enctype="multipart/form-data">
             <div class="row mx-0 mb-2">
               <div class="col-8">
                 <div class="row mb-2">
@@ -57,8 +57,8 @@ Medicines
                   <label for="formFile" class="form-label">
                     <b>Image:</b>
                   </label>
-                  <input class="form-control -sm" type="file" name="inFile" id="inFile" accept="image/*" onchange="validateImage()"
-                    required />
+                  <input class="form-control -sm" type="file" name="inFile" id="inFile" accept="image/*"
+                    onchange="validateImage()" required />
                 </div>
               </div>
               <div class="col-4">
@@ -67,7 +67,9 @@ Medicines
                 </label>
                 <br />
                 <center>
-                  <img id="Img" src="../../static/img/close_cam.png" width="100%"/>
+                  <img id="Img" src="../../static/img/close_cam.png" width="100%" />
+                  <input type="hidden" name="ImgURL" id="setImgURL" value="">
+                  <input type="hidden" name="hid" id="sethid" value="">
                 </center>
               </div>
             </div>
@@ -126,24 +128,31 @@ Medicines
       <th>Actions</th>
     </tr>
   </thead>
+  {% for HR in HRs%}
   <tbody>
-    <td width="1%">pt2134</td>
+    <td width="1%" id="gethid{{HR.id}}">{{HR.id}}</td>
     <td width="1%">
-      <img src="../../static/admin/img/undraw_posting_photo.svg" id="img"
-        style="width: auto; max-height: 50px; border-radius: 5px;" alt="Italian Trulli">
+      <img src="../../media/{{HR.Img}}" id="img{{HR.id}}" style="width: auto; max-height: 50px; border-radius: 5px;"
+        alt="Italian Trulli">
     </td>
-    <td id="title">dfsdfs</td>
-    <td id="desc">gygyg</td>
-    <td id="acce">gygyg</td>
+    <td id="title{{HR.id}}">{{HR.Name}}</td>
+    <td id="desc{{HR.id}}">{{HR.Desc}}</td>
+    <td id="acce{{HR.id}}">{{HR.Accessories}}</td>
     <td width="10%">
-      <button type="submit" class="btn bg-success text-white my-1" data-toggle="modal" data-target="#HModal" onclick="transferHR(true)">
-        <i class="far fa-edit"></i>
-      </button>
-      <button type="submit" class="btn bg-danger text-white" name="Remove" value="RemedyId">
-        <i class="far fa-trash-alt"></i>
-      </button>
+      <form action="/home_remedies/" method="post">
+        <a type="submit" class="btn bg-success text-white my-1" data-toggle="modal" data-target="#HModal"
+          onclick="transferHR({{HR.id}})">
+          <i class="far fa-edit"></i>
+        </a>
+        <button type="submit" class="btn bg-danger text-white" name="remove" value="{{HR.id}}">
+          <i class="far fa-trash-alt"></i>
+        </button>
+        {% csrf_token %}
+      </form>
     </td>
+    <input type="hidden" id="getImgURL{{HR.id}}" value="{{HR.Img}}">
   </tbody>
+  {%endfor%}
   <tfoot></tfoot>
 </table>
 {% endblock body%}

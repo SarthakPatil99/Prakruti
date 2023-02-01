@@ -47,7 +47,7 @@ Medicines
         {% endif %} {% endfor %}
 
         <div class="modal-body">
-          <form action="/medicine_remedies/" method="post">
+          <form action="/medicine_remedies/" method="post" enctype="multipart/form-data">
             <div class="row mx-0 mb-2">
               <div class="col-8">
                 <div class="row mb-2">
@@ -60,8 +60,8 @@ Medicines
                   <label for="file" class="form-label">
                     <b>Choose Image:</b>
                   </label>
-                  <input class="form-control" id="inFile" name="inFile" type="file" accept="image/*" onchange="validateImage()"
-                    required />
+                  <input class="form-control" id="inFile" name="inFile" type="file" accept="image/*"
+                    onchange="validateImage()" required />
                 </div>
               </div>
               <div class="col-4">
@@ -70,7 +70,9 @@ Medicines
                 </label>
                 <br />
                 <center>
-                  <img src="../../static/img/close_cam.png" width="100%" id="Img"/>
+                  <img src="../../static/img/close_cam.png" width="100%" id="Img" />
+                  <input type="hidden" name="ImgURL" id="setImgURL" value="">
+                  <input type="hidden" name="mid" id="setmid" value="">
                 </center>
               </div>
             </div>
@@ -113,7 +115,8 @@ Medicines
               </div>
             </div>
 
-            <button type="submit" name="submit" value="" id="Submit" class="btn btn-warning text-gray-800 mt-2 float-right"></button>
+            <button type="submit" name="submit" value="" id="Submit"
+              class="btn btn-warning text-gray-800 mt-2 float-right"></button>
             {% csrf_token %}
           </form>
         </div>
@@ -159,27 +162,33 @@ Medicines
       <th>Actions</th>
     </tr>
   </thead>
+  {% for MR in MRs%}
   <tbody>
-    <td width="1%">pt2134</td>
+    <td width="1%" id="getmid{{MR.id}}">{{MR.id}}</td>
     <td width="1%">
-      <img src="../../static/admin/img/undraw_posting_photo.svg" id="img"
-        style="width: auto; max-height: 50px; border-radius: 5px;" alt="Italian Trulli">
+      <img src="../../media/{{MR.Img}}" id="img{{MR.id}}" style="width: auto; max-height: 50px; border-radius: 5px;"
+        alt="Italian Trulli">
     </td>
-    <td id="name">asasa</td>
-    <td id="desc">dfdfd</td>
-    <td id="contents">dfsdfs</td>
-    <td id="quantity" width="1%">25</td>
-    <td id="price" width="1%">45</td>
+    <td id="name{{MR.id}}">{{MR.Name}}</td>
+    <td id="desc{{MR.id}}">{{MR.Desc}}</td>
+    <td id="contents{{MR.id}}">{{MR.Content}}</td>
+    <td id="quantity{{MR.id}}" width="1%">{{MR.Quantity}}</td>
+    <td id="price{{MR.id}}" width="1%">{{MR.Price}}</td>
     <td width="10%">
-      <button class="btn bg-success text-white my-1" data-toggle="modal"
-        data-target="#MModal" onclick="transferMR(true)">
-        <i class="far fa-edit"></i>
-      </button>
-      <button type="submit" class="btn bg-danger text-white" name="Remove" value="RemedyId">
-        <i class="far fa-trash-alt"></i>
-      </button>
+      <form action="/medicine_remedies/" method="post">
+        <a class="btn bg-success text-white my-1" data-toggle="modal" data-target="#MModal"
+          onclick="transferMR({{MR.id}})">
+          <i class="far fa-edit"></i>
+        </a>
+        <button type="submit" class="btn bg-danger text-white" name="remove" value="{{MR.id}}">
+          <i class="far fa-trash-alt"></i>
+        </button>
+        {% csrf_token %}
+      </form>
     </td>
+    <input type="hidden" id="getImgURL{{MR.id}}" value="{{MR.Img}}">
   </tbody>
+  {%endfor%}
   <tfoot></tfoot>
 </table>
 

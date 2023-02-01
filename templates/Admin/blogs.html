@@ -39,11 +39,12 @@ Blogs
         </div>
 
         <div class="modal-body">
-          <form action="/blogs/" method="post">
+          <form action="/blogs/" method="post" enctype="multipart/form-data">
             <div class="row mb-2">
               <div class="col-12 col-md-12 col-lg-12">
                 <label for="Title" class="form-label"> <b>Blog Title:</b> </label>
                 <input type="text" class="form-control" id="Title" placeholder="Title" name="Title" required />
+                <input type="hidden" name="bid" id="bid" value="">
               </div>
             </div>
             <div class="row mb-2">
@@ -58,8 +59,8 @@ Blogs
                 </select>
               </div>
               <div class="col-12 col-md-6 col-lg-6" id="inGrp">
-                <label for="formFile" class="form-label"> </label>
-                <b>Choose File:</b>
+                <label for="formFile" class="form-label">
+                  <b>Choose File:</b>
                 </label>
                 <input class="form-control mt-2" type="file" name="inFile" id="inFile" onchange="blogChk()" />
               </div>
@@ -68,8 +69,8 @@ Blogs
             <div class="row mb-2">
               <div class="col-12 col-md-12 col-lg-12" id="textField" style="display: none">
                 <label for="Contents" class="form-label"><b>Content:</b></label>
-                <textarea class="form-control" style="height: 150px" name="content" id="Contents" placeholder="Your Content here"
-                  name="Contents" required></textarea>
+                <textarea class="form-control" style="height: 150px" name="content" id="Contents"
+                  placeholder="Your Content here" name="Contents" required></textarea>
               </div>
               <div class="col-12 col-md-12 col-lg-12" id="imgField" style="display: none">
                 <label for="Img" class="form-label"> <b>Image:</b> </label> <br />
@@ -78,15 +79,17 @@ Blogs
                     disabled />
                 </center>
               </div>
-              <div class="col-12 col-md-12 col-lg-12" id="videoField" style="display: none">
-                <label for="Vdo" class="form-label"> <b>Video:</b> </label> <br />
-                <center>
-                  <video width="70%" id="Vdo" name="Vdo" controls>
-                  </video>
-                </center>
-              </div>
             </div>
-            <button type="submit" name="submit" id="Submit" class="btn btn-warning text-gray-800 mt-2 float-right"></button>
+            <div class="col-12 col-md-12 col-lg-12" id="videoField" style="display: none">
+              <label for="Vdo" class="form-label"> <b>Video:</b> </label> <br />
+              <center>
+                <video width="70%" id="Vdo" name="Vdo" controls>
+                </video>
+              </center>
+            </div>
+            <input type="hidden" name="ImgURL" id="setImgURL" value="">
+            <button type="submit" name="submit" id="Submit"
+              class="btn btn-warning text-gray-800 mt-2 float-right"></button>
             {% csrf_token %}
           </form>
         </div>
@@ -121,150 +124,50 @@ Blogs
 
 <!-- bolgs' cards -->
 <div class="row m-1">
+  {%for Bl in Bls%}
   <div class="col-12 col-md-6 col-lg-4 mt-2">
     <div class="card">
       <div class="card-header" style="background-color: #aaccff;">
         <div class="row">
-          <div class="col-9">
+          <div class="col-7">
             <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630;">
-              <b id="title">what is overflowing text?</b>
-              <!-- <span class="badge bg-secondary mb-1 text-uppercase" id="type" style="font-size: 55%;" >Image</span> -->
-              <!-- <span class="badge bg-success mb-1 text-uppercase" id="type" style="font-size: 55%;" >Video</span> -->
-              <span class="badge bg-warning mb-1 text-uppercase" id="type" style="font-size: 55%;">Blog</span>
+              <b id="title{{Bl.pk}}">{{Bl.Title}}</b>
+              <span class="badge bg-warning mb-1 text-uppercase" id="type{{Bl.pk}}"
+                style="font-size: 55%;">{{Bl.Type}}</span>
             </div>
           </div>
-          <div class="col-3">
-            <div class="text-white text-uppercase text-end h6" id="day">| Jan 2</div>
+          <div class="col-5">
+            <div class="text-white text-uppercase text-end h6" id="day">| {{Bl.Date}}</div>
           </div>
         </div>
       </div>
       <div class="card-body" style="min-height: 220px;">
-        <p class="card-text mb-0 pstyle" id="contents">Lorem ipsum dolor sit, amet consectetur adipisicing elit. O dio
-          repellendus id,
-          fugit atque inventore deserunt quod minus autem consectetur libero voluptatum voluptatem nam praesentium.
-          Repudiandae sequi delectus dicta maiores? Illum.</p>
-        <!-- <img src="../../static/admin/img/undraw_posting_photo.svg" id="img" style="width: auto; max-height: 190px; border-radius: 5px;" alt="Italian Trulli"/> -->
-        <!-- <video width="100%" id="vdo" style="border-radius: 5px;" name="video" controls src="../../static/file_example_MP4_480_1_5MG.mp4">
-                </video> -->
+        <CENTER>
+          {%if Bl.Type == "BLOG"%}
+          <p class="card-text mb-0 pstyle" id="contents{{Bl.pk}}">{{Bl.Content}}</p>
+          {%elif Bl.Type == 'IMAGE'%}
+          <img src="../../media/{{Bl.file}}" id="img{{Bl.pk}}" style="width: 100%; height: 100%; border-radius: 5px;"
+            alt="Italian Trulli" />
+          {%else%}
+          <video width="100%" id="vdo{{Bl.pk}}" style="border-radius: 5px;" controls
+            src="../../media/{{Bl.file}}"></video>
+          {%endif%}
+          <input type="hidden" id="getImgURL{{Bl.pk}}" value="{{Bl.file}}">
+        </CENTER>
       </div>
       <div class="text-end mb-3 me-3">
-        <a href="#" class="btn text-white" style="background-color: #aaccff;" data-toggle="modal" data-target="#BModal" onclick="transferBlog(true)">
-          <i class="far fa-edit"></i>
-        </a>
-        <a href="/blogs/" class="btn bg-danger text-white" name="Remove" value="blogId">
-          <i class="far fa-trash-alt"></i>
-        </a>
+        <form action="/blogs/" method="post">
+          <a class="btn text-white" style="background-color: #aaccff;" data-toggle="modal" data-target="#BModal"
+            onclick="transferBlog({{Bl.pk}})">
+            <i class="far fa-edit"></i>
+          </a>
+          <button type="submit" class="btn bg-danger text-white" name="remove" value="{{Bl.pk}}">
+            <i class="far fa-trash-alt"></i>
+          </button>
+          {% csrf_token %}
+        </form>
       </div>
     </div>
   </div>
-
-  <div class="col-12 col-md-6 col-lg-4 mt-2">
-    <div class="card">
-      <div class="card-header" style="background-color: #aaccff;">
-        <div class="row">
-          <div class="col-9">
-            <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630;">
-              <b id="title">what is overflowing text?</b>
-              <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%;">Image</span>
-              <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%;">Video</span>
-              <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%;">Blog</span>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="text-white text-uppercase text-end h6">| Jan 2</div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body" style="min-height: 220px;">
-        <p class="card-text mb-0 pstyle">
-          This might be useful if you want to prevent a large gap from appearing if there is just enough space
-          for the string.Or,
-          where there is another element that you would not want the break to happen immediately after.
-
-          In the example below there is a checkbox and label. Let's say, you want the label to break should it
-          be
-          too long for the
-          box. However, you don't want it to break directly after the checkbox.
-          With supporting text below as a natural lead-in to additional content.
-        </p>
-      </div>
-      <div class="text-end mb-3 me-3">
-        <a href="#" class="btn text-white" style="background-color: #aaccff;">
-          <i class="far fa-edit"></i>
-        </a>
-        <a href="/blogs/" class="btn bg-danger text-white" name="Remove" value="blogId">
-          <i class="far fa-trash-alt"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-12 col-md-6 col-lg-4 mt-2">
-    <div class="card">
-      <div class="card-header" style="background-color: #aaccff;">
-        <div class="row">
-          <div class="col-9">
-            <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630;">
-              What is overflowing text?
-              <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%;">Image</span>
-              <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%;">Video</span>
-              <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%;">Blog</span>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="text-white text-uppercase text-end h6">| Jan 2</div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body" style="min-height: 230px;">
-        <video width="100%" id="Vdo" style="border-radius: 5px;" controls
-          src="../../static/file_example_MP4_480_1_5MG.mp4" name="Vdo">
-        </video>
-      </div>
-      <div class="text-end mb-3 me-3">
-        <a href="#" class="btn text-white" style="background-color: #aaccff;">
-          <i class="far fa-edit"></i>
-        </a>
-        <a href="/blogs/" class="btn bg-danger text-white" name="Remove" value="blogId">
-          <i class="far fa-trash-alt"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-12 col-md-6 col-lg-4 mt-2">
-    <div class="card">
-      <div class="card-header" style="background-color: #aaccff;">
-        <div class="row">
-          <div class="col-9">
-            <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630;">
-              What is overflowing text?
-              <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%;
-                                    ">Image</span>
-              <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%;">Video</span>
-              <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%;">Blog</span>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="text-white text-uppercase text-end h6">| Jan 2</div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body" style="min-height: 220px;">
-        <center>
-          <img src="../../static/admin/img/undraw_posting_photo.svg"
-            style="width: 100%; max-height: 190px; border-radius: 5px;" alt="Italian Trulli">
-        </center>
-      </div>
-      <div class="text-end mb-3 me-3">
-        <a href="#" class="btn text-white" style="background-color: #aaccff;">
-          <i class="far fa-edit"></i>
-        </a>
-        <a href="/blogs/" class="btn bg-danger text-white" name="Remove" value="blogId">
-          <i class="far fa-trash-alt"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock body%}
+  {%endfor%}
+  {% endblock body%}

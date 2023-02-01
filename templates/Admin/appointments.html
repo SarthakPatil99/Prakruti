@@ -119,38 +119,44 @@ Appointments
             <!-- mail, Phone -->
             <th>Age</th>
             <th>Gender</th>
-            <th>Day</th>
+            <th>Date</th>
             <th>Time Slot</th>
             <th>Status</th>
             <th>Actions</th>
         </tr>
     </thead>
+    {% for Apt in Apts %}
     <tbody>
-        <td width="1%" id="pid">pt2134</td>
+        <td width="1%" id="pid">{{Apt.id}}</td>
         <td class="d-flex align-items-center justify-content-between border-0">
-            <label id="name">asasa</label>
+            <label id="name">{{Apt.full_name}}</label>
             <div class="dropdown no-arrow d-lg-inline">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v fa-sm fa-fw text-warning"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" style="width: 250px; font-size: medium">
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" style="width: 350px; font-size: medium">
                     <div class="dropdown-header text-warning" style="font-size: medium"> More Details </div>
                     <b class="ms-3">Email:</b>
-                    <label class="dropdown-list" for="Email_detail">example@gmail.com</label><br />
+                    <label class="dropdown-list" for="Email_detail">{{Apt.email}}</label><br />
                     <b class="ms-3">Ph no.:</b>
-                    <label class="dropdown-list" for="Phno_detail">1234567890</label><br>
+                    <label class="dropdown-list" for="Phno_detail">{{Apt.phno}}</label><br>
                     <b class="ms-3"><a href="/A_profile" style="text-decoration: none;">View Patient's History</a></b>
                 </div>
             </div>
         </td>
-        <td width="1%">12</td>
-        <td width="1%">Female</td>
-        <td width="1%">Wednesday</td>
-        <td width="8.2%">Afternoon</td>
+        <td width="1%">{{Apt.age}}</td>
+        <td width="1%">{{Apt.gender}}</td>
+        <td width="10%">{{Apt.Date}}</td>
+        <td width="8.2%">{{Apt.TimeSlot}}</td>
         <td width="18.5%">
-            <span class="badge bg-success" style="font-size: 85%">Attended</span>
-            <span class="badge bg-info" style="font-size: 85%">Not Attended</span>
-            <span class="badge bg-warning" style="font-size: 85%">Rescheduled</span>
+            {%if Apt.Status_A%}
+                <span class="badge bg-success" style="font-size: 85%">Attended</span>
+            {%else%}
+                <span class="badge bg-info" style="font-size: 85%">Not Attended</span>
+            {%endif%}
+            {%if Apt.Status_R%}
+                <span class="badge bg-warning" style="font-size: 85%">Rescheduled</span>
+            {%endif%}
         </td>
         <td width="14%">
             <center>
@@ -167,5 +173,6 @@ Appointments
             </center>
         </td>
     </tbody>
+    {% endfor %}
     <tfoot></tfoot>
 </table> {% endblock body%}
