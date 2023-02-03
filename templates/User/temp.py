@@ -8,3 +8,8 @@
 
 import random
 random.choice((2,3,4))
+
+quetions = [
+    {'Q': 'que?', 'C1' : 'choice1', 'C2' : 'choice2', 'C3' : 'choice3'},
+    {'Q': 'que?', 'C1': 'choice1', 'C2': 'choice2', 'C3': 'choice3'},
+]

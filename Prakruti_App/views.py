@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .models import Users, Appointments, M_remedy, H_remedy, Blogs, Orders, Med_per_ord
+from .models import Users, Appointments, M_remedy, H_remedy, Blogs, Orders, Med_per_ord, Prakruti_Quetions
 from django.contrib.auth.models import User, auth
 # from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.utils.datastructures import MultiValueDictKeyError
 from sqlalchemy import null
 import random
-from datetime import date
+import calendar
+from datetime import date, datetime, timedelta, time
 
 jinja = {}
 
@@ -38,6 +39,42 @@ def getGender(gender):
         return "other"
 
 
+def getAvailableSlot(date, appointment):
+    Apts = Appointments.objects.filter(Date=date, TimeSlot=appointment)
+    if len(Apts) < 11:
+        return 1
+    else:
+        return 0
+
+
+def getNextAvailableSlot():
+    i = 0
+    while i < 5:
+        dt = date.today() + timedelta(i)
+        day = calendar.day_name[dt.weekday()]
+        if day != "Sunday":
+            slots = ["Morning", "Afternoon", "Evening"]
+            if i == 0:
+                currentTime = datetime.now()
+                if currentTime.hour < 12:
+                    j = 0
+                elif 12 <= currentTime.hour < 18:
+                    j = 1
+                elif 18 <= currentTime.hour < 20:
+                    j = 2
+                else:
+                    i += 1
+                    continue
+            else:
+                j = 0
+            while j < 3:
+                Apts = Appointments.objects.filter(Date=dt, TimeSlot=slots[j])
+                if len(Apts) < 10:
+                    return dt, slots[j]
+                j += 1
+        i += 1
+    return null, null
+
 # -----------------------------Main functions---------------------------
 def index(request):
     return render(request, 'index.html')
@@ -48,7 +85,6 @@ def signup(request):
 
 
 def handleSignUp(request):
-    print('----------------------1')
     if request.method == 'POST':
         urname = request.POST['urname']
         fname = request.POST['fname']
@@ -61,9 +97,6 @@ def handleSignUp(request):
         age = request.POST['age']
         gender = getGender(request.POST['gender'])
         picture = request.FILES['inFile']
-        print(urname, fname, mname, lname, email,
-              phone, pwd, cpwd, age, gender, picture)
-        print('-------------------------2')
         if User.objects.filter(username=urname):
             messages.error(
                 request, "USERNAME ALREADY EXIST! PLEASE TRY SOME ANOTHER USERNAME")
@@ -93,22 +126,16 @@ def handleSignUp(request):
 
 
 def handleLogin(request):
-    print("0")
     if request.method == 'POST':
-        print(request.POST)
-        print("0.1")
+        # print(request.POST)
         log_usr = request.POST['log_username']
         log_pwd = request.POST['log_pwd']
-        print("0.2", log_usr)
         user = auth.authenticate(username=log_usr, password=log_pwd)
-        print("0.3", user)
         if user is not None:
             Whos = User.objects.filter(username__contains=user)
             auth.login(request, user)
             messages.success(request, 'Successfully Logged In.')
-            print("1")
             for Who in Whos:
-                print("hihihihih")
                 print(Who.is_superuser)
                 if Who.is_superuser:
                     # jinja["Who"] = Who.username
@@ -130,14 +157,11 @@ def handleLogout(request):
 
 
 def chPass(request):
-    print("0")
     if request.method == 'POST':
-        print(request.POST)
         chPassMail = request.POST['chPassMail']
         conf_pass = request.POST['confPass']
 
         try:
-            print("in try")
             User.objects.filter(email=chPassMail).update(password=conf_pass)
             return redirect('/')
         except Exception as e:
@@ -153,7 +177,8 @@ def home(request):
 
 
 def analyze(request):
-    return render(request, 'user/Analyzer.html')
+    Ques = Prakruti_Quetions.objects.all()
+    return render(request, 'user/Analyzer.html', {'Quetions': Ques})
 
 
 def recommend(request):
@@ -205,12 +230,11 @@ def dashboard(request):
 
 
 def patients(request):
-
     if request.method == 'POST':
         print(request.POST)
+        # add patient code
         try:
             if request.POST['submit']:
-                # add patient code
                 fname = request.POST['fname']
                 mname = request.POST['mname']
                 lname = request.POST['lname']
@@ -236,12 +260,15 @@ def patients(request):
                 new_user = Users(UserName=urname, Middle_name=mname,
                                 Phone_No=phone, Age=age, Gender=gender, P_Prakruti=P_prakruti, S_Prakruti=S_prakruti)
                 new_user.save()
+                messages.success(request, 'User is created.')
+            else:
+                messages.error(request, 'User is not created.')
         except MultiValueDictKeyError:
-            print(MultiValueDictKeyError)
+            print("Add User: ", MultiValueDictKeyError)
 
+        # remove patient code
         try:
             if request.POST['remove']:
-                # remove patient code
                 Ur = Users.objects.get(UserName=request.POST['remove'])
                 User.objects.get(username=request.POST['remove']).delete()
                 Apts = Appointments.objects.filter(U_id=Ur.pk)
@@ -254,15 +281,32 @@ def patients(request):
                         md.delete()
                     ord.delete()
                 Ur.delete()
+                messages.error(request, 'User is removed.')
+            else:
+                messages.error(request, 'User is not removed.')
         except MultiValueDictKeyError:
-            print(MultiValueDictKeyError)
+            print("Remove User: ", MultiValueDictKeyError)
 
-    #     try:
-    #         if request.POST['book']:
-    #             # appintment booking code
-    #             pass
-    #     except MultiValueDictKeyError:
-    #         print(MultiValueDictKeyError)
+        # appintment booking
+        try:
+            if request.POST['book']:
+                print(request.POST['book'])
+                dt, slot = getNextAvailableSlot()
+                print(dt, slot)
+                if dt != null and slot != null:
+                    new_apt = Appointments(U_id=request.POST['book'], Date=dt, TimeSlot=slot)
+                    new_apt.save()
+                    pass
+                else:
+                    messages.warning(request, 'Slot is not available for next 5 days.')
+                    pass
+                messages.success(request, 'Appintment is Booked.')
+                pass
+            else:
+                messages.error(request, 'Appintment is not Booked.')
+        except MultiValueDictKeyError:
+            print("Book Appointment: ",MultiValueDictKeyError)
+
     # view
     new_pts = []
     Pts = User.objects.all()
@@ -286,36 +330,75 @@ def patients(request):
 
 
 def appointments(request):
-
     if request.method == 'POST':
-        print(request.POST)
-    #     try:
-    #         if request.POST['submit'] == 'Schedule':
-    #             Aid = request.POST['apptID']
-    #             Appnt = request.POST['appnt']
-    #             Date = request.POST['date']
+        # print(request.POST)
+        # reschedule
+        try:
+            if request.POST['reschedule']:
+                Aid = request.POST['apptID']
+                Appnt = request.POST['appnt']
+                Day = int(request.POST['day'])-1
+                print(request.POST, "\n", Day)
+                # appintment reschedule code
+                if Day == 2:
+                    Date = request.POST['date']
+                    if getAvailableSlot(Date, Appnt):
+                        new_apt = Appointments.objects.get(id=Aid)
+                        new_apt.Date = Date
+                        new_apt.TimeSlot = Appnt
+                        new_apt.Status_R = True
+                        new_apt.save()
+                        messages.success(request, 'Appointment slot is booked.')
+                    else:
+                        messages.warning(request, 'Appointment slot is not available.')
+                else:
+                    if Day == 1:
+                        Date = datetime.now() + timedelta(1)
+                    else:
+                        Date = datetime.now()
+                    Date = Date.strftime('%Y-%m-%d')
+                    print(Date)
+                    if getAvailableSlot(Date, Appnt):
+                        new_apt = Appointments.objects.get(id=Aid)
+                        new_apt.Date = Date
+                        new_apt.TimeSlot = Appnt
+                        new_apt.Status_R = True
+                        new_apt.save()
+                        messages.success(request, 'Appointment slot is booked.')
+                    else:
+                        messages.error(request, 'Appointment slot is not available.')
+            else:
+                messages.error(request, 'Appointment slot is not resheduled.')
+        except MultiValueDictKeyError:
+            print("Appointment Reschedule: ", MultiValueDictKeyError)
 
-    #             # appintment reschedule code
-    #             # new_apt = Appointments.objects.filter(id=Pid).update(Date=Date, TimeSlot=Appnt)
-    #             # new_apt.save()
-    #             pass
-    #         else:
-    #             Pid = request.POST['apptID']
-    #             Presc = request.POST['Description']
+        # prescribe
+        try:
+            if request.POST['prescribe']:
+                Pid = request.POST['P_apptID']
+                Presc = request.POST['Description']
+                # add prescription code
+                new_apt = Appointments.objects.get(id=Pid)
+                new_apt.P_med = Presc
+                new_apt.Status_A = True
+                new_apt.save()
+                messages.success(request, 'Remedies are prescribed and Appointment is attended.')
+            else:
+                messages.error(request, 'Remedies are not prescribed.')
+        except MultiValueDictKeyError:
+            print("Appointment Prescribe: ", MultiValueDictKeyError)
 
-    #             # add prescription code
-    #             # new_apt = Appointments.objects.filter(id=Pid).update(P_med=Presc)
-    #             # new_apt.save()
-    #             pass
-    #     except MultiValueDictKeyError:
-    #         print(MultiValueDictKeyError)
-
+        # remove
         try:
             if request.POST['remove']:
                 # remove appintment code
+                # print(request.POST['remove'])
                 Appointments.objects.get(id=request.POST['remove']).delete()
+                messages.error(request, 'Appointment is deleted.')
+            else:
+                messages.error(request, 'Appointment is not deleted.')
         except MultiValueDictKeyError:
-            print(MultiValueDictKeyError)
+            print("Appointment Remove: ", MultiValueDictKeyError)
 
     # view
     new_apts = []
@@ -332,7 +415,7 @@ def appointments(request):
         new_apt['gender'] = patient_ext.Gender
         new_apt.pop('_state')
         new_apts.append(new_apt)
-    print(new_apts)
+    # print(new_apts)
     # print(Apts)
     return render(request, 'admin/appointments.html', {'Apts': new_apts})
 
@@ -361,27 +444,35 @@ def M_remedies(request):
                 update_med.Price = price
                 update_med.Img = picture
                 update_med.save()
+                messages.success(request, 'Medicine Remedy is updated.')
                 pass
+            else:
+                messages.error(request, 'Medicine Remedy is not updated.')
             if request.POST['submit'] == 'Create':
                 # add medicine code
                 new_med = M_remedy(Name=name, Desc=description, Content=contents,
                                     Quantity=quantity, Price=price, Img=picture)
                 new_med.save()
+                messages.success(request, 'Medicine Remedy is inserted.')
+            else:
+                messages.error(request, 'Medicine Remedy is not inserted.')
         except MultiValueDictKeyError:
-            print(MultiValueDictKeyError)
+            print("Update and Add medicine: ", MultiValueDictKeyError)
 
         try:
             if request.POST['remove']:
                 # remove medicine code
                 mr = M_remedy.objects.get(id=request.POST['remove'])
-                mds = Med_per_ord.objects.filter(m_id = mr.pk)
+                mds = Med_per_ord.objects.filter(m_id=mr.pk)
                 for md in mds:
                     md.m_id = -1
                     md.save()
                 mr.delete()
-                pass
+                messages.error(request, 'Medicine Remedy is deleted.')
+            else:
+                messages.error(request, 'Medicine Remedy is not deleted.')
         except MultiValueDictKeyError:
-            print(MultiValueDictKeyError)
+            print("Remove medicine: ", MultiValueDictKeyError)
 
     # view
     MRs = M_remedy.objects.all()
@@ -390,10 +481,6 @@ def M_remedies(request):
 
 
 def H_remedies(request):
-    # view
-    HRs = H_remedy.objects.all()
-    # print(HRs)
-
     if request.method == 'POST':
         print(request.POST)
         try:
@@ -413,40 +500,50 @@ def H_remedies(request):
                 update_hmed.Accessories = acce
                 update_hmed.Img = picture
                 update_hmed.save()
+                messages.success(request, 'Home Remedy is updated.')
                 pass
+            else:
+                messages.error(request, 'Home Remedy is not updated.')
             if request.POST['submit'] == 'Create':
                 # add remedy code
-                new_hmed = H_remedy(Name=title, Desc=desc, Accessories=acce, Img=picture)
+                new_hmed = H_remedy(Name=title, Desc=desc,
+                                    Accessories=acce, Img=picture)
                 new_hmed.save()
+                messages.success(request, 'Home Remedy is inserted.')
+            else:
+                messages.error(request, 'Home Remedy is not inserted.')
         except MultiValueDictKeyError:
-            print(MultiValueDictKeyError)
+            print("update and add home med: ", MultiValueDictKeyError)
 
         try:
             if request.POST['remove']:
                 # remove remedy code
                 H_remedy.objects.filter(id=request.POST['remove']).delete()
+                messages.success(request, 'Home Remedy not deleted.')
                 pass
+            else:
+                messages.error(request, 'Home Remedy is not deleted.')
         except MultiValueDictKeyError:
-            print(MultiValueDictKeyError)
+            print("remove home med: ", MultiValueDictKeyError)
+    
+    # view
+    HRs = H_remedy.objects.all()
+    # print(HRs)
 
     return render(request, 'admin/H_remedies.html', {'HRs': HRs})
 
 
 def blogs(request):
-    # view
-    Bls = Blogs.objects.all()
-    type = ["BLOG", "IMAGE", "VIDEO"]
     if request.method == 'POST':
-        print(request.POST)
-        print(request.FILES)
+        type = ["BLOG", "IMAGE", "VIDEO"]
+        # print(request.POST)
+        # print(request.FILES)
         try:
             title = request.POST['Title']
             Btype = type[int(request.POST['Btype'])-1]
             File = " "
             content = ' '
-            print("------------------0")
             dt = date.today()
-            print("------------------1")
             if Btype == 'BLOG':
                 content = request.POST['content']
             else:
@@ -454,8 +551,6 @@ def blogs(request):
                     File = request.FILES['inFile']
                 except:
                     File = request.POST['ImgURL']
-                print("------------------2")
-            print("------------------3")
             if request.POST['submit'] == 'Modify':
                 # update blog code
                 b_id = request.POST['bid']
@@ -466,31 +561,60 @@ def blogs(request):
                 update_blog.Date = dt
                 update_blog.file = File
                 update_blog.save()
+                messages.success(request, 'Blog is edited.')
                 pass
+            else:
+                messages.error(request, 'Blog is not edited.')
             if request.POST['submit'] == 'Create':
                 # add blog code
-                new_blog = Blogs(Title=title, Type=Btype, Content=content, Date=dt, file=File)
+                new_blog = Blogs(Title=title, Type=Btype,
+                                Content=content, Date=dt, file=File)
                 new_blog.save()
+                messages.success(request, 'Blog is posted.')
+            else:
+                messages.error(request, 'Blog is not posted.')
         except MultiValueDictKeyError:
-            print(MultiValueDictKeyError)
+            print("update and add blog: ", MultiValueDictKeyError)
 
         try:
             if request.POST['remove']:
                 # remove blog code
                 Blogs.objects.get(id=request.POST['remove']).delete()
+                messages.error(request, 'Blog is deleted.')
                 pass
+            else:
+                messages.error(request, 'Blog is not deleted.')
         except MultiValueDictKeyError:
-            print(MultiValueDictKeyError)
+            print("remove blog: ", MultiValueDictKeyError)
+
+    # view
+    Bls = Blogs.objects.all()
 
     return render(request, 'admin/blogs.html', {'Bls': Bls})
 
 
 def orders(request):
+    if request.POST:
+        # remove
+        try:
+            if request.POST['remove']:
+                # remove order code
+                ord = Orders.objects.get(id=request.POST['remove'])
+                mds = Med_per_ord.objects.filter(o_id=ord.o_id)
+                for md in mds:
+                    md.delete()
+                ord.delete()
+                messages.error(request, 'Oreder is deleted.')
+            else:
+                messages.error(request, 'Oreder is not deleted.')
+        except MultiValueDictKeyError:
+            print(MultiValueDictKeyError)
+
     # view
     new_ords = []
     Ords = Orders.objects.all()
     for Ord in Ords:
-        new_ord=vars(Ord)
+        new_ord = vars(Ord)
         new_ord.pop('_state')
         patient = User.objects.get(username=Ord.UserName)
         patient_ext = Users.objects.get(UserName=patient.username)
@@ -503,28 +627,15 @@ def orders(request):
         for Pid in Pids:
             temp = {}
             Prd = M_remedy.objects.get(id=Pid.m_id)
-            temp['name']=Prd.Name
-            temp['price']=Prd.Price
-            temp['quantity']= 0
-            temp['m_id']=Pid.m_id
-            temp['m_name']=Pid.m_name
+            temp['name'] = Prd.Name
+            temp['price'] = Prd.Price
+            temp['quantity'] = 0
+            temp['m_id'] = Pid.m_id
+            temp['m_name'] = Pid.m_name
             Prds.append(temp)
-        new_ord['products']=Prds
+        new_ord['products'] = Prds
         new_ords.append(new_ord)
-    if request.POST:
-        try:
-            if request.POST['remove']:
-                # remove order code
-                ord =Orders.objects.get(id=request.POST['remove'])
-                mds = Med_per_ord.objects.filter(o_id = ord.o_id )
-                for md in mds:
-                    md.delete()
-                ord.delete()
-        except MultiValueDictKeyError:
-            print(MultiValueDictKeyError)
-
-    print(new_ords)
-    return render(request, 'admin/Orders.html',{'orders':new_ords})
+    return render(request, 'admin/Orders.html', {'orders': new_ords})
 
 
 def A_profile(request):
@@ -533,3 +644,7 @@ def A_profile(request):
 
 def profileA(request):
     return render(request, 'admin/A_profile.html', {'admin': 1})
+
+def dataInsert(request):
+    
+    pass
