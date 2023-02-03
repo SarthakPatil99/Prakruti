@@ -19,12 +19,19 @@ Orders
 
 {% block body %}
 <div class="d-flex justify-content-between">
-    <form style="width: 400px" class="mx-3">
+    <form action="/patients/" method="post" style="width: 40%;" class="mx-3">
         <div class="input-group">
-            <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search"
-                aria-describedby="basic-addon2" />
             <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <select class="form-select form-control bg-light" style="width:120px; border-end-end-radius: 0px; border-start-end-radius: 0px;" id="Srch" name="srch" onchange="validateSrch()">
+                    <option selected value="0">Search Via</option>
+                    <option value="1">Name</option>
+                    <option value="2">Appnt ID</option>
+                    <option value="3">Email</option>
+                    <option value="4">Phone</option>
+                </select>
+            </div> {% csrf_token %} <input type="text" name="search" class="form-control bg-light" placeholder="Search for..." />
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" id="srchBtn" disabled>
                     <i class="fas fa-search fa-sm"></i>
                 </button>
             </div>

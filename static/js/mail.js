@@ -105,11 +105,25 @@ function nConPass() {
   }
 }
 
-function passCont() {
-  document.getElementById("BType").innerHTML =
-    document.getElementById("Btype").innerHTML;
-  document.getElementById("Btitle").innerHTML =
-    document.getElementById("title").innerHTML;
-  document.getElementById("Content").innerHTML =
-    document.getElementById("content").innerHTML;
+function passCont(who) {
+  document.getElementById("BType").innerHTML = document.getElementById(
+    "Btype" + who
+  ).innerHTML;
+  document.getElementById("Btitle").innerHTML = document.getElementById(
+    "title" + who
+  ).innerHTML;
+  document.getElementById("Content").innerHTML = document.getElementById(
+    "content" + who
+  ).innerHTML;
+}
+
+function passPD(who){
+  console.log(who);
+  document.getElementById("PName").innerHTML = document.getElementById("name"+who).innerHTML;
+  document.getElementById("PImage").src= document.getElementById("pimage"+who).src;
+  document.getElementById("PDesc").innerHTML = document.getElementById("desc"+who).value;
+  document.getElementById("PContents").innerHTML = document.getElementById("cont"+who).value;
+  document.getElementById("Price").innerHTML = document.getElementById("price"+who).value;
+  document.getElementById("Quantity").innerHTML = document.getElementById("quantity" + who).value;
+  document.getElementById('submit').value=who;
 }

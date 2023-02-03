@@ -62,3 +62,7 @@ class Med_per_ord(models.Model):
     o_id = models.IntegerField(default=0)
     m_id = models.IntegerField(default=0)
     m_name =models.CharField(default="",max_length=100,null=True)
+
+class Cart(models.Model):
+    Username = models.CharField(max_length=20, default='')
+    p_id = models.IntegerField(default=0)

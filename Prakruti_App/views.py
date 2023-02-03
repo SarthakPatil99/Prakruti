@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .models import Users, Appointments, M_remedy, H_remedy, Blogs, Orders, Med_per_ord
+from .models import Users, Appointments, M_remedy, H_remedy, Blogs, Orders, Med_per_ord,Cart
 from django.contrib.auth.models import User, auth
 # from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -161,7 +161,14 @@ def recommend(request):
 
 
 def shopping(request):
-    return render(request, 'user/Shopping.html')
+    if request.POST:
+        print(request.POST)
+        if request.POST['submit']:
+            new_cart = Cart(Username= request.user.username,p_id=request.POST['submit'])
+            new_cart.save()
+
+    pds = M_remedy.objects.all()
+    return render(request, 'user/Shopping.html',{'prods':pds})
 
 
 def U_profile(request):
@@ -173,11 +180,63 @@ def profileU(request):
 
 
 def cart(request):
-    return render(request, 'user/Cart.html')
+    crt = []
+    if request.POST:
+        print(request.POST)
+        if request.POST['remove']:
+            Cart.objects.get(id=request.POST['remove']).delete()
+
+    pds = Cart.objects.filter(Username = request.user.username )
+    for pd in pds:
+        temp = vars(M_remedy.objects.get(pk = pd.p_id))
+        temp['cartid']= pd.pk
+        crt.append(temp)
+    print(crt)
+    return render(request, 'user/Cart.html',{'Cart':crt})
 
 
 def our_blogs(request):
-    return render(request, 'user/our_blogs.html')
+    type = ["BLOG", "IMAGE", "VIDEO"]
+    if request.method == 'POST':
+        print(request.POST)
+        print(request.FILES)
+        try:
+            title = request.POST['Title']
+            Btype = type[int(request.POST['Btype'])-1]
+            File = " "
+            content = ' '
+            print("------------------0")
+            dt = date.today()
+            print("------------------1")
+            if Btype == 'BLOG':
+                content = request.POST['content']
+            else:
+                try:
+                    File = request.FILES['inFile']
+                except:
+                    File = request.POST['ImgURL']
+                print("------------------2")
+            print("------------------3")
+            if request.POST['submit'] == 'Modify':
+                # update blog code
+                b_id = request.POST['bid']
+                update_blog = Blogs.objects.get(id=b_id)
+                update_blog.Title = title
+                update_blog.Type = Btype
+                update_blog.Content = content
+                update_blog.Date = dt
+                update_blog.file = File
+                update_blog.save()
+                pass
+            if request.POST['submit'] == 'Create':
+                # add blog code
+                new_blog = Blogs(Title=title, Type=Btype, Content=content, Date=dt, file=File)
+                new_blog.save()
+        except MultiValueDictKeyError:
+            print(MultiValueDictKeyError)
+        # view
+    Bls = Blogs.objects.all()
+    return render(request, 'user/our_blogs.html', {'Bls': Bls})
 
 # -----------------------------ADMIN SIDE---------------------------
 
@@ -198,16 +257,107 @@ def dashboard(request):
     all_data['mrs_ct'] = len(MRs)
     all_data['hrs_ct'] = len(HRs)
     all_data['bls_ct'] = len(Bls)
-    all_data['apts_ct'] = (len(CApts) / len(Apts))*100
-    all_data['ords_ct'] = (len(COrds) / len(Ords))*100
+    try:
+        all_data['apts_ct'] = (len(CApts) / len(Apts))*100
+    except:
+        all_data['apts_ct'] = 0
+    try:
+        all_data['ords_ct'] = (len(COrds) / len(Ords))*100
+    except:
+        all_data['ords_ct'] = 0
+
     print(all_data)
     return render(request, 'admin/Dashboard.html', {'data': all_data})
 
 
 def patients(request):
+    
+    new_pts = []
+    Pts = Users.objects.all()
 
     if request.method == 'POST':
         print(request.POST)
+        try:
+            if request.POST['search']:
+                if request.POST['srch'] == '1':
+                    Pts = Users.objects.all()
+                    string =request.POST['search'].lower()
+                    for Pt in Pts:
+                        Pt_exts = User.objects.filter(username=Pt.UserName)
+                        for Pt_ext in Pt_exts:
+                            strs = (Pt_ext.first_name+" "+Pt.Middle_name+" " + Pt_ext.last_name)
+                            strs = strs.lower()
+                            print(string,strs)
+                            if string in strs:
+                                new_pt = vars(Pt)
+                                new_pt.update(vars(Pt_ext))
+                                new_pt.pop('_state')
+                                new_pt.pop('password')
+                                new_pt.pop('last_login')
+                                new_pt.pop('is_superuser')
+                                new_pt.pop('is_staff')
+                                new_pt.pop('is_active')
+                                new_pt.pop('date_joined')
+                                new_pt.pop('UserName')
+                                new_pts.append(new_pt)
+                    return render(request, 'admin/patients.html', {'patients': new_pts})
+                if request.POST['srch'] == '2':
+                    try:
+                        Pt = Users.objects.get(pk=request.POST['search'])
+                        Pt_ext = User.objects.get(username=Pt.UserName)
+                        new_pt = vars(Pt)
+                        new_pt.update(vars(Pt_ext))
+                        new_pt.pop('_state')
+                        new_pt.pop('password')
+                        new_pt.pop('last_login')
+                        new_pt.pop('is_superuser')
+                        new_pt.pop('is_staff')
+                        new_pt.pop('is_active')
+                        new_pt.pop('date_joined')
+                        new_pt.pop('UserName')
+                        new_pts.append(new_pt)
+                        return render(request, 'admin/patients.html', {'patients': new_pts})
+                    except:
+                        return render(request, 'admin/patients.html', {'patients': new_pts})
+                if request.POST['srch'] == '3':
+                    Pts = User.objects.filter(email__contains=request.POST['search'])
+                    for Pt in Pts:
+                        Pt_ext = Users.objects.filter(UserName=Pt.username)
+                        if Pt_ext:
+                            new_pt = vars(Pt)
+                            for vr in Pt_ext:
+                                new_pt.update(vars(vr))
+                            new_pt.pop('_state')
+                            new_pt.pop('password')
+                            new_pt.pop('last_login')
+                            new_pt.pop('is_superuser')
+                            new_pt.pop('is_staff')
+                            new_pt.pop('is_active')
+                            new_pt.pop('date_joined')
+                            new_pt.pop('UserName')
+                            new_pts.append(new_pt)
+                    return render(request, 'admin/patients.html', {'patients': new_pts})
+                if request.POST['srch'] == '4':
+                    Pts = Users.objects.filter(Phone_No__contains=request.POST['search'])
+                    for Pt in Pts:
+                        Pt_ext = User.objects.filter(username=Pt.UserName)
+                        if Pt_ext:
+                            new_pt = vars(Pt)
+                            for vr in Pt_ext:
+                                new_pt.update(vars(vr))
+                            new_pt.pop('_state')
+                            new_pt.pop('password')
+                            new_pt.pop('last_login')
+                            new_pt.pop('is_superuser')
+                            new_pt.pop('is_staff')
+                            new_pt.pop('is_active')
+                            new_pt.pop('date_joined')
+                            new_pt.pop('UserName')
+                            new_pts.append(new_pt)
+                    return render(request, 'admin/patients.html', {'patients': new_pts})
+        except MultiValueDictKeyError:
+            print(MultiValueDictKeyError)
+            
         try:
             if request.POST['submit']:
                 # add patient code
@@ -263,11 +413,11 @@ def patients(request):
     #             pass
     #     except MultiValueDictKeyError:
     #         print(MultiValueDictKeyError)
+
     # view
-    new_pts = []
-    Pts = User.objects.all()
+    
     for Pt in Pts:
-        Pt_ext = Users.objects.filter(UserName=Pt.username)
+        Pt_ext = User.objects.filter(username=Pt.UserName)
         if Pt_ext:
             new_pt = vars(Pt)
             for vr in Pt_ext:
@@ -286,9 +436,101 @@ def patients(request):
 
 
 def appointments(request):
-
+    new_apts = []
     if request.method == 'POST':
         print(request.POST)
+        try:
+            if request.POST['search']:
+                if request.POST['srch'] == '1':
+                    Apts = Appointments.objects.all()
+                    for Apt in Apts:
+                        string =request.POST['search'].lower()
+                        Pt = Users.objects.get(id=Apt.U_id)
+                        Pt_exts = User.objects.filter(username=Pt.UserName)
+                        for Pt_ext in Pt_exts:
+                            strs = (Pt_ext.first_name+" "+Pt.Middle_name+" " + Pt_ext.last_name)
+                            strs = strs.lower()
+                            print(string,strs)
+                            if string in strs:
+                                new_apt = vars(Apt)
+                                new_apt['full_name'] = Pt.first_name+' ' + \
+                                    Pt_ext.Middle_name+' '+Pt.last_name
+                                new_apt['email'] = Pt.email
+                                new_apt['phno'] = Pt_ext.Phone_No
+                                new_apt['age'] = Pt_ext.Age
+                                new_apt['gender'] = Pt_ext.Gender
+                                new_apt.pop('_state')
+                                new_apts.append(new_apt)
+                    return render(request, 'admin/appointments.html', {'Apts': new_apts})
+                if request.POST['srch'] == '2':
+                    try:
+                        Apts = Appointments.objects.all()
+                        for Apt in Apts:
+                            Pts = Users.objects.get(pk = request.POST['search']).get(id=Apt.U_id)
+                            for Pt in Pts:
+                                Pt_ext = User.objects.get(username=Pt.UserName)
+                                new_apt = vars(Apt)
+                                new_apt['full_name'] = Pt.first_name+' ' + \
+                                    Pt_ext.Middle_name+' '+Pt.last_name
+                                new_apt['email'] = Pt.email
+                                new_apt['phno'] = Pt_ext.Phone_No
+                                new_apt['age'] = Pt_ext.Age
+                                new_apt['gender'] = Pt_ext.Gender
+                                new_apt.pop('_state')
+                                new_apts.append(new_apt)
+                        return render(request, 'admin/appointments.html', {'Apts': new_apts})
+                    except:
+                        return render(request, 'admin/appointments.html', {'Apts': new_apts})
+                if request.POST['srch'] == '3':
+                    Apts = Appointments.objects.all()
+                    for Apt in Apts:
+                        Pts = Users.objects.filter(email__contains = request.POST['search']).get(id=Apt.U_id)
+                        for Pt in Pts:
+                            Pt_ext = User.objects.get(username=Pt.UserName)
+                            new_apt = vars(Apt)
+                            new_apt['full_name'] = Pt.first_name+' ' + \
+                                Pt_ext.Middle_name+' '+Pt.last_name
+                            new_apt['email'] = Pt.email
+                            new_apt['phno'] = Pt_ext.Phone_No
+                            new_apt['age'] = Pt_ext.Age
+                            new_apt['gender'] = Pt_ext.Gender
+                            new_apt.pop('_state')
+                            new_apts.append(new_apt)
+                    return render(request, 'admin/appointments.html', {'Apts': new_apts})
+                if request.POST['srch'] == '4':
+                    Apts = Appointments.objects.all()
+                    for Apt in Apts:
+                        Pts = Users.objects.filter(Phone_No__contains = request.POST['search']).get(id=Apt.U_id)
+                        for Pt in Pts:
+                            Pt_ext = User.objects.get(username=Pt.UserName)
+                            new_apt = vars(Apt)
+                            new_apt['full_name'] = Pt.first_name+' ' + \
+                                Pt_ext.Middle_name+' '+Pt.last_name
+                            new_apt['email'] = Pt.email
+                            new_apt['phno'] = Pt_ext.Phone_No
+                            new_apt['age'] = Pt_ext.Age
+                            new_apt['gender'] = Pt_ext.Gender
+                            new_apt.pop('_state')
+                            new_apts.append(new_apt)
+                    return render(request, 'admin/appointments.html', {'Apts': new_apts})
+                if request.POST['srch'] == '5':
+                    Apts = Appointments.objects.all()
+                    for Apt in Apts:
+                        Pts = Users.objects.filter(Age__gte = request.POST['search']).get(id=Apt.U_id)
+                        for Pt in Pts:
+                            Pt_ext = User.objects.get(username=Pt.UserName)
+                            new_apt = vars(Apt)
+                            new_apt['full_name'] = Pt.first_name+' ' + \
+                                Pt_ext.Middle_name+' '+Pt.last_name
+                            new_apt['email'] = Pt.email
+                            new_apt['phno'] = Pt_ext.Phone_No
+                            new_apt['age'] = Pt_ext.Age
+                            new_apt['gender'] = Pt_ext.Gender
+                            new_apt.pop('_state')
+                            new_apts.append(new_apt)
+                    return render(request, 'admin/appointments.html', {'Apts': new_apts})
+        except MultiValueDictKeyError:
+            print(MultiValueDictKeyError)
     #     try:
     #         if request.POST['submit'] == 'Schedule':
     #             Aid = request.POST['apptID']
@@ -318,7 +560,6 @@ def appointments(request):
             print(MultiValueDictKeyError)
 
     # view
-    new_apts = []
     Apts = Appointments.objects.all()
     for Apt in Apts:
         patient_ext = Users.objects.get(id=Apt.U_id)
@@ -338,8 +579,26 @@ def appointments(request):
 
 
 def M_remedies(request):
+    
     if request.method == 'POST':
         print(request.POST)
+        try:
+            if request.POST['search']:
+                if request.POST['srch'] == '1':
+                    MRs = M_remedy.objects.filter(Name__contains = request.POST['search'] )
+                    return render(request, 'admin/M_remedies.html', {'MRs': MRs})
+                if request.POST['srch'] == '2':
+                    try:
+                        MRs = M_remedy.objects.filter(id = request.POST['search'])
+                        return render(request, 'admin/M_remedies.html', {'MRs': MRs})
+                    except:
+                        MRs = []
+                        return render(request, 'admin/M_remedies.html', {'MRs': MRs})
+                if request.POST['srch'] == '3':
+                    MRs = M_remedy.objects.filter(Price__gte = int(request.POST['search']))
+                    return render(request, 'admin/M_remedies.html', {'MRs': MRs})
+        except MultiValueDictKeyError:
+            print(MultiValueDictKeyError)
         try:
             name = request.POST['name']
             description = request.POST['description']
@@ -397,6 +656,20 @@ def H_remedies(request):
     if request.method == 'POST':
         print(request.POST)
         try:
+            if request.POST['search']:
+                if request.POST['srch'] == '1':
+                    HRs = H_remedy.objects.filter(Name__contains = request.POST['search'] )
+                    return render(request, 'admin/H_remedies.html', {'HRs': HRs})
+                if request.POST['srch'] == '2':
+                    try:
+                        HRs = H_remedy.objects.filter(id = request.POST['search'])
+                        return render(request, 'admin/H_remedies.html', {'HRs': HRs})
+                    except:
+                        HRs = []
+                        return render(request, 'admin/H_remedies.html', {'HRs': HRs})
+        except MultiValueDictKeyError:
+            print(MultiValueDictKeyError)
+        try:
             title = request.POST['title']
             desc = request.POST['description']
             acce = request.POST['accessaries']
@@ -433,12 +706,24 @@ def H_remedies(request):
 
 
 def blogs(request):
-    # view
-    Bls = Blogs.objects.all()
     type = ["BLOG", "IMAGE", "VIDEO"]
     if request.method == 'POST':
         print(request.POST)
         print(request.FILES)
+        try:
+            if request.POST['search']:
+                # if request.POST['srch'] == '1':
+                Bls = Blogs.objects.filter(Title__contains = request.POST['search'] )
+                return render(request, 'admin/blogs.html', {'Bls': Bls})
+                # if request.POST['srch'] == '2':
+                #     try:
+                #         Bls = Blogs.objects.filter(id = request.POST['search'])
+                #         return render(request, 'admin/blogs.html', {'Bls': Bls})
+                #     except:
+                #         Bls = []
+                #         return render(request, 'admin/blogs.html', {'Bls': Bls})
+        except MultiValueDictKeyError:
+            print(MultiValueDictKeyError)
         try:
             title = request.POST['Title']
             Btype = type[int(request.POST['Btype'])-1]
@@ -482,6 +767,8 @@ def blogs(request):
         except MultiValueDictKeyError:
             print(MultiValueDictKeyError)
 
+    # view
+    Bls = Blogs.objects.all()
     return render(request, 'admin/blogs.html', {'Bls': Bls})
 
 

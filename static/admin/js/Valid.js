@@ -16,15 +16,20 @@ function transferMR(who) {
     MTitle.innerHTML = "Update Medicine";
     inFile.value = "";
     inFile.required = false;
-    name.value = document.getElementById("name"+who).innerHTML;
-    img.src = document.getElementById("img"+who).src;
-    desc.value = document.getElementById("desc"+who).innerHTML;
-    content.value = document.getElementById("contents"+who).innerHTML;
-    quantity.value = parseInt(document.getElementById("quantity"+who).innerHTML);
-    price.value = parseInt(document.getElementById("price"+who).innerHTML);
-    document.getElementById('setImgURL').value = document.getElementById('getImgURL'+who).value;
-    document.getElementById('setmid').value = document.getElementById('getmid'+who).innerHTML;
-
+    name.value = document.getElementById("name" + who).innerHTML;
+    img.src = document.getElementById("img" + who).src;
+    desc.value = document.getElementById("desc" + who).innerHTML;
+    content.value = document.getElementById("contents" + who).innerHTML;
+    quantity.value = parseInt(
+      document.getElementById("quantity" + who).innerHTML
+    );
+    price.value = parseInt(document.getElementById("price" + who).innerHTML);
+    document.getElementById("setImgURL").value = document.getElementById(
+      "getImgURL" + who
+    ).value;
+    document.getElementById("setmid").value = document.getElementById(
+      "getmid" + who
+    ).innerHTML;
   } else {
     Submit.innerHTML = "Create";
     Submit.value = "Create";
@@ -48,15 +53,17 @@ function transferBlog(who) {
   if (document.getElementById("Vdo")) {
     stopVideo();
   }
-  
+
   if (who) {
-    document.getElementById('setImgURL').value = document.getElementById('getImgURL'+who).value
+    document.getElementById("setImgURL").value = document.getElementById(
+      "getImgURL" + who
+    ).value;
     Bid.value = who;
     Submit.value = "Modify";
     Submit.innerHTML = "Modify";
     MTitle.innerHTML = "Update Blog";
-    title.value = document.getElementById("title"+who).innerHTML;
-    type.value = gettype(document.getElementById("type"+who).innerHTML,who);
+    title.value = document.getElementById("title" + who).innerHTML;
+    type.value = gettype(document.getElementById("type" + who).innerHTML, who);
     // type.disabled = true;
     seeType(type);
   } else {
@@ -87,15 +94,18 @@ function transferHR(who) {
     MTitle.innerHTML = "Update Remedy";
     inFile.value = "";
     inFile.required = false;
-    // 
+    //
     // Bid.value="mgf gn ";
-    title.value = document.getElementById("title"+who).innerHTML;
-    img.src = document.getElementById("img"+who).src;
-    desc.value = document.getElementById("desc"+who).innerHTML;
-    acce.value = document.getElementById("acce"+who).innerHTML;
-    document.getElementById('setImgURL').value = document.getElementById('getImgURL'+who).value;
-    document.getElementById('sethid').value = document.getElementById('gethid'+who).innerHTML;
-
+    title.value = document.getElementById("title" + who).innerHTML;
+    img.src = document.getElementById("img" + who).src;
+    desc.value = document.getElementById("desc" + who).innerHTML;
+    acce.value = document.getElementById("acce" + who).innerHTML;
+    document.getElementById("setImgURL").value = document.getElementById(
+      "getImgURL" + who
+    ).value;
+    document.getElementById("sethid").value = document.getElementById(
+      "gethid" + who
+    ).innerHTML;
   } else {
     Submit.innerHTML = "Create";
     Submit.value = "Create";
@@ -298,13 +308,13 @@ function gettype(val, who) {
   Contents.value = "";
 
   if (val == "BLOG") {
-    Contents.value = document.getElementById("contents"+who).textContent;
+    Contents.value = document.getElementById("contents" + who).textContent;
     return "1";
   } else if (val == "IMAGE") {
-    Img.src = document.getElementById("img"+who).src;
+    Img.src = document.getElementById("img" + who).src;
     return "2";
   } else if (val == "VIDEO") {
-    Video.src = document.getElementById("vdo"+who).src;
+    Video.src = document.getElementById("vdo" + who).src;
     return "3";
   } else {
     return "0";
@@ -316,17 +326,17 @@ function seeType(type) {
   vdo = document.getElementById("videoField");
   txt = document.getElementById("textField");
   inp = document.getElementById("inGrp");
-  ct = document.getElementById("Contents")
+  ct = document.getElementById("Contents");
   if (type.value == 3) {
     inp.style.display = "block";
     txt.style.display = "none";
-    ct.required = false
+    ct.required = false;
     img.style.display = "none";
     vdo.style.display = "block";
   } else if (type.value == 2) {
     inp.style.display = "block";
     txt.style.display = "none";
-    ct.required = false
+    ct.required = false;
     img.style.display = "block";
     vdo.style.display = "none";
   } else if (type.value == 1) {
@@ -337,7 +347,7 @@ function seeType(type) {
   } else {
     inp.style.display = "block";
     txt.style.display = "none";
-    ct.required = false
+    ct.required = false;
     img.style.display = "none";
     vdo.style.display = "none";
   }
@@ -441,4 +451,12 @@ function dayReset() {
   document.getElementById("Day").value = "0";
   document.getElementById("submit").disabled = false;
   dayChoose();
+}
+function validateSrch() {
+  srchPt = document.getElementById("Srch").value;
+  if (srchPt > 0) {
+    document.getElementById("srchBtn").disabled = false;
+  } else {
+    document.getElementById("srchBtn").disabled = true;
+  }
 }
