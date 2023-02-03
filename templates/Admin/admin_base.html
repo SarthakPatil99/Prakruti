@@ -102,7 +102,7 @@
       <!-- Main Content -->
       <div id="content">
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-secondary topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-expand navbar-light bg-secondary topbar mb-3 static-top shadow">
           <!-- Sidebar Toggle (Topbar) -->
           <!-- <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
@@ -215,6 +215,12 @@
           </ul>
         </nav>
         <!-- End of Topbar -->
+        {% for message in messages %}
+        <div class='alert alert-{% if message.tags == "error" %}danger{%else%}{{message.tags}}{%endif%} alert-dismissible fade show msg mx-3 mb-3' role="alert">
+          <b>{{message.tags}} </b>{{ message }}
+          <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
 
         {% block body %} {% endblock body%}
       </div>

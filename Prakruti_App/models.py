@@ -16,11 +16,11 @@ class Users(models.Model):
 
 class Appointments(models.Model):
     U_id = models.BigIntegerField(default=0)
-    Date = models.DateField()
+    Date = models.DateField(null=True)
     TimeSlot = models.CharField(max_length=20, default='')
     Status_A = models.BooleanField(default=False)
     Status_R = models.BooleanField(default=False)
-    P_med = models.CharField(max_length=20, default='', null=True)
+    P_med = models.TextField(default='')
 
 
 class M_remedy(models.Model):
@@ -66,3 +66,10 @@ class Med_per_ord(models.Model):
 class Cart(models.Model):
     Username = models.CharField(max_length=20, default='')
     p_id = models.IntegerField(default=0)
+    
+class Prakruti_Quetions(models.Model):
+    que = models.TextField(default='')
+    choice1 = models.TextField(default='')
+    choice2 = models.TextField(default='')
+    choice3 = models.TextField(default='')
+    choice4 = models.TextField(default='')

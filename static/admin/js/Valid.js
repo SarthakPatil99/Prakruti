@@ -119,14 +119,14 @@ function transferHR(who) {
 }
 
 // data tranfer appt
-function transferApt() {
-  var PId = document.getElementById("PID");
+function transferApt(who) {
+  var ML_aptid = document.getElementById("ML_aptid"); //lable
+  var MI_aptid = document.getElementById("MI_aptid"); //hidd input
   var Name = document.getElementById("Name");
-  var Pid = document.getElementById("Pid");
 
-  PId.value = document.getElementById("pid").innerHTML;
-  Pid.innerHTML = document.getElementById("pid").innerHTML;
-  Name.innerHTML = document.getElementById("name").innerHTML;
+  ML_aptid.innerHTML = who;
+  MI_aptid.value = who;
+  Name.innerHTML = document.getElementById("name"+who).innerHTML;
 }
 
 // data tranfer Edit Details
@@ -445,9 +445,8 @@ function getday(DAY) {
   }
   // DAY.value;
 }
-function dayReset() {
-  document.getElementById("apptID").value =
-    document.getElementById("pid").innerHTML;
+function dayReset(who) {
+  document.getElementById("apptID").value = who;
   document.getElementById("Day").value = "0";
   document.getElementById("submit").disabled = false;
   dayChoose();
