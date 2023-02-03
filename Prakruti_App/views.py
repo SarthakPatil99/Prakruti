@@ -457,15 +457,8 @@ def patients(request):
         except MultiValueDictKeyError:
             print("Book Appointment: ",MultiValueDictKeyError)
 
-    #     try:
-    #         if request.POST['book']:
-    #             # appintment booking code
-    #             pass
-    #     except MultiValueDictKeyError:
-    #         print(MultiValueDictKeyError)
-    # view
-    
     for Pt in Pts:
+        id = Pt.pk
         Pt_ext = User.objects.filter(username=Pt.UserName)
         if Pt_ext:
             new_pt = vars(Pt)
@@ -479,15 +472,16 @@ def patients(request):
             new_pt.pop('is_active')
             new_pt.pop('date_joined')
             new_pt.pop('UserName')
+            new_pt['id'] = id
             new_pts.append(new_pt)
-
+    print(new_pts)
     return render(request, 'admin/patients.html', {'patients': new_pts})
 
 
 def appointments(request):
     new_apts = []
     if request.method == 'POST':
-        # print(request.POST)
+        print(request.POST)
         try:
             if request.POST['search']:
                 if request.POST['srch'] == '1':
@@ -502,81 +496,89 @@ def appointments(request):
                             print(string,strs)
                             if string in strs:
                                 new_apt = vars(Apt)
-                                new_apt['full_name'] = Pt.first_name+' ' + \
-                                    Pt_ext.Middle_name+' '+Pt.last_name
-                                new_apt['email'] = Pt.email
-                                new_apt['phno'] = Pt_ext.Phone_No
-                                new_apt['age'] = Pt_ext.Age
-                                new_apt['gender'] = Pt_ext.Gender
+                                new_apt['full_name'] = Pt_ext.first_name+' ' + \
+                                    Pt.Middle_name+' '+Pt_ext.last_name
+                                new_apt['email'] = Pt_ext.email
+                                new_apt['phno'] = Pt.Phone_No
+                                new_apt['age'] = Pt.Age
+                                new_apt['gender'] = Pt.Gender
                                 new_apt.pop('_state')
                                 new_apts.append(new_apt)
                     return render(request, 'admin/appointments.html', {'Apts': new_apts})
                 if request.POST['srch'] == '2':
                     try:
-                        Apts = Appointments.objects.all()
-                        for Apt in Apts:
-                            Pts = Users.objects.get(pk = request.POST['search']).get(id=Apt.U_id)
-                            for Pt in Pts:
-                                Pt_ext = User.objects.get(username=Pt.UserName)
-                                new_apt = vars(Apt)
-                                new_apt['full_name'] = Pt.first_name+' ' + \
-                                    Pt_ext.Middle_name+' '+Pt.last_name
-                                new_apt['email'] = Pt.email
-                                new_apt['phno'] = Pt_ext.Phone_No
-                                new_apt['age'] = Pt_ext.Age
-                                new_apt['gender'] = Pt_ext.Gender
-                                new_apt.pop('_state')
-                                new_apts.append(new_apt)
+                        Apt = Appointments.objects.get(pk = int(request.POST['search']))
+                        Pt = Users.objects.get(pk=Apt.U_id)
+                        Pt_ext = User.objects.get(username=Pt.UserName)
+                        new_apt = vars(Apt)
+                        # print(new_apt)
+                        new_apt['full_name'] = Pt_ext.first_name+' ' +  Pt.Middle_name+' '+Pt_ext.last_name
+                        new_apt['email'] = Pt_ext.email
+                        new_apt['phno'] = Pt.Phone_No
+                        new_apt['age'] = Pt.Age
+                        new_apt['gender'] = Pt.Gender
+                        new_apt.pop('_state')
+                        new_apts.append(new_apt)
+                        print(new_apts)
                         return render(request, 'admin/appointments.html', {'Apts': new_apts})
                     except:
                         return render(request, 'admin/appointments.html', {'Apts': new_apts})
                 if request.POST['srch'] == '3':
-                    Apts = Appointments.objects.all()
+                    mail = str(request.POST['search'])
+                    Pt = User.objects.get(email__contains = mail.lower())
+                    Pt_ext = Users.objects.get(UserName=Pt.username)
+                    Apts = Appointments.objects.filter(U_id=Pt_ext.pk)
                     for Apt in Apts:
-                        Pts = Users.objects.filter(email__contains = request.POST['search']).get(id=Apt.U_id)
-                        for Pt in Pts:
-                            Pt_ext = User.objects.get(username=Pt.UserName)
-                            new_apt = vars(Apt)
-                            new_apt['full_name'] = Pt.first_name+' ' + \
-                                Pt_ext.Middle_name+' '+Pt.last_name
-                            new_apt['email'] = Pt.email
-                            new_apt['phno'] = Pt_ext.Phone_No
-                            new_apt['age'] = Pt_ext.Age
-                            new_apt['gender'] = Pt_ext.Gender
-                            new_apt.pop('_state')
-                            new_apts.append(new_apt)
+                        new_apt = vars(Apt)
+                        new_apt['full_name'] = Pt.first_name+' ' + \
+                            Pt_ext.Middle_name+' '+Pt.last_name
+                        new_apt['email'] = Pt.email
+                        new_apt['phno'] = Pt_ext.Phone_No
+                        new_apt['age'] = Pt_ext.Age
+                        new_apt['gender'] = Pt_ext.Gender
+                        new_apt.pop('_state')
+                        new_apts.append(new_apt)
                     return render(request, 'admin/appointments.html', {'Apts': new_apts})
                 if request.POST['srch'] == '4':
-                    Apts = Appointments.objects.all()
-                    for Apt in Apts:
-                        Pts = Users.objects.filter(Phone_No__contains = request.POST['search']).get(id=Apt.U_id)
-                        for Pt in Pts:
-                            Pt_ext = User.objects.get(username=Pt.UserName)
-                            new_apt = vars(Apt)
-                            new_apt['full_name'] = Pt.first_name+' ' + \
-                                Pt_ext.Middle_name+' '+Pt.last_name
-                            new_apt['email'] = Pt.email
-                            new_apt['phno'] = Pt_ext.Phone_No
-                            new_apt['age'] = Pt_ext.Age
-                            new_apt['gender'] = Pt_ext.Gender
-                            new_apt.pop('_state')
-                            new_apts.append(new_apt)
+                    Pts = Users.objects.filter(Phone_No__contains=request.POST['search'])
+                    print(Pts)
+                    for Pt in Pts:
+                        Pt_exts = User.objects.filter(username=Pt.UserName)
+                        print(Pt_exts)
+                        for Pt_ext in Pt_exts:
+                            Apts = Appointments.objects.filter(U_id=Pt.pk)
+                            for Apt in Apts:
+                                new_apt = vars(Apt)
+                                new_apt['full_name'] = Pt_ext.first_name + \
+                                    ' ' + Pt.Middle_name+' '+Pt_ext.last_name
+                                new_apt['email'] = Pt_ext.email
+                                new_apt['phno'] = Pt.Phone_No
+                                new_apt['age'] = Pt.Age
+                                new_apt['gender'] = Pt.Gender
+                                new_apt.pop('_state')
+                                new_apts.append(new_apt)
+                            print(new_apts)
                     return render(request, 'admin/appointments.html', {'Apts': new_apts})
                 if request.POST['srch'] == '5':
-                    Apts = Appointments.objects.all()
-                    for Apt in Apts:
-                        Pts = Users.objects.filter(Age__gte = request.POST['search']).get(id=Apt.U_id)
-                        for Pt in Pts:
-                            Pt_ext = User.objects.get(username=Pt.UserName)
-                            new_apt = vars(Apt)
-                            new_apt['full_name'] = Pt.first_name+' ' + \
-                                Pt_ext.Middle_name+' '+Pt.last_name
-                            new_apt['email'] = Pt.email
-                            new_apt['phno'] = Pt_ext.Phone_No
-                            new_apt['age'] = Pt_ext.Age
-                            new_apt['gender'] = Pt_ext.Gender
-                            new_apt.pop('_state')
-                            new_apts.append(new_apt)
+                    Pts = Users.objects.filter(
+                        Age__gte=request.POST['search'])
+                    print(Pts)
+                    for Pt in Pts:
+                        Pt_exts = User.objects.filter(username=Pt.UserName)
+                        print(Pt_exts)
+                        for Pt_ext in Pt_exts:
+                            Apts = Appointments.objects.filter(U_id=Pt.pk)
+                            for Apt in Apts:
+                                new_apt = vars(Apt)
+                                new_apt['full_name'] = Pt_ext.first_name + \
+                                    ' ' + Pt.Middle_name+' '+Pt_ext.last_name
+                                new_apt['email'] = Pt_ext.email
+                                new_apt['phno'] = Pt.Phone_No
+                                new_apt['age'] = Pt.Age
+                                new_apt['gender'] = Pt.Gender
+                                new_apt.pop('_state')
+                                new_apts.append(new_apt)
+                            print(new_apts)
                     return render(request, 'admin/appointments.html', {'Apts': new_apts})
         except MultiValueDictKeyError:
             print(MultiValueDictKeyError)
