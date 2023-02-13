@@ -139,17 +139,17 @@ function transferED() {
   var Age = document.getElementById("Age");
   var Gender = document.getElementById("Gender");
   var Prakruti = document.getElementById("Prakruti");
-
+  var Img = document.getElementById("Img");
   var gender = document.getElementById("gender").innerHTML;
 
   Fname.value = document.getElementById("fname").innerHTML;
   Mname.value = document.getElementById("mname").innerHTML;
   Lname.value = document.getElementById("lname").innerHTML;
-  Email.value = document.getElementById("emailP").innerHTML;
+  Email.value = document.getElementById("email").innerHTML;
   Phone.value = document.getElementById("phone").innerHTML;
+  Img.src = document.getElementById("dp").src
   Age.value = parseInt(document.getElementById("age").innerHTML);
   Prakruti.innerHTML = document.getElementById("prakruti").innerHTML;
-
   if (gender == "male") {
     Gender.value = "1";
   } else if (gender == "female") {

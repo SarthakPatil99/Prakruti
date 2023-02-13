@@ -2,7 +2,7 @@
 
 <!-- 
 {% block title%}
-Medicines
+Remedies
 {%endblock title%}
 
 {% block admin_title2%}
@@ -120,6 +120,19 @@ Medicines
       </div>
     </div>
   </form>
+  <div class="dropdown float-right mx-3 mb-3">
+    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false"> Sort via </button>
+    <form action="/home_remedies/" method="post">
+      <ul class="dropdown-menu" style="text-align: center;">
+        <li><button class="btn" name="sort" type="submit" value="Name"> Title </button></li>
+        <li><button class="btn" name="sort" type="submit" value="id"> ID </button> </li>
+        <!-- <button class="btn" name="sort" type="submit" value="Gender"> Gender </button>
+        <button class="btn" name="sort" type="submit" value="email"> EmailID </button>
+        <button class="btn" name="sort" type="submit" value="Phone_No"> Phone No. </button>
+        <button class="btn" name="sort" type="submit" value="P_Prakruti"> Prakruti </button> -->
+      </ul> {% csrf_token %}
+    </form>
+  </div>
 </div>
 
 <table class="table table-hover table-bordered">

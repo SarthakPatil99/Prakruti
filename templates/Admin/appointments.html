@@ -122,10 +122,17 @@ Appointments
     <div class="dropdown float-right mx-3 mb-3">
         <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown"
             aria-expanded="false"> Sort via </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Day</a></li>
-            <li><a class="dropdown-item" href="#">Status</a></li>
+    <form action="/patients/" method="post">
+        <ul class="dropdown-menu" style="text-align: center;">
+            <li><button class="btn" name="sort" type="submit" value="first_name"> Name </button></li>
+            <li><button class="btn" name="sort" type="submit" value="Age"> Age </button></li>
+            <li><button class="btn" name="sort" type="submit" value="Gender"> Gender </button></li>
+            <li><button class="btn" name="sort" type="submit" value="email"> EmailID </button></li>
+            <li><button class="btn" name="sort" type="submit" value="Phone_No"> Phone No. </button></li>
+            <li><button class="btn" name="sort" type="submit" value="Date"> Date </button></li>
         </ul>
+        {% csrf_token %}
+    </form>
     </div>
 </div>
 <table class="table table-hover table-bordered">

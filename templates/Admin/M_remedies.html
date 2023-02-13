@@ -147,11 +147,16 @@ Medicines
       aria-expanded="false">
       Sort via
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" href="#">Name</a></li>
-      <li><a class="dropdown-item" href="#">Quantity</a></li>
-      <li><a class="dropdown-item" href="#">Price</a></li>
-    </ul>
+    <form action="/medicine_remedies/" method="post">
+      <ul class="dropdown-menu" style="text-align: center;;">
+        <li><button class="btn" name="sort" type="submit" value="Name"> Name </button></li>
+        <li><button class="btn" name="sort" type="submit" value="id"> ID </button></li>
+        <li><button class="btn" name="sort" type="submit" value="Quantity"> Quantity </button></li>
+        <li><button class="btn" name="sort" type="submit" value="Price"> Price </button></li>
+        <!-- <button class="btn" name="sort" type="submit" value="Phone_No"> Phone No. </button>
+        <button class="btn" name="sort" type="submit" value="P_Prakruti"> Prakruti </button> -->
+      </ul> {% csrf_token %}
+    </form>
   </div>
 </div>
 

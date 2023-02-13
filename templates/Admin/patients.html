@@ -144,11 +144,16 @@ Patients
             aria-expanded="false">
             Sort via
         </button>
-        <form action="client" method="post">{% csrf_token %} <ul class="dropdown-menu" style="text-align: center;">
-                <button class="btn" name="sort" type="submit" value="All"> All </button>
-                <button class="btn" name="sort" type="submit" value="Verified"> Verified Bookings </button>
-                <button class="btn" name="sort" type="submit" value="N_Verified"> Non-Verified bookings </button>
+        <form action="/patients/" method="post"> 
+            <ul class="dropdown-menu" style="text-align: center;">
+                <li><button class="btn" name="sort" type="submit" value="first_name"> Name </button></li>
+                <li><button class="btn" name="sort" type="submit" value="Age"> Age </button></li>
+                <li><button class="btn" name="sort" type="submit" value="Gender"> Gender </button></li>
+                <li><button class="btn" name="sort" type="submit" value="email"> EmailID </button></li>
+                <li><button class="btn" name="sort" type="submit" value="Phone_No"> Phone No. </button></li>
+                <li><button class="btn" name="sort" type="submit" value="P_Prakruti"> Prakruti </button></li>
             </ul>
+            {% csrf_token %}
         </form>
     </div>
 </div>
@@ -185,7 +190,9 @@ Patients
                 </a>
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                     style="width: 200px; font-size: medium;">
-                    <b class="ms-3"><a href="/A_profile" style="text-decoration: none;">View Patient's History</a></b>
+                        <form action="/A_profile/" method="post">
+                            <button type="submit" name='patient_id' class="dropdown-item text-primary" value="{{ patient.id }}">View Patient's History</button> {% csrf_token %}
+                        </form>
                 </div>
             </div>
         </td>

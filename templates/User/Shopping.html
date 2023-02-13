@@ -56,10 +56,13 @@
         </div>
         <div>
           <form action="/shopping/" method="post">
-            <button type="submit" name="submit" id= "submit" value="" href="/shopping/" class="btn bg-gray-300 me-2 text-center" style="border-radius: 10px;">
+            <button type="submit" name="cart" id= "cart" value="" class="btn bg-gray-300 me-2 text-center" style="border-radius: 10px;">
               <i class="fas fa-cart-plus" style="font-size: larger;"></i>
-            </button> {% csrf_token %}
-            <a href="/cart/" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;"> Buy Now </a>
+            </button>
+            <button type="submit" name="buy_now" id="buy_now" value="" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;">
+              Buy Now
+            </button>
+            {% csrf_token %}
           </form>
         </div>
       </div>

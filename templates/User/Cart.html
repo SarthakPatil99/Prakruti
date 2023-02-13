@@ -15,8 +15,15 @@
 {% endblock nav_links%}
 
 {% block body %}
+
 <form action="#" method="post">
     <div style="margin-top: 100px !important; margin-bottom: 70px;">
+        <div class="myContainer ms-4">
+            <div class="section-header head">
+                <h3 class="section-title cta-title fw-bold text-white">Your cart</h3>
+                <span class="section-dividerR ms-4">
+            </div>
+        </div>
         {%for item in Cart%}
         <div class="row bg-white p-2 m-2 mx-5" style="border-radius: 5px;">
             <div class="col-1 text-center">
@@ -71,16 +78,16 @@
             <hr style="width: 90%; border: 1px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin: 10px;">
         </center>
 
-        <div class="row bg-white p-2 m-2 mx-5" style="border-radius: 5px; ">
+        <div class="row bg-white p-2 pt-3 mx-5" style="border-radius: 5px; ">
             <div class="col-10" style="text-align:justify">
-                <label for="Title"><b>Total Amount(₹): </b></label>
+                <label for="Title"><b>Total Amount (₹): </b></label>
             </div>
             <div class="col-2">
                 200
             </div>
         </div>
-        <a href="#" class="btn btn-warning text-gray-800 mt-2 me-5 float-right" data-bs-toggle="collapse"
-            data-bs-target="#collapseExample">
+        <a class="btn btn-warning text-white mt-3 me-5 float-right" 
+            data-bs-toggle="collapse" data-bs-target="#collapseExample">
             Checkout
         </a>
     </div>

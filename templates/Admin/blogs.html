@@ -114,11 +114,16 @@ Blogs
       aria-expanded="false">
       Sort via
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" href="#">Title</a></li>
-      <li><a class="dropdown-item" href="#">Day</a></li>
-      <li><a class="dropdown-item" href="#">Type</a></li>
-    </ul>
+    <form action="/blogs/" method="post">
+      <ul class="dropdown-menu" style="text-align: center;">
+        <li><button class="btn" name="sort" type="submit" value="Title"> Title </button></li>
+        <li><button class="btn" name="sort" type="submit" value="Date"> Date </button></li>
+        <!-- <button class="btn" name="sort" type="submit" value="Gender"> Gender </button>
+        <button class="btn" name="sort" type="submit" value="email"> EmailID </button>
+        <button class="btn" name="sort" type="submit" value="Phone_No"> Phone No. </button>
+        <button class="btn" name="sort" type="submit" value="P_Prakruti"> Prakruti </button> -->
+      </ul> {% csrf_token %}
+    </form>
   </div>
 </div>
 
