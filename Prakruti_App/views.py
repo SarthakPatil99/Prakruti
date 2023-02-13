@@ -517,6 +517,7 @@ def patients(request):
     else:
         Pts = Users.objects.all().order_by(jinja['pt_sort'])
     for Pt in Pts:
+        id = Pt.pk
         if(jinja['pt_sort']=='first_name' or jinja['pt_sort']=='email'):
             Pt_ext = Users.objects.get(UserName=Pt.username)
         else:
@@ -532,8 +533,10 @@ def patients(request):
             new_pt.pop('is_active')
             new_pt.pop('date_joined')
             new_pt.pop('UserName')
+            new_pt['id'] = id
             new_pts.append(new_pt)
     print("sorting by ",jinja['pt_sort'],new_pts)
+    print(new_pts)
     return render(request, 'admin/patients.html', {'patients': new_pts})
 
 
@@ -555,35 +558,35 @@ def appointments(request):
                             print(string,strs)
                             if string in strs:
                                 new_apt = vars(Apt)
-                                new_apt['full_name'] = Pt.first_name+' ' + \
-                                    Pt_ext.Middle_name+' '+Pt.last_name
-                                new_apt['email'] = Pt.email
-                                new_apt['phno'] = Pt_ext.Phone_No
-                                new_apt['age'] = Pt_ext.Age
-                                new_apt['gender'] = Pt_ext.Gender
+                                new_apt['full_name'] = Pt_ext.first_name+' ' + \
+                                    Pt.Middle_name+' '+Pt_ext.last_name
+                                new_apt['email'] = Pt_ext.email
+                                new_apt['phno'] = Pt.Phone_No
+                                new_apt['age'] = Pt.Age
+                                new_apt['gender'] = Pt.Gender
                                 new_apt.pop('_state')
                                 new_apts.append(new_apt)
                     return render(request, 'admin/appointments.html', {'Apts': new_apts})
                 if request.POST['srch'] == '2':
                     try:
-                        Apt = Appointments.objects.get(id = request.POST['search'])
-                        Pts = Users.objects.get(pk = Apt.U_id)
-                        for Pt in Pts:
-                            Pt_ext = User.objects.get(username=Pt.UserName)
-                            new_apt = vars(Apt)
-                            new_apt['full_name'] = Pt.first_name+' ' + \
-                                Pt_ext.Middle_name+' '+Pt.last_name
-                            new_apt['email'] = Pt.email
-                            new_apt['phno'] = Pt_ext.Phone_No
-                            new_apt['age'] = Pt_ext.Age
-                            new_apt['gender'] = Pt_ext.Gender
-                            new_apt.pop('_state')
-                            new_apts.append(new_apt)
+                        Apt = Appointments.objects.get(pk = request.POST['search'])
+                        Pt = Users.objects.get(pk = Apt.U_id)
+                        Pt_ext = User.objects.get(username=Pt.UserName)
+                        new_apt = vars(Apt)
+                        new_apt['full_name'] = Pt.first_name+' ' + \
+                            Pt_ext.Middle_name+' '+Pt.last_name
+                        new_apt['email'] = Pt.email
+                        new_apt['phno'] = Pt_ext.Phone_No
+                        new_apt['age'] = Pt_ext.Age
+                        new_apt['gender'] = Pt_ext.Gender
+                        new_apt.pop('_state')
+                        new_apts.append(new_apt)
                         return render(request, 'admin/appointments.html', {'Apts': new_apts})
                     except:
                         return render(request, 'admin/appointments.html', {'Apts': new_apts})
                 if request.POST['srch'] == '3':
-                    Pts = User.objects.filter(email__contains = request.POST['search'])
+                    mail = str(request.POST['search'])
+                    Pts = User.objects.filter(email__contains = mail.lower())
                     for Pt in Pts:
                         Pt_ext = Users.objects.get(UserName=Pt.username)
                         Apts = Appointments.objects.filter(U_id = Pt_ext.pk)
@@ -629,7 +632,7 @@ def appointments(request):
                             new_apt['gender'] = Pt.Gender
                             new_apt.pop('_state')
                             new_apts.append(new_apt)
-                            new_apts.append(new_apt)
+                        print(new_apts)
                     return render(request, 'admin/appointments.html', {'Apts': new_apts})
         except MultiValueDictKeyError:
             print('searching',MultiValueDictKeyError)
