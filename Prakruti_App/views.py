@@ -187,15 +187,23 @@ def recommend(request):
 def shopping(request):
     if request.POST:
         print(request.POST)
-        if request.POST['buy_now']:
-            new_cart = Cart(Username= request.user.username,p_id=request.POST['buy_now'])
-            new_cart.save()
-            print("item added to cart")
-            return redirect('/cart/')
-        if request.POST['cart']:
-            new_cart = Cart(Username= request.user.username,p_id=request.POST['cart'])
-            new_cart.save()
-            print("item added to cart")
+        try:
+            if request.POST['buy_now']:
+                new_cart = Cart(Username= request.user.username,p_id=request.POST['buy_now'])
+                new_cart.save()
+                print("item added to cart")
+                return redirect('/cart/')
+        except MultiValueDictKeyError:
+            print("Buy now: ", MultiValueDictKeyError)
+
+        try:
+            if request.POST['cart']:
+                new_cart = Cart(Username= request.user.username,p_id=request.POST['cart'])
+                new_cart.save()
+                messages.success(request, 'Item added to cart.')
+                print("item added to cart")
+        except MultiValueDictKeyError:
+            print("Cart: ", MultiValueDictKeyError)
 
     pds = M_remedy.objects.all()
     return render(request, 'user/Shopping.html',{'prods':pds})
