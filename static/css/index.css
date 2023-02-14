@@ -148,7 +148,7 @@ h6 {
     max-height: 40px;
   }
 }
-
+/* 
 #header.header-fixed {
   background: linear-gradient(45deg, #1de099, #1dc8cd);
   padding: 20px 0;
@@ -158,13 +158,19 @@ h6 {
 
 #header #navbarSupportedContent {
   margin-left: 20px;
-}
+} */
 
 #header li a {
   color: white !important;
   font-size: larger;
   font-weight: 500;
   font-stretch: ultra-expanded;
+}
+
+/*msg*/
+
+.msg{
+  display: grid;
 }
 
 /*--------------------------------------------------------------
@@ -806,31 +812,31 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 /* Call To Action Section
   --------------------------------*/
-#call-to-action {
+#book {
   background: linear-gradient(rgba(29, 200, 205, 0.65), rgba(29, 205, 89, 0.2)), url(../img/call-to-action-bg.jpg) fixed center center;
   background-size: cover;
   padding: 80px 0;
 }
 
-#call-to-action .cta-title {
+#book .cta-title {
   color: #fff;
   font-size: 28px;
   font-weight: 700;
 }
 
-#call-to-action .cta-text {
+#book .cta-text {
   color: #fff;
 }
 
 @media (min-width: 769px) {
-  #call-to-action .cta-btn-container {
+  #book .cta-btn-container {
     display: flex;
     align-items: center;
     justify-content: flex-end;
   }
 }
 
-#call-to-action .cta-btn {
+#book .cta-btn {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -844,7 +850,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #fff;
 }
 
-#call-to-action .cta-btn:hover {
+#book .cta-btn:hover {
   background: #1dc8cd;
   border: 2px solid #1dc8cd;
 }
@@ -1366,7 +1372,6 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: linear-gradient(0deg, #1dc8cd 0%, #55fabe 100%);
   margin: 0 auto;
   margin-bottom: 20px;
-  margin-left: 30px;
 }
 
 .myContainer .section-header .section-dividerO {
@@ -1396,27 +1401,26 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 
 .Q_Form {
-  margin: 10px;
+  margin: auto;
+  margin-bottom: 20px;
   align-items: center;
-  width: fit-content;
-  padding: 5px 10px;  
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, .8);
+  width:80% !important;
+  height: fit-content;
+  background-color: rgba(255, 255, 255, 0.693);
   box-shadow: 2px 2px 10px -4px #000;
-  border: solid !important;
-  border-color: rgb(255, 204, 0) !important;
+  font-family: 'Brush Script MT', cursive;
+  border: 3px solid rgb(141, 141, 141);
 }
 
 .webcam {
   margin-top: 110px;
   align-items: center;
-  width: fit-content;
-  padding: 30px;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, .8);
+  width:80% !important;
+  height: fit-content;
+  background-color: rgba(255, 255, 255, 0.693);
   box-shadow: 2px 2px 10px -4px #000;
-  border: solid !important;
-  border-color: rgb(255, 204, 0) !important;
+  font-family: 'Brush Script MT', cursive;
+  border: 3px solid rgb(141, 141, 141);
 }
 
 
@@ -1455,3 +1459,88 @@ body.mobile-nav-active #mobile-nav-toggle {
   border: 2px solid #fff;
   color: #fff;
 }
+
+/* ques */
+
+.question {
+  width: 100%;
+}
+
+.options {
+  position: relative;
+  padding-left: 40px;
+}
+
+#options label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.options input {
+  opacity: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #555;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+}
+
+.options input:checked~.checkmark:after {
+  display: block;
+}
+
+.options .checkmark:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  display: block;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 300ms ease-in-out 0s;
+}
+
+.options input[type="radio"]:checked~.checkmark {
+  background: #21bf73;
+  transition: 300ms ease-in-out 0s;
+}
+
+.options input[type="radio"]:checked~.checkmark:after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.btn-primary {
+  /* background-color: #555; */
+  color: #ddd;
+  border: 1px solid #ddd;
+}
+
+.btn-primary:hover {
+  background-color: #21bf73;
+  border: 1px solid #21bf73;
+}
+
+.btn-success {
+  padding: 5px 25px;
+  background-color: #21bf73;
+}
+
+@media(max-width:576px) {
+  .question {
+    width: 100%;
+    word-spacing: 2px;
+  }
+}
+
+/* shopping */

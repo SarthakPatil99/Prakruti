@@ -1,193 +1,125 @@
-{%extends 'base.html'%} {% load static %} {% block title%} Shopping
-{%endblock title%} {% block body %}
-<div class="mainContainer">
-  <!-- <NW_Recomender /> -->
-  <center>
-    <div class="myContainer">
-      <div class="section-header head">
-        <h3 class="section-title cta-title">Recommended</h3>
-        <span class="section-dividerR" />
+{%extends 'base.html'%}
+{% block background%}
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+{% endblock background%}
+{% block title%} Shopping {%endblock title%}
+{% block nav_links%}
+<li class="menu-active nav-item">
+  <a class="nav-link" href="/">Home</a>
+</li>
+<li class="menu-active nav-item">
+  <a class="nav-link" href="/analyze">Analyzer</a>
+</li>
+{% endblock nav_links%}
+
+{% block body %}  
+
+<!-- Body below -->
+<div class="offcanvas offcanvas-bottom mx-5"
+  style="height:fit-content; border-top-left-radius: 10px; border-top-right-radius: 10px;" id="offcanvasBottom"
+  aria-labelledby="offcanvasBottomLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fw-bold text-warning" id="PName">Product Name</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body px-5 pb-4">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-4 mb-2 mb-lg-0">
+        <center>
+          <img src="../static/admin/img/undraw_posting_photo.svg" style="width: 100%; border-radius: 5px;"
+            alt="Italian Trulli" id="PImage"> 
+        </center>
       </div>
-      <div class="row" data-aos="fade-up">
-        <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
-          <div class="card" style="width: 18rem; border-radius: 15px">
-            <img
-              src=""
-              class="card-img-top"
-              alt="..."
-              style="border-radius: 15px"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Product name</h5>
-              <p class="card-text">
-                Some quick product information to show on the card title and
-                make up the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary" style="border-radius: 10px">
-                View Product
-              </a>
-            </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        <label for="Title"><b>Discription: </b></label>
+        <p class="mb-2" style="text-align: justify;" id="PDesc">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae aspernatur, modi voluptate molestiae amet
+          ipsa laudantium nihil magni minima, eaque, sapiente mollitia expedita unde fugiat sit deleniti officia magnam
+          quos.
+        </p>
+        <div class="row">
+          <div class="col-6">
+            <label for="Title"><b>Contents: </b></label>
+            <p class="mb-2" id="PContents">
+              sdasdasdasd,
+              asdasdasd,
+              asdasdasdasd,
+              asdasd.
+            </p>
+          </div>
+          <div class="col-6">
+            <b>Price(₹): </b><label id="Price">200</label><br/>
+            <b>Quantity: </b><label id="Quantity">200</label>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
-          <div class="card" style="width: 18rem; border-radius: 15px">
-            <img
-              src=""
-              class="card-img-top"
-              alt="..."
-              style="border-radius: 15px"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Product name</h5>
-              <p class="card-text">
-                Some quick product information to show on the card title and
-                make up the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary" style="border-radius: 10px">
-                View Product
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
-          <div class="card" style="width: 18rem; border-radius: 15px">
-            <img
-              src=""
-              class="card-img-top"
-              alt="..."
-              style="border-radius: 15px"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Product name</h5>
-              <p class="card-text">
-                Some quick product information to show on the card title and
-                make up the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary" style="border-radius: 10px">
-                View Product
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
-          <div class="card" style="width: 18rem; border-radius: 15px">
-            <img
-              src=""
-              class="card-img-top"
-              alt="..."
-              style="border-radius: 15px"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Product name</h5>
-              <p class="card-text">
-                Some quick product information to show on the card title and
-                make up the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary" style="border-radius: 10px">
-                View Product
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <button class="btn"></button>
+        <div>
+          <form action="/shopping/" method="post">
+            <button type="submit" name="cart" id= "cart" value="" class="btn bg-gray-300 me-2 text-center" style="border-radius: 10px;">
+              <i class="fas fa-cart-plus" style="font-size: larger;"></i>
+            </button>
+            <button type="submit" name="buy_now" id="buy_now" value="" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;">
+              Buy Now
+            </button>
+            {% csrf_token %}
+          </form>
         </div>
       </div>
     </div>
-  </center>
-  <!-- <NW_Recomender /> -->
-  <center>
-    <div class="myContainer">
-      <div class="section-header head">
-        <h3 class="section-title cta-title">Other Products</h3>
-        <span class="section-dividerO" />
-      </div>
-      <div class="row" data-aos="fade-up">
-        <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
-          <div class="card" style="width: 18rem; border-radius: 15px">
-            <img
-              src=""
-              class="card-img-top"
-              alt="..."
-              style="border-radius: 15px"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Product name</h5>
-              <p class="card-text">
-                Some quick product information to show on the card title and
-                make up the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary" style="border-radius: 10px">
-                View Product
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
-          <div class="card" style="width: 18rem; border-radius: 15px">
-            <img
-              src=""
-              class="card-img-top"
-              alt="..."
-              style="border-radius: 15px"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Product name</h5>
-              <p class="card-text">
-                Some quick product information to show on the card title and
-                make up the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary" style="border-radius: 10px">
-                View Product
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
-          <div class="card" style="width: 18rem; border-radius: 15px">
-            <img
-              src=""
-              class="card-img-top"
-              alt="..."
-              style="border-radius: 15px"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Product name</h5>
-              <p class="card-text">
-                Some quick product information to show on the card title and
-                make up the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary" style="border-radius: 10px">
-                View Product
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6" style="margin-bottom: 10px">
-          <div class="card" style="width: 18rem; border-radius: 15px">
-            <img
-              src=""
-              class="card-img-top"
-              alt="..."
-              style="border-radius: 15px"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Product name</h5>
-              <p class="card-text">
-                Some quick product information to show on the card title and
-                make up the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary" style="border-radius: 10px">
-                View Product
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <button class="btn"></button>
+  </div>
+</div>
+
+<div class="mainContainer mx-md-4">
+
+  <div class="myContainer">
+    <div class="section-header head">
+      <h3 class="section-title cta-title fw-bold text-white">Recommended</h3>
+      <span class="section-dividerR ms-4">
+    </div>
+  </div>
+
+  <div class="row m-1 px-5 px-md-0 px-lg-0">
+    {%for prod in prods%}
+    <div class="col-12 col-md-4 col-lg-3 mt-2">
+      <div class="card" style="border-radius: 15px; border-color: gray;" onclick="passPD({{prod.pk}})"
+        data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
+        <img src="../static/admin/img/undraw_posting_photo.svg{{prod.Img}}" class="card-img-top p-3" alt="..."
+          style="width: auto; max-height: 190px; border-radius: 15px" id="pimage{{prod.pk}}"/>
+        <div class="card-body pb-0 pt-2 px-2 text-center bg-secondary"
+          style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+          <h5 class="card-title fw-bold text-warning" id="name{{prod.pk}}">{{prod.Name}}</h5>
+          <input type="hidden" id="desc{{prod.pk}}" value="{{prod.Desc}}">
+          <input type="hidden" id="cont{{prod.pk}}" value="{{prod.Content}}">
+          <input type="hidden" id="price{{prod.pk}}" value="{{prod.Price}}">
+          <input type="hidden" id="quantity{{prod.pk}}" value="{{prod.Quantity}}">
         </div>
       </div>
     </div>
-  </center>
+    {%endfor%}
+  </div>
+
+
+  <div class="myContainer">
+    <div class="section-header head">
+      <h3 class="section-title cta-title fw-bold text-white">Also Look</h3>
+      <span class="section-dividerR ms-2">
+    </div>
+  </div>
+
+  <div class="row m-1 mb-5 px-5 px-md-0 px-lg-0">
+    <div class="row m-1 px-5 px-md-0 px-lg-0"> {%for prod in prods%} <div class="col-12 col-md-4 col-lg-3 mt-2">
+        <div class="card" style="border-radius: 15px; border-color: gray;" onclick="passPD({{prod.pk}})" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
+          <img src="../static/admin/img/undraw_posting_photo.svg{{prod.Img}}" class="card-img-top p-3" alt="..." style="width: auto; max-height: 190px; border-radius: 15px" id="pimage{{prod.pk}}" />
+          <div class="card-body pb-0 pt-2 px-2 text-center bg-secondary" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+            <h5 class="card-title fw-bold text-warning" id="name{{prod.pk}}">{{prod.Name}}</h5>
+            <input type="hidden" id="desc{{prod.pk}}" value="{{prod.Desc}}">
+            <input type="hidden" id="cont{{prod.pk}}" value="{{prod.Content}}">
+            <input type="hidden" id="price{{prod.pk}}" value="{{prod.Price}}">
+            <input type="hidden" id="quantity{{prod.pk}}" value="{{prod.Quantity}}">
+          </div>
+        </div>
+      </div> {%endfor%} </div>
+  </div>
 </div>
 {% endblock body%}

@@ -1,2 +1,6 @@
-__pycache__/
+*/__pycache__
+*.pyc
+*/settings.py
+*/__init__.py
+*.pyc
 *.pyc

@@ -16,12 +16,37 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Prakruti_App import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.index, name='landing'),
-    path("signup/", views.signup, name='signup'),
+    path("signup/", views.signup and views.handleSignUp, name='signup'),
+    path('login', views.handleLogin, name='handleLogin'),
+    path('logout', views.handleLogout, name='handleLogout'),
+    path("chPass", views.chPass, name='chPass'),
     path("home/", views.home, name='home'),
+    path('mailCheck/', views.mailVerify),
+    path('unameCheck/', views.unameVerify),
+    
+    # user
     path("analyze/", views.analyze, name='analysis'),
     path("recommend/", views.recommend, name='recommender'),
     path("shopping/", views.shopping, name='shopping'),
+    path("cart/", views.cart, name='cart'),
+    path("our_blogs/", views.our_blogs, name='our_blogs'),
+
+    # admin
+    path("dashboard/", views.dashboard, name='dashboard'),
+    path("patients/", views.patients, name='patients'),
+    path("appointments/", views.appointments, name='appointments'),
+    path("medicine_remedies/", views.M_remedies, name='M_remedies'),
+    path("home_remedies/", views.H_remedies, name='H_remedies'),
+    path("blogs/", views.blogs, name='blogs'),
+    path("orders/", views.orders, name='orders'),
+    path("A_profile/", views.A_profile, name='A_profile'),
+    path("U_profile/", views.U_profile, name='U_profile'),
+    # path("dataInsert/", views.dataInsert, name='dataInsert'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

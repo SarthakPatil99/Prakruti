@@ -1,80 +1,138 @@
 {%extends 'base.html'%}
+{ % load static % } 
 
-{ % load static % }
-{% block title%}
-Sign Up
-{% endblock title%}
+<!--  
+{% block title%} 
+Sign Up 
+{% endblock title%} 
 
 {% block nav_links%}
 <li class="menu-active nav-item">
-    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/"> Home </a>
 </li>
-{% endblock nav_links%}
+{% endblock nav_links%} 
 
 {% block background%}
-    <div class="bg"></div>
-    <div class="bg bg2"></div>
-    <div class="bg bg3"></div>
-{% endblock background%}
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+{% endblock background%} 
+-->
 
 {% block body %}
 <div class="sign_up">
     <div class="row">
-        <div class="col-12 col-md-8 col-lg-7">
-            <div class="card" style="border-radius: 20px;">
-                <h1>Sign Up</h1>
-                <hr>
-                <form action="/signup" method="post" enctype="multipart/form-data">
-                    <label for="username" class="form-label"><b>Username:</b></label>
-                    <input type="Username" class="form-control mb-3" id="urname" placeholder="Enter username" name="urname" required>
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="card" style="border-radius: 30px;">
+                <h1>SIGN UP</h1>
+                <hr style="border: solid rgb(0, 170, 255);">
+
+                <form action="/signup/" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="username" class="form-label"> <b>User Name:</b> </label>
+                        </div>
+                        <div class="col-3">
+                            <label for="img" class="form-label"> <b>Your DP:</b> </label>
+                        </div>
+                    </div>
+                    <div class="row mb-3 me-2 ">
+                        <div class="col-9  mx-0">
+                            <div class="col-12 my-2">
+                                <input type="Username" class="form-control mb-3" id="urname" placeholder="Enter username" name="urname" onchange="validate_UName()" required>
+                            </div>
+                            <div id="signup_uname_exist" class="alert alert-danger fade show msg" role="alert" style="display :none;">
+                                <strong>USERNAME ALREADY EXIST</strong>
+                            </div>
+                            <div class="col-12 my-4">
+                                <input type="file" class="form-control mb-3" id="inFile" name="inFile" onchange="validateImage()" required>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <center>
+                                <img id="Img" name="img" src="../../static/img/about-img.jpg" height="120px" width="120px"
+                                    style="border-radius: 100%" />
+                            </center>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-12 col-md-6 col-lg-6">
                             <div class="mb-3">
                                 <label for="pwd" class="form-label"><b>Password:</b></label>
-                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
+                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" onfocusout="validate_pass()" required>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-6">
                             <div class="mb-3">
                                 <label for="confirm_pwd" class="form-label"><b>Confirm Password:</b></label>
-                                <input type="password" class="form-control" id="confirm_pwd" placeholder="Enter confirm password" name="confirm_pwd" required>
+                                <input type="password" class="form-control" id="confirm_pwd" placeholder="Enter confirm password" name="confirm_pwd" onfocusout="validate_cpass()" required>
                             </div>
                         </div>
+                    </div>
+                    <div id="signup_Pass_rules" style="display:none" class="alert alert-warning mx-4 py-1 px-2" role="alert">
+                        Password should be 8 - 16 characters wide<br/> And should contain<br/> 
+                        - Uppercase & Lowercase letters<br/>- Numbers and One special character
+                    </div>
+                    <div id="signup_passmtch" class="alert alert-danger mx-5" role="alert" style="display :none;">
+                        <strong>PASSWORDS DONT MATCH</strong>
                     </div>
 
                     <label for="name" class="form-label"><b>Full Name:</b></label>
                     <div class="row">
-                        <div class="col-12 col-md-6 col-lg-4 mb-3">
-                            <label for="fname" class="form-label">First:</label>
+                        <div class="col-12 col-md-12 col-lg-4 my-1">
                             <input type="first name" class="form-control" id="fname" placeholder="Enter First Name" name="fname" required>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-4 mb-3">
-                            <label for="mname" class="form-label">Middle:</label>
+                        <div class="col-12 col-md-12 col-lg-4 my-1">
                             <input type="middle name" class="form-control" id="mname" placeholder="Enter Middle Name" name="mname" required>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <label for="lname" class="form-label">Last:</label>
+                        <div class="col-12 col-md-12 col-lg-4 my-1">
                             <input type="last name" class="form-control" id="lame" placeholder="Enter Last Name" name="lname" required>
                         </div>
                     </div>
-                    
                     <div class="row">
-                        <div class="col-12 col-md-6 col-lg-6">
-                            <div class="mb-3 mt-3">
+                        <div class="col-6 col-md-6 col-lg-6">
+                                <label for="age" class="form-label"> <b>Age:</b> </label>
+                                <input type="number" class="form-control" id="Age" placeholder="Age" name="age"
+                                    onfocusout="validateAge()" required />
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6">
+                                <label for="Gender" class="form-label"> <b>Gender:</b> </label>
+                                <select class="form-select form-select-sm form-control"
+                                    aria-label=".form-select-sm example" placeholder="Select Gender" id="gender"
+                                    name="gender" onchange="validateGender()">
+                                    <option selected value="0">Select</option>
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                    <option value="3">Other</option>
+                                </select>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="my-2">
                                 <label for="email" class="form-label"><b>Email:</b></label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" onfocusout="validate_email()" required>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-6">
-                            <div class="mb-3 mt-3">
+                        <div id="signup_email_error" class="alert alert-danger fade show msg" role="alert" style="display :none;">
+                            <strong>INVALID EMAIL</strong>
+                        </div>
+                        <div id="signup_email_exist" class="alert alert-danger fade show msg" role="alert" style="display :none;">
+                            <strong>EMAIL ALREADY EXIST</strong>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="my-2">
                                 <label for="phone" class="form-label"><b>Phone Number:</b></label>
-                                <input type="phone" class="form-control" id="phone" placeholder="Enter Phone No." name="phone" required>
+                                <input type="phone" class="form-control" id="phone" placeholder="Enter Phone No." name="phone" onfocusout="validate_phone()" required>
                             </div>
                         </div>
                     </div>
+                    <div id="signup_phone_error" class="alert alert-danger fade show msg" role="alert" style="display :none;">
+                        <strong>INVALID PHONE</strong>
+                    </div>
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                    <button type="submit" id="Submit" class="btn btn-primary float-end mt-lg-3 mt-2 border-0 text-white">Sign Up</button>
                 </form>
             </div>
         </div>
@@ -82,7 +140,9 @@ Sign Up
 </div>
 {% endblock body%}
 
-{% block footer_navs%}
-<a href="" class="scrollto">Home</a>
-<a href="" class="scrollto">About</a>
-{% endblock footer_navs%}
+
+  {% block footer_navs%}
+    <a href="" class="scrollto">Home</a>
+    <a href="" class="scrollto">About</a>
+  {% endblock footer_navs%} 
+
