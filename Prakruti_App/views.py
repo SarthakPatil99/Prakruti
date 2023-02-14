@@ -1164,15 +1164,15 @@ def A_profile(request):
         print(request.FILES)
         try:
             if request.POST['submit']:
-                usr = Users.objects.get(id=request.POST['patient_id'])  
-                usr_ext = User.objects.get(username = usr.UserName)
-                usr_ext.first_name = request.POST['Fname']
-                usr.Middle_name = request.POST['Mname']
-                usr_ext.last_name = request.POST['Lname']
-                usr_ext.Email = request.POST['Email']
-                usr.Phone_No = request.POST['Phone']
-                usr.Gender = getGender(request.POST['Gender'])
-                usr.Age = request.POST['Age']
+                usr = User.objects.get(id=request.POST['patient_id'])  
+                usr_ext = Users.objects.get(UserName = usr.username)
+                usr.first_name = request.POST['Fname']
+                usr_ext.Middle_name = request.POST['Mname']
+                usr.last_name = request.POST['Lname']
+                usr.Email = request.POST['Email']
+                usr_ext.Phone_No = request.POST['Phone']
+                usr_ext.Gender = getGender(request.POST['Gender'])
+                usr_ext.Age = request.POST['Age']
                 try:
                     usr.P_Prakruti,usr.S_Prakruti = getPrakruti(request.POST['Prakruti'])
                 except:
@@ -1189,8 +1189,8 @@ def A_profile(request):
         except:
             pass
             
-        usr = Users.objects.get(id=request.POST['patient_id'])  
-        usr_ext = User.objects.get(username = usr.UserName)
+        usr = User.objects.get(id=request.POST['patient_id'])  
+        usr_ext = Users.objects.get(UserName = usr.username)
         Usrs = vars(usr)
         Usrs.update(vars(usr_ext))
         Usrs['admin'] = 0
