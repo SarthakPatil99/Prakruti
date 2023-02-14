@@ -39,7 +39,10 @@ Sign Up
                     <div class="row mb-3 me-2 ">
                         <div class="col-9  mx-0">
                             <div class="col-12 my-2">
-                                <input type="Username" class="form-control mb-3" id="urname" placeholder="Enter username" name="urname" required>
+                                <input type="Username" class="form-control mb-3" id="urname" placeholder="Enter username" name="urname" onchange="validate_UName()" required>
+                            </div>
+                            <div id="signup_uname_exist" class="alert alert-danger fade show msg" role="alert" style="display :none;">
+                                <strong>USERNAME ALREADY EXIST</strong>
                             </div>
                             <div class="col-12 my-4">
                                 <input type="file" class="form-control mb-3" id="inFile" name="inFile" onchange="validateImage()" required>
@@ -112,15 +115,18 @@ Sign Up
                                 <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" onfocusout="validate_email()" required>
                             </div>
                         </div>
+                        <div id="signup_email_error" class="alert alert-danger fade show msg" role="alert" style="display :none;">
+                            <strong>INVALID EMAIL</strong>
+                        </div>
+                        <div id="signup_email_exist" class="alert alert-danger fade show msg" role="alert" style="display :none;">
+                            <strong>EMAIL ALREADY EXIST</strong>
+                        </div>
                         <div class="col-12 col-md-12 col-lg-6">
                             <div class="my-2">
                                 <label for="phone" class="form-label"><b>Phone Number:</b></label>
                                 <input type="phone" class="form-control" id="phone" placeholder="Enter Phone No." name="phone" onfocusout="validate_phone()" required>
                             </div>
                         </div>
-                    </div>
-                    <div id="signup_email_error" class="alert alert-danger fade show msg" role="alert" style="display :none;">
-                        <strong>INVALID EMAIL</strong>
                     </div>
                     <div id="signup_phone_error" class="alert alert-danger fade show msg" role="alert" style="display :none;">
                         <strong>INVALID PHONE</strong>

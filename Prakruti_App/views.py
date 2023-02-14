@@ -83,6 +83,23 @@ def index(request):
 def signup(request):
     return render(request, 'signup.html')
 
+def mailVerify(request):
+    print("in email",request.GET)
+    if User.objects.filter(email = request.GET['email']):
+        print('Email exists')
+        return HttpResponse(True)
+    else:
+        print('Email does not exist')
+        return HttpResponse(False)
+
+def unameVerify(request):
+    print("in uname",request.GET)
+    if User.objects.filter(username = request.GET['uname']):
+        print('username exists')
+        return HttpResponse(True)
+    else:
+        print('username does not exist')
+        return HttpResponse(False)
 
 def handleSignUp(request):
     if request.method == 'POST':
@@ -97,15 +114,6 @@ def handleSignUp(request):
         age = request.POST['age']
         gender = getGender(request.POST['gender'])
         picture = request.FILES['inFile']
-        if User.objects.filter(username=urname):
-            messages.error(
-                request, "USERNAME ALREADY EXIST! PLEASE TRY SOME ANOTHER USERNAME")
-            return redirect('/signup')
-
-        if User.objects.filter(email=email):
-            messages.error(
-                request, "E-MAIL ALREADY EXIST! PLEASE TRY SOME ANOTHER E-MAIL")
-            return redirect('/signup')
 
         user = User.objects.create_user(
             username=urname, password=pwd, email=email, first_name=fname, last_name=lname)

@@ -1,17 +1,51 @@
 var btn = document.getElementById("Submit");
-
 //email phone valid
 function validate_email() {
   email = document.getElementById("email");
   var validRegex =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (validRegex.test(email.value)) {
-    email.style.border = "none";
-    btn.disabled = false;
+    $.ajax({
+      type: "GET",
+      url: "/mailCheck/",
+      data: { email: email.value },
+      success: function callback(response) {
+        /* do whatever with the response */
+        if (response == "True") {
+          btn.disabled = true;
+          document.getElementById("signup_email_exist").style.display = "block";
+          email.style.border = "1px solid red";
+        } else {
+          btn.disabled = false;
+          document.getElementById("signup_email_exist").style.display = "none";
+          email.style.border = "none";
+        }
+        console.log(response);
+      },
+    });
   } else {
     email.style.border = "1px solid red";
     btn.disabled = true;
   }
+}
+function validate_UName() {
+  var uname = document.getElementById('urname').value;
+  // console.log(uname);
+  $.ajax({
+    type: "GET",
+    url: "/unameCheck/",
+    data: { uname: uname },
+    success: function callback(response) {
+      /* do whatever with the response */
+      if (response == 'True') {
+        btn.disabled = true;
+        document.getElementById("signup_uname_exist").style.display = "block";
+      } else {
+        btn.disabled = false;
+        document.getElementById("signup_uname_exist").style.display = "none";
+      }
+    },
+  });
 }
 
 function validate_phone() {
