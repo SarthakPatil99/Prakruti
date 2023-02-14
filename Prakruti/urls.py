@@ -26,6 +26,8 @@ urlpatterns = [
     path('logout', views.handleLogout, name='handleLogout'),
     path("chPass", views.chPass, name='chPass'),
     path("home/", views.home, name='home'),
+    path('mailCheck/', views.mailVerify),
+    path('unameCheck/', views.unameVerify),
     
     # user
     path("analyze/", views.analyze, name='analysis'),

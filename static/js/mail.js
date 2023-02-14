@@ -5,8 +5,24 @@ function onBtn() {
   var validRegex =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (validRegex.test(email.value)) {
-    email.border = "none";
-    document.getElementById("OTPbtn").disabled = false;
+    $.ajax({
+      type: "GET",
+      url: "/mailCheck/",
+      data: { email: email.value },
+      success: function callback(response) {
+        /* do whatever with the response */
+        if (response == "False") {
+          document.getElementById("OTPbtn").disabled = true;
+          document.getElementById("email_not_exist").style.display = "block";
+          email.style.border = "1px solid red";
+        } else {
+          document.getElementById("OTPbtn").disabled = false;
+          document.getElementById("email_not_exist").style.display = "none";
+          email.style.border = "none";
+        }
+        console.log(response);
+      },
+    });
   } else {
     email.border = "1px solid red";
     document.getElementById("OTPbtn").disabled = true;
