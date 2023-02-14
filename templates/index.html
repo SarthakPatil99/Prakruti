@@ -1,4 +1,5 @@
-{%extends 'base.html'%} {% load static %} {%block title%} Landing Page {%endblock title%} {% block nav_links%} <li class="menu-active nav-item">
+{%extends 'base.html'%} {% load static %} {%block title%} Landing Page {%endblock title%} {% block nav_links%} <li
+  class="menu-active nav-item">
   <a class="nav-link" href="#intro">Home</a>
 </li>
 <li class="nav-item">
@@ -21,7 +22,66 @@
 </li>
 <li class="nav-item">
   <a class="nav-link" href="#contact">Contact Us</a>
-</li> {% endblock nav_links%} {%block body %} <!--==========================
+</li> {% endblock nav_links%} {%block body %} 
+
+
+<div class="offcanvas offcanvas-bottom mx-5"
+  style="height:fit-content; border-top-left-radius: 10px; border-top-right-radius: 10px;" id="offcanvasBottomP"
+  aria-labelledby="offcanvasBottomLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fw-bold text-warning" id="PName">Product Name</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body px-5 pb-4">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-4 mb-2 mb-lg-0">
+        <center>
+          <img src="../static/admin/img/undraw_posting_photo.svg" style="width: 100%; border-radius: 5px;"
+            alt="Italian Trulli" id="PImage">
+        </center>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        <label for="Title"><b>Discription: </b></label>
+        <p class="mb-2" style="text-align: justify;" id="PDesc">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae aspernatur, modi voluptate molestiae amet
+          ipsa laudantium nihil magni minima, eaque, sapiente mollitia expedita unde fugiat sit deleniti officia magnam
+          quos.
+        </p>
+        <div class="row">
+          <div class="col-6">
+            <label for="Title"><b>Contents: </b></label>
+            <p class="mb-2" id="PContents">
+              sdasdasdasd,
+              asdasdasd,
+              asdasdasdasd,
+              asdasd.
+            </p>
+          </div>
+          <div class="col-6">
+            <b>Price(₹): </b><label id="Price">200</label><br />
+            <b>Quantity: </b><label id="Quantity">200</label>
+          </div>
+        </div>
+        <div>
+          
+          {% if user.is_authenticated %}
+          <form action="/shopping/" method="post">
+            <button type="submit" name="submit" id="submit" value="" href="/shopping/"
+              class="btn bg-gray-300 me-2 text-center" style="border-radius: 10px;">
+              <i class="fas fa-cart-plus" style="font-size: larger;"></i>
+            </button> {% csrf_token %}
+            <a href="/cart/" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;"> Buy
+              Now </a>
+          </form>
+          {%else%}
+          <a data-bs-toggle="modal" data-bs-target="#loginModal" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;"> LOGIN </a> login to buy
+          {%endif%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--==========================
     Intro Section
   ============================-->
 <section id="intro">
@@ -52,7 +112,8 @@
       <div class="section-header">
         <h3 class="section-title">About Us</h3>
         <span class="section-divider"></span>
-        <p class="section-description"> Digital prakruti analysis and prediction for remedy<br /> Using advance Technology’s </p>
+        <p class="section-description"> Digital prakruti analysis and prediction for remedy<br /> Using advance
+          Technology’s </p>
       </div>
       <div class="row">
         <div class="col-lg-6 about-img" data-aos="fade-right">
@@ -84,87 +145,82 @@
     ============================-->
   <section id="shopping" class="section-bg" style="
       background-image: url(../static/img/call-to-action-bg.jpg);
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding-top: 40px;
+      padding-bottom: 40px;
     ">
     <center>
-      <div class="mainContainer mx-md-4">
-        <div class="section-header">
-          <h3 class="section-title cta-title" style="color: white"> Our Products </h3>
-          <span class="section-divider"></span>
-          <p class="section-description cta-text" style="color: white"> Sed ut perspiciatis unde omnis iste natus error sit
-            voluptatem accusantium doloremque </p>
-        </div>
-
+      <div class="section-header mt-2">
+        <h3 class="section-title cta-title" style="color: white"> Our Products </h3>
+        <span class="section-divider"></span>
+        <p class="section-description cta-text mb-0" style="color: white"> Sed ut perspiciatis unde omnis iste natus
+          error sit
+          voluptatem accusantium doloremque </p>
+      </div>
+      <div class="mainContainer mx-md-4 mt-1">
         <div class="row m-1 px-5 px-md-0 px-lg-0" data-aos="fade-up">
           <div class="col-12 col-md-4 col-lg-3 mt-2">
-            <div class="card" style="border-radius: 15px; border-color: gray;">
-              <img src="../static/img/landing_products/shopping_product_1.jpg" class="card-img-top p-3" alt="..."
-                style="width: auto; max-height: 190px; border-radius: 15px" />
+            <div class="card" style="border-radius: 15px; border-color: gray;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottomP">
+              <div style="height: 250px !important;">
+                <img src="../static/img/landing_products/shopping_product_1.jpg" class="card-img-top p-3" alt="..."
+                  style="width: auto; height: 100%; border-radius: 15px" />
+              </div>
               <div class="card-body py-3 px-2 text-center bg-secondary"
                 style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
                 <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-                <div class="text-end me-2">
-                  <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;"
-                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
-                    View
-                  </a>
-                </div>
               </div>
             </div>
           </div>
 
           <div class="col-12 col-md-4 col-lg-3 mt-2">
-            <div class="card" style="border-radius: 15px; border-color: gray;">
-              <img src="../static/img/landing_products/shopping_product_3.jpg" class="card-img-top p-3" alt="..."
-                style="width: auto; max-height: 190px; border-radius: 15px" />
+            <div class="card" style="border-radius: 15px; border-color: gray;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottomP">
+              <div style="height: 250px !important;">
+                <img src="../static/img/landing_products/shopping_product_3.jpg" class="card-img-top p-3" alt="..."
+                  style="width: auto; height: 100%; border-radius: 15px" />
+              </div>
               <div class="card-body py-3 px-2 text-center bg-secondary"
                 style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
                 <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-                <div class="text-end me-2">
-                  <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;"
-                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
-                    View
-                  </a>
-                </div>
               </div>
             </div>
           </div>
 
           <div class="col-12 col-md-4 col-lg-3 mt-2">
-            <div class="card" style="border-radius: 15px; border-color: gray;">
-              <img src="../static/img/landing_products/shopping_product_4.jpg" class="card-img-top p-3" alt="..."
-                style="width: auto; max-height: 190px; border-radius: 15px" />
+            <div class="card" style="border-radius: 15px; border-color: gray;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottomP">
+              <div style="height: 250px !important;">
+                <img src="../static/img/landing_products/shopping_product_4.jpg" class="card-img-top p-3" alt="..."
+                  style="width: auto; height: 100%; border-radius: 15px" />
+              </div>
               <div class="card-body py-3 px-2 text-center bg-secondary"
                 style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
                 <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-                <div class="text-end me-2">
-                  <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;"
-                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
-                    View
-                  </a>
-                </div>
               </div>
             </div>
           </div>
 
           <div class="col-12 col-md-4 col-lg-3 mt-2">
-            <div class="card" style="border-radius: 15px; border-color: gray;">
-              <img src="../static/img/landing_products/shopping_product_2.jpg" class="card-img-top p-3" alt="..."
-                style="width: auto; max-height: 190px; border-radius: 15px" />
+            <div class="card" style="border-radius: 15px; border-color: gray;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottomP">
+              <div style="height: 250px !important;">
+                <img src="../static/img/landing_products/shopping_product_2.jpg" class="card-img-top p-3" alt="..."
+                  style="width: auto; height: 100%; border-radius: 15px" />
+              </div>
               <div class="card-body py-3 px-2 text-center bg-secondary"
                 style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
                 <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-                <div class="text-end me-2">
-                  <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;"
-                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
-                    View
-                  </a>
-                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </center>
+    <center>
+      <div class="intro-text pb-4 mt-5">
+        <a href="/shopping" class="btn-get-started scrollto bg-gray-500 border-none text-white" style="font-weight: 700;"> More Products <svg
+            xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-arrow-right-circle"
+            viewBox="0 0 16 16" style="margin-left: 10px">
+            <path fillRule="evenodd"
+              d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+          </svg>
+        </a>
       </div>
     </center>
   </section>
@@ -203,12 +259,14 @@
               <h4 class="title">
                 <a href="">Medicine Remedies Recommendation</a>
               </h4>
-              <p class="description"> for fast recovery ,medicine and tonics also available and we recommend that medicine using prakruti prediction data. </p>
+              <p class="description"> for fast recovery ,medicine and tonics also available and we recommend that
+                medicine using prakruti prediction data. </p>
             </div>
             <div class="col-lg-6 col-md-6 box" data-aos="fade-left" data-aos-delay="300">
               <div class="icon"><i class="ion-ios-analytics-outline"></i></div>
               <h4 class="title"><a href="">Book Apointment</a></h4>
-              <p class="description"> Patients can book an appointment through online video conferencing or you can visit physically. </p>
+              <p class="description"> Patients can book an appointment through online video conferencing or you can
+                visit physically. </p>
             </div>
           </div>
         </div>
@@ -224,7 +282,8 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <img class="advanced-feature-img-right" src="../static/img/advanced-feature-1.jpg" alt="" data-aos="fade-left" />
+            <img class="advanced-feature-img-right" src="../static/img/advanced-feature-1.jpg" alt=""
+              data-aos="fade-left" />
             <div data-aos="fade-right">
               <h2> Analysis the Patient through Q & A Session and Face Recognition </h2>
               <h3>analysis patient using advanced technology.</h3>
@@ -256,7 +315,8 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <img class="advanced-feature-img-right" src="../static/img/advanced-feature-3.jpg" alt="" data-aos="fade-left" />
+            <img class="advanced-feature-img-right" src="../static/img/advanced-feature-3.jpg" alt=""
+              data-aos="fade-left" />
             <div data-aos="fade-right">
               <h2>Recommend Home Therapy & Meditation.</h2>
               <i class="ion-ios-paper-outline" data-aos="fade-left"></i>
@@ -291,7 +351,8 @@
             <div class="row">
               <div class="col-12 col-md-6 col-lg-6 mb-2">
                 <label for="name" class="form-label"> <b>Day :</b> </label>
-                <select class="form-select form-select-sm form-control" aria-label=".form-select-sm example" id="Day" name="Day" onchange="dayChoose()">
+                <select class="form-select form-select-sm form-control" aria-label=".form-select-sm example" id="Day"
+                  name="Day" onchange="dayChoose()">
                   <option selected value="0">Select</option>
                   <option value="1">Today</option>
                   <option value="2">Tomorrow</option>
@@ -306,15 +367,19 @@
             <div class="row mb-2" id="Appnts">
               <label for="name" class="form-label"><b>Available Appointments :</b> </label> <br />
               <div class="form-check ms-5">
-                <input class="form-check-input" type="radio" name="appnt" id="appnt1" value="Morning" onchange="showAppnt()">
+                <input class="form-check-input" type="radio" name="appnt" id="appnt1" value="Morning"
+                  onchange="showAppnt()">
                 <label class="form-check-label me-5" for="appnt1"> Morning </label>
-                <input class="form-check-input" type="radio" name="appnt" id="appnt2" value="Afternoon" onchange="showAppnt()">
+                <input class="form-check-input" type="radio" name="appnt" id="appnt2" value="Afternoon"
+                  onchange="showAppnt()">
                 <label class="form-check-label me-5" for="appnt2"> Afternoon </label>
-                <input class="form-check-input" type="radio" name="appnt" id="appnt3" value="Evening" onchange="showAppnt()">
+                <input class="form-check-input" type="radio" name="appnt" id="appnt3" value="Evening"
+                  onchange="showAppnt()">
                 <label class="form-check-label me-5" for="appnt3"> Evening </label>
               </div>
             </div>
-            <button type="submit" id="schedule" class="btn btn-warning text-white-500 mt-2 float-right"> Book </button> {% csrf_token %}
+            <button type="submit" id="schedule" class="btn btn-warning text-white-500 mt-2 float-right"> Book </button>
+            {% csrf_token %}
           </form>
         </div>
       </div>
@@ -324,9 +389,11 @@
       <div class="row">
         <div class="col-lg-9 text-center text-lg-left">
           <h3 class="cta-title">Book Appointment</h3>
-          <p class="cta-text"> By booking an appointment the doctor can easily schedule that particular patient according to schedule. </p>
+          <p class="cta-text"> By booking an appointment the doctor can easily schedule that particular patient
+            according to schedule. </p>
         </div> {% if user.is_authenticated %} <div class="col-lg-3 col-12 cta-btn-container text-center">
-          <a class="cta-btn align-middle" href="#" data-toggle="modal" data-target="#ReschModal" onclick="dayReset()">Book Now </a>
+          <a class="cta-btn align-middle" href="#" data-toggle="modal" data-target="#ReschModal"
+            onclick="dayReset()">Book Now </a>
         </div> {% else %} <div class="col-lg-3 col-12 cta-btn-container text-center">
           <a class="cta-btn align-middle" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Book Now </a>
         </div> {% endif %}
@@ -342,48 +409,65 @@
       <div class="section-header">
         <h3 class="section-title">Frequently Asked Questions</h3>
         <span class="section-divider"></span>
-        <p class="section-description"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </p>
+        <p class="section-description"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+          doloremque </p>
       </div>
       <ul id="faq-list" data-aos="fade-up">
         <li>
-          <a data-toggle="collapse" class="collapsed" href="#faq1">Non consectetur a erat nam at lectus urna duis? <i class="ion-android-remove"></i></a>
+          <a data-toggle="collapse" class="collapsed" href="#faq1">Non consectetur a erat nam at lectus urna duis? <i
+              class="ion-android-remove"></i></a>
           <div id="faq1" class="collapse" data-parent="#faq-list">
-            <p> Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non. </p>
+            <p> Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur
+              gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non. </p>
           </div>
         </li>
         <li>
-          <a data-toggle="collapse" href="#faq2" class="collapsed">Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque? <i class="ion-android-remove"></i></a>
+          <a data-toggle="collapse" href="#faq2" class="collapsed">Feugiat scelerisque varius morbi enim nunc faucibus a
+            pellentesque? <i class="ion-android-remove"></i></a>
           <div id="faq2" class="collapse" data-parent="#faq-list">
-            <p> Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium.
-              Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui. </p>
+            <p> Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id
+              donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium.
+              Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+            </p>
           </div>
         </li>
         <li>
-          <a data-toggle="collapse" href="#faq3" class="collapsed">Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi? <i class="ion-android-remove"></i></a>
+          <a data-toggle="collapse" href="#faq3" class="collapsed">Dolor sit amet consectetur adipiscing elit
+            pellentesque habitant morbi? <i class="ion-android-remove"></i></a>
           <div id="faq3" class="collapse" data-parent="#faq-list">
-            <p> Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus
-              pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis </p>
+            <p> Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum
+              integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus
+              pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu
+              facilisis sed odio morbi quis </p>
           </div>
         </li>
         <li>
-          <a data-toggle="collapse" href="#faq4" class="collapsed">Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla? <i class="ion-android-remove"></i></a>
+          <a data-toggle="collapse" href="#faq4" class="collapsed">Ac odio tempor orci dapibus. Aliquam eleifend mi in
+            nulla? <i class="ion-android-remove"></i></a>
           <div id="faq4" class="collapse" data-parent="#faq-list">
-            <p> Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium.
-              Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui. </p>
+            <p> Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id
+              donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium.
+              Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+            </p>
           </div>
         </li>
         <li>
-          <a data-toggle="collapse" href="#faq5" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="ion-android-remove"></i></a>
+          <a data-toggle="collapse" href="#faq5" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et
+            tortor consequat? <i class="ion-android-remove"></i></a>
           <div id="faq5" class="collapse" data-parent="#faq-list">
-            <p> Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing
+            <p> Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc
+              vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing
               bibendum est. Purus gravida quis blandit turpis cursus in </p>
           </div>
         </li>
         <li>
-          <a data-toggle="collapse" href="#faq6" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="ion-android-remove"></i></a>
+          <a data-toggle="collapse" href="#faq6" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel
+            pharetra vel turpis nunc eget lorem dolor? <i class="ion-android-remove"></i></a>
           <div id="faq6" class="collapse" data-parent="#faq-list">
-            <p> Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor
-              sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit
+            <p> Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada
+              nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor
+              sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas
+              egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit
               massa enim nec. </p>
           </div>
         </li>
@@ -398,7 +482,8 @@
     <div class="section-header pt-5">
       <h3 class="section-title">Blogs</h3>
       <span class="section-divider"></span>
-      <p class="section-description m-0"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </p>
+      <p class="section-description m-0"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+        doloremque </p>
     </div>
     <div class="row m-1 mb-3">
       <div class="col-12 col-md-6 col-lg-4 mt-3">
@@ -418,11 +503,16 @@
               </div>
             </div>
           </div>
-          <div class="card-body overflow-auto text-justify" style="max-height: 280px" onclick="passCont()" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" id="content"> This might be
-            useful if you want to prevent a large gap from appearing if there is just enough space for the string.Or, where there is another element that you would not want the break to happen
-            immediately after. In the example below there is a checkbox and label. Let's say, you want the label to break should it be too long for the box. However, you don't want it to break
-            directly after the checkbox. With supporting text below as a natural lead-in to additional content. However, you don't want it to break directly after the checkbox. With supporting text
-            below as a natural lead-in to additional content. However, you don't want it to break directly after the checkbox. With supporting text below as a natural lead-in to additional content.
+          <div class="card-body overflow-auto text-justify" style="max-height: 280px" onclick="passCont()"
+            data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" id="content"> This might be
+            useful if you want to prevent a large gap from appearing if there is just enough space for the string.Or,
+            where there is another element that you would not want the break to happen
+            immediately after. In the example below there is a checkbox and label. Let's say, you want the label to
+            break should it be too long for the box. However, you don't want it to break
+            directly after the checkbox. With supporting text below as a natural lead-in to additional content. However,
+            you don't want it to break directly after the checkbox. With supporting text
+            below as a natural lead-in to additional content. However, you don't want it to break directly after the
+            checkbox. With supporting text below as a natural lead-in to additional content.
           </div>
         </div>
       </div>
@@ -431,7 +521,8 @@
           <div class="card-header" style="background-color: #aaccff">
             <div class="row">
               <div class="col-9">
-                <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is overflowing text? <br />
+                <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is
+                  overflowing text? <br />
                   <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%">Image</span>
                   <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
                   <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
@@ -444,7 +535,8 @@
           </div>
           <div class="card-body col-12" style="min-height: 280px">
             <center>
-              <video id="Vdo" style="border-radius: 5px;width:100%" controls src="../../static/file_example_MP4_480_1_5MG.mp4" name="Vdo">
+              <video id="Vdo" style="border-radius: 5px;width:100%" controls
+                src="../../static/file_example_MP4_480_1_5MG.mp4" name="Vdo">
               </video>
             </center>
           </div>
@@ -455,7 +547,8 @@
           <div class="card-header" style="background-color: #aaccff">
             <div class="row">
               <div class="col-9">
-                <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is overflowing text? <br />
+                <div class="title d-lg-inline text-white" style="font-size: larger; font-weight: 630"> What is
+                  overflowing text? <br />
                   <span class="badge bg-secondary mb-1 text-uppercase" style="font-size: 55%">Image</span>
                   <span class="badge bg-success mb-1 text-uppercase" style="font-size: 55%">Video</span>
                   <span class="badge bg-warning mb-1 text-uppercase" style="font-size: 55%">Blog</span>
@@ -468,7 +561,8 @@
           </div>
           <div class="card-body" style="min-height: 280px">
             <center>
-              <img src="../../static/admin/img/undraw_posting_photo.svg" style="width: 100%; border-radius: 5px" alt="Italian Trulli" />
+              <img src="../../static/admin/img/undraw_posting_photo.svg" style="width: 100%; border-radius: 5px"
+                alt="Italian Trulli" />
             </center>
           </div>
         </div>
@@ -476,8 +570,9 @@
     </div>
     <center>
       <div class="intro-text pb-4">
-        <a href="/our_blogs" class="btn-get-started scrollto bg-gray-500 border-none"> More Blogs <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white"
-            class="bi bi-arrow-right-circle" viewBox="0 0 16 16" style="margin-left: 10px">
+        <a href="/our_blogs" class="btn-get-started scrollto bg-gray-500 border-none text-white" style="font-weight: 700;"> More Blogs <svg
+            xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-arrow-right-circle"
+            viewBox="0 0 16 16" style="margin-left: 10px">
             <path fillRule="evenodd"
               d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
           </svg>
@@ -494,7 +589,8 @@
       <div class="section-header">
         <h3 class="section-title">Gallery</h3>
         <span class="section-divider"></span>
-        <p class="section-description"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </p>
+        <p class="section-description"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+          doloremque </p>
       </div>
       <div class="row no-gutters">
         <div class="col-lg-4 col-md-6">
@@ -585,20 +681,24 @@
             <form action="" method="post" role="form" class="contactForm">
               <div class="form-row">
                 <div class="form-group col-lg-6">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
+                    data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                   <div class="validation"></div>
                 </div>
                 <div class="form-group col-lg-6">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
+                    data-rule="email" data-msg="Please enter a valid email" />
                   <div class="validation"></div>
                 </div>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
+                  data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
                 <div class="validation"></div>
               </div>
               <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                <textarea class="form-control" name="message" rows="5" data-rule="required"
+                  data-msg="Please write something for us" placeholder="Message"></textarea>
                 <div class="validation"></div>
               </div>
               <div class="text-center">
@@ -611,5 +711,4 @@
     </div>
   </section>
   <!-- #contact -->
-</main> 
-{% endblock body%}
+</main> {% endblock body%}
