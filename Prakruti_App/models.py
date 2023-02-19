@@ -66,6 +66,7 @@ class Med_per_ord(models.Model):
 class Cart(models.Model):
     Username = models.CharField(max_length=20, default='')
     p_id = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=1)
     
 class Prakruti_Quetions(models.Model):
     que = models.TextField(default='')

@@ -75,17 +75,10 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-              {% if user.get_username == 'Doctor01' %}
-              <a class="dropdown-item text-dark" style="color: black !important;" href="/profileU">
-                <i class="fas fa-user fa-lg fa-fw mr-2 text-gray-500"></i>
-                Profile
-              </a>
-              {% else %}
               <a class="dropdown-item text-dark" style="color: black !important;" href="/U_profile">
                 <i class="fas fa-user fa-lg fa-fw mr-2 text-gray-500"></i>
                 Profile
               </a>
-              {% endif %}
               <!-- <div class="dropdown-divider"></div> -->
               <a class="dropdown-item" style="color: black !important;" href="/logout">
                 <i class="fas fa-sign-out-alt fa-lg fa-fw mr-2 text-gray-500"></i>

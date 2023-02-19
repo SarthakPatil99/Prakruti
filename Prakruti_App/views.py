@@ -197,6 +197,12 @@ def shopping(request):
         print(request.POST)
         try:
             if request.POST['buy_now']:
+                cts = Cart.objects.filter(p_id=request.POST['buy_now'])
+                for ct in cts:
+                    print(ct.quantity)
+                    ct.quantity = ct.quantity + 1
+                    ct.save()
+                    return redirect('/cart/')
                 new_cart = Cart(Username= request.user.username,p_id=request.POST['buy_now'])
                 new_cart.save()
                 print("item added to cart")
@@ -206,6 +212,14 @@ def shopping(request):
 
         try:
             if request.POST['cart']:
+                cts = Cart.objects.filter(p_id=int(request.POST['cart']))
+                for ct in cts:
+                    ct.quantity = ct.quantity + 1
+                    print(ct.quantity)
+                    ct.save()
+                    messages.success(request, 'Item added to cart.')
+                    pds = M_remedy.objects.all()
+                    return render(request, 'user/Shopping.html',{'prods':pds})
                 new_cart = Cart(Username= request.user.username,p_id=request.POST['cart'])
                 new_cart.save()
                 messages.success(request, 'Item added to cart.')
@@ -249,11 +263,11 @@ def U_profile(request):
             pass
     usr = User.objects.get(username=request.user.username)
     usr_ext = Users.objects.get(UserName = usr.username)
-    try:
-        print('file',request.FILES['inFile'])
-        usr.Img = request.FILES['inFile']
-    except:
-        pass
+    # try:
+    #     print('file',request.FILES['inFile'])
+    #     usr.Img = request.FILES['inFile']
+    # except:
+    #     pass
     Usrs = vars(usr)
     Usrs.update(vars(usr_ext))
     Usrs['appnts'] = Appointments.objects.filter(U_id = usr_ext.pk)
@@ -272,13 +286,15 @@ def cart(request):
         if request.POST['remove']:
             Cart.objects.get(id=request.POST['remove']).delete()
 
-    pds = Cart.objects.filter(Username = request.user.username )
+    pds = Cart.objects.filter(Username = request.user.username)
     for pd in pds:
         temp = vars(M_remedy.objects.get(pk = pd.p_id))
         temp['cartid']= pd.pk
+        temp['qprice']= temp['Price'] * pd.quantity
+        temp['quant'] = pd.quantity
         crt.append(temp)
     print(crt)
-    return render(request, 'user/Cart.html',{'Cart':crt})
+    return render(request, 'user/Cart.html',{'Cart':crt,'prdno':len(pds)})
 
 
 def our_blogs(request):
