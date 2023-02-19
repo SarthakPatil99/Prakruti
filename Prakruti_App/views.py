@@ -184,6 +184,8 @@ def home(request):
 
 
 def analyze(request):
+    if request.POST:
+        print(request.POST)
     Ques = Prakruti_Quetions.objects.all()
     return render(request, 'user/Analyzer.html', {'Quetions': Ques})
 
@@ -195,6 +197,7 @@ def recommend(request):
 def shopping(request):
     if request.POST:
         print(request.POST)
+        pds = Cart.objects.filter(Username=request.user.username)
         try:
             if request.POST['buy_now']:
                 cts = Cart.objects.filter(p_id=request.POST['buy_now'])
@@ -237,22 +240,22 @@ def U_profile(request):
         print(request.FILES)
         try:
             if request.POST['submit']:
-                usr = Users.objects.get(UserName=request.user.username)  
-                usr_ext = User.objects.get(username = usr.UserName)
-                usr_ext.first_name = request.POST['Fname']
-                usr.Middle_name = request.POST['Mname']
-                usr_ext.last_name = request.POST['Lname']
-                usr_ext.Email = request.POST['Email']
-                usr.Phone_No = request.POST['Phone']
-                usr.Gender = getGender(request.POST['Gender'])
-                usr.Age = request.POST['Age']
+                usr = User.objects.get(UserName=request.user.username)  
+                usr_ext = Users.objects.get(UserName=usr.username)
+                usr.first_name = request.POST['Fname']
+                usr_ext.Middle_name = request.POST['Mname']
+                usr.last_name = request.POST['Lname']
+                usr.email = request.POST['Email']
+                usr_ext.Phone_No = request.POST['Phone']
+                usr_ext.Gender = getGender(request.POST['Gender'])
+                usr_ext.Age = request.POST['Age']
                 try:
                     usr.P_Prakruti,usr.S_Prakruti = getPrakruti(request.POST['Prakruti'])
                 except:
                     pass
                 try:
                     print('file',request.FILES['inFile'])
-                    usr.Img = request.FILES['inFile']
+                    usr_ext.Img = request.FILES['inFile']
                 except:
                     pass
                 usr.save()
@@ -285,6 +288,7 @@ def cart(request):
         print(request.POST)
         if request.POST['remove']:
             Cart.objects.get(id=request.POST['remove']).delete()
+            messages.error(request, 'Item deleted from cart.')
 
     pds = Cart.objects.filter(Username = request.user.username)
     for pd in pds:
@@ -361,11 +365,11 @@ def dashboard(request):
     all_data['hrs_ct'] = len(HRs)
     all_data['bls_ct'] = len(Bls)
     try:
-        all_data['apts_ct'] = (len(CApts) / len(Apts))*100
+        all_data['apts_ct'] = round((len(CApts) / len(Apts))*100, 2)
     except:
         all_data['apts_ct'] = 0
     try:
-        all_data['ords_ct'] = (len(COrds) / len(Ords))*100
+        all_data['ords_ct'] = round((len(COrds) / len(Ords))*100, 2)
     except:
         all_data['ords_ct'] = 0
 
@@ -1193,17 +1197,18 @@ def A_profile(request):
                 usr.first_name = request.POST['Fname']
                 usr_ext.Middle_name = request.POST['Mname']
                 usr.last_name = request.POST['Lname']
-                usr.Email = request.POST['Email']
+                usr.email = request.POST['Email']
                 usr_ext.Phone_No = request.POST['Phone']
                 usr_ext.Gender = getGender(request.POST['Gender'])
                 usr_ext.Age = request.POST['Age']
                 try:
-                    usr.P_Prakruti,usr.S_Prakruti = getPrakruti(request.POST['Prakruti'])
+                    usr_ext.P_Prakruti, usr_ext.S_Prakruti = getPrakruti(
+                        request.POST['Prakruti'])
                 except:
                     pass
                 try:
                     print('file',request.FILES['inFile'])
-                    usr.Img = request.FILES['inFile']
+                    usr_ext.Img = request.FILES['inFile']
                 except:
                     pass
                 usr.save()

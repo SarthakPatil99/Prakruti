@@ -85,75 +85,55 @@
 
 <!-- repeat START -->
 
-{%for Quetion in Quetions%}
-<!-- #ffcb30 -->
-<div class="mx-auto mb-3 rounded-3 pt-3 pb-2 px-3"
-  style="background-color: rgba(255, 255, 255, 0.693); width:85% !important;">
-  <div class="mb-3 mt-1 p-3 rounded-3" style="background-color: rgb(141, 141, 141);">
-    <div class="h5 text-white" style="font-family: 'Brush Script MT', cursive;">
-      <b>Q.{{Quetion.id}}) {{Quetion.que}}</b>
-    </div>
-  </div>
-  <div class="row" id="options">
-    <div class="col-lg-4 col-md-4 col-12">
-      <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-        <input type="radio" class="btn-check" name="build_type" id="{{Quetion.id}}bld-tp1" autocomplete="off">
-        <label class="btn p-3" for="{{Quetion.id}}bld-tp1"
-          style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice1}}</b></label>
+<form action="/analyze/" method="post">
+  {%for Quetion in Quetions%}
+  <!-- #ffcb30 -->
+  <div class="mx-auto mb-3 rounded-3 pt-3 pb-2 px-3"
+    style="background-color: rgba(255, 255, 255, 0.693); width:85% !important;">
+    <div class="mb-3 mt-1 p-3 rounded-3" style="background-color: rgb(141, 141, 141);">
+      <div class="h5 text-white" style="font-family: 'Brush Script MT', cursive;">
+        <b>Q.{{Quetion.id}}) {{Quetion.que}}</b>
       </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-12">
-      <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-        <input type="radio" class="btn-check" name="build_type" id="{{Quetion.id}}bld-tp2" autocomplete="off">
-        <label class="btn p-3" for="{{Quetion.id}}bld-tp2"
-          style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice2}}</b></label>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-12">
-      <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-        <input type="radio" class="btn-check" name="build_type" id="{{Quetion.id}}bld-tp3" autocomplete="off">
-        <label class="btn p-3" for="{{Quetion.id}}bld-tp3"
-          style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice3}}</b></label>
-      </div>
-    </div>
-  </div>
-</div>
-{%endfor%}
-<!-- <div class="mx-auto mb-4 bg-white rounded-3 p-3" style="width:85% !important;border:3px solid #ffcb30">
-    <div class="h5 mb-4 mt-2 text-secondary">
-      <b>Q.2) What is your skin colour</b>
     </div>
     <div class="row" id="options">
-      <div class="col-6">
-        <input type="radio" class="btn-check" name="skin_color" id="skn_clr1">
-        <label class="btn btn-outline-warning" for="skn_clr1"><b>Dark/Brown</b></label>
+      <div class="col-lg-4 col-md-4 col-12">
+        <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
+          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="{{Quetion.choice1}}" id="{{Quetion.id}}bld-tp1" autocomplete="off">
+          <label class="btn p-3" for="{{Quetion.id}}bld-tp1"
+            style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice1}}</b></label>
+        </div>
       </div>
-      <div class="col-6">
-        <input type="radio" class="btn-check" name="skin_color" id="skn_clr2">
-        <label class="btn btn-outline-warning" for="skn_clr2"><b>Pink blushed</b></label>
+      <div class="col-lg-4 col-md-4 col-12">
+        <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
+          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="{{Quetion.choice2}}" id="{{Quetion.id}}bld-tp2" autocomplete="off">
+          <label class="btn p-3" for="{{Quetion.id}}bld-tp2"
+            style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice2}}</b></label>
+        </div>
       </div>
-      <div class="col-6">
-        <input type="radio" class="btn-check" name="skin_color" id="skn_clr3">
-        <label class="btn btn-outline-warning" for="skn_clr3"><b>Fair</b></label>
-      </div>
-      <div class="col-6">
-        <input type="radio" class="btn-check" name="skin_color" id="skn_clr4">
-        <label class="btn btn-outline-warning" for="skn_clr4"><b>Other</b></label>
-      </div>
-    </div>
-</div> -->
-
-<div class="Q_Form rounded-3 row w-50 mx-auto p-3">
-  <center>
-    <div class="row mx-0" id="options">
-      <div class="col-6 col-md-7 col-lg-10 mb-0 p-3 rounded-3 h4 bg-white text-secondary">
-        Are you sure with your answers ?
-      </div>
-      <div class="col-6 col-md-5 col-lg-2" style="display: grid; margin: auto;">
-        <a class="btn btn-primary mx-auto my-auto p-2 px-3" href="/recommend"> <b>Proceed</b> </a>
+      <div class="col-lg-4 col-md-4 col-12">
+        <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
+          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="{{Quetion.choice3}}" id="{{Quetion.id}}bld-tp3" autocomplete="off">
+          <label class="btn p-3" for="{{Quetion.id}}bld-tp3"
+            style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice3}}</b></label>
+        </div>
       </div>
     </div>
-  </center>
-</div>
-
+  </div>
+  {%endfor%}
+  {%csrf_token%}
+  
+  <div class="Q_Form rounded-3 row w-50 mx-auto p-3">
+    <center>
+      <div class="row mx-0" id="options">
+        <div class="col-6 col-md-7 col-lg-10 mb-0 p-3 rounded-3 h4 bg-white text-secondary">
+          Are you sure with your answers ?
+        </div>
+        <div class="col-6 col-md-5 col-lg-2" style="display: grid; margin: auto;">
+          <button type="submit" class="btn btn-primary mx-auto my-auto p-2 px-3"> <b>Proceed</b> </button>
+        </div>
+      </div>
+    </center>
+  </div>
+</form>
+  
 {% endblock body%}
