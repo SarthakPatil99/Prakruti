@@ -46,7 +46,7 @@ urlpatterns = [
     path("orders/", views.orders, name='orders'),
     path("A_profile/", views.A_profile, name='A_profile'),
     path("U_profile/", views.U_profile, name='U_profile'),
-    # path("dataInsert/", views.dataInsert, name='dataInsert'),
+    path("dataInsert/", views.dataInsert, name='dataInsert'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

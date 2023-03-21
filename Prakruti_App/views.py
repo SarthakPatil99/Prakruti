@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .models import Users, Appointments, M_remedy, H_remedy, Blogs, Orders, Med_per_ord, Prakruti_Quetions, Cart
+from .models import Users, Appointments, M_remedy, H_remedy, Blogs, Orders, Prakruti_Quetions, Med_per_ord, Cart, Complaint_Quetions
 from django.contrib.auth.models import User, auth
 # from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -13,7 +13,6 @@ from datetime import date, datetime, timedelta, time
 jinja = {'pt_sort':'id','bl_sort':'id','apt_sort':'id','mr_sort':'id','hr_sort':'id','ord_sort':'o_id'}
 
 # -----------------------------Getters and setters---------------------------
-
 
 def getPrakruti(val):
     if val == '1':
@@ -29,7 +28,6 @@ def getPrakruti(val):
     else:
         return ("Pitta", "Kapha")
 
-
 def getGender(gender):
     if (gender == "1"):
         return "male"
@@ -38,14 +36,12 @@ def getGender(gender):
     elif (gender == "3"):
         return "other"
 
-
 def getAvailableSlot(date, appointment):
     Apts = Appointments.objects.filter(Date=date, TimeSlot=appointment)
     if len(Apts) < 11:
         return 1
     else:
         return 0
-
 
 def getNextAvailableSlot():
     i = 0
@@ -78,7 +74,6 @@ def getNextAvailableSlot():
 # -----------------------------Main functions---------------------------
 def index(request):
     return render(request, 'index.html')
-
 
 def signup(request):
     return render(request, 'signup.html')
@@ -132,7 +127,6 @@ def handleSignUp(request):
     else:
         return render(request, 'signup.html')
 
-
 def handleLogin(request):
     if request.method == 'POST':
         # print(request.POST)
@@ -156,13 +150,11 @@ def handleLogin(request):
             return redirect('/')
     return HttpResponse('404 - Not Found')
 
-
 def handleLogout(request):
     jinja["Who"] = ""
     auth.logout(request)
     messages.success(request, 'Successfully Logged Out')
     return redirect('/')
-
 
 def chPass(request):
     if request.method == 'POST':
@@ -183,16 +175,73 @@ def home(request):
     return HttpResponse('this is home')
 
 
+def getKeys_dupVal(dictA):
+    k_v_exchanged = {}
+
+    for key, value in dictA.items():
+        if value not in k_v_exchanged:
+            k_v_exchanged[value] = [key]
+        else:
+            k_v_exchanged[value].append(key)
+    
+    return k_v_exchanged
+
 def analyze(request):
     if request.POST:
+        prakruti = {}
+        prakrutict = {
+            'vata' : 0,
+            'pitta' : 0,
+            'kapha' : 0
+        }
         print(request.POST)
+        for i in range(1, 24):
+            print(request.POST[str(i)])
+            if request.POST[str(i)] == '1':
+                prakrutict['vata'] += 1
+            elif request.POST[str(i)] == '2':
+                prakrutict['pitta'] += 1
+            elif request.POST[str(i)] == '3':
+                prakrutict['kapha'] += 1
+        
+        if prakrutict['vata'] == prakrutict['pitta'] == prakrutict['kapha']:
+            prakruti['sama'] = 4
+        else:
+            prakrutirpt = getKeys_dupVal(prakrutict)
+            maxkey = max(prakrutirpt.keys())
+            maxval = prakrutirpt[maxkey]
+
+            if len(maxval) > 1:
+                prakruti['primary'] = maxval[0]
+                prakruti['secondary'] = maxval[1]
+            else:
+                minkey = min(prakrutirpt.keys())
+                minval = prakrutirpt[minkey]
+
+                if len(minval) > 1:
+                    pass #know from dr.
+
+                if prakrutict['vata'] > prakrutict['pitta'] and prakrutict['vata'] > prakrutict['kapha']:
+                    prakruti['primary'] = 'vata'
+                elif prakrutict['pitta'] > prakrutict['vata'] and prakrutict['pitta'] > prakrutict['kapha']:
+                    prakruti['primary'] = 'pitta'
+                elif prakrutict['kapha'] > prakrutict['vata'] and prakrutict['kapha'] > prakrutict['pitta']:
+                    prakruti['primary'] = 'kapha'
+
+                sec = (prakrutict['vata'] + prakrutict['pitta'] +
+                        prakrutict['kapha']) - (maxkey + minkey)
+                if sec == prakrutict['vata']:
+                    prakruti['secondary'] = 'vata'
+                elif sec == prakrutict['pitta']:
+                    prakruti['secondary'] = 'pitta'
+                elif sec == prakrutict['kapha']:
+                    prakruti['secondary'] = 'kapha'
+        print(prakruti, prakrutict['vata'], prakrutict['pitta'], prakrutict['kapha'])
     Ques = Prakruti_Quetions.objects.all()
     return render(request, 'user/Analyzer.html', {'Quetions': Ques})
 
-
 def recommend(request):
     return render(request, 'user/Reccomender.html')
-
 
 def shopping(request):
     if request.POST:
@@ -232,7 +281,6 @@ def shopping(request):
 
     pds = M_remedy.objects.all()
     return render(request, 'user/Shopping.html',{'prods':pds})
-
 
 def U_profile(request):
     if request.POST:
@@ -281,7 +329,6 @@ def U_profile(request):
         
     return render(request, 'user/U_profile.html',{'users':Usrs})
 
-
 def cart(request):
     crt = []
     if request.POST:
@@ -299,7 +346,6 @@ def cart(request):
         crt.append(temp)
     print(crt)
     return render(request, 'user/Cart.html',{'Cart':crt,'prdno':len(pds)})
-
 
 def our_blogs(request):
     type = ["BLOG", "IMAGE", "VIDEO"]
@@ -347,7 +393,6 @@ def our_blogs(request):
 
 # -----------------------------ADMIN SIDE---------------------------
 
-
 def dashboard(request):
     Pts = Users.objects.all()
     MRs = M_remedy.objects.all()
@@ -375,7 +420,6 @@ def dashboard(request):
 
     print(all_data)
     return render(request, 'admin/Dashboard.html', {'data': all_data})
-
 
 def patients(request):
     new_pts = []
@@ -575,7 +619,6 @@ def patients(request):
     print(new_pts)
     return render(request, 'admin/patients.html', {'patients': new_pts})
 
-
 def appointments(request):
     new_apts = []
     if request.method == 'POST':
@@ -758,7 +801,6 @@ def appointments(request):
     # print(Apts)
     return render(request, 'admin/appointments.html', {'Apts': new_apts})
 
-
 def M_remedies(request):
     
     if request.method == 'POST':
@@ -843,7 +885,6 @@ def M_remedies(request):
     # print(MRs)
     return render(request, 'admin/M_remedies.html', {'MRs': MRs})
 
-
 def H_remedies(request):
     if request.method == 'POST':
         print(request.POST)
@@ -915,7 +956,6 @@ def H_remedies(request):
     print('order by :',jinja['hr_sort'],HRs)
 
     return render(request, 'admin/H_remedies.html', {'HRs': HRs})
-
 
 def blogs(request):
     type = ["BLOG", "IMAGE", "VIDEO"]
@@ -996,7 +1036,6 @@ def blogs(request):
     Bls = Blogs.objects.all().order_by(jinja['bl_sort'])
     print('order by :',jinja['bl_sort'],Bls)
     return render(request, 'admin/blogs.html', {'Bls': Bls})
-
 
 def orders(request):
     
@@ -1185,7 +1224,6 @@ def orders(request):
         new_ords.append(new_ord)
     return render(request, 'admin/Orders.html', {'orders': new_ords})
 
-
 def A_profile(request):
     if request.POST:
         print(request.POST)
@@ -1236,7 +1274,114 @@ def A_profile(request):
     Usrs = vars(usr)
     Usrs.update(vars(usr_ext))
     Usrs['admin'] = 1
-    return render(request, 'admin/A_profile.html',{'users':Usrs})
+    return render(request, 'admin/A_profile.html', {'users':Usrs})
 
 def dataInsert(request):
-    pass
+    # quetions = [
+    #     {'Q': 'Q1. What is your Body Build Type?',
+    #      'C1': 'Lean/slim', 'C2': 'Medium', 'C3': 'Stout/heavy build'},
+    #     {'Q': 'Q2. What is your Face size?', 'C1': 'Small',
+    #      'C2': 'Medium', 'C3': 'Big'},
+    #     {'Q': 'Q3. What is your face color?', 'C1': 'Brown',
+    #      'C2': 'Reddish white', 'C3': 'Fair'},
+    #     {'Q': 'Q4. What is your body capacity?', 'C1': 'Poor',
+    #      'C2': 'Average', 'C3': 'Incredible'},
+    #     {'Q': 'Q5. What is your nature of behavior?',
+    #      'C1': 'Playful', 'C2': 'Aggressive', 'C3': 'Calm minded'},
+    #     {'Q': 'Q6. What is your favorite season?',
+    #      'C1': 'Spring', 'C2': 'Winter', 'C3': 'Summer'},
+    #     {'Q': 'Q7. What is your favorite dishes?',
+    #      'C1': 'Sweet salty and sour', 'C2': 'Spicy sweet', 'C3': 'Bitter spicy hot'},
+    #     {'Q': 'Q8. How much is your Grasping power?',
+    #      'C1': 'poor', 'C2': 'Sharp', 'C3': 'Average/ Good'},
+    #     {'Q': 'Q9. How is your memorizing ability?',
+    #      'C1': 'Observant but forgot', 'C2': 'Sharp and clear', 'C3': 'Average/ good'},
+    #     {'Q': 'Q10. How is your Digestion power?',
+    #      'C1': 'Sometimes less, sometimes better', 'C2': 'Quick digestion, frequent hunger', 'C3': 'Late digestion'},
+    #     {'Q': 'Q11. What is your diet capacity?',
+    #      'C1': 'sometimes poor, sometimes higher', 'C2': 'Medium', 'C3': 'Heavier'},
+    #     {'Q': 'Q12. What is your body color?',
+    #      'C1': 'Brownish', 'C2': 'fair, dusky', 'C3': 'Reddish white'},
+    #     {'Q': 'Q13. What is your hair type?', 'C1': 'Dry, fally',
+    #      'C2': 'Faster ripping', 'C3': 'Thick, Smooth, Long'},
+    #     {'Q': 'Q14. What is your Type of your Eyes?',
+    #      'C1': 'Dry, small', 'C2': 'Shiny, Gray-green', 'C3': 'Big, Lazy, thick eyelids'},
+    #     {'Q': 'Q15. What is your Type of teeth?',
+    #      'C1': 'Uneven, Big', 'C2': 'Medium, Pretty', 'C3': 'Even, tender'},
+    #     {'Q': 'Q16. What is your Stool instinct?',
+    #      'C1': 'Dry, Tight', 'C2': 'Tender, Spread out', 'C3': 'Excessive, Flimsy'},
+    #     {'Q': 'Q17. What is your sweat instinct?',
+    #      'C1': 'Poor', 'C2': 'Excess, Smelly', 'C3': 'Medium'},
+    #     {'Q': 'Q18. How are your Joints?', 'C1': 'Smaller, Hurting, Noisy',
+    #      'C2': 'Medium, No Noise', 'C3': 'Bigger, No Noise'},
+    #     {'Q': 'Q19. How is your sleep?', 'C1': 'Less, Restless',
+    #      'C2': 'Less, but Restful', 'C3': 'Deep sleep'},
+    #     {'Q': 'Q20. How are your dreams?', 'C1': 'Scary',
+    #      'C2': 'Aggressive, Violent', 'C3': 'Peaceful, Lake, River, Sea'},
+    #     {'Q': 'Q21. How is your skin Type?', 'C1': 'Dry, Rough',
+    #      'C2': 'Bright, Glorious', 'C3': 'Tender, Soft'},
+    #     {'Q': 'Q22. How is Your Menstruation (For woman only)?',
+    #      'C1': 'Less flow, More abdominal pain', 'C2': 'Heavy flow', 'C3': 'Moderate flow'},
+    #     {'Q': 'Q23. How is your Pulse?', 'C1': 'Snakelike, Feebi',
+    #      'C2': 'Froglike , Faster', 'C3': 'Gentle, Steady'},
+    # ]
+    
+    # quetions = [
+    #     {'Q': 'Do you feel weakness with body cramp',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'vata'},
+    #     {'Q': 'Not having interest in daily activities',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'vata'},
+    #     {'Q': 'Abdominal discomfort bloating gases flatulance',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'vata'},
+    #     {'Q': 'Do you having blackish discoloration of body parts',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'vata'},
+    #     {'Q': 'Do you have constipation', 'C1': 'Yes',
+    #         'C2': 'No', 'prakruti': 'vata'},
+    #     {'Q': 'Do you have sleep disturbance / irregular sleep pattern',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'vata'},
+    #     {'Q': 'Do you feel weakness & reduced strenght',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'vata'},
+    #     {'Q': 'Do you have rough skin or scaling on skin',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'vata'},
+    #     {'Q': 'Do you feel body pain or joint pain',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'vata'},
+    #     {'Q': 'Do you feel gargling sound in bowels',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'vata'},
+    #     {'Q': 'Do you often ffeel indigestion, sluggish digestion',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'pitta'},
+    #     {'Q': 'Do you feeling lact of body luster appearance',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'pitta'},
+    #     {'Q': 'Do you often feeling burning sensation thurst or hunger',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'pitta'},
+    #     {'Q': 'Does your urine,stool,skin,eyes are dark yellow coloured',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'pitta'},
+    #     {'Q': 'Do you feel excessive heat & sweating',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'pitta'},
+    #     {'Q': 'Do you have reddish discolouration on skin',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'pitta'},
+    #     {'Q': 'Do you often feel heart burn,acidic bleching',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'pitta'},
+    #     {'Q': 'Do you feel heaviness in body',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'kapha'},
+    #     {'Q': 'Do you feel lazy or litharqic often',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'kapha'},
+    #     {'Q': 'Do you have common cold', 'C1': 'Yes',
+    #         'C2': 'No', 'prakruti': 'kapha'},
+    #     {'Q': 'Do you having exessive salivation',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'kapha'},
+    #     {'Q': 'Do you have feeling of sleep all the time',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'kapha'},
+    #     {'Q': 'Do you have vomiting or indigestion',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'kapha'},
+    #     {'Q': 'Feeling as if body covered by a wet or damp cloth',
+    #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'kapha'},
+    #     {'Q': 'Do you have cough', 'C1': 'Yes', 'C2': 'No', 'prakruti': 'kapha'},
+    # ]
+
+    # for q in quetions:
+    #     print(q.get('Q'))
+    #     print(q.get('C1'), q.get('C2'), q.get('prakruti'))
+    #     med = Complaint_Quetions(que=q.get('Q'), choice1=q.get(
+    #         'C1'), choice2=q.get('C2'), prakruti=q.get('prakruti'))
+    #     med.save()
+    return render(request, 'index.html')

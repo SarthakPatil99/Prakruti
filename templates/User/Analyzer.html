@@ -2,9 +2,7 @@
 {% load static %}
 
 {% block background%}
-<div class="bg"></div>
-<div class="bg bg2"></div>
-<div class="bg bg3"></div>
+style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
 {% endblock background%}
 
 {% block title%} Analyzer {%endblock title%}
@@ -73,7 +71,7 @@
       </div>
       <div class="col-6 col-md-5 col-lg-2" style="display: grid; margin: auto;">
         <button class="btn btn-primary mx-auto my-auto p-2 px-3" data-toggle="modal" data-target="#WebcamM">
-          <b>Open camera</b>
+          <b style="color: white;">Open camera</b>
         </button>
       </div>
     </div>
@@ -96,23 +94,23 @@
       </div>
     </div>
     <div class="row" id="options">
-      <div class="col-lg-4 col-md-4 col-12">
+      <div class="col-lg-4 col-md-12 col-12">
         <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="{{Quetion.choice1}}" id="{{Quetion.id}}bld-tp1" autocomplete="off">
+          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="1" id="{{Quetion.id}}bld-tp1" autocomplete="off">
           <label class="btn p-3" for="{{Quetion.id}}bld-tp1"
             style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice1}}</b></label>
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-12">
+      <div class="col-lg-4 col-md-12 col-12">
         <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="{{Quetion.choice2}}" id="{{Quetion.id}}bld-tp2" autocomplete="off">
+          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="2" id="{{Quetion.id}}bld-tp2" autocomplete="off">
           <label class="btn p-3" for="{{Quetion.id}}bld-tp2"
             style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice2}}</b></label>
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-12">
+      <div class="col-lg-4 col-md-12 col-12">
         <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="{{Quetion.choice3}}" id="{{Quetion.id}}bld-tp3" autocomplete="off">
+          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="3" id="{{Quetion.id}}bld-tp3" autocomplete="off">
           <label class="btn p-3" for="{{Quetion.id}}bld-tp3"
             style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice3}}</b></label>
         </div>

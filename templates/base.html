@@ -35,15 +35,14 @@
   <link href="{% static 'css/index.css' %}" rel="stylesheet" />
 </head>
 
-<body>
-  {% block background%}{% endblock background%}
+<body {% block background%}{% endblock background%}>
   <!--==========================
     Header
   ============================-->
 
   <nav id="header" class="navbar navbar-expand-sm navbar-dark ">
     <div class="container-fluid">
-      <h1><a href="#intro" style="color: rgb(252, 202, 0)" class="scrollto">Prakruti</a></h1>
+      <h1><a href="#intro" style="color: rgb(252, 202, 0); font-weight: 600; font-family: cursive; margin-right: 15px;" class="scrollto">Prakruti</a></h1>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
         <span class="navbar-toggler-icon"></span>
       </button>

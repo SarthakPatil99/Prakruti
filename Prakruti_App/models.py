@@ -74,3 +74,11 @@ class Prakruti_Quetions(models.Model):
     choice2 = models.TextField(default='')
     choice3 = models.TextField(default='')
     choice4 = models.TextField(default='')
+
+class Complaint_Quetions(models.Model):
+    que = models.TextField(default='')
+    choice1 = models.TextField(default='')
+    choice2 = models.TextField(default='')
+    prakruti = models.TextField(default='')
+
+# class 
