@@ -180,26 +180,24 @@ function chQuant(id){
   Qt = document.getElementById('qt'+id).value;
   document.getElementById("qprice"+id).innerHTML =
     Qt * document.getElementById("pprice"+id).value;
+  calc()
 }
 function chng(id){
-  ch = document.getElementById(id)
-  Tprice = document.getElementById("Tprice");
-  qprice = document.getElementById("qprice" + id).innerHTML;
-  Prdno = document.getElementById("prds");
+  var ch = document.getElementById(id);
+  var Tprice = document.getElementById("Tprice");
+  var qprice = document.getElementById("qprice" + id);
+  var Prdno = document.getElementById("prds");
   if(ch.checked){
-    tprice = parseInt(Tprice.innerHTML) + parseInt(qprice);
+    tprice = parseInt(Tprice.innerHTML) + parseInt(qprice.innerHTML);
     prdno  = parseInt(Prdno.innerHTML) + 1;
-  } else{
-    tprice = parseInt(Tprice.innerHTML) - parseInt(qprice);
+  } else {
+    tprice = parseInt(Tprice.innerHTML) - parseInt(qprice.innerHTML);
     prdno = parseInt(Prdno.innerHTML) - 1;
   }
-  Prdno.innerHTML + prdno;
+  Prdno.innerHTML = prdno;
   Tprice.innerHTML = tprice;
   console.log(prdno,tprice);
 }
-window.onload = function(){
-  prdno = parseInt(document.getElementById("prds").innerHTML);
-  for (var i=1; i<=prdno;i++){
-    chng(i);
-  }
+function adM() {
+  document.getElementById("cont").style.marginTop = "100px";
 }

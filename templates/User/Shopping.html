@@ -34,24 +34,19 @@
       </div>
       <div class="col-12 col-md-12 col-lg-8">
         <label for="Title"><b>Discription: </b></label>
-        <p class="mb-2" style="text-align: justify;" id="PDesc">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae aspernatur, modi voluptate molestiae amet
-          ipsa laudantium nihil magni minima, eaque, sapiente mollitia expedita unde fugiat sit deleniti officia magnam
-          quos.
+        <p class="mb-2" style="text-align: justify;" id="PDesc"> 
+          <!-- description -->
         </p>
         <div class="row">
           <div class="col-6">
             <label for="Title"><b>Contents: </b></label>
             <p class="mb-2" id="PContents">
-              sdasdasdasd,
-              asdasdasd,
-              asdasdasdasd,
-              asdasd.
+              <!-- contents -->
             </p>
           </div>
           <div class="col-6">
-            <b>Price(₹): </b><label id="Price">200</label><br/>
-            <b>Quantity: </b><label id="Quantity">200</label>
+            <b>Price(₹): </b><label id="Price"></label><br/>
+            <b>Quantity: </b><label id="Quantity"></label>
           </div>
         </div>
         <div>
@@ -70,8 +65,27 @@
   </div>
 </div>
 
-<div class="mainContainer mx-md-4" {% if messages %}style="margin-top: 5px;"{%endif%}>
-
+<!-- category offcanvas  -->
+<div class="offcanvas offcanvas-end my-2" id="category"
+  style=" border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fw-bold text-warning" id="PName"> Product Categories</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="row">
+      <div class="rounded-3 col-5 m-3 p-0" style="background-color: rgb(255, 190, 190);">
+        <input type="checkbox" class="btn-check" name="{{Quetion.id}}" value="{{Quetion.choice2}}" id="{{Quetion.id}}bld-tp2">
+        <label class="btn p-3" for="{{Quetion.id}}bld-tp2"
+          style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>hello</b></label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mx-md-4" id="cont">
+  <div class="float-end">
+    <button class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#category">Category</button>
+  </div>
   <div class="myContainer">
     <div class="section-header head">
       <h3 class="section-title cta-title fw-bold text-white">Recommended</h3>
@@ -128,4 +142,15 @@
       </div> {%endfor%} </div>
   </div>
 </div>
+  <script type="text/javascript">
+    window.onload = function () {
+      console.log("working")
+      if(document.getElementById("msg")){
+        document.getElementById('cont').style.marginTop = "5px";
+      }else{
+        document.getElementById('cont').style.marginTop="100px";
+      }
+      console.log("working")
+    }
+  </script>
 {% endblock body%}

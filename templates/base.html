@@ -255,10 +255,9 @@
   {% for message in messages %}
   <div
     class='alert alert-{% if message.tags == "error" %}danger{%else%}{{message.tags}}{%endif%} alert-dismissible fade show msg mx-3 mb-3' style="margin-top: 100px
-    ;"
-    role="alert">
-    {{ message }}
-    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    ;" role="alert" id="msg">
+    <b>{{ message }}</b>
+    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close" onclick="adM()"></button>
   </div>
   {% endfor %}
 

@@ -16,7 +16,7 @@
 
 {% block body %}
 <form action="#" method="post">
-    <div style="margin-top: 100px !important; margin-bottom: 70px;">
+    <div style="margin-bottom: 70px;" id="cont">
         {%if prdno > 0%}
             <div class="myContainer ms-4">
                 <div class="section-header head">
@@ -105,5 +105,23 @@
             </div>
         </div> {% csrf_token %}
     </form>
-
+    <script type="text/javascript">
+        window.onload = function (){
+            if (document.getElementById("msg")) {
+                document.getElementById('cont').style.marginTop = "5px";
+            } else {
+                document.getElementById('cont').style.marginTop = "100px";
+            }
+            calc();
+        }
+        function calc() {
+            var prdno = parseInt(document.getElementById("prds").innerHTML);
+            var Tprice = document.getElementById("Tprice").innerHTML = 0;
+            let i = 0;
+            while( i < prdno){
+                chng(i+1);
+                i++;
+            }
+        }
+    </script>
 {% endblock body%}
