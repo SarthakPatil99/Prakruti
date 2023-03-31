@@ -299,19 +299,19 @@ h6 {
 
 @media (max-height: 768px) {
   #intro .product-screens {
-    height: 430px;
-  }
-
-  #intro .product-screens .product-screen-1 {
-    height: 400px;
-  }
-
-  #intro .product-screens .product-screen-2 {
     height: 330px;
   }
 
+  #intro .product-screens .product-screen-1 {
+    height: 300px;
+  }
+
+  #intro .product-screens .product-screen-2 {
+    height: 230px;
+  }
+
   #intro .product-screens .product-screen-3 {
-    height: 260px;
+    height: 160px;
   }
 }
 
