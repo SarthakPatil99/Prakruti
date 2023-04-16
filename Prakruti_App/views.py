@@ -174,7 +174,6 @@ def chPass(request):
 def home(request):
     return HttpResponse('this is home')
 
-
 def getKeys_dupVal(dictA):
     k_v_exchanged = {}
 
@@ -186,17 +185,49 @@ def getKeys_dupVal(dictA):
     
     return k_v_exchanged
 
+def ageFilter(age, pks):
+    if age > 0:
+        prakruti = ""
+        if age < 15:
+            prakruti = "kapha"
+        elif age < 46:
+            prakruti = "pitta"
+        else:
+            prakruti = "vata"
+        
+        if prakruti in pks:
+            return prakruti
+        else:
+            return 0
+    return 0
+
+def preferenceFilter(pks):
+    prakruti = ['vata', 'pitta', 'kapha']
+    newpks = []
+    v1 = prakruti.index(pks[0])
+    v2 = prakruti.index(pks[1])
+    print(v1, v2)
+    if v1 < v2:
+        newpks.append(prakruti[v1])
+        newpks.append(prakruti[v2])
+    else:
+        newpks.append(prakruti[v2])
+        newpks.append(prakruti[v1])
+    return newpks
+
 def analyze(request):
     if request.POST:
+        age = 99 #take it from html post req
+        pks = ['vata', 'pitta', 'kapha']
         prakruti = {}
         prakrutict = {
             'vata' : 0,
             'pitta' : 0,
             'kapha' : 0
         }
-        print(request.POST)
+        # print(request.POST)
         for i in range(1, 24):
-            print(request.POST[str(i)])
+            # print(request.POST[str(i)])
             if request.POST[str(i)] == '1':
                 prakrutict['vata'] += 1
             elif request.POST[str(i)] == '2':
@@ -205,37 +236,40 @@ def analyze(request):
                 prakrutict['kapha'] += 1
         
         if prakrutict['vata'] == prakrutict['pitta'] == prakrutict['kapha']:
-            prakruti['sama'] = 4
+            prakruti['s'] = 4
         else:
             prakrutirpt = getKeys_dupVal(prakrutict)
             maxkey = max(prakrutirpt.keys())
             maxval = prakrutirpt[maxkey]
 
+            # print(maxkey, type(maxkey), maxval, type(maxval))
+
             if len(maxval) > 1:
-                prakruti['primary'] = maxval[0]
-                prakruti['secondary'] = maxval[1]
+                prakruti['primary'] = ageFilter(age, maxval)
+                # print(prakruti['primary'])
+                if prakruti['primary']:
+                    maxval.remove(prakruti['primary'])
+                    prakruti['secondary'] = maxval[0]
+                else:
+                    newVals = preferenceFilter(maxval)
+                    prakruti['primary'] = newVals[0]
+                    prakruti['secondary'] = newVals[1]
             else:
+                prakruti['primary'] = maxval[0]     #primary set
+
                 minkey = min(prakrutirpt.keys())
                 minval = prakrutirpt[minkey]
+                # print(minkey, type(minkey), minval, type(minval))
 
                 if len(minval) > 1:
-                    pass #know from dr.
+                    prakruti['secondary'] = ageFilter(age, minval)
+                    # print(prakruti['secondary'])
+                    if not prakruti['secondary']:
+                        newVals = preferenceFilter(minval)
+                        prakruti['secondary'] = newVals[0]
+                else:
+                    prakruti['secondary'] = minval[0]
 
-                if prakrutict['vata'] > prakrutict['pitta'] and prakrutict['vata'] > prakrutict['kapha']:
-                    prakruti['primary'] = 'vata'
-                elif prakrutict['pitta'] > prakrutict['vata'] and prakrutict['pitta'] > prakrutict['kapha']:
-                    prakruti['primary'] = 'pitta'
-                elif prakrutict['kapha'] > prakrutict['vata'] and prakrutict['kapha'] > prakrutict['pitta']:
-                    prakruti['primary'] = 'kapha'
-
-                sec = (prakrutict['vata'] + prakrutict['pitta'] +
-                        prakrutict['kapha']) - (maxkey + minkey)
-                if sec == prakrutict['vata']:
-                    prakruti['secondary'] = 'vata'
-                elif sec == prakrutict['pitta']:
-                    prakruti['secondary'] = 'pitta'
-                elif sec == prakrutict['kapha']:
-                    prakruti['secondary'] = 'kapha'
         print(prakruti, prakrutict['vata'], prakrutict['pitta'], prakrutict['kapha'])
     Ques = Prakruti_Quetions.objects.all()
     return render(request, 'user/Analyzer.html', {'Quetions': Ques})

@@ -91,3 +91,24 @@ for key, value in dictA.items():
 print("New Dictionary:", k_v_exchanged)
 print(k_v_exchanged[max(k_v_exchanged.keys())], type(k_v_exchanged[max(
     k_v_exchanged.keys())]), len(k_v_exchanged[max(k_v_exchanged.keys())]))
+
+
+
+
+#analize
+
+# if prakrutict['vata'] > prakrutict['pitta'] and prakrutict['vata'] > prakrutict['kapha']:
+#     prakruti['primary'] = 'vata'
+# elif prakrutict['pitta'] > prakrutict['vata'] and prakrutict['pitta'] > prakrutict['kapha']:
+#     prakruti['primary'] = 'pitta'
+# elif prakrutict['kapha'] > prakrutict['vata'] and prakrutict['kapha'] > prakrutict['pitta']:
+#     prakruti['primary'] = 'kapha'
+
+# sec = (prakrutict['vata'] + prakrutict['pitta'] +
+#         prakrutict['kapha']) - (maxkey + minkey)
+# if sec == prakrutict['vata']:
+#     prakruti['secondary'] = 'vata'
+# elif sec == prakrutict['pitta']:
+#     prakruti['secondary'] = 'pitta'
+# elif sec == prakrutict['kapha']:
+#     prakruti['secondary'] = 'kapha'
