@@ -270,6 +270,10 @@ def analyze(request):
                         prakruti['secondary'] = newVals[0]
                 else:
                     prakruti['secondary'] = minval[0]
+            user = Users.objects.get(id = request.user.id)
+            user.P_Prakruti = prakruti['primary']
+            user.S_Prakruti = prakruti['secondary']
+            user.save()
 
         print(prakruti, prakrutict['vata'], prakrutict['pitta'], prakrutict['kapha'])
     Ques = Prakruti_Quetions.objects.all()
