@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect, HttpResponse
-from .models import Users, Appointments, M_remedy, H_remedy, Blogs, Orders, Prakruti_Quetions, Med_per_ord, Cart, Complaint_Quetions
-from django.contrib.auth.models import User, auth
 # from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect, HttpResponse
+from .models import Users, Appointments, M_remedy, H_remedy, Blogs, Orders, Prakruti_Quetions, Med_per_ord, Cart, Complaint_Quetions, Prakruti_Quetions_Ans
+from django.contrib.auth.models import User, auth
 from django.contrib import messages
 
 from django.utils.datastructures import MultiValueDictKeyError
@@ -274,6 +274,14 @@ def analyze(request):
             user.P_Prakruti = prakruti['primary']
             user.S_Prakruti = prakruti['secondary']
             user.save()
+            ans = Prakruti_Quetions_Ans(id = request.user.id, age = request.POST['age'], ans1 = request.POST['1'],ans2 = request.POST['2'],
+                                    ans3 = request.POST['3'], ans4 = request.POST['4'], ans5 = request.POST['5'], ans6 = request.POST['6'],
+                                    ans7 = request.POST['7'], ans8 = request.POST['8'], ans9 = request.POST['9'], ans10 = request.POST['10'],
+                                    ans11 = request.POST['11'], ans12 = request.POST['12'], ans13 = request.POST['13'],ans14 = request.POST['14'],
+                                    ans15 = request.POST['15'], ans16 = request.POST['16'], ans17 = request.POST['17'],ans18 = request.POST['18'],
+                                    ans19 = request.POST['19'], ans20 = request.POST['20'], ans21 = request.POST['21'],ans22 = request.POST['22'],
+                                    ans23 = request.POST['23'])
+            ans.save()
 
         print(prakruti, prakrutict['vata'], prakrutict['pitta'], prakrutict['kapha'])
     Ques = Prakruti_Quetions.objects.all()
