@@ -217,6 +217,7 @@ def preferenceFilter(pks):
 
 def analyze(request):
     if request.POST:
+        print(request.POST)
         age = 99 #take it from html post req
         pks = ['vata', 'pitta', 'kapha']
         prakruti = {}
