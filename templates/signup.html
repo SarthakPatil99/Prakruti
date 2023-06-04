@@ -1,28 +1,16 @@
 {%extends 'base.html'%}
-{ % load static % } 
-
-<!--  
-{% block title%} 
-Sign Up 
-{% endblock title%} 
-
-{% block nav_links%}
-<li class="menu-active nav-item">
-    <a class="nav-link" href="/"> Home </a>
-</li>
-{% endblock nav_links%} 
+{ % load static % }
 
 {% block background%}
-<div class="bg"></div>
-<div class="bg bg2"></div>
-<div class="bg bg3"></div>
-{% endblock background%} 
--->
+style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
+{% endblock background%}
+
+{% block title%} SignUp {%endblock title%}
 
 {% block body %}
 <div class="sign_up">
     <div class="row">
-        <div class="col-12 col-md-10 col-lg-8">
+        <div class="col-12 col-md-10 col-lg-7">
             <div class="card" style="border-radius: 30px;">
                 <h1>SIGN UP</h1>
                 <hr style="border: solid rgb(0, 170, 255);">

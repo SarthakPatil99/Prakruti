@@ -23,12 +23,13 @@ Recommender
     <div class="card" style="max-width: 60%; border-radius: 15px">
       <div class="row g-0">
         <div class="col-md-3">
-          <img src="..." class="img-fluid rounded-start" style="border-radius: 15px" value=""/>
+          <img src="..." class="img-fluid rounded-start" style="border-radius: 15px" value="" />
         </div>
         <div class="col-md-9">
           <div class="card-body">
-            <h5 class="card-title"><b>Prakruti Name</b></h5>
+            <h5 class="card-title"><b>{{ prakruti.p }} - {{ prakruti.s }}</b></h5>
             <p class="card-text">
+              {{ prakruti.d }}
               (Prakruti Description) This is a wider card with supporting text
               below as a natural lead-in to additional content. This content is
               a little bit longer.
@@ -39,233 +40,51 @@ Recommender
     </div>
   </center>
 
-  <div class="offcanvas offcanvas-bottom mx-5"
-    style="height:fit-content; border-top-left-radius: 10px; border-top-right-radius: 10px;" id="offcanvasBottom"
-    aria-labelledby="offcanvasBottomLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title fw-bold text-warning" id="offcanvasBottomLabel">Product Name</h5>
-      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body px-5 pb-4">
-      <div class="row">
-        <div class="col-12 col-md-12 col-lg-4 mb-2 mb-lg-0">
-          <center>
-            <img src="../static/admin/img/undraw_posting_photo.svg" style="width: 100%; border-radius: 5px;"
-              alt="Italian Trulli">
-          </center>
+  <form class="pt-5 row" action="/recommend/" method="post">
+
+    {%for Quetion in Quetions%}
+    <!-- #ffcb30 -->
+    <div class="mx-auto mb-3 row rounded-3 pt-3 pb-2 col-lg-10 col-md-11 col-11"
+      style="background-color: rgba(255, 255, 255, 0.693); width:85% !important;">
+      <div class="mb-3 mt-1 p-3 rounded-3 col-lg-10 col-md-10 col-12" style="background-color: rgb(141, 141, 141);">
+        <div class="h5 text-white" style="font-family: 'Brush Script MT', cursive;">
+          <b>Q. {{Quetion.que}}</b>
         </div>
-        <div class="col-12 col-md-12 col-lg-8">
-          <label for="Title"><b>Discription: </b></label>
-          <p class="mb-2" style="text-align: justify;">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae aspernatur, modi voluptate molestiae amet
-            ipsa laudantium nihil magni minima, eaque, sapiente mollitia expedita unde fugiat sit deleniti officia
-            magnam
-            quos.
-          </p>
-          <div class="row">
-            <div class="col-6">
-              <label for="Title"><b>Contents: </b></label>
-              <p class="mb-2">
-                sdasdasdasd,
-                asdasdasd,
-                asdasdasdasd,
-                asdasd.
-              </p>
-            </div>
-            <div class="col-6">
-              <label for="Title"><b>Price(₹): </b>200</label>
-            </div>
-          </div>
-          <a href="#" class="btn bg-gray-300 me-2 text-center" style="border-radius: 10px;" data-toggle="modal"
-            data-target="#ApModal">
-            <i class="fas fa-cart-plus" style="font-size: larger;"></i>
-          </a>
-          <a href="/cart" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;">
-            Buy Now
-          </a>
+      </div>
+      <div class="col-lg-1 col-md-1 col-6 pb-3">
+        <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
+          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="1" id="{{Quetion.id}}bld-tp1"
+            autocomplete="off">
+          <label class="btn py-3" for="{{Quetion.id}}bld-tp1"
+            style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice1}}</b></label>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-6 pb-3">
+        <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
+          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="2" id="{{Quetion.id}}bld-tp2"
+            autocomplete="off">
+          <label class="btn py-3" for="{{Quetion.id}}bld-tp2"
+            style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice2}}</b></label>
         </div>
       </div>
     </div>
-  </div>
+    {%endfor%}
+    {%csrf_token%}
 
-  <div class="mainContainer mx-md-4">
-
-    <div class="myContainer">
-      <div class="section-header head">
-        <h3 class="section-title cta-title fw-bold text-white">Recommended</h3>
-        <span class="section-dividerR ms-4">
-      </div>
+    <div class="Q_Form rounded-3 row w-50 mx-auto p-3">
+      <center>
+        <div class="row mx-0" id="options">
+          <div class="col-6 col-md-7 col-lg-10 mb-0 p-3 rounded-3 h4 bg-white text-secondary">
+            Are you sure with your answers ?
+          </div>
+          <div class="col-6 col-md-5 col-lg-2" style="display: grid; margin: auto;">
+            <button type="submit" class="btn btn-primary mx-auto my-auto p-2 px-3"> <b>Proceed</b> </button>
+          </div>
+        </div>
+      </center>
     </div>
+  </form>
+</div>
 
-    <div class="row m-1 px-5 px-md-0 px-lg-0">
-      <div class="col-12 col-md-4 col-lg-3 mt-2">
-        <div class="card" style="border-radius: 15px; border-color: gray;">
-          <img src="../static/admin/img/undraw_posting_photo.svg" class="card-img-top p-3" alt="..."
-            style="width: auto; max-height: 190px; border-radius: 15px" />
-          <div class="card-body py-3 px-2 text-center bg-secondary"
-            style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-            <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-            <div class="text-end me-2">
-              <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;"
-                data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
-                View
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4 col-lg-3 mt-2">
-        <div class="card" style="border-radius: 15px; border-color: gray;">
-          <img src="../static/admin/img/undraw_posting_photo.svg" class="card-img-top p-3" alt="..."
-            style="width: auto; max-height: 190px; border-radius: 15px" />
-          <div class="card-body py-3 px-2 text-center bg-secondary"
-            style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-            <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-            <div class="text-end me-2">
-              <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0"
-                style="border-radius: 10px; color: rgb(173, 55, 173);">
-                View
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4 col-lg-3 mt-2">
-        <div class="card" style="border-radius: 15px; border-color: gray;">
-          <img src="../static/admin/img/undraw_posting_photo.svg" class="card-img-top p-3" alt="..."
-            style="width: auto; max-height: 190px; border-radius: 15px" />
-          <div class="card-body py-3 px-2 text-center bg-secondary"
-            style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-            <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-            <div class="text-end me-2">
-              <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0"
-                style="border-radius: 10px; color: rgb(173, 55, 173);">
-                View
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4 col-lg-3 mt-2">
-        <div class="card" style="border-radius: 15px; border-color: gray;">
-          <img src="../static/admin/img/undraw_posting_photo.svg" class="card-img-top p-3" alt="..."
-            style="width: auto; max-height: 190px; border-radius: 15px" />
-          <div class="card-body py-3 px-2 text-center bg-secondary"
-            style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-            <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-            <div class="text-end me-2">
-              <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0"
-                style="border-radius: 10px; color: rgb(173, 55, 173);">
-                View
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <center>
-      <div class="Q_Form mx-auto px-3 py-2 mt-5" style="width:75% !important;">
-        <h4><b>Complaint Questions</b></h4>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eaque
-        dolores veniam repellat ab architecto, ea necessitatibus vitae laborum
-        deleniti facere quis minus quia! Blanditiis eum quo quos itaque
-        laboriosam?
-      </div>
-    </center>
-
-    <div class="myContainer">
-      <div class="section-header head">
-        <h3 class="section-title cta-title fw-bold text-white">Also Look</h3>
-        <span class="section-dividerR ms-2">
-      </div>
-    </div>
-
-    <div class="row m-1 mb-5 px-5 px-md-0 px-lg-0">
-      <div class="col-12 col-md-4 col-lg-3 mt-2">
-        <div class="card" style="border-radius: 15px; border-color: gray;">
-          <img src="../static/admin/img/undraw_posting_photo.svg" class="card-img-top p-3" alt="..."
-            style="width: auto; max-height: 190px; border-radius: 15px" />
-          <div class="card-body py-3 px-2 text-center bg-secondary"
-            style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-            <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-            <div class="text-end me-2">
-              <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0"
-                style="border-radius: 10px; color: rgb(173, 55, 173);">
-                View
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4 col-lg-3 mt-2">
-        <div class="card" style="border-radius: 15px; border-color: gray;">
-          <img src="../static/admin/img/undraw_posting_photo.svg" class="card-img-top p-3" alt="..."
-            style="width: auto; max-height: 190px; border-radius: 15px" />
-          <div class="card-body py-3 px-2 text-center bg-secondary"
-            style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-            <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-            <div class="text-end me-2">
-              <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0"
-                style="border-radius: 10px; color: rgb(173, 55, 173);">
-                View
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4 col-lg-3 mt-2">
-        <div class="card" style="border-radius: 15px; border-color: gray;">
-          <img src="../static/admin/img/undraw_posting_photo.svg" class="card-img-top p-3" alt="..."
-            style="width: auto; max-height: 190px; border-radius: 15px" />
-          <div class="card-body py-3 px-2 text-center bg-secondary"
-            style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-            <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-            <div class="text-end me-2">
-              <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0"
-                style="border-radius: 10px; color: rgb(173, 55, 173);">
-                View
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4 col-lg-3 mt-2">
-        <div class="card" style="border-radius: 15px; border-color: gray;">
-          <img src="../static/admin/img/undraw_posting_photo.svg" class="card-img-top p-3" alt="..."
-            style="width: auto; max-height: 190px; border-radius: 15px" />
-          <div class="card-body py-3 px-2 text-center bg-secondary"
-            style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-            <h5 class="card-title fw-bold text-warning">Dabar Madhu Rakshak</h5>
-            <div class="text-end me-2">
-              <a href="#" class="btn bg-gray-300 text-uppercase fw-bold border-0"
-                style="border-radius: 10px; color: rgb(173, 55, 173);">
-                View
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <center>
-    <div class="intro-text">
-      <a href="/shopping" class="btn-get-started scrollto">
-        More Products
-        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor"
-          class="bi bi-arrow-right-circle" viewBox="0 0 16 16" style="margin-left: 10px">
-          <path fillRule="evenodd"
-            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
-        </svg>
-      </a>
-    </div>
-  </center>
 </div>
 {% endblock body%}

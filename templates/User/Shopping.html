@@ -14,7 +14,7 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
 </li>
 {% endblock nav_links%}
 
-{% block body %}  
+{% block body %}
 
 <!-- Body below -->
 <div class="offcanvas offcanvas-bottom mx-5"
@@ -29,12 +29,12 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
       <div class="col-12 col-md-12 col-lg-4 mb-2 mb-lg-0">
         <center>
           <img src="../static/admin/img/undraw_posting_photo.svg" style="width: 100%; border-radius: 5px;"
-            alt="Italian Trulli" id="PImage"> 
+            alt="Italian Trulli" id="PImage">
         </center>
       </div>
       <div class="col-12 col-md-12 col-lg-8">
         <label for="Title"><b>Discription: </b></label>
-        <p class="mb-2" style="text-align: justify;" id="PDesc"> 
+        <p class="mb-2" style="text-align: justify;" id="PDesc">
           <!-- description -->
         </p>
         <div class="row">
@@ -45,16 +45,18 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
             </p>
           </div>
           <div class="col-6">
-            <b>Price(₹): </b><label id="Price"></label><br/>
+            <b>Price(₹): </b><label id="Price"></label><br />
             <b>Quantity: </b><label id="Quantity"></label>
           </div>
         </div>
         <div>
           <form action="/shopping/" method="post">
-            <button type="submit" name="cart" id= "cart" value="" class="btn bg-gray-300 me-2 text-center" style="border-radius: 10px;">
+            <button type="submit" name="cart" id="cart" value="" class="btn bg-gray-300 me-2 text-center"
+              style="border-radius: 10px;">
               <i class="fas fa-cart-plus" style="font-size: larger;"></i>
             </button>
-            <button type="submit" name="buy_now" id="buy_now" value="" class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;">
+            <button type="submit" name="buy_now" id="buy_now" value=""
+              class="btn bg-gray-300 text-uppercase fw-bold border-0" style="border-radius: 10px;">
               Buy Now
             </button>
             {% csrf_token %}
@@ -66,7 +68,7 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
 </div>
 
 <!-- category offcanvas  -->
-<div class="offcanvas offcanvas-end my-2" id="category"
+<!-- <div class="offcanvas offcanvas-end my-2" id="category"
   style=" border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title fw-bold text-warning" id="PName"> Product Categories</h5>
@@ -81,11 +83,14 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div class="mx-md-4" id="cont">
-  <div class="float-end">
+  <!-- <div class="float-end">
     <button class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#category">Category</button>
-  </div>
+  </div> -->
+
+{% if user.is_authenticated %}
+  {% if prakruti.p != ' ' %}
   <div class="myContainer">
     <div class="section-header head">
       <h3 class="section-title cta-title fw-bold text-white">Recommended</h3>
@@ -96,12 +101,12 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
   <!-- rounded-4 pt-3 pb-4 style="background-color: rgba(255, 255, 255, 0.823);" -->
   <div class="row m-1 px-5 px-md-0 px-lg-0">
     {%for prod in prods%}
-    <div class="col-12 col-md-4 col-lg-3 mt-2">
+    <div class="col-12 col-md-6 col-lg-3 mt-2">
       <div class="card" style="border-radius: 15px; border-color: gray;" onclick="passPD({{prod.pk}})"
         data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
         <div style="height: 250px !important;">
-          <img src="../../{{prod.Img}}" class="card-img-top p-3" alt="..."
-            style="width: auto; height: 100%; border-radius: 15px" id="pimage{{prod.pk}}"/>
+          <img src="../../media/Prakruti_App/Med_images/{{prod.Img}}" class="card-img-top" alt="..."
+            style="width: auto; height: 100%; border-radius: 15px 15px 0px 0px" id="pimage{{prod.pk}}" />
         </div>
         <div class="card-body pb-0 pt-2 px-2 text-center bg-secondary"
           style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
@@ -116,22 +121,27 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
     {%endfor%}
   </div>
 
-
   <div class="myContainer">
     <div class="section-header head">
       <h3 class="section-title cta-title fw-bold text-white">Also Look</h3>
       <span class="section-dividerR ms-2">
     </div>
   </div>
+{% endif %}
+{% endif %}
 
   <div class="row m-1 mb-5 px-5 px-md-0 px-lg-0">
-    <div class="row m-1 px-5 px-md-0 px-lg-0"> {%for prod in prods%} <div class="col-12 col-md-4 col-lg-3 mt-2">
-        <div class="card" style="border-radius: 15px; border-color: gray;" onclick="passPD({{prod.pk}})" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
+    <div class="row m-1 px-5 px-md-0 px-lg-0">
+      {%for prod in prods%}
+      <div class="col-12 col-md-6 col-lg-3 mt-2">
+        <div class="card" style="border-radius: 15px; border-color: gray;" onclick="passPD({{prod.pk}})"
+          data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
           <div style="height: 250px !important;">
-            <img src="../../{{prod.Img}}" class="card-img-top p-3" alt="..."
+            <img src="../../media/Prakruti_App/Med_images/{{prod.Img}}" class="card-img-top p-3" alt="..."
               style="width: auto; height: 100%; border-radius: 15px" id="pimage{{prod.pk}}" />
           </div>
-          <div class="card-body pb-0 pt-2 px-2 text-center bg-secondary" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+          <div class="card-body pb-0 pt-2 px-2 text-center bg-secondary"
+            style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
             <h5 class="card-title fw-bold text-warning" id="name{{prod.pk}}">{{prod.Name}}</h5>
             <input type="hidden" id="desc{{prod.pk}}" value="{{prod.Desc}}">
             <input type="hidden" id="cont{{prod.pk}}" value="{{prod.Content}}">
@@ -139,18 +149,19 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
             <input type="hidden" id="quantity{{prod.pk}}" value="{{prod.Quantity}}">
           </div>
         </div>
-      </div> {%endfor%} </div>
+      </div> {%endfor%}
+    </div>
   </div>
 </div>
-  <script type="text/javascript">
-    window.onload = function () {
-      console.log("working")
-      if(document.getElementById("msg")){
-        document.getElementById('cont').style.marginTop = "5px";
-      }else{
-        document.getElementById('cont').style.marginTop="100px";
-      }
-      console.log("working")
+<script type="text/javascript">
+  window.onload = function () {
+    console.log("working")
+    if (document.getElementById("msg")) {
+      document.getElementById('cont').style.marginTop = "5px";
+    } else {
+      document.getElementById('cont').style.marginTop = "100px";
     }
-  </script>
+    console.log("working")
+  }
+</script>
 {% endblock body%}

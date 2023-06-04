@@ -81,7 +81,6 @@ class Complaint_Quetions(models.Model):
     choice2 = models.TextField(default='')
     prakruti = models.TextField(default='')
 
-
 class Prakruti_Quetions_Ans(models.Model):
     u_id = models.IntegerField(default=0)
     age = models.TextField(default='')

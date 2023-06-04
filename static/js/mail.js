@@ -37,6 +37,7 @@ function generateOTP() {
   return OTP;
 }
 
+let Gemail = '';
 function sendmail() {
   var email = document.getElementById("emailFP").value;
   console.log(email);
@@ -45,7 +46,7 @@ function sendmail() {
   ebody = "This is your OTP : " + otp;
   Email.send({
     SecureToken: "8f05dc42-76d3-41bf-ba0a-07da1b89f398", //add your token here
-    To: "suyashsv47@gmail.com",
+    To: email,
     From: "getyourprakruti@gmail.com",
     Subject: "This is the subject",
     Body: ebody,
@@ -55,6 +56,7 @@ function sendmail() {
       document.getElementById("verify").style.display = "block";
       document.getElementById("OTPbtn").style.display = "none";
       $("#getOTP").collapse("toggle");
+      Gemail = email;
     })
     .catch((error) => {
       alert(error);
@@ -72,6 +74,7 @@ function verifyOTP() {
   if (Ch_OTP === otp) {
     $("#myModal1").modal("hide");
     $("#chPassModal").modal("show");
+    getElementById('chPassMail').value = Gemail;
     spn.style.display = "none";
   } else {
     // alert("wrong");

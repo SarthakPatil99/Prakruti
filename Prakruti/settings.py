@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'Prakruti.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Prakruti',
+        'NAME': 'PrakrutiDB',
         'USER': 'postgres',
-        'PASSWORD': 'Djshottt',
-        # 'PASSWORD': 'Sarthak@123',git add
-        'HOST': 'localhost'
+        # 'PASSWORD': 'Djshottt',
+        'PASSWORD': 'Prakruti123',
+        'HOST': 'prakruti.ct4dqykzefvh.eu-central-1.rds.amazonaws.com'
     }
 }
 

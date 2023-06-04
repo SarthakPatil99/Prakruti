@@ -10,9 +10,11 @@ import random
 import calendar
 from datetime import date, datetime, timedelta, time
 
-jinja = {'pt_sort':'id','bl_sort':'id','apt_sort':'id','mr_sort':'id','hr_sort':'id','ord_sort':'o_id'}
+jinja = {'pt_sort': 'id', 'bl_sort': 'id', 'apt_sort': 'id',
+        'mr_sort': 'id', 'hr_sort': 'id', 'ord_sort': 'o_id'}
 
 # -----------------------------Getters and setters---------------------------
+
 
 def getPrakruti(val):
     if val == '1':
@@ -28,6 +30,7 @@ def getPrakruti(val):
     else:
         return ("Pitta", "Kapha")
 
+
 def getGender(gender):
     if (gender == "1"):
         return "male"
@@ -36,12 +39,14 @@ def getGender(gender):
     elif (gender == "3"):
         return "other"
 
+
 def getAvailableSlot(date, appointment):
     Apts = Appointments.objects.filter(Date=date, TimeSlot=appointment)
     if len(Apts) < 11:
         return 1
     else:
         return 0
+
 
 def getNextAvailableSlot():
     i = 0
@@ -72,29 +77,35 @@ def getNextAvailableSlot():
     return null, null
 
 # -----------------------------Main functions---------------------------
+
+
 def index(request):
     return render(request, 'index.html')
+
 
 def signup(request):
     return render(request, 'signup.html')
 
+
 def mailVerify(request):
-    print("in email",request.GET)
-    if User.objects.filter(email = request.GET['email']):
+    print("in email", request.GET)
+    if User.objects.filter(email=request.GET['email']):
         print('Email exists')
         return HttpResponse(True)
     else:
         print('Email does not exist')
         return HttpResponse(False)
 
+
 def unameVerify(request):
-    print("in uname",request.GET)
-    if User.objects.filter(username = request.GET['uname']):
+    print("in uname", request.GET)
+    if User.objects.filter(username=request.GET['uname']):
         print('username exists')
         return HttpResponse(True)
     else:
         print('username does not exist')
         return HttpResponse(False)
+
 
 def handleSignUp(request):
     if request.method == 'POST':
@@ -116,7 +127,7 @@ def handleSignUp(request):
 
         try:
             new_user = Users(UserName=urname, Middle_name=mname,
-                            Phone_No=phone, Age=age, Gender=gender, Img=picture)
+                             Phone_No=phone, Age=age, Gender=gender, Img=picture)
             new_user.save()
         except Exception:
             print(Exception)
@@ -127,11 +138,13 @@ def handleSignUp(request):
     else:
         return render(request, 'signup.html')
 
+
 def handleLogin(request):
     if request.method == 'POST':
         # print(request.POST)
         log_usr = request.POST['log_username']
         log_pwd = request.POST['log_pwd']
+        print(request.POST)
         user = auth.authenticate(username=log_usr, password=log_pwd)
         if user is not None:
             Whos = User.objects.filter(username__contains=user)
@@ -150,29 +163,37 @@ def handleLogin(request):
             return redirect('/')
     return HttpResponse('404 - Not Found')
 
+
 def handleLogout(request):
     jinja["Who"] = ""
     auth.logout(request)
     messages.success(request, 'Successfully Logged Out')
     return redirect('/')
 
+
 def chPass(request):
-    if request.method == 'POST':
+    if request.POST:
         chPassMail = request.POST['chPassMail']
         conf_pass = request.POST['confPass']
+        print(request.POST)
 
         try:
-            User.objects.filter(email=chPassMail).update(password=conf_pass)
+            user = User.objects.get(email=chPassMail)
+            user.set_password(conf_pass)
+            user.save()
             return redirect('/')
         except Exception as e:
+            messages.error(request, 'Invalid Credentials, Please try again.')
             print('somthing wrong', e)
 
     return redirect('/')
 
 # -----------------------------USER SIDE---------------------------
 
+
 def home(request):
     return HttpResponse('this is home')
+
 
 def getKeys_dupVal(dictA):
     k_v_exchanged = {}
@@ -182,8 +203,9 @@ def getKeys_dupVal(dictA):
             k_v_exchanged[value] = [key]
         else:
             k_v_exchanged[value].append(key)
-    
+
     return k_v_exchanged
+
 
 def ageFilter(age, pks):
     if age > 0:
@@ -194,12 +216,13 @@ def ageFilter(age, pks):
             prakruti = "pitta"
         else:
             prakruti = "vata"
-        
+
         if prakruti in pks:
             return prakruti
         else:
             return 0
     return 0
+
 
 def preferenceFilter(pks):
     prakruti = ['vata', 'pitta', 'kapha']
@@ -215,27 +238,27 @@ def preferenceFilter(pks):
         newpks.append(prakruti[v1])
     return newpks
 
+
 def analyze(request):
     if request.POST:
         print(request.POST)
-        age = 99 #take it from html post req
+        age = Users.objects.get(UserName=request.user).Age
         pks = ['vata', 'pitta', 'kapha']
         prakruti = {}
         prakrutict = {
-            'vata' : 0,
-            'pitta' : 0,
-            'kapha' : 0
+            'vata': 0,
+            'pitta': 0,
+            'kapha': 0
         }
         # print(request.POST)
         for i in range(1, 24):
-            # print(request.POST[str(i)])
             if request.POST[str(i)] == '1':
                 prakrutict['vata'] += 1
             elif request.POST[str(i)] == '2':
                 prakrutict['pitta'] += 1
             elif request.POST[str(i)] == '3':
                 prakrutict['kapha'] += 1
-        
+
         if prakrutict['vata'] == prakrutict['pitta'] == prakrutict['kapha']:
             prakruti['s'] = 4
         else:
@@ -256,7 +279,7 @@ def analyze(request):
                     prakruti['primary'] = newVals[0]
                     prakruti['secondary'] = newVals[1]
             else:
-                prakruti['primary'] = maxval[0]     #primary set
+                prakruti['primary'] = maxval[0]  # primary set
 
                 minkey = min(prakrutirpt.keys())
                 minval = prakrutirpt[minkey]
@@ -270,25 +293,51 @@ def analyze(request):
                         prakruti['secondary'] = newVals[0]
                 else:
                     prakruti['secondary'] = minval[0]
-            user = Users.objects.get(id = request.user.id)
+            user = Users.objects.get(UserName=request.user)
             user.P_Prakruti = prakruti['primary']
             user.S_Prakruti = prakruti['secondary']
             user.save()
-            ans = Prakruti_Quetions_Ans(id = request.user.id, age = request.POST['age'], ans1 = request.POST['1'],ans2 = request.POST['2'],
-                                    ans3 = request.POST['3'], ans4 = request.POST['4'], ans5 = request.POST['5'], ans6 = request.POST['6'],
-                                    ans7 = request.POST['7'], ans8 = request.POST['8'], ans9 = request.POST['9'], ans10 = request.POST['10'],
-                                    ans11 = request.POST['11'], ans12 = request.POST['12'], ans13 = request.POST['13'],ans14 = request.POST['14'],
-                                    ans15 = request.POST['15'], ans16 = request.POST['16'], ans17 = request.POST['17'],ans18 = request.POST['18'],
-                                    ans19 = request.POST['19'], ans20 = request.POST['20'], ans21 = request.POST['21'],ans22 = request.POST['22'],
-                                    ans23 = request.POST['23'])
+            ans = Prakruti_Quetions_Ans(u_id=request.user.id, age=age, ans1=request.POST['1'], ans2=request.POST['2'],
+                                        ans3=request.POST['3'], ans4=request.POST['4'], ans5=request.POST['5'], ans6=request.POST['6'],
+                                        ans7=request.POST['7'], ans8=request.POST['8'], ans9=request.POST['9'], ans10=request.POST['10'],
+                                        ans11=request.POST['11'], ans12=request.POST[
+                                            '12'], ans13=request.POST['13'], ans14=request.POST['14'],
+                                        ans15=request.POST['15'], ans16=request.POST[
+                                            '16'], ans17=request.POST['17'], ans18=request.POST['18'],
+                                        ans19=request.POST['19'], ans20=request.POST[
+                                            '20'], ans21=request.POST['21'], ans22=request.POST['22'],
+                                        ans23=request.POST['23'])
             ans.save()
-
-        print(prakruti, prakrutict['vata'], prakrutict['pitta'], prakrutict['kapha'])
+        print(prakruti, prakrutict['vata'],
+            prakrutict['pitta'], prakrutict['kapha'])
+        return recommend(request)
     Ques = Prakruti_Quetions.objects.all()
     return render(request, 'user/Analyzer.html', {'Quetions': Ques})
 
+
 def recommend(request):
-    return render(request, 'user/Reccomender.html')
+    prakruti = {}
+    discription = {
+        "PittaVata": "",
+        "PittaKapha": "",
+        "KaphaVata": "",
+        "KaphaPitta": "",
+        "VataPitta": "",
+        "VataKapha": "",
+        "Sama": "",
+    }
+    # fetching prakruti of loggedin user
+    user = Users.objects.get(UserName=request.user)
+    prakruti['p'] = user.P_Prakruti.capitalize()
+    prakruti['s'] = user.S_Prakruti.capitalize()
+    prk = prakruti['p']+prakruti['s']
+    prakruti['d'] = discription[prk]
+    print("prakruti:", prakruti)
+
+    # fetching products
+    Ques = Complaint_Quetions.objects.filter(prakruti=user.P_Prakruti)
+    return render(request, 'user/Reccomender.html', {"prakruti": prakruti, 'Quetions': Ques})
+
 
 def shopping(request):
     if request.POST:
@@ -302,7 +351,8 @@ def shopping(request):
                     ct.quantity = ct.quantity + 1
                     ct.save()
                     return redirect('/cart/')
-                new_cart = Cart(Username= request.user.username,p_id=request.POST['buy_now'])
+                new_cart = Cart(Username=request.user.username,
+                                p_id=request.POST['buy_now'])
                 new_cart.save()
                 print("item added to cart")
                 return redirect('/cart/')
@@ -318,16 +368,24 @@ def shopping(request):
                     ct.save()
                     messages.success(request, 'Item added to cart.')
                     pds = M_remedy.objects.all()
-                    return render(request, 'user/Shopping.html',{'prods':pds})
-                new_cart = Cart(Username= request.user.username,p_id=request.POST['cart'])
+                    return render(request, 'user/Shopping.html', {'prods': pds})
+                new_cart = Cart(Username=request.user.username,
+                                p_id=request.POST['cart'])
                 new_cart.save()
                 messages.success(request, 'Item added to cart.')
                 print("item added to cart")
         except MultiValueDictKeyError:
             print("Cart: ", MultiValueDictKeyError)
 
+    # fetching prakruti of loggedin user
+    prakruti = {}
+    user = Users.objects.get(UserName=request.user)
+    prakruti['p'] = user.P_Prakruti
+    print("prakruti:", prakruti)
+
     pds = M_remedy.objects.all()
-    return render(request, 'user/Shopping.html',{'prods':pds})
+    return render(request, 'user/Shopping.html', {'prods': pds, "prakruti": prakruti})
+
 
 def U_profile(request):
     if request.POST:
@@ -335,7 +393,7 @@ def U_profile(request):
         print(request.FILES)
         try:
             if request.POST['submit']:
-                usr = User.objects.get(UserName=request.user.username)  
+                usr = User.objects.get(UserName=request.user.username)
                 usr_ext = Users.objects.get(UserName=usr.username)
                 usr.first_name = request.POST['Fname']
                 usr_ext.Middle_name = request.POST['Mname']
@@ -345,11 +403,12 @@ def U_profile(request):
                 usr_ext.Gender = getGender(request.POST['Gender'])
                 usr_ext.Age = request.POST['Age']
                 try:
-                    usr.P_Prakruti,usr.S_Prakruti = getPrakruti(request.POST['Prakruti'])
+                    usr.P_Prakruti, usr.S_Prakruti = getPrakruti(
+                        request.POST['Prakruti'])
                 except:
                     pass
                 try:
-                    print('file',request.FILES['inFile'])
+                    print('file', request.FILES['inFile'])
                     usr_ext.Img = request.FILES['inFile']
                 except:
                     pass
@@ -360,7 +419,7 @@ def U_profile(request):
         except:
             pass
     usr = User.objects.get(username=request.user.username)
-    usr_ext = Users.objects.get(UserName = usr.username)
+    usr_ext = Users.objects.get(UserName=usr.username)
     # try:
     #     print('file',request.FILES['inFile'])
     #     usr.Img = request.FILES['inFile']
@@ -368,13 +427,14 @@ def U_profile(request):
     #     pass
     Usrs = vars(usr)
     Usrs.update(vars(usr_ext))
-    Usrs['appnts'] = Appointments.objects.filter(U_id = usr_ext.pk)
-    if(request.user.is_superuser):
+    Usrs['appnts'] = Appointments.objects.filter(U_id=usr_ext.pk)
+    if (request.user.is_superuser):
         Usrs['admin'] = 1
     else:
         Usrs['admin'] = 0
-        
-    return render(request, 'user/U_profile.html',{'users':Usrs})
+
+    return render(request, 'user/U_profile.html', {'users': Usrs})
+
 
 def cart(request):
     crt = []
@@ -384,15 +444,16 @@ def cart(request):
             Cart.objects.get(id=request.POST['remove']).delete()
             messages.error(request, 'Item deleted from cart.')
 
-    pds = Cart.objects.filter(Username = request.user.username)
+    pds = Cart.objects.filter(Username=request.user.username)
     for pd in pds:
-        temp = vars(M_remedy.objects.get(pk = pd.p_id))
-        temp['cartid']= pd.pk
-        temp['qprice']= temp['Price'] * pd.quantity
+        temp = vars(M_remedy.objects.get(pk=pd.p_id))
+        temp['cartid'] = pd.pk
+        temp['qprice'] = temp['Price'] * pd.quantity
         temp['quant'] = pd.quantity
         crt.append(temp)
     print(crt)
-    return render(request, 'user/Cart.html',{'Cart':crt,'prdno':len(pds)})
+    return render(request, 'user/Cart.html', {'Cart': crt, 'prdno': len(pds)})
+
 
 def our_blogs(request):
     type = ["BLOG", "IMAGE", "VIDEO"]
@@ -429,16 +490,18 @@ def our_blogs(request):
                 pass
             if request.POST['submit'] == 'Create':
                 # add blog code
-                new_blog = Blogs(Title=title, Type=Btype, Content=content, Date=dt, file=File)
+                new_blog = Blogs(Title=title, Type=Btype,
+                                 Content=content, Date=dt, file=File)
                 new_blog.save()
         except MultiValueDictKeyError:
             print(MultiValueDictKeyError)
         # view
-    
+
     Bls = Blogs.objects.all()
     return render(request, 'user/our_blogs.html', {'Bls': Bls})
 
 # -----------------------------ADMIN SIDE---------------------------
+
 
 def dashboard(request):
     Pts = Users.objects.all()
@@ -468,6 +531,7 @@ def dashboard(request):
     print(all_data)
     return render(request, 'admin/Dashboard.html', {'data': all_data})
 
+
 def patients(request):
     new_pts = []
     if request.method == 'POST':
@@ -480,20 +544,22 @@ def patients(request):
         try:
             if request.POST['search']:
                 if request.POST['srch'] == '1':
-                    if(jinja['pt_sort']=='first_name' or jinja['pt_sort']=='email'):
+                    if (jinja['pt_sort'] == 'first_name' or jinja['pt_sort'] == 'email'):
                         Pts = User.objects.all().order_by(jinja['pt_sort'])
                     else:
                         Pts = Users.objects.all().order_by(jinja['pt_sort'])
                     string = request.POST['search'].lower()
                     for Pt in Pts:
-                        if(jinja['pt_sort']=='first_name' or jinja['pt_sort']=='email'):
+                        if (jinja['pt_sort'] == 'first_name' or jinja['pt_sort'] == 'email'):
                             Pt_ext = Users.objects.get(UserName=Pt.username)
-                            strs = (Pt.first_name+" "+Pt_ext.Middle_name+" " + Pt.last_name)
+                            strs = (Pt.first_name+" " +
+                                    Pt_ext.Middle_name+" " + Pt.last_name)
                         else:
                             Pt_ext = User.objects.get(username=Pt.UserName)
-                            strs = (Pt_ext.first_name+" "+Pt.Middle_name+" " + Pt_ext.last_name)
+                            strs = (Pt_ext.first_name+" " +
+                                    Pt.Middle_name+" " + Pt_ext.last_name)
                         strs = strs.lower()
-                        print(string,strs)
+                        print(string, strs)
                         if string in strs:
                             new_pt = vars(Pt)
                             new_pt.update(vars(Pt_ext))
@@ -526,7 +592,8 @@ def patients(request):
                     except:
                         return render(request, 'admin/patients.html', {'patients': new_pts})
                 if request.POST['srch'] == '3':
-                    Pts = User.objects.filter(email__contains=request.POST['search'])
+                    Pts = User.objects.filter(
+                        email__contains=request.POST['search'])
                     for Pt in Pts:
                         Pt_ext = Users.objects.filter(UserName=Pt.username)
                         if Pt_ext:
@@ -544,7 +611,8 @@ def patients(request):
                             new_pts.append(new_pt)
                     return render(request, 'admin/patients.html', {'patients': new_pts})
                 if request.POST['srch'] == '4':
-                    Pts = Users.objects.filter(Phone_No__contains=request.POST['search'])
+                    Pts = Users.objects.filter(
+                        Phone_No__contains=request.POST['search'])
                     for Pt in Pts:
                         Pt_ext = User.objects.filter(username=Pt.UserName)
                         if Pt_ext:
@@ -562,8 +630,8 @@ def patients(request):
                             new_pts.append(new_pt)
                     return render(request, 'admin/patients.html', {'patients': new_pts})
         except MultiValueDictKeyError:
-            print("Search User: ",MultiValueDictKeyError)
-            
+            print("Search User: ", MultiValueDictKeyError)
+
         try:
             if request.POST['submit']:
                 fname = request.POST['fname']
@@ -589,7 +657,7 @@ def patients(request):
                     username=urname, password=pwd, email=email, first_name=fname, last_name=lname)
                 user.save()
                 new_user = Users(UserName=urname, Middle_name=mname,
-                                Phone_No=phone, Age=age, Gender=gender, P_Prakruti=P_prakruti, S_Prakruti=S_prakruti)
+                                 Phone_No=phone, Age=age, Gender=gender, P_Prakruti=P_prakruti, S_Prakruti=S_prakruti)
                 new_user.save()
                 messages.success(request, 'User is created.')
             else:
@@ -625,27 +693,28 @@ def patients(request):
                 dt, slot = getNextAvailableSlot()
                 print(dt, slot)
                 if dt != null and slot != null:
-                    new_apt = Appointments(U_id=request.POST['book'], Date=dt, TimeSlot=slot)
+                    new_apt = Appointments(
+                        U_id=request.POST['book'], Date=dt, TimeSlot=slot)
                     new_apt.save()
                     pass
                 else:
-                    messages.warning(request, 'Slot is not available for next 5 days.')
+                    messages.warning(
+                        request, 'Slot is not available for next 5 days.')
                     pass
                 messages.success(request, 'Appintment is Booked.')
                 pass
             else:
                 messages.error(request, 'Appintment is not Booked.')
         except MultiValueDictKeyError:
-            print("Book Appointment: ",MultiValueDictKeyError)
+            print("Book Appointment: ", MultiValueDictKeyError)
 
-
-    if(jinja['pt_sort']=='first_name' or jinja['pt_sort']=='email'):
+    if (jinja['pt_sort'] == 'first_name' or jinja['pt_sort'] == 'email'):
         Pts = User.objects.all().order_by(jinja['pt_sort'])
     else:
         Pts = Users.objects.all().order_by(jinja['pt_sort'])
     for Pt in Pts:
         id = Pt.pk
-        if(jinja['pt_sort']=='first_name' or jinja['pt_sort']=='email'):
+        if (jinja['pt_sort'] == 'first_name' or jinja['pt_sort'] == 'email'):
             Pt_ext = Users.objects.get(UserName=Pt.username)
         else:
             Pt_ext = User.objects.get(username=Pt.UserName)
@@ -662,9 +731,10 @@ def patients(request):
             new_pt.pop('UserName')
             new_pt['id'] = id
             new_pts.append(new_pt)
-    print("sorting by ",jinja['pt_sort'],new_pts)
+    print("sorting by ", jinja['pt_sort'], new_pts)
     print(new_pts)
     return render(request, 'admin/patients.html', {'patients': new_pts})
+
 
 def appointments(request):
     new_apts = []
@@ -675,13 +745,14 @@ def appointments(request):
                 if request.POST['srch'] == '1':
                     Apts = Appointments.objects.all()
                     for Apt in Apts:
-                        string =request.POST['search'].lower()
+                        string = request.POST['search'].lower()
                         Pt = Users.objects.get(id=Apt.U_id)
                         Pt_exts = User.objects.filter(username=Pt.UserName)
                         for Pt_ext in Pt_exts:
-                            strs = (Pt_ext.first_name+" "+Pt.Middle_name+" " + Pt_ext.last_name)
+                            strs = (Pt_ext.first_name+" " +
+                                    Pt.Middle_name+" " + Pt_ext.last_name)
                             strs = strs.lower()
-                            print(string,strs)
+                            print(string, strs)
                             if string in strs:
                                 new_apt = vars(Apt)
                                 new_apt['full_name'] = Pt_ext.first_name+' ' + \
@@ -695,8 +766,9 @@ def appointments(request):
                     return render(request, 'admin/appointments.html', {'Apts': new_apts})
                 if request.POST['srch'] == '2':
                     try:
-                        Apt = Appointments.objects.get(pk = request.POST['search'])
-                        Pt = Users.objects.get(pk = Apt.U_id)
+                        Apt = Appointments.objects.get(
+                            pk=request.POST['search'])
+                        Pt = Users.objects.get(pk=Apt.U_id)
                         Pt_ext = User.objects.get(username=Pt.UserName)
                         new_apt = vars(Apt)
                         new_apt['full_name'] = Pt.first_name+' ' + \
@@ -712,10 +784,10 @@ def appointments(request):
                         return render(request, 'admin/appointments.html', {'Apts': new_apts})
                 if request.POST['srch'] == '3':
                     mail = str(request.POST['search'])
-                    Pts = User.objects.filter(email__contains = mail.lower())
+                    Pts = User.objects.filter(email__contains=mail.lower())
                     for Pt in Pts:
                         Pt_ext = Users.objects.get(UserName=Pt.username)
-                        Apts = Appointments.objects.filter(U_id = Pt_ext.pk)
+                        Apts = Appointments.objects.filter(U_id=Pt_ext.pk)
                         for Apt in Apts:
                             new_apt = vars(Apt)
                             new_apt['full_name'] = Pt.first_name+' ' + \
@@ -728,10 +800,11 @@ def appointments(request):
                             new_apts.append(new_apt)
                     return render(request, 'admin/appointments.html', {'Apts': new_apts})
                 if request.POST['srch'] == '4':
-                    Pts = Users.objects.filter(Phone_No__contains = request.POST['search'])
+                    Pts = Users.objects.filter(
+                        Phone_No__contains=request.POST['search'])
                     for Pt in Pts:
                         Pt_ext = User.objects.get(username=Pt.UserName)
-                        Apts = Appointments.objects.filter(U_id = Pt.pk)
+                        Apts = Appointments.objects.filter(U_id=Pt.pk)
                         for Apt in Apts:
                             new_apt = vars(Apt)
                             new_apt['full_name'] = Pt_ext.first_name+' ' + \
@@ -744,10 +817,10 @@ def appointments(request):
                             new_apts.append(new_apt)
                     return render(request, 'admin/appointments.html', {'Apts': new_apts})
                 if request.POST['srch'] == '5':
-                    Pts = Users.objects.filter(Age__gte = request.POST['search'])
+                    Pts = Users.objects.filter(Age__gte=request.POST['search'])
                     for Pt in Pts:
                         Pt_ext = User.objects.get(username=Pt.UserName)
-                        Apts = Appointments.objects.filter(U_id = Pt.pk)
+                        Apts = Appointments.objects.filter(U_id=Pt.pk)
                         for Apt in Apts:
                             new_apt = vars(Apt)
                             new_apt['full_name'] = Pt_ext.first_name+' ' + \
@@ -761,7 +834,7 @@ def appointments(request):
                         print(new_apts)
                     return render(request, 'admin/appointments.html', {'Apts': new_apts})
         except MultiValueDictKeyError:
-            print('searching',MultiValueDictKeyError)
+            print('searching', MultiValueDictKeyError)
         # reschedule
         try:
             if request.POST['reschedule']:
@@ -778,9 +851,11 @@ def appointments(request):
                         new_apt.TimeSlot = Appnt
                         new_apt.Status_R = True
                         new_apt.save()
-                        messages.success(request, 'Appointment slot is booked.')
+                        messages.success(
+                            request, 'Appointment slot is booked.')
                     else:
-                        messages.warning(request, 'Appointment slot is not available.')
+                        messages.warning(
+                            request, 'Appointment slot is not available.')
                 else:
                     if Day == 1:
                         Date = datetime.now() + timedelta(1)
@@ -794,9 +869,11 @@ def appointments(request):
                         new_apt.TimeSlot = Appnt
                         new_apt.Status_R = True
                         new_apt.save()
-                        messages.success(request, 'Appointment slot is booked.')
+                        messages.success(
+                            request, 'Appointment slot is booked.')
                     else:
-                        messages.error(request, 'Appointment slot is not available.')
+                        messages.error(
+                            request, 'Appointment slot is not available.')
             else:
                 messages.error(request, 'Appointment slot is not resheduled.')
         except MultiValueDictKeyError:
@@ -812,7 +889,8 @@ def appointments(request):
                 new_apt.P_med = Presc
                 new_apt.Status_A = True
                 new_apt.save()
-                messages.success(request, 'Remedies are prescribed and Appointment is attended.')
+                messages.success(
+                    request, 'Remedies are prescribed and Appointment is attended.')
             else:
                 messages.error(request, 'Remedies are not prescribed.')
         except MultiValueDictKeyError:
@@ -848,30 +926,34 @@ def appointments(request):
     # print(Apts)
     return render(request, 'admin/appointments.html', {'Apts': new_apts})
 
+
 def M_remedies(request):
-    
+
     if request.method == 'POST':
         print(request.POST)
         try:
             if request.POST['sort']:
                 jinja['mr_sort'] = request.POST['sort']
-                print('hello',jinja['mr_sort'])
+                print('hello', jinja['mr_sort'])
         except:
             pass
         try:
             if request.POST['search']:
                 if request.POST['srch'] == '1':
-                    MRs = M_remedy.objects.filter(Name__contains = request.POST['search'] )
+                    MRs = M_remedy.objects.filter(
+                        Name__contains=request.POST['search'])
                     return render(request, 'admin/M_remedies.html', {'MRs': MRs})
                 if request.POST['srch'] == '2':
                     try:
-                        MRs = M_remedy.objects.filter(id = request.POST['search'])
+                        MRs = M_remedy.objects.filter(
+                            id=request.POST['search'])
                         return render(request, 'admin/M_remedies.html', {'MRs': MRs})
                     except:
                         MRs = []
                         return render(request, 'admin/M_remedies.html', {'MRs': MRs})
                 if request.POST['srch'] == '3':
-                    MRs = M_remedy.objects.filter(Price__gte = int(request.POST['search']))
+                    MRs = M_remedy.objects.filter(
+                        Price__gte=int(request.POST['search']))
                     return render(request, 'admin/M_remedies.html', {'MRs': MRs})
         except MultiValueDictKeyError:
             print(MultiValueDictKeyError)
@@ -903,7 +985,7 @@ def M_remedies(request):
             if request.POST['submit'] == 'Create':
                 # add medicine code
                 new_med = M_remedy(Name=name, Desc=description, Content=contents,
-                                    Quantity=quantity, Price=price, Img=picture)
+                                   Quantity=quantity, Price=price, Img=picture)
                 new_med.save()
                 messages.success(request, 'Medicine Remedy is inserted.')
             else:
@@ -928,9 +1010,10 @@ def M_remedies(request):
 
     # view
     MRs = M_remedy.objects.all().order_by(jinja['mr_sort'])
-    print('order by :',jinja['mr_sort'],MRs)
+    print('order by :', jinja['mr_sort'], MRs)
     # print(MRs)
     return render(request, 'admin/M_remedies.html', {'MRs': MRs})
+
 
 def H_remedies(request):
     if request.method == 'POST':
@@ -938,17 +1021,19 @@ def H_remedies(request):
         try:
             if request.POST['sort']:
                 jinja['hr_sort'] = request.POST['sort']
-                print('hello',jinja['hr_sort'])
+                print('hello', jinja['hr_sort'])
         except:
             pass
         try:
             if request.POST['search']:
                 if request.POST['srch'] == '1':
-                    HRs = H_remedy.objects.filter(Name__contains = request.POST['search'] )
+                    HRs = H_remedy.objects.filter(
+                        Name__contains=request.POST['search'])
                     return render(request, 'admin/H_remedies.html', {'HRs': HRs})
                 if request.POST['srch'] == '2':
                     try:
-                        HRs = H_remedy.objects.filter(id = request.POST['search'])
+                        HRs = H_remedy.objects.filter(
+                            id=request.POST['search'])
                         return render(request, 'admin/H_remedies.html', {'HRs': HRs})
                     except:
                         HRs = []
@@ -997,12 +1082,13 @@ def H_remedies(request):
                 messages.error(request, 'Home Remedy is not deleted.')
         except MultiValueDictKeyError:
             print("remove home med: ", MultiValueDictKeyError)
-    
+
     # view
     HRs = H_remedy.objects.all().order_by(jinja['hr_sort'])
-    print('order by :',jinja['hr_sort'],HRs)
+    print('order by :', jinja['hr_sort'], HRs)
 
     return render(request, 'admin/H_remedies.html', {'HRs': HRs})
+
 
 def blogs(request):
     type = ["BLOG", "IMAGE", "VIDEO"]
@@ -1013,13 +1099,14 @@ def blogs(request):
         try:
             if request.POST['sort']:
                 jinja['bl_sort'] = request.POST['sort']
-                print('hello',jinja['bl_sort'])
+                print('hello', jinja['bl_sort'])
         except:
             pass
         try:
             if request.POST['search']:
                 # if request.POST['srch'] == '1':
-                Bls = Blogs.objects.filter(Title__contains = request.POST['search'] )
+                Bls = Blogs.objects.filter(
+                    Title__contains=request.POST['search'])
                 return render(request, 'admin/blogs.html', {'Bls': Bls})
                 # if request.POST['srch'] == '2':
                 #     try:
@@ -1060,7 +1147,7 @@ def blogs(request):
             if request.POST['submit'] == 'Create':
                 # add blog code
                 new_blog = Blogs(Title=title, Type=Btype,
-                                Content=content, Date=dt, file=File)
+                                 Content=content, Date=dt, file=File)
                 new_blog.save()
                 messages.success(request, 'Blog is posted.')
             else:
@@ -1081,18 +1168,19 @@ def blogs(request):
 
     # view
     Bls = Blogs.objects.all().order_by(jinja['bl_sort'])
-    print('order by :',jinja['bl_sort'],Bls)
+    print('order by :', jinja['bl_sort'], Bls)
     return render(request, 'admin/blogs.html', {'Bls': Bls})
 
+
 def orders(request):
-    
+
     new_ords = []
     if request.POST:
         print(request.POST)
         try:
             if request.POST['sort']:
                 jinja['ord_sort'] = request.POST['sort']
-                print('hello',jinja['ord_sort'])
+                print('hello', jinja['ord_sort'])
         except:
             pass
         # search
@@ -1102,18 +1190,21 @@ def orders(request):
                     string = request.POST['search'].lower()
                     Pts = Users.objects.all()
                     for Pt in Pts:
-                        Pt_ext = User.objects.get(username = Pt.UserName)
-                        strs = (Pt_ext.first_name+" "+Pt.Middle_name+" " + Pt_ext.last_name).lower()
-                        print(string,strs)
+                        Pt_ext = User.objects.get(username=Pt.UserName)
+                        strs = (Pt_ext.first_name+" "+Pt.Middle_name +
+                                " " + Pt_ext.last_name).lower()
+                        print(string, strs)
                         if string in strs:
                             Ords = Orders.objects.all()
                             for Ord in Ords:
                                 new_ord = vars(Ord)
                                 new_ord.pop('_state')
-                                new_ord['full_name'] = Pt_ext.first_name+" "+Pt.Middle_name+" " + Pt_ext.last_name
+                                new_ord['full_name'] = Pt_ext.first_name + \
+                                    " "+Pt.Middle_name+" " + Pt_ext.last_name
                                 new_ord['email'] = Pt_ext.email
                                 new_ord['phno'] = Pt.Phone_No
-                                Pids = Med_per_ord.objects.filter(o_id=Ord.o_id)
+                                Pids = Med_per_ord.objects.filter(
+                                    o_id=Ord.o_id)
                                 Prds = []
                                 for Pid in Pids:
                                     temp = {}
@@ -1130,12 +1221,13 @@ def orders(request):
                     return render(request, 'admin/Orders.html', {'orders': new_ords})
                 if request.POST['srch'] == '2':
                     try:
-                        Ord = Orders.objects.get(o_id = request.POST['search'])
-                        Pt = Users.objects.get(UserName = Ord.UserName)
-                        Pt_ext = User.objects.get(username = Pt.UserName)
+                        Ord = Orders.objects.get(o_id=request.POST['search'])
+                        Pt = Users.objects.get(UserName=Ord.UserName)
+                        Pt_ext = User.objects.get(username=Pt.UserName)
                         new_ord = vars(Ord)
                         new_ord.pop('_state')
-                        new_ord['full_name'] = Pt_ext.first_name+' '+Pt.Middle_name+' '+Pt_ext.last_name
+                        new_ord['full_name'] = Pt_ext.first_name + \
+                            ' '+Pt.Middle_name+' '+Pt_ext.last_name
                         new_ord['email'] = Pt_ext.email
                         new_ord['phno'] = Pt.Phone_No
                         Pids = Med_per_ord.objects.filter(o_id=Ord.o_id)
@@ -1155,10 +1247,11 @@ def orders(request):
                     except:
                         return render(request, 'admin/Orders.html', {'orders': new_ords})
                 if request.POST['srch'] == '3':
-                    Pts = User.objects.filter(email__contains = request.POST['search'])
+                    Pts = User.objects.filter(
+                        email__contains=request.POST['search'])
                     for Pt in Pts:
                         Pt_ext = Users.objects.get(UserName=Pt.username)
-                        Ords = Users.objects.filter(UserName = Pt_ext.UserName)
+                        Ords = Users.objects.filter(UserName=Pt_ext.UserName)
                         for Ord in Ords:
                             new_ord = vars(Ord)
                             new_ord.pop('_state')
@@ -1181,14 +1274,16 @@ def orders(request):
                             new_ords.append(new_ord)
                     return render(request, 'admin/Orders.html', {'orders': new_ords})
                 if request.POST['srch'] == '4':
-                    Pts = Users.objects.filter(email__contains = request.POST['search'])
+                    Pts = Users.objects.filter(
+                        email__contains=request.POST['search'])
                     for Pt in Pts:
                         Pt_ext = User.objects.get(username=Pt.UserName)
-                        Ords = Users.objects.filter(UserName = Pt_ext.username)
+                        Ords = Users.objects.filter(UserName=Pt_ext.username)
                         for Ord in Ords:
                             new_ord = vars(Ord)
                             new_ord.pop('_state')
-                            new_ord['full_name'] = Pt_ext.first_name+' '+ Pt.Middle_name+' '+Pt_ext.last_name
+                            new_ord['full_name'] = Pt_ext.first_name + \
+                                ' ' + Pt.Middle_name+' '+Pt_ext.last_name
                             new_ord['email'] = Pt_ext.email
                             new_ord['phno'] = Pt.Phone_No
                             Pids = Med_per_ord.objects.filter(o_id=Ord.o_id)
@@ -1211,11 +1306,14 @@ def orders(request):
                         new_ord = vars(Ord)
                         new_ord.pop('_state')
                         patient = User.objects.get(username=Ord.UserName)
-                        patient_ext = Users.objects.get(UserName=patient.username)
-                        new_ord['full_name'] = patient.first_name+' ' + patient_ext.Middle_name+' '+patient.last_name
+                        patient_ext = Users.objects.get(
+                            UserName=patient.username)
+                        new_ord['full_name'] = patient.first_name+' ' + \
+                            patient_ext.Middle_name+' '+patient.last_name
                         new_ord['email'] = patient.email
                         new_ord['phno'] = patient_ext.Phone_No
-                        Pids = Med_per_ord.objects.filter(m_name__contains = request.POST['search'])
+                        Pids = Med_per_ord.objects.filter(
+                            m_name__contains=request.POST['search'])
                         Prds = []
                         for Pid in Pids:
                             temp = {}
@@ -1230,7 +1328,7 @@ def orders(request):
                         new_ords.append(new_ord)
                     return render(request, 'admin/Orders.html', {'orders': new_ords})
         except MultiValueDictKeyError:
-            print('Searching',MultiValueDictKeyError)
+            print('Searching', MultiValueDictKeyError)
         # remove
         try:
             if request.POST['remove']:
@@ -1244,7 +1342,7 @@ def orders(request):
             else:
                 messages.error(request, 'Order is not deleted.')
         except MultiValueDictKeyError:
-            print('remove',MultiValueDictKeyError)
+            print('remove', MultiValueDictKeyError)
 
     # view
     Ords = Orders.objects.all().order_by(jinja['ord_sort'])
@@ -1253,7 +1351,8 @@ def orders(request):
         new_ord.pop('_state')
         patient = User.objects.get(username=Ord.UserName)
         patient_ext = Users.objects.get(UserName=patient.username)
-        new_ord['full_name'] = patient.first_name+' ' + patient_ext.Middle_name+' '+patient.last_name
+        new_ord['full_name'] = patient.first_name+' ' + \
+            patient_ext.Middle_name+' '+patient.last_name
         new_ord['email'] = patient.email
         new_ord['phno'] = patient_ext.Phone_No
         Pids = Med_per_ord.objects.filter(o_id=Ord.o_id)
@@ -1271,14 +1370,15 @@ def orders(request):
         new_ords.append(new_ord)
     return render(request, 'admin/Orders.html', {'orders': new_ords})
 
+
 def A_profile(request):
     if request.POST:
         print(request.POST)
         print(request.FILES)
         try:
             if request.POST['submit']:
-                usr = User.objects.get(id=request.POST['patient_id'])  
-                usr_ext = Users.objects.get(UserName = usr.username)
+                usr = User.objects.get(id=request.POST['patient_id'])
+                usr_ext = Users.objects.get(UserName=usr.username)
                 usr.first_name = request.POST['Fname']
                 usr_ext.Middle_name = request.POST['Mname']
                 usr.last_name = request.POST['Lname']
@@ -1292,7 +1392,7 @@ def A_profile(request):
                 except:
                     pass
                 try:
-                    print('file',request.FILES['inFile'])
+                    print('file', request.FILES['inFile'])
                     usr_ext.Img = request.FILES['inFile']
                 except:
                     pass
@@ -1302,26 +1402,28 @@ def A_profile(request):
                 print('user updated successfully')
         except:
             pass
-            
-        usr = User.objects.get(id=request.POST['patient_id'])  
-        usr_ext = Users.objects.get(UserName = usr.username)
+
+        usr = User.objects.get(id=request.POST['patient_id'])
+        usr_ext = Users.objects.get(UserName=usr.username)
         Usrs = vars(usr)
         Usrs.update(vars(usr_ext))
         Usrs['admin'] = 0
-        Usrs['appnts'] = Appointments.objects.filter(U_id = usr_ext.pk)     
+        Usrs['appnts'] = Appointments.objects.filter(U_id=usr_ext.pk)
         try:
             if request.POST['search']:
-                Usrs['appnts'] = Appointments.objects.filter(id=request.POST['search']) 
+                Usrs['appnts'] = Appointments.objects.filter(
+                    id=request.POST['search'])
         except:
-            Usrs['appnts'] = Appointments.objects.filter(U_id = usr_ext.pk) 
+            Usrs['appnts'] = Appointments.objects.filter(U_id=usr_ext.pk)
         # print(Usrs)
-        return render(request, 'admin/A_profile.html',{'users':Usrs})
+        return render(request, 'admin/A_profile.html', {'users': Usrs})
     usr = User.objects.get(username=request.user.username)
-    usr_ext = Users.objects.get(UserName = usr.username)
+    usr_ext = Users.objects.get(UserName=usr.username)
     Usrs = vars(usr)
     Usrs.update(vars(usr_ext))
     Usrs['admin'] = 1
-    return render(request, 'admin/A_profile.html', {'users':Usrs})
+    return render(request, 'admin/A_profile.html', {'users': Usrs})
+
 
 def dataInsert(request):
     # quetions = [
@@ -1372,7 +1474,7 @@ def dataInsert(request):
     #     {'Q': 'Q23. How is your Pulse?', 'C1': 'Snakelike, Feebi',
     #      'C2': 'Froglike , Faster', 'C3': 'Gentle, Steady'},
     # ]
-    
+
     # quetions = [
     #     {'Q': 'Do you feel weakness with body cramp',
     #         'C1': 'Yes', 'C2': 'No', 'prakruti': 'vata'},
