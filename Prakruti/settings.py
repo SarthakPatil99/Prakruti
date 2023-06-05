@@ -80,7 +80,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'PrakrutiDB',
         'USER': 'postgres',
-        # 'PASSWORD': 'Djshottt',
         'PASSWORD': 'Prakruti123',
         'HOST': 'prakruti.ct4dqykzefvh.eu-central-1.rds.amazonaws.com'
     }

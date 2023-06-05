@@ -26,6 +26,7 @@ class Appointments(models.Model):
 class M_remedy(models.Model):
     Name = models.CharField(max_length=20, default='')
     Desc = models.TextField(default='')
+    Category = models.TextField(default='')
     Content = models.TextField(default='')
     Quantity = models.IntegerField(default=0)
     Price = models.IntegerField(default=0)

@@ -15,7 +15,6 @@ jinja = {'pt_sort': 'id', 'bl_sort': 'id', 'apt_sort': 'id',
 
 # -----------------------------Getters and setters---------------------------
 
-
 def getPrakruti(val):
     if val == '1':
         return ("Vata", "Kapha")
@@ -340,6 +339,15 @@ def recommend(request):
 
 
 def shopping(request):
+    prakruti = {}
+    try:
+        # fetching prakruti of loggedin user
+        user = Users.objects.get(UserName=request.user)
+        prakruti['p'] = user.P_Prakruti
+    except:
+        pass
+    print("prakruti:", prakruti)
+
     if request.POST:
         print(request.POST)
         pds = Cart.objects.filter(Username=request.user.username)
@@ -377,11 +385,19 @@ def shopping(request):
         except MultiValueDictKeyError:
             print("Cart: ", MultiValueDictKeyError)
 
-    # fetching prakruti of loggedin user
-    prakruti = {}
-    user = Users.objects.get(UserName=request.user)
-    prakruti['p'] = user.P_Prakruti
-    print("prakruti:", prakruti)
+        try:
+            if request.POST['category']:
+                try:
+                    category = request.POST.getlist('category')
+                    pds = M_remedy.objects.filter(Category = "")
+                    for cat in category:
+                        pds = pds.union(M_remedy.objects.filter(Category=cat))
+                    print(pds) 
+                    return render(request, 'user/Shopping.html', {'prods': pds, "prakruti": prakruti})
+                except:
+                    pass
+        except:
+            print("Categorize: error", )
 
     pds = M_remedy.objects.all()
     return render(request, 'user/Shopping.html', {'prods': pds, "prakruti": prakruti})

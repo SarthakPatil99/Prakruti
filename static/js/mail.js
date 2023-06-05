@@ -72,9 +72,10 @@ function verifyOTP() {
   var Ch_otp6 = document.getElementById("otp6").value;
   var Ch_OTP = Ch_otp1 + Ch_otp2 + Ch_otp3 + Ch_otp4 + Ch_otp5 + Ch_otp6;
   if (Ch_OTP === otp) {
-    $("#myModal1").modal("hide");
+    $("#FpModal").modal("hide");
     $("#chPassModal").modal("show");
-    getElementById('chPassMail').value = Gemail;
+    console.log(Gemail)
+    document.getElementById('chPassMail').value = Gemail;
     spn.style.display = "none";
   } else {
     // alert("wrong");
