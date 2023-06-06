@@ -72,11 +72,20 @@ Medicines
                 <center>
                   <img src="../../static/img/close_cam.png" width="100%" id="Img" />
                   <input type="hidden" name="ImgURL" id="setImgURL" value="">
-                  <input type="hidden" name="mid" id="setmid" value="">
+                  <input type="hidden" name="m_id" id="setmid" value="">
                 </center>
               </div>
             </div>
 
+            <div class="row mb-2">
+              <div class="col-12 col-md-12 col-lg-12">
+                <label for="Category" class="form-label">
+                  <b>Category:</b>
+                </label>
+                <input type="text" class="form-control" id="Cat" placeholder="Medicine Category" name="category" required />
+              </div>
+            </div>
+            
             <div class="row mb-2">
               <div class="col-12 col-md-12 col-lg-12">
                 <label for="Description" class="form-label">
@@ -124,6 +133,7 @@ Medicines
     </div>
   </div>
 
+  <!-- Search -->
   <form action="/medicine_remedies/" method="post" style="width: 55%;">
     <div class="input-group">
       <div class="input-group-append">
@@ -142,6 +152,7 @@ Medicines
     </div>
   </form>
 
+  <!-- Sort -->
   <div class="dropdown float-right mx-3 mb-3">
     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown"
       aria-expanded="false">
@@ -166,6 +177,7 @@ Medicines
       <th>ID</th>
       <th>Picture</th>
       <th>Name</th>
+      <th>Category</th>
       <th>Description</th>
       <th>Contents</th>
       <th>Quantity</th>
@@ -181,6 +193,7 @@ Medicines
         alt="Italian Trulli">
     </td>
     <td id="name{{MR.id}}">{{MR.Name}}</td>
+    <td id="category{{MR.id}}">{{MR.Category}}</td>
     <td id="desc{{MR.id}}">{{MR.Desc}}</td>
     <td id="contents{{MR.id}}">{{MR.Content}}</td>
     <td id="quantity{{MR.id}}" width="1%">{{MR.Quantity}}</td>

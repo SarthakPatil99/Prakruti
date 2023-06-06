@@ -28,6 +28,7 @@ function validate_email() {
     btn.disabled = true;
   }
 }
+
 function validate_UName() {
   var uname = document.getElementById('urname').value;
   // console.log(uname);
@@ -133,6 +134,7 @@ function validateImage() {
     console.log(fileInput);
   }
 }
+
 function validateAge() {
   age = document.getElementById("Age");
   if (age.value > 0) {
@@ -147,6 +149,7 @@ function validateAge() {
     document.getElementById("Submit").disabled = true;
   }
 }
+
 function validateGender() {
   gender = document.getElementById("Gender");
   if (gender.value > 0) {

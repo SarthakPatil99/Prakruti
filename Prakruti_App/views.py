@@ -180,6 +180,7 @@ def chPass(request):
             user = User.objects.get(email=chPassMail)
             user.set_password(conf_pass)
             user.save()
+            messages.success(request, 'Password changed successfully.')
             return redirect('/')
         except Exception as e:
             messages.error(request, 'Invalid Credentials, Please try again.')
@@ -353,35 +354,39 @@ def shopping(request):
         pds = Cart.objects.filter(Username=request.user.username)
         try:
             if request.POST['buy_now']:
-                cts = Cart.objects.filter(p_id=request.POST['buy_now'])
+                cts = Cart.objects.filter(Username=request.user).filter(
+                    p_id=request.POST['buy_now'])
                 for ct in cts:
-                    print(ct.quantity)
+                    print("olditem",ct, ct.quantity, ct.p_id)
                     ct.quantity = ct.quantity + 1
                     ct.save()
+                    print("item added to cart of id", request.POST['buy_now'])
                     return redirect('/cart/')
-                new_cart = Cart(Username=request.user.username,
-                                p_id=request.POST['buy_now'])
+                new_cart = Cart(Username=request.user,
+                                p_id=request.POST['buy_now'], quantity=1)
                 new_cart.save()
-                print("item added to cart")
+                print("new item added to cart of id", request.POST['buy_now'])
                 return redirect('/cart/')
         except MultiValueDictKeyError:
             print("Buy now: ", MultiValueDictKeyError)
 
         try:
             if request.POST['cart']:
-                cts = Cart.objects.filter(p_id=int(request.POST['cart']))
+                cts = Cart.objects.filter(Username=request.user).filter(
+                    p_id=int(request.POST['cart']))
                 for ct in cts:
                     ct.quantity = ct.quantity + 1
-                    print(ct.quantity)
+                    print('olditem',ct,ct.quantity,ct.p_id)
                     ct.save()
+                    print("item added to cart of id",request.POST['cart'])
                     messages.success(request, 'Item added to cart.')
                     pds = M_remedy.objects.all()
                     return render(request, 'user/Shopping.html', {'prods': pds})
-                new_cart = Cart(Username=request.user.username,
-                                p_id=request.POST['cart'])
+                new_cart = Cart(Username=request.user,
+                                p_id=request.POST['cart'],quantity=1)                
                 new_cart.save()
                 messages.success(request, 'Item added to cart.')
-                print("item added to cart")
+                print("new item added to cartid", request.POST['cart'])
         except MultiValueDictKeyError:
             print("Cart: ", MultiValueDictKeyError)
 
@@ -520,32 +525,35 @@ def our_blogs(request):
 
 
 def dashboard(request):
-    Pts = Users.objects.all()
-    MRs = M_remedy.objects.all()
-    HRs = H_remedy.objects.all()
-    Bls = Blogs.objects.all()
+    if request.user.is_superuser:
+        Pts = Users.objects.all()
+        MRs = M_remedy.objects.all()
+        HRs = H_remedy.objects.all()
+        Bls = Blogs.objects.all()
 
-    Apts = Appointments.objects.all()
-    CApts = Appointments.objects.filter(Status_A=True)
-    Ords = Orders.objects.all()
-    COrds = Orders.objects.filter(Status=True)
+        Apts = Appointments.objects.all()
+        CApts = Appointments.objects.filter(Status_A=True)
+        Ords = Orders.objects.all()
+        COrds = Orders.objects.filter(Status=True)
 
-    all_data = {}
-    all_data['pts_ct'] = len(Pts)
-    all_data['mrs_ct'] = len(MRs)
-    all_data['hrs_ct'] = len(HRs)
-    all_data['bls_ct'] = len(Bls)
-    try:
-        all_data['apts_ct'] = round((len(CApts) / len(Apts))*100, 2)
-    except:
-        all_data['apts_ct'] = 0
-    try:
-        all_data['ords_ct'] = round((len(COrds) / len(Ords))*100, 2)
-    except:
-        all_data['ords_ct'] = 0
+        all_data = {}
+        all_data['pts_ct'] = len(Pts)
+        all_data['mrs_ct'] = len(MRs)
+        all_data['hrs_ct'] = len(HRs)
+        all_data['bls_ct'] = len(Bls)
+        try:
+            all_data['apts_ct'] = round((len(CApts) / len(Apts))*100, 2)
+        except:
+            all_data['apts_ct'] = 0
+        try:
+            all_data['ords_ct'] = round((len(COrds) / len(Ords))*100, 2)
+        except:
+            all_data['ords_ct'] = 0
 
-    print(all_data)
-    return render(request, 'admin/Dashboard.html', {'data': all_data})
+        print(all_data)
+        return render(request, 'admin/Dashboard.html', {'data': all_data})
+    else:
+        return redirect('/')
 
 
 def patients(request):
@@ -974,7 +982,9 @@ def M_remedies(request):
         except MultiValueDictKeyError:
             print(MultiValueDictKeyError)
         try:
+            m_id = request.POST['m_id']
             name = request.POST['name']
+            category = request.POST['category']
             description = request.POST['description']
             contents = request.POST['contents']
             quantity = request.POST['quantity']
@@ -983,11 +993,12 @@ def M_remedies(request):
                 picture = request.FILES['inFile']
             except:
                 picture = request.POST['ImgURL']
+            
             if request.POST['submit'] == 'Modify':
                 # update medicine code
-                m_id = request.POST['mid']
                 update_med = M_remedy.objects.get(id=m_id)
                 update_med.Name = name
+                update_med.Category = category
                 update_med.Desc = description
                 update_med.Content = contents
                 update_med.Quantity = quantity
@@ -998,10 +1009,11 @@ def M_remedies(request):
                 pass
             else:
                 messages.error(request, 'Medicine Remedy is not updated.')
+            
             if request.POST['submit'] == 'Create':
                 # add medicine code
                 new_med = M_remedy(Name=name, Desc=description, Content=contents,
-                                   Quantity=quantity, Price=price, Img=picture)
+                                    Quantity=quantity, Price=price, Img=picture)
                 new_med.save()
                 messages.success(request, 'Medicine Remedy is inserted.')
             else:

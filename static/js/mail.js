@@ -180,28 +180,40 @@ function transferED() {
     Gender.value = "0";
   }
 }
+
 function chQuant(id){
   Qt = document.getElementById('qt'+id).value;
   document.getElementById("qprice"+id).innerHTML =
     Qt * document.getElementById("pprice"+id).value;
   calc()
 }
-function chng(id){
+
+function chng(id, who){
   var ch = document.getElementById(id);
   var Tprice = document.getElementById("Tprice");
   var qprice = document.getElementById("qprice" + id);
   var Prdno = document.getElementById("prds");
-  if(ch.checked){
-    tprice = parseInt(Tprice.innerHTML) + parseInt(qprice.innerHTML);
-    prdno  = parseInt(Prdno.innerHTML) + 1;
-  } else {
-    tprice = parseInt(Tprice.innerHTML) - parseInt(qprice.innerHTML);
-    prdno = parseInt(Prdno.innerHTML) - 1;
+  // console.log(ch)
+  if(who){
+    if (ch.checked) {
+      tprice = parseInt(Tprice.innerHTML) + parseInt(qprice.innerHTML);
+      prdno = parseInt(Prdno.innerHTML) + 1;
+    } else {
+      tprice = parseInt(Tprice.innerHTML) - parseInt(qprice.innerHTML);
+      prdno = parseInt(Prdno.innerHTML) - 1;
+    }
+  }
+  else{
+    if (ch.checked) {
+      tprice = parseInt(Tprice.innerHTML) + parseInt(qprice.innerHTML);
+      prdno = parseInt(Prdno.innerHTML) + 1;
+    }
   }
   Prdno.innerHTML = prdno;
   Tprice.innerHTML = tprice;
-  console.log(prdno,tprice);
+  // console.log(prdno,tprice);
 }
+
 function adM() {
   document.getElementById("cont").style.marginTop = "100px";
 }

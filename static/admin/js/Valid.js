@@ -6,6 +6,7 @@ function transferMR(who) {
   var inFile = document.getElementById("inFile");
   var desc = document.getElementById("Desc");
   var content = document.getElementById("Content");
+  var category = document.getElementById("Cat");
   var quantity = document.getElementById("Quantity");
   var price = document.getElementById("Price");
   var Submit = document.getElementById("Submit");
@@ -20,6 +21,7 @@ function transferMR(who) {
     img.src = document.getElementById("img" + who).src;
     desc.value = document.getElementById("desc" + who).innerHTML;
     content.value = document.getElementById("contents" + who).innerHTML;
+    category.value = document.getElementById("category"+who).innerHTML;
     quantity.value = parseInt(
       document.getElementById("quantity" + who).innerHTML
     );
@@ -38,6 +40,7 @@ function transferMR(who) {
     inFile.value = "";
     img.src = "";
     desc.value = "";
+    category.value="";
     content.value = "";
     quantity.value = "";
     price.value = "";
@@ -78,7 +81,6 @@ function transferBlog(who) {
     document.getElementById("videoField").style.display = "none";
   }
 }
-
 // data transfer Home Remedies
 function transferHR(who) {
   var title = document.getElementById("Title");
@@ -117,7 +119,6 @@ function transferHR(who) {
     acce.value = "";
   }
 }
-
 // data tranfer appt
 function transferApt(who) {
   var ML_aptid = document.getElementById("ML_aptid"); //lable
@@ -128,7 +129,6 @@ function transferApt(who) {
   MI_aptid.value = who;
   Name.innerHTML = document.getElementById("name"+who).innerHTML;
 }
-
 // data tranfer Edit Details
 function transferED() {
   var Fname = document.getElementById("Fname");
@@ -160,6 +160,7 @@ function transferED() {
     Gender.value = "0";
   }
 }
+
 // validators
 function validateEmail() {
   var email = document.getElementById("emailP");
@@ -297,7 +298,6 @@ function validateBType() {
   }
   seeType(type);
 }
-
 function gettype(val, who) {
   var Contents = document.getElementById("Contents");
   var Video = document.getElementById("Vdo");
@@ -320,7 +320,6 @@ function gettype(val, who) {
     return "0";
   }
 }
-
 function seeType(type) {
   img = document.getElementById("imgField");
   vdo = document.getElementById("videoField");
@@ -352,13 +351,11 @@ function seeType(type) {
     vdo.style.display = "none";
   }
 }
-
 function stopVideo() {
   var video = document.getElementById("Vdo");
   video.pause();
   video.currentTime = 0;
 }
-
 function blogChk() {
   imgfld = document.getElementById("imgField");
   vdofld = document.getElementById("videoField");
@@ -405,7 +402,6 @@ function blogChk() {
 }
 
 // Reschedule part
-
 function dayChoose() {
   document.getElementById("dateSec").style.display = "none";
   day = document.getElementById("Day");
@@ -451,6 +447,8 @@ function dayReset(who) {
   document.getElementById("submit").disabled = false;
   dayChoose();
 }
+
+// Search Validation
 function validateSrch() {
   srchPt = document.getElementById("Srch").value;
   if (srchPt > 0) {
