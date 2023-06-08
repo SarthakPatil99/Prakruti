@@ -67,7 +67,7 @@ Our Blogs
              <p class="card-text mb-0 pstyle" id="contents{{Bl.pk}}">{{Bl.Content}}</p> 
             {%elif Bl.Type == 'IMAGE'%} <img src="../../media/{{Bl.file}}" id="img{{Bl.pk}}"
               style="width: 100%; height: 100%; border-radius: 5px;" alt="Italian Trulli" /> 
-            {%else%} <video width="100%" id="vdo{{Bl.pk}}" style="border-radius: 5px;" controls
+            {%else%} <video width="100%" id="vdo{{Bl.pk}}" style="border-radius: 5px;"
               src="../../media/{{Bl.file}}"></video> 
             {%endif%} 
             <input type="hidden" id="getImgURL{{Bl.pk}}" value="{{Bl.file}}">

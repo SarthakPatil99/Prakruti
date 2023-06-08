@@ -40,6 +40,7 @@
     Header
   ============================-->
 
+  <!-- navbar -->
   <nav id="header" class="navbar navbar-expand-sm navbar-dark ">
     <div class="container-fluid">
       <h1><a href="#intro" style="color: rgb(252, 202, 0); font-weight: 600; font-family: cursive; margin-right: 15px;" class="scrollto">Prakruti</a></h1>
@@ -251,6 +252,7 @@
 
   <!-- #header -->
 
+  <!-- alert msgs -->
   {% for message in messages %}
   <div
     class='alert alert-{% if message.tags == "error" %}danger{%else%}{{message.tags}}{%endif%} alert-dismissible fade show msg mx-3 mb-3' style="margin-top: 100px
@@ -262,6 +264,7 @@
 
   {% block body %} {% endblock body%}
 
+  <!-- blog details -->
   <div class="offcanvas offcanvas-bottom mx-auto" style="height:fit-content; width: 80%; border-top-left-radius: 10px; border-top-right-radius: 10px;" id="offcanvasBottom"
     aria-labelledby="offcanvasBottomLabel">
     <div class="offcanvas-header">

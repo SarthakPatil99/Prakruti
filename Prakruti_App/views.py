@@ -77,7 +77,6 @@ def getNextAvailableSlot():
 
 # -----------------------------Main functions---------------------------
 
-
 def index(request):
     return render(request, 'index.html')
 
@@ -190,7 +189,6 @@ def chPass(request):
 
 # -----------------------------USER SIDE---------------------------
 
-
 def home(request):
     return HttpResponse('this is home')
 
@@ -297,20 +295,45 @@ def analyze(request):
             user.P_Prakruti = prakruti['primary']
             user.S_Prakruti = prakruti['secondary']
             user.save()
-            ans = Prakruti_Quetions_Ans(u_id=request.user.id, age=age, ans1=request.POST['1'], ans2=request.POST['2'],
-                                        ans3=request.POST['3'], ans4=request.POST['4'], ans5=request.POST['5'], ans6=request.POST['6'],
-                                        ans7=request.POST['7'], ans8=request.POST['8'], ans9=request.POST['9'], ans10=request.POST['10'],
-                                        ans11=request.POST['11'], ans12=request.POST[
-                                            '12'], ans13=request.POST['13'], ans14=request.POST['14'],
-                                        ans15=request.POST['15'], ans16=request.POST[
-                                            '16'], ans17=request.POST['17'], ans18=request.POST['18'],
-                                        ans19=request.POST['19'], ans20=request.POST[
-                                            '20'], ans21=request.POST['21'], ans22=request.POST['22'],
-                                        ans23=request.POST['23'])
-            ans.save()
-        print(prakruti, prakrutict['vata'],
-            prakrutict['pitta'], prakrutict['kapha'])
-        return recommend(request)
+            try:
+                usr = Prakruti_Quetions_Ans.objects.get(u_id=request.user.id)
+                usr.age=age
+                usr.ans1=request.POST['1']
+                usr.ans2=request.POST['2']
+                usr.ans3=request.POST['3']
+                usr.ans4=request.POST['4']
+                usr.ans5=request.POST['5']
+                usr.ans6=request.POST['6']
+                usr.ans7=request.POST['7']
+                usr.ans8=request.POST['8']
+                usr.ans9=request.POST['9']
+                usr.ans10=request.POST['10']
+                usr.ans11=request.POST['11']
+                usr.ans12=request.POST['12']
+                usr.ans13=request.POST['13']
+                usr.ans14=request.POST['14']
+                usr.ans15=request.POST['15']
+                usr.ans16=request.POST['16']
+                usr.ans17=request.POST['17']
+                usr.ans18=request.POST['18']
+                usr.ans19=request.POST['19']
+                usr.ans20=request.POST['20']
+                usr.ans21=request.POST['21']
+                usr.ans22=request.POST['22']
+                usr.ans23=request.POST['23']
+                usr.save()
+            except:
+                ans = Prakruti_Quetions_Ans(u_id=request.user.id, age=age, ans1=request.POST['1'], ans2=request.POST['2'],
+                                            ans3=request.POST['3'], ans4=request.POST['4'], ans5=request.POST['5'], 
+                                            ans6=request.POST['6'],ans7=request.POST['7'], ans8=request.POST['8'], 
+                                            ans9=request.POST['9'], ans10=request.POST['10'],ans11=request.POST['11'], 
+                                            ans12=request.POST['12'], ans13=request.POST['13'], ans14=request.POST['14'],
+                                            ans15=request.POST['15'], ans16=request.POST['16'], ans17=request.POST['17'], 
+                                            ans18=request.POST['18'], ans19=request.POST['19'], ans20=request.POST['20'], 
+                                            ans21=request.POST['21'], ans22=request.POST['22'], ans23=request.POST['23'])
+                ans.save()
+        print(prakruti, prakrutict['vata'],prakrutict['pitta'], prakrutict['kapha'])
+        return redirect('/recommend')
     Ques = Prakruti_Quetions.objects.all()
     return render(request, 'user/Analyzer.html', {'Quetions': Ques})
 
@@ -327,15 +350,15 @@ def recommend(request):
         "Sama": "",
     }
     # fetching prakruti of loggedin user
-    user = Users.objects.get(UserName=request.user)
+    user = Users.objects.get(UserName = request.user)
     prakruti['p'] = user.P_Prakruti.capitalize()
     prakruti['s'] = user.S_Prakruti.capitalize()
-    prk = prakruti['p']+prakruti['s']
+    prk = prakruti['p'] + prakruti['s']
     prakruti['d'] = discription[prk]
     print("prakruti:", prakruti)
 
-    # fetching products
-    Ques = Complaint_Quetions.objects.filter(prakruti=user.P_Prakruti)
+    # fetching Questions
+    Ques = Complaint_Quetions.objects.filter(prakruti = user.P_Prakruti)
     return render(request, 'user/Reccomender.html', {"prakruti": prakruti, 'Quetions': Ques})
 
 
@@ -437,6 +460,7 @@ def U_profile(request):
                 usr_ext.save()
                 print("____________________________________")
                 print('user updated successfully')
+                request.redirect('/U_profile')
         except:
             pass
     usr = User.objects.get(username=request.user.username)
@@ -472,7 +496,6 @@ def cart(request):
         temp['qprice'] = temp['Price'] * pd.quantity
         temp['quant'] = pd.quantity
         crt.append(temp)
-    print(crt)
     return render(request, 'user/Cart.html', {'Cart': crt, 'prdno': len(pds)})
 
 

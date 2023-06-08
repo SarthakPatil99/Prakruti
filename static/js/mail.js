@@ -181,7 +181,7 @@ function transferED() {
   }
 }
 
-function chQuant(id){
+function chQuant(id,who){
   Qt = document.getElementById('qt'+id).value;
   document.getElementById("qprice"+id).innerHTML =
     Qt * document.getElementById("pprice"+id).value;
@@ -193,25 +193,21 @@ function chng(id, who){
   var Tprice = document.getElementById("Tprice");
   var qprice = document.getElementById("qprice" + id);
   var Prdno = document.getElementById("prds");
-  // console.log(ch)
   if(who){
+    console.log('in btn')
     if (ch.checked) {
-      tprice = parseInt(Tprice.innerHTML) + parseInt(qprice.innerHTML);
-      prdno = parseInt(Prdno.innerHTML) + 1;
+      Tprice.innerHTML = parseInt(Tprice.innerHTML) + parseInt(qprice.innerHTML);
+      Prdno.innerHTML = parseInt(Prdno.innerHTML) + 1;
     } else {
-      tprice = parseInt(Tprice.innerHTML) - parseInt(qprice.innerHTML);
-      prdno = parseInt(Prdno.innerHTML) - 1;
+      Tprice.innerHTML = parseInt(Tprice.innerHTML) - parseInt(qprice.innerHTML);
+      Prdno.innerHTML = parseInt(Prdno.innerHTML) - 1;
     }
   }
   else{
     if (ch.checked) {
-      tprice = parseInt(Tprice.innerHTML) + parseInt(qprice.innerHTML);
-      prdno = parseInt(Prdno.innerHTML) + 1;
+      Tprice.innerHTML = parseInt(Tprice.innerHTML) + parseInt(qprice.innerHTML);
     }
   }
-  Prdno.innerHTML = prdno;
-  Tprice.innerHTML = tprice;
-  // console.log(prdno,tprice);
 }
 
 function adM() {
