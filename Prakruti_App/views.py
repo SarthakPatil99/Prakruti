@@ -149,10 +149,9 @@ def handleLogin(request):
             auth.login(request, user)
             messages.success(request, 'Successfully Logged In.')
             for Who in Whos:
-                print(Who.is_superuser)
                 if Who.is_superuser:
                     # jinja["Who"] = Who.username
-                    return render(request, 'admin/Dashboard.html', jinja)
+                    return redirect('/dashboard/')
                 else:
                     jinja["Who"] = ""
                     return render(request, 'index.html', jinja)
@@ -374,7 +373,33 @@ def shopping(request):
 
     if request.POST:
         print(request.POST)
-        pds = Cart.objects.filter(Username=request.user.username)
+        try:
+            if request.POST['recc']:
+                print("recccccc")
+                recc = int(request.POST['recc'])
+                T=0
+                for i in range(1,recc + 1):
+                    if request.POST[str(i)]:
+                        T += 1
+                gen = Users.objects.get(UserName=request.user).Gender
+                if gen == 'Male':
+                    exc = M_remedy.objects.filter(Category = 'MEN\'S HEALTH')
+                elif gen == 'Female':
+                    exc = M_remedy.objects.filter(Category = 'WOMEN\'S HEALTH')
+                else:
+                    exc = M_remedy.objects.filter(Category = 'Skincare')
+                # print(exc)
+                recm = M_remedy.objects.all().order_by('?').difference(exc)
+                if recc/2 >= T:
+                    recm = recm[:T]
+                else:
+                    recm = recm[:recc-4]
+                other = M_remedy.objects.all().difference(recm)
+                # print(recm,"\n",other)
+                print("out reccc")
+                return render(request, 'user/Shopping.html', {'other': other,"recm":recm, "prakruti": prakruti})
+        except MultiValueDictKeyError:
+            print("Recommend: ", MultiValueDictKeyError)
         try:
             if request.POST['buy_now']:
                 cts = Cart.objects.filter(Username=request.user).filter(
@@ -421,14 +446,14 @@ def shopping(request):
                     for cat in category:
                         pds = pds.union(M_remedy.objects.filter(Category=cat))
                     print(pds) 
-                    return render(request, 'user/Shopping.html', {'prods': pds, "prakruti": prakruti})
+                    return render(request, 'user/Shopping.html', {'other': pds, "prakruti": prakruti})
                 except:
                     pass
         except:
-            print("Categorize: error", )
+            print("Categorize: ", MultiValueDictKeyError)
 
     pds = M_remedy.objects.all()
-    return render(request, 'user/Shopping.html', {'prods': pds, "prakruti": prakruti})
+    return render(request, 'user/Shopping.html', {'other': pds, "prakruti": prakruti})
 
 
 def U_profile(request):
@@ -485,9 +510,38 @@ def cart(request):
     crt = []
     if request.POST:
         print(request.POST)
-        if request.POST['remove']:
-            Cart.objects.get(id=request.POST['remove']).delete()
-            messages.error(request, 'Item deleted from cart.')
+        try:
+            if request.POST['remove']:
+                Cart.objects.get(id=request.POST['remove']).delete()
+                messages.error(request, 'Item deleted from cart.')
+        except MultiValueDictKeyError:
+            print("Remove: ", MultiValueDictKeyError)
+        
+        try:
+            if request.POST['Order']:
+                while True:
+                    O_id = random.randint(0,9999999)
+                    print(O_id)
+                    try:
+                        abc = Orders.objects.get(o_id = O_id)
+                    except:
+                        try:
+                            mids = request.POST.getlist('prod_id')
+                            mrqts = request.POST.getlist('qt')
+                            for i in range(len(mids)):
+                                new_mdord = Med_per_ord(o_id = O_id, m_id = mids[i], m_qt = mrqts[i], U_name = request.user.username)
+                                new_mdord.save()
+                                Cart.objects.filter(Username=request.user).get(p_id=mids[i]).delete()
+                            new_ord = Orders(o_id = O_id, UserName = request.user.username ,Date = date.today(), 
+                                Time = datetime.now().strftime("%H:%M:%S"), Address = request.POST['Address'])
+                            new_ord.save()
+                            messages.success(request, 'Order placed successfully.')
+                            return redirect('/shopping')
+                        except Exception as e:
+                            print(type(e),e.args)
+                            break
+        except MultiValueDictKeyError:
+            print("Order: ", MultiValueDictKeyError)
 
     pds = Cart.objects.filter(Username=request.user.username)
     for pd in pds:

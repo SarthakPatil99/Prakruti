@@ -81,43 +81,60 @@
       <div class="col-12">
         <input type="checkbox" class="btn-check" id="cb7" name="category" value="ALLERGY">
         <label class="btn btn-outline-success" for="cb7">ALLERGY</label>
-      </div>
-      {% csrf_token %}
-      <center><button class="btn btn-info" type="submit" style="width:150px;">Categorize</button></center>
+      </div> {% csrf_token %} <center><button class="btn btn-info" type="submit" style="width:150px;">Categorize</button></center>
     </form>
   </div>
 </div>
 <div class="mx-md-4 mb-3" id="cont">
   <div class="float-end">
     <button class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#category">Category</button>
-  </div> {% if user.is_authenticated %} {% if prakruti.p != ' ' %} <div class="myContainer">
-    <div class="section-header head">
-      <h3 class="section-title cta-title fw-bold text-white">Recommended</h3>
-      <span class="section-dividerR ms-4">
-    </div>
-  </div>
-  <!-- rounded-4 pt-3 pb-4 style="background-color: rgba(255, 255, 255, 0.823);" -->
-  <div class="row m-1 px-5 px-md-0 px-lg-0"> {%for prod in prods%} <div class="col-12 col-md-6 col-lg-3 mt-2">
-      <div class="card" style="border-radius: 15px; border-color: gray;" onclick="passPD({{prod.pk}})" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
-        <div style="height: 250px !important; display: flex; justify-content: center;">
-          <img src="../../media/Prakruti_App/Med_images/{{prod.Img}}" class="card-img-top" alt="..." style="width: auto; height: 100%; border-radius: 15px 15px 0px 0px" id="pimage{{prod.pk}}" />
-        </div>
-        <div class="card-body pb-0 pt-2 px-2 text-center bg-secondary" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-          <h5 class="card-title fw-bold text-warning" id="name{{prod.pk}}">{{prod.Name}}</h5>
-          <input type="hidden" id="desc{{prod.pk}}" value="{{prod.Desc}}">
-          <input type="hidden" id="cont{{prod.pk}}" value="{{prod.Content}}">
-          <input type="hidden" id="price{{prod.pk}}" value="{{prod.Price}}">
-          <input type="hidden" id="quantity{{prod.pk}}" value="{{prod.Quantity}}">
-        </div>
+  </div> 
+  {% if user.is_authenticated %} 
+    {% if rcmd %} 
+    <div class="myContainer">
+      <div class="section-header head">
+        <h3 class="section-title cta-title fw-bold text-white">Recommended</h3>
+        <span class="section-dividerR ms-4">
       </div>
-    </div> {%endfor%} </div>
-  <div class="myContainer">
-    <div class="section-header head">
-      <h3 class="section-title cta-title fw-bold text-white">Also Look</h3>
-      <span class="section-dividerR ms-2">
     </div>
-  </div> {% endif %} {% endif %} <div class="row m-1 mb-5 px-5 px-md-0 px-lg-0">
-    <div class="row m-1 px-5 px-md-0 px-lg-0"> {%for prod in prods%} <div class="col-12 col-md-6 col-lg-3 mt-2">
+    <!-- rounded-4 pt-3 pb-4 style="background-color: rgba(255, 255, 255, 0.823);" -->
+    <div class="row m-1 px-5 px-md-0 px-lg-0"> 
+      {%for prod in recm %} 
+      <div class="col-12 col-md-6 col-lg-3 mt-2">
+        <div class="card" style="border-radius: 15px; border-color: gray;" onclick="passPD({{prod.pk}})" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
+          <div style="height: 250px !important; display: flex; justify-content: center;">
+            <img src="../../media/Prakruti_App/Med_images/{{prod.Img}}" class="card-img-top" alt="..." style="width: auto; height: 100%; border-radius: 15px 15px 0px 0px" id="pimage{{prod.pk}}" />
+          </div>
+          <div class="card-body pb-0 pt-2 px-2 text-center bg-secondary" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+            <h5 class="card-title fw-bold text-warning" id="name{{prod.pk}}">{{prod.Name}}</h5>
+            <input type="hidden" id="desc{{prod.pk}}" value="{{prod.Desc}}">
+            <input type="hidden" id="cont{{prod.pk}}" value="{{prod.Content}}">
+            <input type="hidden" id="price{{prod.pk}}" value="{{prod.Price}}">
+            <input type="hidden" id="quantity{{prod.pk}}" value="{{prod.Quantity}}">
+          </div>
+        </div>
+      </div> 
+      {%endfor%} 
+    </div>
+    <div class="myContainer">
+      <div class="section-header head">
+        <h3 class="section-title cta-title fw-bold text-white">Also Look</h3>
+        <span class="section-dividerR ms-2">
+      </div>
+    </div> 
+    {%else%}
+    <div class="myContainer">
+      <div class="section-header head">
+        <h3 class="section-title cta-title fw-bold text-white">Our Products</h3>
+        <span class="section-dividerR ms-4">
+      </div>
+    </div>
+    {% endif %} 
+  {% endif %} 
+  <div class="row m-1 mb-5 px-5 px-md-0 px-lg-0">
+    <div class="row m-1 px-5 px-md-0 px-lg-0"> 
+      {%for prod in other %} 
+      <div class="col-12 col-md-6 col-lg-3 mt-2">
         <div class="card" style="border-radius: 15px; border-color: gray;" onclick="passPD({{prod.pk}})" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
           <div style="height: 250px !important; display: flex; justify-content: center;">
             <img src="../../media/Prakruti_App/Med_images/{{prod.Img}}" class="card-img-top p-3" alt="..." style="width: auto; height: 100%; border-radius: 15px" id="pimage{{prod.pk}}" />
@@ -130,7 +147,9 @@
             <input type="hidden" id="quantity{{prod.pk}}" value="{{prod.Quantity}}">
           </div>
         </div>
-      </div> {%endfor%} </div>
+      </div> 
+      {%endfor%} 
+    </div>
   </div>
 </div>
 <script type="text/javascript">

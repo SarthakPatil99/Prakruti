@@ -56,19 +56,23 @@ class Orders(models.Model):
     UserName = models.CharField(max_length=20, default='')
     Date = models.DateField()
     Time = models.TimeField()
+    Address = models.CharField(default="",max_length=100,null=True)
     Status = models.BooleanField(default=False)
 
 
 class Med_per_ord(models.Model):
     o_id = models.IntegerField(default=0)
     m_id = models.IntegerField(default=0)
-    m_name =models.CharField(default="",max_length=100,null=True)
+    m_qt = models.IntegerField(default=0)
+    U_name = models.CharField(default="",max_length=100,null=True)
+
 
 class Cart(models.Model):
     Username = models.CharField(max_length=20, default='')
     p_id = models.IntegerField(default=0)
     quantity = models.IntegerField(default=1)
-    
+
+
 class Prakruti_Quetions(models.Model):
     que = models.TextField(default='')
     choice1 = models.TextField(default='')
@@ -76,11 +80,13 @@ class Prakruti_Quetions(models.Model):
     choice3 = models.TextField(default='')
     choice4 = models.TextField(default='')
 
+
 class Complaint_Quetions(models.Model):
     que = models.TextField(default='')
     choice1 = models.TextField(default='')
     choice2 = models.TextField(default='')
     prakruti = models.TextField(default='')
+
 
 class Prakruti_Quetions_Ans(models.Model):
     u_id = models.IntegerField(default=0)

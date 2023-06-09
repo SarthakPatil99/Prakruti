@@ -15,7 +15,9 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
 {% endblock nav_links%}
 
 {% block body %}
-<form action="#" method="post">
+<form action="/cart/" method="post" id="myForm">
+    <input type="hidden" name="Order" id="ord" value="">
+    <input type="hidden" name="Address" id="addr" value="">
     <div style="margin-bottom: 70px;" id="cont">
     {%if prdno > 0%}
         <div class="myContainer ms-4">
@@ -24,11 +26,11 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
                 <span class="section-dividerR ms-4">
             </div>
         </div> 
+        <!-- Cart items -->
         {%for item in Cart%} 
-            <!-- Cart items -->
             <div class="row bg-white p-2 m-2 mx-5" style="border-radius: 15px;">
                 <div class="col-1 text-center">
-                    <input class="form-check-input" type="checkbox" name="prod_id" id="{{item.id}}" checked onchange="chng({{item.id}},1)">
+                    <input class="form-check-input" type="checkbox" name="prod_id" id="{{item.id}}" value="{{item.id}}" checked onchange="chng({{item.id}},1)">
                 </div>
                 <div class="col-2">
                     <center>
@@ -53,7 +55,7 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
             </div> 
         {% endfor %}
         <center>
-            <hr style="width: 90%; border: 1px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin: 10px;">
+            <hr style="width: 90%; border: 1px solid rgb(255, 183, 0); border-radius: 5px; opacity: 80%; margin: 10px;"/>
         </center>
         <div class="row bg-white p-2 pt-3 mx-5" style="border-radius: 15px; ">
             <div class="col-10" style="text-align:justify">
@@ -61,12 +63,12 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
             </div>
             <div class="col-2" id="Tprice">0</div>
         </div>
-        <a class="btn btn-warning text-white mt-3 me-5 float-right" data-bs-toggle="collapse" data-bs-target="#collapseExample"> Checkout </a>
+        <a class="btn btn-warning text-white mt-3 me-5 float-right" data-bs-toggle="collapse" data-bs-target="#collapseExample" onclick="pass()"> Checkout </a>
     {%else%} 
         <label class="text-white m-5"><b>YOUR CART IS EMPTY</b></label>
         <center>
             <div class="intro-text pb-4 mt-5">
-                <a href="/shopping" class="btn-get-started scrollto bg-blue-500 text-white" style="font-weight: 700;"> Add Products 
+                <a href="/shopping/" class="btn-get-started scrollto bg-blue-500 text-white" style="font-weight: 700;"> Add Products 
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" 
                         class="bi bi-arrow-right-circle" viewBox="0 0 16 16" style="margin-left: 10px">
                         <path fillRule="evenodd"
@@ -82,9 +84,9 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
             <label for="Address" class="form-label">
                 <b>Delivery Address:</b>
             </label>
-            <textarea name="Address" id="Address" class="form-control" placeholder="Address"></textarea>
+            <textarea id="Address" class="form-control" placeholder="Address"></textarea>
             <div class="text-end mt-2">
-                <button class="btn btn-primary text-white" title="proceed to payment" type="submit">Proceed</button>
+                <button type="submit" class="btn btn-primary text-white" title="proceed to payment" onclick="pass(1)"> Proceed </button>
             </div>
         </div>
     </div> {% csrf_token %}
@@ -106,6 +108,14 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
         {%for item in Cart %}
             chng({{ item.id }},0);
         {%endfor%}
+    }
+    function pass(who) {
+        if (who){            
+            document.getElementById("addr").value = document.getElementById("Address").value;
+            document.getElementById("myForm").submit();
+        }else{
+            document.getElementById("ord").value = document.getElementById("prds").innerHTML;
+        }
     }
 </script>
 {% endblock body%}
