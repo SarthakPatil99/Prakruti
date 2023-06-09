@@ -51,16 +51,16 @@ function sendmail() {
     Subject: "This is the subject",
     Body: ebody,
   })
-    .then((message) => {
-      alert("Email has been sent successfully!!!" + message);
-      document.getElementById("verify").style.display = "block";
-      document.getElementById("OTPbtn").style.display = "none";
-      $("#getOTP").collapse("toggle");
-      Gemail = email;
-    })
-    .catch((error) => {
-      alert(error);
-    });
+  .then((message) => {
+    alert("Email has been sent successfully!!!" + message);
+    document.getElementById("verify").style.display = "block";
+    document.getElementById("OTPbtn").style.display = "none";
+    $("#getOTP").collapse("toggle");
+    Gemail = email;
+  })
+  .catch((error) => {
+    alert(error);
+  });
 }
 function verifyOTP() {
   var spn = document.getElementById("wrOTP");

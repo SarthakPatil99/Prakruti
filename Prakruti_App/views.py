@@ -78,7 +78,9 @@ def getNextAvailableSlot():
 # -----------------------------Main functions---------------------------
 
 def index(request):
-    return render(request, 'index.html')
+    prds = M_remedy.objects.all().order_by('?')[:4]
+    abc = Users.objects.get(UserName = request.user)
+    return render(request, 'index.html',{'prds':prds,'usr':abc})
 
 
 def signup(request):
@@ -462,7 +464,7 @@ def U_profile(request):
         print(request.FILES)
         try:
             if request.POST['submit']:
-                usr = User.objects.get(UserName=request.user.username)
+                usr = User.objects.get(username=request.user)
                 usr_ext = Users.objects.get(UserName=usr.username)
                 usr.first_name = request.POST['Fname']
                 usr_ext.Middle_name = request.POST['Mname']
@@ -471,30 +473,25 @@ def U_profile(request):
                 usr_ext.Phone_No = request.POST['Phone']
                 usr_ext.Gender = getGender(request.POST['Gender'])
                 usr_ext.Age = request.POST['Age']
+                print('data accessed')
                 try:
-                    usr.P_Prakruti, usr.S_Prakruti = getPrakruti(
-                        request.POST['Prakruti'])
+                    usr.P_Prakruti, usr.S_Prakruti = getPrakruti(request.POST['Prakruti'])
                 except:
-                    pass
+                    print('prakruti not found')
                 try:
                     print('file', request.FILES['inFile'])
                     usr_ext.Img = request.FILES['inFile']
                 except:
-                    pass
+                    print('image not found')
                 usr.save()
                 usr_ext.save()
                 print("____________________________________")
                 print('user updated successfully')
                 request.redirect('/U_profile')
-        except:
-            pass
+        except Exception as e:
+            print("Update: ", e.args)
     usr = User.objects.get(username=request.user.username)
     usr_ext = Users.objects.get(UserName=usr.username)
-    # try:
-    #     print('file',request.FILES['inFile'])
-    #     usr.Img = request.FILES['inFile']
-    # except:
-    #     pass
     Usrs = vars(usr)
     Usrs.update(vars(usr_ext))
     Usrs['appnts'] = Appointments.objects.filter(U_id=usr_ext.pk)
@@ -502,7 +499,6 @@ def U_profile(request):
         Usrs['admin'] = 1
     else:
         Usrs['admin'] = 0
-
     return render(request, 'user/U_profile.html', {'users': Usrs})
 
 
@@ -595,7 +591,7 @@ def our_blogs(request):
             print(MultiValueDictKeyError)
         # view
 
-    Bls = Blogs.objects.all()
+    Bls = Blogs.objects.all().order_by(jinja['bl_sort'])
     return render(request, 'user/our_blogs.html', {'Bls': Bls})
 
 # -----------------------------ADMIN SIDE---------------------------
