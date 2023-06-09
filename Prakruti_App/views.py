@@ -79,7 +79,11 @@ def getNextAvailableSlot():
 
 def index(request):
     prds = M_remedy.objects.all().order_by('?')[:4]
-    abc = Users.objects.get(UserName = request.user)
+    abc = ''
+    try:
+        abc = Users.objects.get(UserName = request.user)
+    except:
+        pass
     return render(request, 'index.html',{'prds':prds,'usr':abc})
 
 
