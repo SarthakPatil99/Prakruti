@@ -1563,3 +1563,19 @@ body.mobile-nav-active #mobile-nav-toggle {
   border-color: gray;
 }
 /* shopping */
+
+
+.prakruti-img{
+  border-radius: 50%;
+  height: 100%;
+  width: auto;
+}
+.prakruti-text{
+  background-color: rgb(255, 243, 212);
+  border-radius: 15px;
+  max-width: 74% !important;
+  /* margin: 5px; */
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+}

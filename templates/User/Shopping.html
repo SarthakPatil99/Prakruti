@@ -99,7 +99,7 @@
   <!-- rounded-4 pt-3 pb-4 style="background-color: rgba(255, 255, 255, 0.823);" -->
   <div class="row m-1 px-5 px-md-0 px-lg-0"> {%for prod in prods%} <div class="col-12 col-md-6 col-lg-3 mt-2">
       <div class="card" style="border-radius: 15px; border-color: gray;" onclick="passPD({{prod.pk}})" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
-        <div style="height: 250px !important;">
+        <div style="height: 250px !important; display: flex; justify-content: center;">
           <img src="../../media/Prakruti_App/Med_images/{{prod.Img}}" class="card-img-top" alt="..." style="width: auto; height: 100%; border-radius: 15px 15px 0px 0px" id="pimage{{prod.pk}}" />
         </div>
         <div class="card-body pb-0 pt-2 px-2 text-center bg-secondary" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
@@ -119,7 +119,7 @@
   </div> {% endif %} {% endif %} <div class="row m-1 mb-5 px-5 px-md-0 px-lg-0">
     <div class="row m-1 px-5 px-md-0 px-lg-0"> {%for prod in prods%} <div class="col-12 col-md-6 col-lg-3 mt-2">
         <div class="card" style="border-radius: 15px; border-color: gray;" onclick="passPD({{prod.pk}})" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom">
-          <div style="height: 250px !important;">
+          <div style="height: 250px !important; display: flex; justify-content: center;">
             <img src="../../media/Prakruti_App/Med_images/{{prod.Img}}" class="card-img-top p-3" alt="..." style="width: auto; height: 100%; border-radius: 15px" id="pimage{{prod.pk}}" />
           </div>
           <div class="card-body pb-0 pt-2 px-2 text-center bg-secondary" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">

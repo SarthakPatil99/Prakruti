@@ -341,13 +341,13 @@ def analyze(request):
 def recommend(request):
     prakruti = {}
     discription = {
-        "PittaVata": "",
-        "PittaKapha": "",
-        "KaphaVata": "",
-        "KaphaPitta": "",
-        "VataPitta": "",
-        "VataKapha": "",
-        "Sama": "",
+        "PittaVata": "Pitta dosha includes processes responsible for metabolism, thermo-regulation, energy homeostasis, pigmentation, vision, and attentional processes and Vata dosha is the Ayurvedic mind-body element associated with air and space.",
+        "PittaKapha": "Pitta dosha includes processes responsible for metabolism, thermo-regulation, energy homeostasis, pigmentation, vision, and attentional processes and Kapha dosha is the Ayurvedic mind-body element associated with earth and water.",
+        "KaphaVata": "Kapha dosha is the Ayurvedic mind-body element associated with earth and water and Vata dosha is the Ayurvedic mind-body element associated with air and space.",
+        "KaphaPitta": "Kapha dosha is the Ayurvedic mind-body element associated with earth and water and Pitta dosha includes processes responsible for metabolism, thermo-regulation, energy homeostasis, pigmentation, vision, and attentional processes.",
+        "VataPitta": "Vata dosha is the Ayurvedic mind-body element associated with air and space and Pitta dosha includes processes responsible for metabolism, thermo-regulation, energy homeostasis, pigmentation, vision, and attentional processes.",
+        "VataKapha": "Vata dosha is the Ayurvedic mind-body element associated with air and space and Kapha dosha is the Ayurvedic mind-body element associated with earth and water.",
+        "Sama": "It is a combinetion of all prakruti Vata dosha is the Ayurvedic mind-body element associated with air and space, Pitta dosha includes processes responsible for metabolism, thermo-regulation, energy homeostasis, pigmentation, vision, and attentional processes and Kapha dosha is the Ayurvedic mind-body element associated with earth and water.",
     }
     # fetching prakruti of loggedin user
     user = Users.objects.get(UserName = request.user)
