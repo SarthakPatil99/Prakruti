@@ -79,7 +79,11 @@ def getNextAvailableSlot():
 
 def index(request):
     prds = M_remedy.objects.all().order_by('?')[:4]
-    abc = Users.objects.get(UserName = request.user)
+    abc = ""
+    try:
+        abc = Users.objects.get(UserName = request.user)
+    except:
+        pass
     return render(request, 'index.html',{'prds':prds,'usr':abc})
 
 
@@ -390,18 +394,19 @@ def shopping(request):
                     exc = M_remedy.objects.filter(Category = 'WOMEN\'S HEALTH')
                 else:
                     exc = M_remedy.objects.filter(Category = 'Skincare')
-                # print(exc)
+                print(exc)
                 recm = M_remedy.objects.all().order_by('?').difference(exc)
                 if recc/2 >= T:
                     recm = recm[:T]
                 else:
                     recm = recm[:recc-4]
                 other = M_remedy.objects.all().difference(recm)
-                # print(recm,"\n",other)
+                print(recm,"\n",other)
                 print("out reccc")
                 return render(request, 'user/Shopping.html', {'other': other,"recm":recm, "prakruti": prakruti})
         except MultiValueDictKeyError:
             print("Recommend: ", MultiValueDictKeyError)
+
         try:
             if request.POST['buy_now']:
                 cts = Cart.objects.filter(Username=request.user).filter(
