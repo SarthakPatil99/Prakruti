@@ -18,6 +18,7 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
 <form action="/cart/" method="post" id="myForm">
     <input type="hidden" name="Order" id="ord" value="">
     <input type="hidden" name="Address" id="addr" value="">
+    <input type="hidden" name="Tprice" id="tprice" value="">
     <div style="margin-bottom: 70px;" id="cont">
     {%if prdno > 0%}
         <div class="myContainer ms-4">
@@ -112,6 +113,7 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
     function pass(who) {
         if (who){            
             document.getElementById("addr").value = document.getElementById("Address").value;
+            document.getElementById("tprice").value = document.getElementById("Tprice").value;
             document.getElementById("myForm").submit();
         }else{
             document.getElementById("ord").value = document.getElementById("prds").innerHTML;

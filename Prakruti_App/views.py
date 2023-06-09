@@ -534,7 +534,7 @@ def cart(request):
                                 new_mdord.save()
                                 Cart.objects.filter(Username=request.user).get(p_id=mids[i]).delete()
                             new_ord = Orders(o_id = O_id, UserName = request.user.username ,Date = date.today(), 
-                                Time = datetime.now().strftime("%H:%M:%S"), Address = request.POST['Address'])
+                                Time = datetime.now().strftime("%H:%M:%S"), Address = request.POST['Address'], Price = request.POST['Tprice'])
                             new_ord.save()
                             messages.success(request, 'Order placed successfully.')
                             return redirect('/shopping')
@@ -1322,6 +1322,7 @@ def orders(request):
                                     temp['U_name'] = Pid.U_name
                                     Prds.append(temp)
                                 new_ord['products'] = Prds
+                                new_ord['amount'] = Ord.Price
                                 new_ords.append(new_ord)
                         print(new_ords)
                     return render(request, 'admin/Orders.html', {'orders': new_ords})
@@ -1348,6 +1349,7 @@ def orders(request):
                             temp['U_name'] = Pid.U_name
                             Prds.append(temp)
                         new_ord['products'] = Prds
+                        new_ord['amount'] = Ord.Price
                         new_ords.append(new_ord)
                         return render(request, 'admin/Orders.html', {'orders': new_ords})
                     except:
@@ -1377,6 +1379,7 @@ def orders(request):
                                 temp['U_name'] = Pid.U_name
                                 Prds.append(temp)
                             new_ord['products'] = Prds
+                            new_ord['amount'] = Ord.Price
                             new_ords.append(new_ord)
                     return render(request, 'admin/Orders.html', {'orders': new_ords})
                 if request.POST['srch'] == '4':
@@ -1404,6 +1407,7 @@ def orders(request):
                                 temp['U_name'] = Pid.U_name
                                 Prds.append(temp)
                             new_ord['products'] = Prds
+                            new_ord['amount'] = Ord.Price
                             new_ords.append(new_ord)
                     return render(request, 'admin/Orders.html', {'orders': new_ords})
                 if request.POST['srch'] == '5':
@@ -1431,6 +1435,7 @@ def orders(request):
                             temp['U_name'] = Pid.U_name
                             Prds.append(temp)
                         new_ord['products'] = Prds
+                        new_ord['amount'] = Ord.Price
                         new_ords.append(new_ord)
                     return render(request, 'admin/Orders.html', {'orders': new_ords})
         except MultiValueDictKeyError:
@@ -1473,6 +1478,7 @@ def orders(request):
             temp['U_name'] = Pid.U_name
             Prds.append(temp)
         new_ord['products'] = Prds
+        new_ord['amount'] = Ord.Price
         new_ords.append(new_ord)
     return render(request, 'admin/Orders.html', {'orders': new_ords})
 

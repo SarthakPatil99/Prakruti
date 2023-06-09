@@ -58,6 +58,7 @@ class Orders(models.Model):
     Time = models.TimeField()
     Address = models.CharField(default="",max_length=100,null=True)
     Status = models.BooleanField(default=False)
+    Price = models.IntegerField(default=0)
 
 
 class Med_per_ord(models.Model):

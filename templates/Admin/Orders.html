@@ -62,6 +62,7 @@ Orders
         <tr class="table_tr">
             <th>ID</th>
             <th>Product Details</th>
+            <th>Order Amount</th>
             <th>Day</th>
             <th>Time</th>
             <th>User Details</th>
@@ -99,6 +100,7 @@ Orders
             {%endif%}
             {%endfor%}
         </td>
+        <td><center>{{order.amount}}</center></td>
         <td width="12%">{{order.Date}}</td>
         <td width="9%">{{order.Time}}</td>
         <td class="d-flex align-items-center justify-content-between border-0">
