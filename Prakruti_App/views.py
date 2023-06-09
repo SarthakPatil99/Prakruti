@@ -1317,7 +1317,7 @@ def orders(request):
                                     Prd = M_remedy.objects.get(id=Pid.m_id)
                                     temp['name'] = Prd.Name
                                     temp['price'] = Prd.Price
-                                    temp['quantity'] = 0
+                                    temp['quantity'] = Pid.m_qt
                                     temp['m_id'] = Pid.m_id
                                     temp['U_name'] = Pid.U_name
                                     Prds.append(temp)
@@ -1343,7 +1343,7 @@ def orders(request):
                             Prd = M_remedy.objects.get(id=Pid.m_id)
                             temp['name'] = Prd.Name
                             temp['price'] = Prd.Price
-                            temp['quantity'] = 0
+                            temp['quantity'] = Pid.m_qt
                             temp['m_id'] = Pid.m_id
                             temp['U_name'] = Pid.U_name
                             Prds.append(temp)
@@ -1372,7 +1372,7 @@ def orders(request):
                                 Prd = M_remedy.objects.get(id=Pid.m_id)
                                 temp['name'] = Prd.Name
                                 temp['price'] = Prd.Price
-                                temp['quantity'] = 0
+                                temp['quantity'] = Pid.m_qt
                                 temp['m_id'] = Pid.m_id
                                 temp['U_name'] = Pid.U_name
                                 Prds.append(temp)
@@ -1399,7 +1399,7 @@ def orders(request):
                                 Prd = M_remedy.objects.get(id=Pid.m_id)
                                 temp['name'] = Prd.Name
                                 temp['price'] = Prd.Price
-                                temp['quantity'] = 0
+                                temp['quantity'] = Pid.m_qt
                                 temp['m_id'] = Pid.m_id
                                 temp['U_name'] = Pid.U_name
                                 Prds.append(temp)
@@ -1426,7 +1426,7 @@ def orders(request):
                             Prd = M_remedy.objects.filter(id=Pid.m_id)
                             temp['name'] = Prd.Name
                             temp['price'] = Prd.Price
-                            temp['quantity'] = 0
+                            temp['quantity'] = Pid.m_qt
                             temp['m_id'] = Pid.m_id
                             temp['U_name'] = Pid.U_name
                             Prds.append(temp)
@@ -1468,7 +1468,7 @@ def orders(request):
             Prd = M_remedy.objects.get(id=Pid.m_id)
             temp['name'] = Prd.Name
             temp['price'] = Prd.Price
-            temp['quantity'] = 0
+            temp['quantity'] = Pid.m_qt
             temp['m_id'] = Pid.m_id
             temp['U_name'] = Pid.U_name
             Prds.append(temp)
