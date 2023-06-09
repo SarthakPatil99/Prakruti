@@ -1319,7 +1319,7 @@ def orders(request):
                                     temp['price'] = Prd.Price
                                     temp['quantity'] = 0
                                     temp['m_id'] = Pid.m_id
-                                    temp['m_name'] = Pid.m_name
+                                    temp['U_name'] = Pid.U_name
                                     Prds.append(temp)
                                 new_ord['products'] = Prds
                                 new_ords.append(new_ord)
@@ -1345,7 +1345,7 @@ def orders(request):
                             temp['price'] = Prd.Price
                             temp['quantity'] = 0
                             temp['m_id'] = Pid.m_id
-                            temp['m_name'] = Pid.m_name
+                            temp['U_name'] = Pid.U_name
                             Prds.append(temp)
                         new_ord['products'] = Prds
                         new_ords.append(new_ord)
@@ -1374,7 +1374,7 @@ def orders(request):
                                 temp['price'] = Prd.Price
                                 temp['quantity'] = 0
                                 temp['m_id'] = Pid.m_id
-                                temp['m_name'] = Pid.m_name
+                                temp['U_name'] = Pid.U_name
                                 Prds.append(temp)
                             new_ord['products'] = Prds
                             new_ords.append(new_ord)
@@ -1401,7 +1401,7 @@ def orders(request):
                                 temp['price'] = Prd.Price
                                 temp['quantity'] = 0
                                 temp['m_id'] = Pid.m_id
-                                temp['m_name'] = Pid.m_name
+                                temp['U_name'] = Pid.U_name
                                 Prds.append(temp)
                             new_ord['products'] = Prds
                             new_ords.append(new_ord)
@@ -1428,7 +1428,7 @@ def orders(request):
                             temp['price'] = Prd.Price
                             temp['quantity'] = 0
                             temp['m_id'] = Pid.m_id
-                            temp['m_name'] = Pid.m_name
+                            temp['U_name'] = Pid.U_name
                             Prds.append(temp)
                         new_ord['products'] = Prds
                         new_ords.append(new_ord)
@@ -1470,7 +1470,7 @@ def orders(request):
             temp['price'] = Prd.Price
             temp['quantity'] = 0
             temp['m_id'] = Pid.m_id
-            temp['m_name'] = Pid.m_name
+            temp['U_name'] = Pid.U_name
             Prds.append(temp)
         new_ord['products'] = Prds
         new_ords.append(new_ord)
