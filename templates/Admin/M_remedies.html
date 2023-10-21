@@ -82,10 +82,11 @@ Medicines
                 <label for="Category" class="form-label">
                   <b>Category:</b>
                 </label>
-                <input type="text" class="form-control" id="Cat" placeholder="Medicine Category" name="category" required />
+                <input type="text" class="form-control" id="Cat" placeholder="Medicine Category" name="category"
+                  required />
               </div>
             </div>
-            
+
             <div class="row mb-2">
               <div class="col-12 col-md-12 col-lg-12">
                 <label for="Description" class="form-label">
@@ -137,13 +138,16 @@ Medicines
   <form action="/medicine_remedies/" method="post" style="width: 55%;">
     <div class="input-group">
       <div class="input-group-append">
-        <select class="form-select form-control bg-light" style="width:120px; border-end-end-radius: 0px; border-start-end-radius: 0px;" id="Srch" name="srch" onchange="validateSrch()">
+        <select class="form-select form-control bg-light"
+          style="width:120px; border-end-end-radius: 0px; border-start-end-radius: 0px;" id="Srch" name="srch"
+          onchange="validateSrch()">
           <option selected value="0">Search Via</option>
           <option value="1">Name</option>
           <option value="2">MedicineID</option>
           <option value="3">Price</option>
         </select>
-      </div> {% csrf_token %} <input type="text" name="search" class="form-control bg-light" placeholder="Search for..." />
+      </div> {% csrf_token %} <input type="text" name="search" class="form-control bg-light"
+        placeholder="Search for..." />
       <div class="input-group-append">
         <button class="btn btn-primary" type="submit" id="srchBtn" disabled>
           <i class="fas fa-search fa-sm"></i>
@@ -189,7 +193,7 @@ Medicines
   <tbody>
     <td width="1%" id="getmid{{MR.id}}">{{MR.id}}</td>
     <td width="1%">
-      <img src="../../media/Prakruti_App/Med_images/{{MR.Img}}" id="img{{MR.id}}" style="width: auto; max-height: 150px; border-radius: 5px;"
+      <img src="../../media/{{MR.Img}}" id="img{{MR.id}}" style="width: auto; max-height: 150px; border-radius: 5px;"
         alt="Italian Trulli">
     </td>
     <td id="name{{MR.id}}">{{MR.Name}}</td>

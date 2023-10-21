@@ -65,7 +65,7 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
 
 <div class="p-3 pt-5">
   <!-- <center> -->
-    <!-- <div class="row mx-0" id="options">
+  <!-- <div class="row mx-0" id="options">
       <div class="col-6 col-md-7 col-lg-10 mb-0 p-3 rounded-3 h4 bg-white text-secondary">
         Do you want to get details with camera ?
       </div>
@@ -86,42 +86,39 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
 <form class="pt-5" action="/analyze/" method="post">
 
   {% if user.is_authenticated == 0 %}
-    <div class="mx-auto mb-3 rounded-3 pt-3 pb-2 px-3"
-      style="background-color: rgba(255, 255, 255, 0.693); width:85% !important;">
-      <div class="mb-3 mt-1 p-3 rounded-3" style="background-color: rgb(141, 141, 141);">
-        <div class="h5 text-white" style="font-family: 'Brush Script MT', cursive;">
-          <b>Choose your gender</b>
+  <div class="mx-auto mb-3 rounded-3 pt-3 pb-2 px-3"
+    style="background-color: rgba(255, 255, 255, 0.693); width:85% !important;">
+    <div class="mb-3 mt-1 p-3 rounded-3" style="background-color: rgb(141, 141, 141);">
+      <div class="h5 text-white" style="font-family: 'Brush Script MT', cursive;">
+        <b>Choose your gender</b>
+      </div>
+    </div>
+    <div class="row" id="options">
+      <div class="col-lg-4 col-md-12 col-12">
+        <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
+          <input type="radio" class="btn-check" name="0" value="1" id="0bld-tp1" autocomplete="off">
+          <label class="btn p-3" for="0bld-tp1"
+            style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>Male</b></label>
         </div>
       </div>
-      <div class="row" id="options">
-        <div class="col-lg-4 col-md-12 col-12">
-          <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-            <input type="radio" class="btn-check" name="0" value="1" id="0bld-tp1"
-              autocomplete="off">
-            <label class="btn p-3" for="0bld-tp1"
-              style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>Male</b></label>
-          </div>
+      <div class="col-lg-4 col-md-12 col-12">
+        <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
+          <input type="radio" class="btn-check" name="0" value="2" id="0bld-tp2" autocomplete="off">
+          <label class="btn p-3" for="0bld-tp2"
+            style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>Female</b></label>
         </div>
-        <div class="col-lg-4 col-md-12 col-12">
-          <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-            <input type="radio" class="btn-check" name="0" value="2" id="0bld-tp2"
-              autocomplete="off">
-            <label class="btn p-3" for="0bld-tp2"
-              style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>Female</b></label>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12 col-12">
-          <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-            <input type="radio" class="btn-check" name="0" value="3" id="0bld-tp3"
-              autocomplete="off">
-            <label class="btn p-3" for="0bld-tp3"
-              style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>Other</b></label>
-          </div>
+      </div>
+      <div class="col-lg-4 col-md-12 col-12">
+        <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
+          <input type="radio" class="btn-check" name="0" value="3" id="0bld-tp3" autocomplete="off">
+          <label class="btn p-3" for="0bld-tp3"
+            style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>Other</b></label>
         </div>
       </div>
     </div>
+  </div>
   {% else %}
-    <input type="hidden" name="0" value="{{ User.Gender }}" id="0bld-tp3" autocomplete="off">
+  <input type="hidden" name="0" value="{{ User.Gender }}" id="0bld-tp3" autocomplete="off">
   {% endif %}
 
   {%for Quetion in Quetions%}
@@ -136,21 +133,24 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
     <div class="row" id="options">
       <div class="col-lg-4 col-md-12 col-12">
         <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="1" id="{{Quetion.id}}bld-tp1" autocomplete="off">
+          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="1" id="{{Quetion.id}}bld-tp1"
+            autocomplete="off" required>
           <label class="btn p-3" for="{{Quetion.id}}bld-tp1"
             style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice1}}</b></label>
         </div>
       </div>
       <div class="col-lg-4 col-md-12 col-12">
         <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="2" id="{{Quetion.id}}bld-tp2" autocomplete="off">
+          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="2" id="{{Quetion.id}}bld-tp2"
+            autocomplete="off">
           <label class="btn p-3" for="{{Quetion.id}}bld-tp2"
             style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice2}}</b></label>
         </div>
       </div>
       <div class="col-lg-4 col-md-12 col-12">
         <div class="rounded-3" style="background-color: rgb(255, 255, 255);">
-          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="3" id="{{Quetion.id}}bld-tp3" autocomplete="off">
+          <input type="radio" class="btn-check" name="{{Quetion.id}}" value="3" id="{{Quetion.id}}bld-tp3"
+            autocomplete="off">
           <label class="btn p-3" for="{{Quetion.id}}bld-tp3"
             style="font-family: 'Brush Script MT', cursive; letter-spacing: 0.1em; font-size: 18px; color: gb(141, 141, 141) !important;"><b>{{Quetion.choice3}}</b></label>
         </div>
@@ -159,7 +159,7 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
   </div>
   {%endfor%}
   {%csrf_token%}
-  
+
   <div class="Q_Form rounded-3 row w-50 mx-auto p-3">
     <center>
       <div class="row mx-0" id="options">
@@ -173,5 +173,5 @@ style="background:linear-gradient(45deg, #1de099, #1dc8cd)"
     </center>
   </div>
 </form>
-  
+
 {% endblock body%}

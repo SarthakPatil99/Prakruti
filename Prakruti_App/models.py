@@ -1,9 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Users(models.Model):
     UserName = models.CharField(max_length=20, default='')
-    # UserName = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    # User = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     Middle_name = models.CharField(max_length=20, default='')
     Phone_No = models.BigIntegerField(default=0)
     Age = models.IntegerField(default=0)

@@ -66,10 +66,10 @@
     <h2>Welcome to Prakruti</h2>
     <p>We help you to know your <i class="highlight">Ayurvedik Prakruti</i> & suggest <i class="highlight">Remedies</i>.</p> 
     {% if user.is_authenticated %}
-      {%if user.P_Prakruti != " "%}
-      <a href="recommend/" class="btn-get-started scrollto">Get Started</a> 
+      {%if user.P_Prakruti%}
+        <a href="recommend/" class="btn-get-started scrollto">Get Started</a> 
       {%else%}
-      <a href="analyze/" class="btn-get-started scrollto">Get Started</a>
+        <a href="analyze/" class="btn-get-started scrollto">Get Started</a>
       {%endif%}
     {%else%}
       <a class="btn-get-started scrollto" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started</a>
