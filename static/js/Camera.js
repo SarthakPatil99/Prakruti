@@ -11,6 +11,7 @@ const constraints = {
     height: 360,
   },
 };
+
 async function init() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -24,9 +25,9 @@ function handleSuccess(stream) {
   window.stream = stream;
   video.srcObject = stream;
 }
+
 let cm = false;
 function cam() {
-  // console.log(cm);
   var y = document.getElementById("bef");
   var x = document.getElementById("aft");
   if (x.style.display === "none") {
@@ -46,7 +47,7 @@ function cam() {
   }
 }
 
-function snap(){
+function snap() {
   console.log("snapshot clicked");
   var context = canvas.getContext("2d");
   context.drawImage(video, 0, 0);
